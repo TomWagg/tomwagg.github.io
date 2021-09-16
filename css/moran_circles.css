@@ -1,0 +1,142 @@
+html,
+body,
+.full-row,
+#main-carousel {
+    height: 100%;
+}
+
+label {
+    font-size: 1vw;
+    margin-bottom: 0;
+}
+
+input[type="text"], .linked-input {
+    font-size: 1vw;
+    margin: auto;
+}
+
+.modal-dialog {
+    max-width: 100%;
+}
+
+.eq-box {
+    background: rgba(0, 0, 0, 0.1);
+    border: 5px solid;
+    border-radius: 25px;
+}
+
+.btn-back {
+    position: absolute;
+    top: 0;
+    left: 0;
+    margin: 10px;
+    color: white;
+    background: none;
+    border: none;
+    opacity: 0.7;
+}
+
+.btn-help {
+    background: none;
+    border: none;
+}
+
+.btn-back:focus,
+.btn-help:focus {
+    outline: none;
+}
+
+.btn-back:hover,
+.btn-back:active,
+.btn-help:hover,
+.btn-help:active {
+    opacity: 1;
+}
+
+.btn-help:hover,
+.btn-help:active {
+    filter: brightness(85%);
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.slider {
+    -webkit-appearance: none;
+    width: 100%;
+    background: none;
+    height: 0px;
+    margin: 20px 0px;
+    border: 1px solid rgba(0, 0, 0, 0.5);
+    outline: none;
+    -webkit-transition: .2s;
+    transition: opacity .2s;
+}
+
+.slider:hover {
+    filter: brightness(85%);
+}
+
+.slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 2vw;
+    height: 2vw;
+    background: #eb6864;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.slider::-moz-range-thumb {
+    width: 25px;
+    height: 25px;
+    background: #eb6864;
+    cursor: pointer;
+}
+
+.circle {
+    position: unset;
+    color: white;
+    display: inline-block;
+    width: 35px;
+    height: 35px;
+    border-radius: 100%;
+}
+
+/* .circle::before {
+    position: relative;
+    top: 3px;
+    left: 12px;
+}
+
+.circle.bg-primary::before {
+    content: "A";
+}
+
+.circle.bg-info::before {
+    content: "a";
+} */
+
+@keyframes pulse_animation {
+    0% { transform: scale(1); }
+    10% { transform: scale(1.02); }
+    20% { transform: scale(1.04); }
+    30% { transform: scale(1.06); }
+    40% { transform: scale(1.08); }
+    50% { transform: scale(1.10); }
+    60% { transform: scale(1.08); }
+    70% { transform: scale(1.06); }
+    80% { transform: scale(1.04); }
+    90% { transform: scale(1.02); }
+    100% { transform: scale(1); }
+}
+
+.pulse {
+    animation-name: pulse_animation;
+    animation-duration: 500ms;
+    animation-iteration-count: 1;
+    animation-timing-function: linear;
+}

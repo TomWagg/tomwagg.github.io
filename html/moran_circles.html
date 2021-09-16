@@ -1,0 +1,380 @@
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- documentation at http://getbootstrap.com/docs/4.1/, alternative themes at https://bootswatch.com/ -->
+    <link href="https://stackpath.bootstrapcdn.com/bootswatch/4.3.1/journal/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-ciphE0NCAlD2/N6NUApXAN2dAs/vcSAOTzyE202jJx3oS8n4tAQezRgnlHqcJ59C" crossorigin="anonymous">
+    <!-- <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Ubuntu" /> -->
+    <link href="../css/moran_circles.css" rel="stylesheet">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous">
+    </script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
+    </script>
+    <script src="https://kit.fontawesome.com/f2065d20ad.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/chance/1.0.18/chance.min.js"></script>
+    <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+        MathJax.Hub.Config({
+            "HTML-CSS": { linebreaks: { automatic: true } },
+                    SVG: { linebreaks: { automatic: true } }
+           });
+      </script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML' async></script>
+    <script src="../js/moran_circles.js"></script>
+
+    <title>Moran Model Simulator</title>
+
+</head>
+
+<body>
+    <div class="container-fluid mt-2">
+        <div class="row full-row">
+            <div class="col">
+                <div id="main-carousel" class="carousel slide" data-interval="false">
+                    <div class="carousel-inner">
+                        <div id="plot_page" class="carousel-item active">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-3">
+                                            <h3>Moran Model Simulator</h3>
+                                        </div>
+                                        <div class="col-9">
+                                            <div class="row text-center">
+                                                <div class="col m-auto">
+                                                    <span class="circle bg-primary"></span><h6> $A$ Allele: <span
+                                                        id="primary_count"></span></h6>
+                                                </div>
+                                                <div class="col m-auto">
+                                                    <span class="circle bg-info"></span><h6> $a$ Allele: <span
+                                                        id="secondary_count"></span></h6>
+                                                </div>
+                                                <div class="col m-auto">
+                                                    <i class="far fa-clock" style="font-size: 35px;"></i><h6> Time: <span
+                                                        id="generation_count">0</span></h6>
+                                                </div>
+                                            </div>
+                                            <hr class="mb-2 mt-2">
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-3">
+                                            <div class="form-group">
+                                                <label for="fitness">Relative Fitness, $s$</label>
+                                                <div class="row no-gutters">
+                                                    <div class="col-9 pr-2">
+                                                        <input id="fitness" class="slider linked-input"
+                                                            data-linked="fitness_typing" type="range" min="-1" max="1"
+                                                            value="0.5" step="0.1">
+                                                    </div>
+                                                    <div class="col-3 d-flex flex-column">
+                                                        <input id="fitness_typing" class="form-control linked-input"
+                                                            data-linked="fitness" type="number" min="-1" max="1"
+                                                            value="0.5" step="0.1">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="mutation_mu">Mutation Rate to a, $\mu$</label>
+                                                <div class="row no-gutters">
+                                                    <div class="col-9 pr-2">
+                                                        <input id="mutation_mu" class="slider linked-input"
+                                                            data-linked="mutation_mu_typing" type="range" min="0"
+                                                            max="1" value="0" step="0.1">
+                                                    </div>
+                                                    <div class="col-3 d-flex flex-column">
+                                                        <input id="mutation_mu_typing" class="form-control linked-input"
+                                                            data-linked="mutation_mu" type="number" min="0" max="1"
+                                                            value="0" step="0.1">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="mutation_nu">Mutation Rate to A , $\nu$</label>
+                                                <div class="row no-gutters">
+                                                    <div class="col-9 pr-2">
+                                                        <input id="mutation_nu" class="slider linked-input"
+                                                            data-linked="mutation_nu_typing" type="range" min="0"
+                                                            max="1" value="0.3" step="0.1">
+                                                    </div>
+                                                    <div class="col-3 d-flex flex-column">
+                                                        <input id="mutation_nu_typing" class="form-control linked-input"
+                                                            data-linked="mutation_nu" type="number" min="0" max="1"
+                                                            value="0.3" step="0.1">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <button class="btn btn-primary btn-block" id="new_run">New
+                                                Run</button>
+                                            <button class="btn btn-primary btn-block" id="reset">Reset
+                                                Values</button>
+                                            <button class="btn btn-primary btn-block" id="stop">Stop
+                                                Simulation</button>
+                                            <small><button class="btn-help text-primary btn-block mt-2"
+                                                    id="help_link">Help!</button></small>
+                                        </div>
+                                        <div id="circle_cont" class="col-9">
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="help_page" class="carousel-item">
+                            <div class="jumbotron bg-primary text-white mb-0">
+                                <button class="btn-back "><i class="fa fa-chevron-left"></i> Back</button>
+                                <h1>Moran Model Simulator Help</h1>
+                            </div>
+                            <div class="row justify-content-center">
+                                <div class="col p-4">
+                                    <div class="row">
+                                        <div class="col">
+                                            <h5>Introduction</h5>
+                                            <p>Welcome to my Moran Model Simulator! Here you
+                                                can play around with
+                                                the parameters of the model to see how it
+                                                affects the population.
+                                                This page explains what the tool is doing as
+                                                well as the science
+                                                behind predicting the behaviour.</p>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col">
+                                            <h5>Model Definition</h5>
+                                            <p>This tool is considering a two-allele,
+                                                one-locus model following a
+                                                Moran process. Specifically this is a model
+                                                of an asexual population
+                                                of $N$ individuals, of which $n$ have an $A$
+                                                allele and $N - n$ have
+                                                an $a$ allele. At each time step, two
+                                                individuals are chosen at
+                                                random from the population and the first is
+                                                copied, whereas the
+                                                second dies. Therefore over time you witness
+                                                a change in the allele
+                                                frequency due to
+                                                <a target="_blank"
+                                                    href="https://www.khanacademy.org/science/biology/her/heredity-and-genetics/a/genetic-drift-founder-bottleneck">Genetic
+                                                    Drift.</a>
+                                            </p>
+                                            <p>
+                                                In addition to this, one can add a relative
+                                                fitness between the two
+                                                alleles. Since one allele is now more fit,
+                                                it should be chosen to be
+                                                copied more often. We model this by giving
+                                                each $A$ allele weight
+                                                $(1 + s)$ when we randomly select an
+                                                individual from the population.
+                                            </p>
+                                            <p>
+                                                Finally we can also model mutation within
+                                                the population. During any
+                                                copy of an individual, it is possible that
+                                                its allele mutates to the
+                                                other type. Therefore we can add two
+                                                parameters $\mu$ and $\nu$,
+                                                which are the probabilities that $A$ mutates
+                                                to $a$ and that $a$
+                                                mutates to $A$ respectively.
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col">
+                                            <h5>Simulator Usage</h5>
+                                            <p>
+                                                This simulator allows you to tune the
+                                                parameters of the model
+                                                defined above. By default the settings will
+                                                be for a population
+                                                without selection or mutation and starting
+                                                with equal frequencies.
+                                                You can then use the sliders or input boxes
+                                                to set values for these
+                                                parameters and press <span class="text-primary">New Run</span> to
+                                                add anothe simulation to the chart (up to
+                                                <span>3</span> can be
+                                                displayed at any time). Each simulation will
+                                                track the number of
+                                                members of the population that have the $A$
+                                                allele.
+                                            </p>
+                                            <p>
+                                                The other two buttons are for clearing
+                                                things up. The <span class="text-primary">Reset
+                                                    Values</span>
+                                                button will return the
+                                                sliders to the their original positions and
+                                                the <span class="text-primary">Clear
+                                                    Plot</span> button will remove all
+                                                previous simulations.
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col">
+                                            <h5>Predicting the Outcomes</h5>
+                                            <p>
+                                                As long as the relative fitness and rate of
+                                                mutations are small, one
+                                                can derive a realtively simple diffusion
+                                                equation. We can start by
+                                                writing out the probability that there are
+                                                $n$ individuals with
+                                                the allele $A$ at a time $t$. At any time
+                                                step the number of
+                                                individuals with the allele $A$ can only
+                                                increase or decrease by 1
+                                                or remain constant. For this reason we can
+                                                apply the law of total
+                                                probability to find the following.
+                                            </p>
+                                            $$ P(i, t) = P(i - 1, t - 1) T_{i-1,i} + P(i, t
+                                            - 1) T_{i,i} + P(i + 1,
+                                            t - 1) T_{i+1,i} $$
+                                            <p>
+                                                Where we have defined $T_{i,j}$ as the
+                                                probability of going from $i$
+                                                individuals to $j$ individuals. Now it is
+                                                simply a matter of finding
+                                                these $T$ probabilities. It is useful here
+                                                to define the mean
+                                                fitness $\bar\omega$ as this will simplify
+                                                matters greatly below.
+                                                $$ \bar\omega = \frac{1}{N} \bigg( n(1 + s)
+                                                + (N - n) \bigg) $$
+                                                We can first consider $T_{i - 1, i}$, in
+                                                which we must increase the
+                                                number of $A$ alleles by one. This can be
+                                                done in two ways;
+                                                <ul>
+                                                    <li>An $A$ allele is copied, favoured by
+                                                        selection, then one $a$
+                                                        allele dies</li>
+                                                    <li>An $a$ allele is copied and mutates,
+                                                        then one $a$ allele
+                                                        dies
+                                                    </li>
+                                                </ul>
+                                                \begin{align*}
+                                                T_{i-1,i} &= \frac{(i - 1)(1 + s)(1 -
+                                                \mu)}{(i - 1)(1 + s) + (N - (i
+                                                - 1))} \cdot \frac{N - (i - 1)}{N} +
+                                                \frac{(N - (i - 1))\nu}{(i -
+                                                1)(1 + s) + (N - (i - 1))} \cdot \frac{N -
+                                                (i - 1)}{N} \\
+                                                &\approx \frac{(i - 1)(1 + s)(1 - \mu)}{N
+                                                \bar{\omega}} \cdot
+                                                \frac{N - (i - 1)}{N} + \frac{(N - (i -
+                                                1))\nu}{N \bar{\omega}}
+                                                \cdot \frac{N - (i - 1)}{N}
+                                                \end{align*}
+                                            </p>
+                                            <p>
+                                                $T_{i+1,i}$ looks quite similar since we
+                                                must now <i>decrease</i>
+                                                the number of $A$ alleles of one. The two
+                                                ways are;
+                                                <ul>
+                                                    <li>An $a$ allele is copied, then one
+                                                        $A$ allele dies</li>
+                                                    <li>An $A$ allele is copied, favoured by
+                                                        selection, and mutates
+                                                        then one $A$ allele dies</li>
+                                                </ul>
+                                                \begin{align*}
+                                                T_{i+1,i} &= \frac{(N - (i + 1))(1 -
+                                                \nu)}{(i + 1)(1 + s) + (N - (i
+                                                + 1))} \cdot \frac{i + 1}{N} + \frac{(i +
+                                                1)(1 + s)\mu}{(i + 1)(1 +
+                                                s) + (N - (i + 1))} \cdot \frac{i + 1}{N} \\
+                                                &\approx \frac{i + 1}{N \bar{\omega}}
+                                                \bigg[\frac{(N - (i + 1))(1 -
+                                                \nu)}{N} + \frac{(i + 1)(1 + s) \mu}{N} \bigg]
+                                                \end{align*}
+                                            </p>
+                                            <p>
+                                                Finally, there are more options for keeping
+                                                the number of alleles
+                                                constant for $T_{i,i}$ and we can consider
+                                                that these are
+                                                <ul>
+                                                    <li>An $A$ allele is copied, favoured by
+                                                        selection, then one $A$
+                                                        allele dies</li>
+                                                    <li>An $a$ allele is copied, then one
+                                                        $a$ allele dies</li>
+                                                    <li>An $A$ allele is copied, favoured by
+                                                        selection, and mutates
+                                                        then one $a$ allele dies</li>
+                                                    <li>An $a$ allele is copied and mutates,
+                                                        then one $A$ allele
+                                                        dies</li>
+                                                </ul>
+                                                \begin{align*}
+                                                T_{i,i} &= \frac{i(1 + s)}{N
+                                                \bar{\omega}}\cdot\frac{i}{N} \cdot (1
+                                                - \mu) + \frac{N - i}{N \bar{\omega}} \cdot
+                                                \frac{N - i}{N} \cdot (1
+                                                - \nu) + \frac{i(1 + s)\mu}{N \bar{\omega}}
+                                                \cdot \frac{N - i}{N} +
+                                                \frac{(N - i)\nu}{N \bar{\omega}} \cdot
+                                                \frac{i}{N}
+                                                \end{align*}
+                                            </p>
+                                            <p>
+                                                Now it is simply a matter of algebraic
+                                                manipulation in which we can
+                                                rearrange the terms such that they can be
+                                                written as derivatives. We
+                                                also change variables to write our diffusion
+                                                equation in terms of
+                                                allele <i>frequency</i>, $x$, rather than an
+                                                allele count. As well
+                                                as changing time $t$ to $\tau = \frac{t}{N}$
+                                                so that one unit of
+                                                time in $\tau$ is more equivalent to a
+                                                generation. This gives the
+                                                final two-allele one-locus forward diffusion
+                                                equation as
+                                            </p>
+                                            <div class="eq-box border-primary">
+                                                $$
+                                                \bar{\omega} \cdot \frac{\partial P(x, \tau)}{\partial \tau} =
+                                                - \underbrace{s
+                                                \frac{\partial}{\partial x}\bigg(P(x, \tau)\cdot
+                                                x(1-x)\bigg)}_{\text{selection}} +
+                                                \underbrace{ \mu \frac{\partial}{\partial x} \bigg( x \cdot p(x)
+                                                \bigg) - \nu \frac{\partial}{\partial x}
+                                                \bigg( (1 - x) \cdot p(x)
+                                                \bigg)}_{\text{mutation}} + \underbrace{
+                                                \frac{1}{N} \frac{\partial^2}{\partial^2 x}\bigg(P(x, \tau)\cdot
+                                                x(1-x)\bigg)
+                                                }_{\text{drift}}
+                                                $$
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
