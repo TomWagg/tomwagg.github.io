@@ -126,6 +126,7 @@ header h1 {
     height: 0%;
     overflow: hidden;
     transition: 1s;
+    position: relative;
 }
 
 #research_details.show {

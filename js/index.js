@@ -6,10 +6,6 @@ document.querySelector("img.profile").addEventListener("mouseout", function (e) 
 // make projects bounce in, in sequence
 let i = 0;
 document.querySelectorAll(".project").forEach(function (el) {
-    // el.addEventListener("mouseenter", function() {
-    //     console.log(this);
-    //     animateCSS(this, "pulse");
-    // });
     setTimeout(function() {
         el.classList.add("visible")
         animateCSS(el, "fadeIn");
@@ -51,6 +47,18 @@ document.querySelectorAll(".research-projects .project").forEach(function(el) {
                 scrollTop: $("#projects").position().top + $("#projects").outerHeight(true)
             }, 1000);
         }
+    });
+});
+
+document.querySelectorAll("#research_details button").forEach(function(el) {
+    el.addEventListener("click", function() {
+        document.getElementById("research_details").classList.remove("show");
+        setTimeout(() => {
+            const old_details = document.querySelector("#research_details .details:not(.hide)")
+            if (old_details !== null) {
+                old_details.classList.add("hide");
+            }
+        }, 1000);
     });
 });
 
