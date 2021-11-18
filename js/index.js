@@ -45,7 +45,7 @@ document.querySelectorAll(".research-projects .project").forEach(function(el) {
             details.classList.remove("hide");
             research_details.classList.add("show");
 
-            let height = 32;
+            let height = 32 + 10;
             for (let i = 0; i < details.children.length; i++) {
                 height += details.children[i].offsetHeight;
             }
