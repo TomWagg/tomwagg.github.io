@@ -25,6 +25,7 @@ document.querySelectorAll(".research-projects .project").forEach(function(el) {
         const research_details = document.getElementById("research_details");
         if (research_details.classList.contains("show")) {
             research_details.classList.remove("show");
+            document.getElementById("research_details").style.height = "0px";
 
             // if it was a different details then switch
             if (research_details.querySelector(".details:not(.hide)") !== document.getElementById(el.getAttribute("data-details"))) {
@@ -40,9 +41,16 @@ document.querySelectorAll(".research-projects .project").forEach(function(el) {
             }
             
             // switch to new details
-            document.getElementById(el.getAttribute("data-details")).classList.remove("hide");
+            details = document.getElementById(el.getAttribute("data-details"))
+            details.classList.remove("hide");
             research_details.classList.add("show");
-            console.log($("#projects").offset().top + $("#projects").outerHeight(true))
+
+            let height = 32;
+            for (let i = 0; i < details.children.length; i++) {
+                height += details.children[i].offsetHeight;
+            }
+            research_details.style.height = height.toString() + "px";
+            console.log(height);
             $('html, body').animate({
                 scrollTop: $("#projects").position().top + $("#projects").outerHeight(true)
             }, 1000);
@@ -50,9 +58,10 @@ document.querySelectorAll(".research-projects .project").forEach(function(el) {
     });
 });
 
-document.querySelectorAll("#research_details button").forEach(function(el) {
+document.querySelectorAll("#research_details .open-close").forEach(function(el) {
     el.addEventListener("click", function() {
         document.getElementById("research_details").classList.remove("show");
+        document.getElementById("research_details").style.height = "0px";
         setTimeout(() => {
             const old_details = document.querySelector("#research_details .details:not(.hide)")
             if (old_details !== null) {

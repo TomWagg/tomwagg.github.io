@@ -123,14 +123,10 @@ header h1 {
 
 /* grow and hide research details */
 #research_details {
-    height: 0%;
+    height: 0px;
     overflow: hidden;
     transition: 1s;
     position: relative;
-}
-
-#research_details.show {
-    height: inherit;
 }
 
 .details {
@@ -163,4 +159,16 @@ footer.footer .social-link:hover {
 
 footer.footer .social-link:active {
     background-color: var(--primary);
+}
+
+.project-link {
+    color: var(--primary);
+}
+
+.project-link:hover {
+    color: var(--primary-dark);
+}
+
+.project-link:active {
+    color: var(--primary-dark);
 }
