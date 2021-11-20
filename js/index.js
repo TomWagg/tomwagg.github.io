@@ -41,21 +41,32 @@ document.querySelectorAll(".research-projects .project").forEach(function(el) {
             }
             
             // switch to new details
-            details = document.getElementById(el.getAttribute("data-details"))
-            details.classList.remove("hide");
+            details = document.getElementById(el.getAttribute("data-details"));
             research_details.classList.add("show");
-
-            let height = 32 + 10;
-            for (let i = 0; i < details.children.length; i++) {
-                height += details.children[i].offsetHeight;
-            }
-            research_details.style.height = height.toString() + "px";
-            console.log(height);
+            resizeDetails(details);
+            
             $('html, body').animate({
                 scrollTop: $("#projects").position().top + $("#projects").outerHeight(true)
             }, 1000);
         }
     });
+});
+
+function resizeDetails(details) {
+    details.classList.remove("hide");
+
+    let height = 32;
+    for (let i = 0; i < details.children.length; i++) {
+        height += details.children[i].offsetHeight;
+    }
+    research_details.style.height = height.toString() + "px";
+}
+
+window.addEventListener('resize', function(event) {
+    details = document.querySelector("#research_details .details:not(.hide)");
+    if (details !== null) {
+        resizeDetails(details);
+    }
 });
 
 document.querySelectorAll("#research_details .open-close").forEach(function(el) {
