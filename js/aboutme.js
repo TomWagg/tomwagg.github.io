@@ -222,10 +222,11 @@ $(window).on(
     normalizeSlideHeights);
 
 document.addEventListener('DOMContentLoaded', function () {
-    var trigger = new ScrollTrigger({
-        once: true,
-        // addHeight: true
-    });
+    if (window.innerWidth >= 768) {
+        const trigger = new ScrollTrigger({
+            once: true,
+        });
+    }
 });
 
 function expandJournal(journal) {
