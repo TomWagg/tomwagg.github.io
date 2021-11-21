@@ -656,3 +656,19 @@ a.white-link:active {
 .thiccc .row.no-gutters button.btn {
     border-width: 3px!important;
 }
+
+.publication {
+    margin-bottom: 1rem;
+    margin-left: 2rem;
+    /* border: 3px solid grey; */
+    padding: 10px;
+    border-radius: 10px;
+}
+
+.publication .second-line {
+    margin-left: 1rem;
+}
+
+.publication .journal {
+    font-style: italic;
+}

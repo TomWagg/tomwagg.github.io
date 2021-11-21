@@ -32,6 +32,7 @@
     <!-- Plugin JavaScript -->
     <script src="js/jquery.easing.min.js"></script>
     <script src="js/ScrollTrigger.min.js"></script>
+    <script src="js/bibtexParse.js"></script>
 
     <!-- Custom scripts for this template -->
     <script src="js/aboutme.js"></script>
@@ -682,44 +683,40 @@
             <h1 class="d-inline-block subtitle mb-4 display-3">Publications
             </h1>
             <a class="d-block" target="_blank"
-                href="https://ui.adsabs.harvard.edu/search/filter_database_fq_database=AND&filter_database_fq_database=database%3A%22astronomy%22&filter_property_fq_property=AND&filter_property_fq_property=property%3A%22refereed%22&fq=%7B!type%3Daqp%20v%3D%24fq_database%7D&fq=%7B!type%3Daqp%20v%3D%24fq_property%7D&fq_database=(database%3A%22astronomy%22)&fq_property=(property%3A%22refereed%22)&q=author%3A%22Wagg%2CTom%22&sort=date%20desc%2C%20bibcode%20desc&p_=0">
-                ADS Search Results
+                href="https://ui.adsabs.harvard.edu/search/filter_database_fq_database=AND&filter_database_fq_database=database%3A%22astronomy%22&filter_doctype_facet_hier_fq_doctype=AND&filter_doctype_facet_hier_fq_doctype=doctype_facet_hier%3A%220%2FArticle%22&fq=%7B!type%3Daqp%20v%3D%24fq_database%7D&fq=%7B!type%3Daqp%20v%3D%24fq_doctype%7D&fq_database=(database%3A%22astronomy%22)&fq_doctype=(doctype_facet_hier%3A%220%2FArticle%22)&p_=0&q=author%3A%22Wagg%2CTom%22&sort=date%20desc%2C%20bibcode%20desc">
+                Full ADS Search Results
             </a>
         </div>
         <div class="container-fluid thiccc">
-            <div class="row mb-4 no-gutters" data-scroll="toggle(.fromLeftIn, .fromRightOut)">
-                <div class="col-10">
-                    <p class="p-2 m-0 border border-primary border-right-0 rounded-left">
-                        PFL Maxted, Anderson, et al. <b>Five transiting hot Jupiters discovered using WASP-South, Euler,
-                            and TRAPPIST: WASP-119 b, WASP-124 b, WASP-126 b, WASP-129 b, and WASP-133 b</b>.
-                        <i>Astronomy & Astrophysics</i>, 591:A55, 2016.
-                    </p>
-                </div>
+            <div class="row">
                 <div class="col">
-                    <button class="btn btn-block btn-lg btn-linker h-100 btn-outline-primary"
-                        style="border-top-left-radius:0;border-bottom-left-radius:0;">
-                        ADS Link
-                        <a class="hide" target="_blank"
-                            href="https://ui.adsabs.harvard.edu/abs/2016A%26A...591A..55M/abstract">ADS Link</a>
-                    </button>
+                    <h2>First-author papers</h2>
                 </div>
             </div>
-            <div class="row no-gutters" data-scroll="toggle(.fromLeftIn, .fromRightOut)">
-                <div class="col-10">
-                    <p class="p-2 m-0 border border-primary border-right-0 rounded-left">
-                        C. Hellier et al. <b>WASP-South transiting exoplanets: WASP-130b, WASP-131b, WASP-132b,
-                            WASP-139b, WASP140b, WASP-141b and WASP-142b</b>.<i> Monthly Notices of the Royal
-                            Astronomical Society</i>, 465(3):3693–3707, 2017.
-                    </p>
+            <div class="row">
+                <div id="first_author_list" class="col">
+                    <div id="pub_template" class="publication hide">
+                        <div class="main-details">
+                            <div class="first-line">
+                                <a class="title" href="" target="_blank"></a>
+                            </div>
+                            <div class="second-line">
+                                <span class="authors"></span> <span class="journal"></span>, <span
+                                    class="journal-details"></span>, <span class="date"></span>. <a class="expand"
+                                    data-toggle="collapse" role="button" href="">Expand abstract</a>.
+                                <div class="abstract collapse"></div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
+            </div>
+            <div class="row">
                 <div class="col">
-                    <button class="btn btn-block btn-lg btn-linker h-100 btn-outline-primary"
-                        style="border-top-left-radius:0;border-bottom-left-radius:0;">
-                        ADS Link
-                        <a class="hide" target="_blank"
-                            href="https://ui.adsabs.harvard.edu/abs/2017MNRAS.465.3693H/abstract">ADS Link</a>
-                    </button>
+                    <h2>Co-author papers</h2>
                 </div>
+            </div>
+            <div class="row">
+                <div id="co_author_list" class="col"></div>
             </div>
         </div>
     </section>

@@ -1,4 +1,81 @@
 $(function () {
+    // open the bib file
+    let rawFile = new XMLHttpRequest();
+    rawFile.open("GET", "../html/papers.bib", false);
+    rawFile.onreadystatechange = function () {
+        if (rawFile.readyState === 4) {
+            if (rawFile.status === 200 || rawFile.status == 0) {
+                // convert file to json
+                let papers = rawFile.responseText;
+                let paper_json = bibtexParse.toJSON(papers);
+
+                // for each publication
+                for (let i = 0; i < paper_json.length; i++) {
+                    // grab the template, clone, remove id and reveal
+                    let publication = document.getElementById("pub_template").cloneNode(true);
+                    publication.id = "";
+                    publication.classList.remove("hide");
+
+                    // get the title and link it to ADS
+                    publication.querySelector(".title").innerHTML = paper_json[i]["entryTags"]["title"].replace(/[{}]/g, "");
+                    publication.querySelector(".title").setAttribute("href", paper_json[i]["entryTags"]["adsurl"]);
+
+                    // get journal information and add
+                    publication.querySelector(".journal").innerHTML = expandJournal(paper_json[i]["entryTags"]["journal"]);
+                    publication.querySelector(".journal-details").innerHTML = expandDetails(paper_json[i]["entryTags"]["volume"], paper_json[i]["entryTags"]["pages"], paper_json[i]["entryTags"]["number"]);
+                    publication.querySelector(".date").innerHTML = paper_json[i]["entryTags"]["year"];
+
+                    // add the abstract and link the collapse el
+                    publication.querySelector(".abstract").innerHTML = paper_json[i]["entryTags"]["abstract"].replace("{", "").replace(/}([^}]*)$/, '$1')
+                    publication.querySelector(".abstract").id = "abs_" + i.toString();
+                    publication.querySelector(".expand").setAttribute("href", "#" + "abs_" + i.toString());
+
+                    // do a bunch of stuff to get the authors formatted nicely
+                    let authors = paper_json[i]["entryTags"]["author"].replace(/[{}]/g, "").replace(/[~]/g, "").split(" and ");
+                    let author_list = "";
+                    let found_tom = false;
+                    let first_author = false;
+                    for (let j = 0; j < authors.length; j++) {
+                        let author = authors[j].split(", ");
+                        let author_format = author.reverse().join(" ");
+                        if (author_format == "Tom Wagg") {
+                            author_list += "<b>" + author_format + "</b>, "
+                            found_tom = true;
+                            if (j == 0) {
+                                first_author = true;
+                            }
+                        } else {
+                            if (j == authors.length - 1) {
+                                if (author_format != "et al.") {
+                                    author_list = author_list.slice(0, author_list.length - 2) + " and " + author_format;
+                                } else {
+                                    author_list += author_format
+                                }
+                            } else {
+                                author_list += author_format + ", "
+                            }
+                        }
+                    }
+
+                    // add my name if not included
+                    if (!found_tom) {
+                        author_list += " (incl. <b>Tom Wagg</b>)";
+                    }
+                    publication.querySelector(".authors").innerHTML = author_list;
+
+                    // add the corresponding list depending on author order
+                    if (first_author) {
+                        document.getElementById("first_author_list").appendChild(publication);
+                    } else {
+                        document.getElementById("co_author_list").appendChild(publication);
+                    }
+                }
+            }
+        }
+    }
+    rawFile.send(null);
+
+
     animateCSS(".masthead h1", "fadeInUp");
     setTimeout(function () {
         animateCSS(".masthead .h-33", "fadeInDown");
@@ -6,11 +83,11 @@ $(function () {
 
     $("#about .img-fluid").on("click", function (e) {
         let ouch = this.parentElement.querySelector(".ouch");
-        animateCSS(e.target, "swing", function() {
+        animateCSS(e.target, "swing", function () {
             ouch.classList.remove("hide");
-            animateCSS(ouch, "zoomInDown", function() {
-                setTimeout(function() {
-                    animateCSS(ouch, "zoomOutUp", function() {
+            animateCSS(ouch, "zoomInDown", function () {
+                setTimeout(function () {
+                    animateCSS(ouch, "zoomOutUp", function () {
                         ouch.classList.add("hide");
                     });
                 }, 800);
@@ -96,8 +173,8 @@ $(function () {
         }
     });
 
-    document.querySelectorAll(".social-link").forEach(function(el) {
-        el.addEventListener("click", function() {
+    document.querySelectorAll(".social-link").forEach(function (el) {
+        el.addEventListener("click", function () {
             this.children[0].click();
         });
     });
@@ -150,3 +227,27 @@ document.addEventListener('DOMContentLoaded', function () {
         // addHeight: true
     });
 });
+
+function expandJournal(journal) {
+    journal = journal.replace("\\aap", "Astronomy and Astrophysics");
+    journal = journal.replace("\\aapr", "Astronomy and Astrophysics, Reviews");
+    journal = journal.replace("\\aaps", "Astronomy and Astrophysics, Supplement");
+    journal = journal.replace("\\apj", "Astrophysical Journal");
+    journal = journal.replace("\\apjl", "Astrophysical Journal, Letters");
+    journal = journal.replace("\\apjs", "Astrophysical Journal, Supplement");
+    journal = journal.replace("\\mnras", "Monthly Notices of the RAS");
+    journal = journal.replace("\\aj", "Astronomical Journal");
+    return journal;
+}
+
+function expandDetails(volume, pages, number) {
+    if (volume === undefined && pages === undefined && number == undefined) {
+        return undefined;
+    } else if (volume === undefined && number == undefined) {
+        return pages;
+    } else if (number === undefined) {
+        return pages + ":" + volume;
+    } else {
+        return volume + "(" + number + ")" + ":" + pages;
+    }
+}
