@@ -140,9 +140,11 @@
                     </p>
                     <div class="row justify-content-center">
                         <div class="col-12 col-md-11">
-                            <p class="text-center fst-italic">LEGWORK is a python package that does the LEGWORK for you by
+                            <p class="text-center fst-italic">LEGWORK is a python package that does the LEGWORK for you
+                                by
                                 evolving binaries, calculating
-                                gravitational-wave strains, computing signal-to-noise ratios for binary systems potentially
+                                gravitational-wave strains, computing signal-to-noise ratios for binary systems
+                                potentially
                                 observable with LISA and visualising the results
                             </p>
                         </div>
@@ -214,15 +216,93 @@
         <div id="MW_dcos" class="details hide">
             <div class="row text-center">
                 <div class="col">
-                    <h1>Detecting Galactic DCOs with LISA</h1>
+                    <h1>Gravitational wave sources in our Galactic backyard</h1>
+                    <h3>Models for detecting BHBH, BHNS and NSNS binaries with LISA</h3>
                     <hr class="w-25 mx-auto">
                 </div>
             </div>
             <div class="row">
-                <div class="col">
-                    <p class="text-center fst-italic">Want to learn about detecting BHBHs, BHNSs and NSNSs with LISA?
-                        There's a paper that you might
-                        enjoy coming to an ArXiv near you in the next couple of weeks! More soon!</p>
+                <div class="col justify-content-center">
+                    <p class="text-center">
+                        <a href="" target="_blank" class="btn bg-transparent rounded project-link">
+                            <i class="fas fa-scroll fa-2x"></i>
+                        </a>
+                        <a href="https://github.com/TomWagg/detecting-DCOs-in-LISA" target="_blank"
+                            class="btn bg-transparent rounded project-link">
+                            <i class="fab fa-github fa-2x"></i>
+                        </a>
+                        <a href="https://zenodo.org/record/5725607" target="_blank"
+                            class="btn bg-transparent rounded project-link">
+                            <i class="fas fa-database fa-2x"></i>
+                        </a>
+                    </p>
+                    <div class="row justify-content-center">
+                        <div class="col-12 col-md-11">
+                            <p class="text-center fst-italic">
+                                We examine the population of LISA detectable BHBHs, BHNSs and NSNSs in the Milky Way for
+                                20 different binary physics variations, using a new model for the Milky Way and large
+                                grid of population synthesis simulations
+                            </p>
+                        </div>
+                        <div class="col-12 col-md-9">
+                            <p>
+                                What happens when a grid of over 2 billion massive binaries, a new empirically-informed
+                                model for the Milky Way, a <a href="https://legwork.readthedocs.io"
+                                    target="_blank">Python package for stellar-origin LISA sources</a> and a group of
+                                astrophysicists walk into a bar? This paper!
+                            </p>
+                            <p>
+                                In this project we investigated the population of LISA detectable binary black holes
+                                (BHBHs), black hole neutron stars (BHNSs) and binary neutron stars (NSNSs) that reside
+                                in the Milky Way. Although similar studies have been done in the past, we made several
+                                improvements. We use an improved model for the Milky Way that accounts for the chemical
+                                enrichment history of the galaxy and the size of our simulations is far larger than
+                                those used by others, which reduces our sampling uncertainties. We also approached the
+                                problem with stellar evolution in mind and thus examined our results for 20 different
+                                model variations in order to see how things changed when we alter the underlying binary
+                                physics assumptions.
+                            </p>
+                            <p>
+                                We found several results that (in my humble opinion) are rather interesting! Here's just
+                                a couple of them
+                                <ol>
+                                    <li>On average, for a 4-year LISA mission, we expect between 30-370 detections for
+                                        all three double compact object types across different model variations (and
+                                        50-550 for a 10-year mission!)</li>
+                                    <li>For our fiducial model, on average, we predict 74 BHBH, 42 BHNS and 8 NSNS
+                                        detections in a 4-year LISA mission</li>
+                                    <li>LISA could be used to put constraints on the existence of a "lower mass gap" in
+                                        the black hole mass function</li>
+                                    <li>For our fiducial model, three quarters of detectable binaries will have nonzero
+                                        eccentricities ($e > 0.01$) during the LISA mission, and 16% will have high
+                                        eccentricities ($e > 0.3$)</li>
+                                    <li>We expect that we could confidently identify the nature of half of all sources
+                                        that are detected in a 4-year LISA mission (and 60% in a 10-year mission!)</li>
+                                </ol>
+                                Go read the paper for more details and to learn more about how we arrived at these
+                                results!
+                            </p>
+                            <p>
+                                As a teaser, below I include two plots from the paper. The left one shows the
+                                distribution of detectable sources on the sensitivity curve. We found that most sources
+                                are detected in the Galactic centre, more massive sources are detected at lower
+                                frequencies and that eccentric sources are detected in a fairly separate place on the
+                                sensitivity curve. The right plot shows the LISA detection rate over our 20 different
+                                model variations, where each panel corresponds to a different double compact object
+                                type. One thing that you can see in this plot is that the BHNS rate varies widely (over
+                                two orders of magnitude), whilst the NSNS rate fluctuates much less for these model
+                                variations.
+                            </p>
+                            <div class="row justify-content-center align-items-center">
+                                <div class="col-12 col-md-6">
+                                    <img class="w-100" src="img/dcos_on_sc.png">
+                                </div>
+                                <div class="col-12 col-md-6">
+                                    <img class="w-100" src="img/dco_detections.png">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="row">
