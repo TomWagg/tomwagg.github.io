@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="Personal Website for Tom Wagg">
+    <meta name="author" content="Tom Wagg">
+
+    <title>Galactic DCOs in LISA</title>
+    <link href="../img/icon.png" rel="icon">
+
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+
+    <!-- icons and fonts -->
+    <script src="https://kit.fontawesome.com/328d20ce71.js" crossorigin="anonymous"></script>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;700;900&display=swap" rel="stylesheet">
+
+    <!-- random css -->
+    <link href="../css/animate.css" rel="stylesheet">
+    <link href="../css/blog_style.css" rel="stylesheet">
+
+    <!-- Bootstrap core JavaScript -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous">
+    </script>
+
+    <!-- Plugin JavaScript -->
+    <script src="../js/jquery.easing.min.js"></script>
+
+    <!-- Custom scripts for this template -->
+    <script src="../js/blog_style.js"></script>
+    <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+            MathJax.Hub.Config({
+                "HTML-CSS": { linebreaks: { automatic: true } },
+                        SVG: { linebreaks: { automatic: true } }
+                });
+            </script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML' async></script>
+</head>
+
+<body style="position: relative;" data-bs-spy="scroll" data-bs-target="#nav" data-bs-offset="0" tabindex="0">
+    <div class="back-button">
+        <button id="home" class="btn btn-outline-main rounded-circle">
+            <i class="fa fa-arrow-left"></i>
+        </button>
+    </div>
+    <div class="header" style="background-image: url('../img/gw_illustration.jpg')">
+        <div class="source">Artwork by Sandbox Studio, Chicago with Corinne Mucha. Source: <a class="link-light"
+                href="https://www.symmetrymagazine.org/article/nobel-recognizes-gravitational-wave-discovery">Symmetry
+                Magazine</a></div>
+    </div>
+
+    <div class="progress-header">
+        <div class="progress-container">
+            <div class="progress-bar" id="myBar"></div>
+        </div>
+    </div>
+
+    <nav id="nav" class="nav nav-pills flex-column toc float-end sticky-top p-3 pt-4 text-end">
+        <a class="nav-link active" aria-current="page" href="#why_gw">Why gravitational waves?</a>
+        <a class="nav-link" href="#why_lisa">Why use LISA?</a>
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#methods" role="button"
+                aria-expanded="false">Methods</a>
+            <ul class="dropdown-menu dropdown-menu-end">
+                <li><a class="dropdown-item" href="#pop_synth">Making binaries</a></li>
+                <li><a class="dropdown-item" href="#gal_synth">Galaxy model</a></li>
+                <li><a class="dropdown-item" href="#legwork">LEGWORK!</a></li>
+            </ul>
+        </li>
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#resultsI" role="button"
+                aria-expanded="false">Results I</a>
+            <ul class="dropdown-menu dropdown-menu-end">
+                <li><a class="dropdown-item" href="#sc_dist">Sensitivity curve</a></li>
+                <li><a class="dropdown-item" href="#fid_pdfs">Properties</a></li>
+                <li><a class="dropdown-item" href="#gal_dist">Position in Galaxy</a></li>
+                <li><a class="dropdown-item" href="#measurements">Measurements</a></li>
+            </ul>
+        </li>
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#resultsII" role="button"
+                aria-expanded="false">Results II</a>
+            <ul class="dropdown-menu dropdown-menu-end">
+                <li><a class="dropdown-item" href="#det_rates">Detection rates</a></li>
+                <li><a class="dropdown-item" href="#variations">Properties</a></li>
+            </ul>
+        </li>
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#methods" role="button"
+                aria-expanded="false">Discussion</a>
+            <ul class="dropdown-menu dropdown-menu-end">
+                <li><a class="dropdown-item" href="#pop_synth">Making binaries</a></li>
+                <li><a class="dropdown-item" href="#gal_synth">Galaxy model</a></li>
+                <li><a class="dropdown-item" href="#legwork">LEGWORK!</a></li>
+            </ul>
+        </li>
+        <a class="nav-link">Comparisons</a>
+        <a class="nav-link">Conclusions</a>
+    </nav>
+
+    <div class="container">
+        <div class="row">
+            <div class="col text-center">
+                <h1 class="fw-bold">Gravitational wave sources in our Galactic backyard</h1>
+                <h4 class="fst-italic">A paper summary without all of that pesky jargon!</h4>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <p>
+                    On this page, I've done my best to explain (without the cryptic jargon and any assumed background
+                    knowledge) the motivation behind, methods used and results found by my paper on detecting Galactic
+                    LISA sources with LISA. And before I go on, it's important to point out that was very much a group
+                    effort and I'm very thankful to my co-authors: <a
+                        href="http://www.broekgaarden.nl/floor/wordpress/">Floor Broekgaarden</a>, <a
+                        href="https://www.selmademink.com/">Selma de Mink</a>, <a href="https://neigef.github.io">Neige
+                        Frankel</a>,
+                    <a href="https://liekevanson.github.io">Lieke van Son</a> and <a
+                        href="https://www.uva.nl/en/profile/j/u/s.justham/s.justham.html">Stephen Justham</a>.
+                </p>
+                <h2 id="why_gw">Why investigate gravitational waves?</h2>
+                <p class="lipsum"></p>
+                <h2 id="why_lisa">Why use LISA to study double compact objects?</h2>
+                <p class="lipsum"></p>
+                <h2 id="methods">How did we produce our results?</h2>
+                <p class="lipsum"></p>
+                <h4 id="pop_synth">First, we need some binaries</h4>
+                <p class="lipsum"></p>
+                <h4 id="gal_synth">Next, we need to decide where to put them</h4>
+                <p class="lipsum"></p>
+                <h4 id="legwork">And finally, we need to work out which ones turn out to be detectable</h3>
+                    <p class="lipsum"></p>
+                    <blockquote class="blockquote w-100 float-start">
+                        <div class="prequote">&ldquo;</div>
+                        <p>A well-known quote, contained in a blockquote element. What about a very very very very very
+                            long
+                            quote that spans over two lines</p>
+                    </blockquote>
+                    <h2 id="resultsI">What does the detectable population look like?</h2>
+                    <p class="lipsum"></p>
+                    <h4 id="sc_dist">Distribution on the LISA sensitivity curve</h4>
+                    <figure>
+                        <img src="../img/dcos_on_sc.png" class="img-fluid w-50 float-start zoom-figure" data-bs-toggle="modal"
+                            data-bs-target="#exampleModal">
+                        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                            aria-hidden="true">
+                            <div class="modal-dialog modal-fullscreen">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                            aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <img src="../img/dcos_on_sc.png" class="img-fluid">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </figure>
+                    <p class="lipsum"></p>
+                    <h4 id="fid_pdfs">Properties of detectable sources</h4>
+                    <p class="lipsum"></p>
+                    <h4 id="gal_dist">Where are detectable sources in the Milky Way?</h4>
+                    <p class="lipsum"></p>
+                    <h4 id="measurements">How well can we measure these sources?</h4>
+                    <p class="lipsum"></p>
+                    <h2 id="resultsII">How does varying our physics assumptions change the results?</h2>
+                    <p class="lipsum"></p>
+                    <h4 id="det_rates">Effect on the detection rate</h4>
+                    <p class="lipsum"></p>
+                    <h4 id="variations">Effect on the properties of detectable systems</h4>
+                    <p class="lipsum"></p>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,150 @@
+/* General stuff for everywhere */
+:root {
+    --primary: #1995c6bd;
+    --primary-light: #6cc7eaa3;
+    --primary-dark: #186280;
+}
+
+body {
+    font-family: 'Lato', sans-serif;
+}
+
+.hide {
+    display: none;
+}
+
+a, .nav a.nav-link {
+    color: var(--primary);
+    text-decoration: none;
+    transition: 0.3s;
+}
+
+a:hover, .nav a.nav-link:hover:not(:active) {
+    color: var(--primary-dark);
+}
+
+h4 {
+    margin-left: 25px;
+}
+
+/* buttons */
+.btn-outline-main {
+    color: var(--primary);
+    border-color: var(--primary);
+}
+
+.btn-outline-main:hover {
+    color: white;
+    background-color: var(--primary);
+    border-color: var(--primary);
+}
+
+.btn-outline-main:active {
+    color: white;
+    background-color: var(--primary-dark);
+    border-color: var(--primary-dark);
+}
+
+/* Big image header */
+
+.header {
+    position: relative;
+    width: 100%;
+    height: 50vh;
+    background-size: cover;
+    background-attachment: fixed;
+    background-position: center center;
+}
+
+.header .source {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    color: rgba(255, 255, 255, 0.774);
+    padding: 5px 10px;
+    padding-bottom: 0px;
+    transition: 200ms;
+    border-top-left-radius: 5px;
+}
+
+.header .source a {
+    color: rgba(255, 255, 255, 0.774);
+}
+
+.header .source:hover {
+    color: black;
+    background-color: white;
+}
+
+.header .source:hover a {
+    color: black;
+}
+
+/* button to go home */
+
+.back-button {
+    position: fixed;
+    z-index: 10;
+    left: 0;
+    top: 0;
+    margin: 10px;
+    margin-top: 20px;
+}
+
+/* blockquotes */
+
+.blockquote {
+    position: relative;
+    color: grey;
+    margin-left: 25px;
+}
+
+.blockquote>.prequote {
+    position: absolute;
+    z-index: 1;
+    font-size: 70px;
+    font-family: initial;
+    left: -25px;
+    top: -25px;
+}
+
+.blockquote>p {
+    font-size: 30px;
+    z-index: 2;
+}
+
+/* scrolling progress bar */
+
+.progress-header {
+    position: sticky;
+    position: -webkit-sticky;
+    top: 0;
+    z-index: 10;
+    width: 100%;
+    background-color: #f1f1f1;
+    margin-bottom: 2rem;
+}
+
+.progress-container {
+    width: 100%;
+    height: 15px;
+    background: #ccc;
+}
+
+.progress-bar {
+    height: 15px;
+    background: var(--primary);
+    width: 0%;
+}
+
+.nav-pills .nav-link.active,
+.nav-pills .show > .nav-link,
+.nav-pills .dropdown-item.active,
+.nav-pills .dropdown-item:active {
+    color: white;
+    background-color: var(--primary);
+}
+
+.zoom-figure {
+    cursor: zoom-in;
+}
