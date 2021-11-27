@@ -12,6 +12,15 @@ let glossary = {
     "general relativity": "Einstein's theory of general relativity is a theory that describes gravity and applies more generally than Newton's Laws of Gravitation",
     "hubble constant": "The Hubble constant describes how quickly the Universe is expanding",
     "binary systems": "Systems in which two objects (such as two black holes) orbit one another",
+    "stellar-mass": "A system with a mass roughly similar to that of the Sun. Compare to intermediate mass and supermassive black holes",
+    "r-process enrichment": "The enrichment of matter with many heavy elements that are produced by a specific series of rapid nuclear reactions",
+    "kilonovae": "Explosions similar to supernovae but less bright (typically from a merger involving a neutron star",
+    "short gamma-ray bursts": "Bursts of gamma-rays that last fewer than about 2 seconds",
+    "neutrinos": "Fundamental particle that is emitted during certain nuclear reactions",
+    '"lower mass gap"': "No black holes have been detected between about 2 to 5 times the mass of the sun, forming a 'gap'",
+    "black hole mass function": "A function that describes how many black holes exist at different masses",
+    "pulsars": "A rapidly rotating compact object (usually a neutron star) with jets of radiation beaming out its poles",
+    "square kilometre array": "A radio telescope that can be used to detect pulsars",
     "dco": "Double compact object",
 };
 

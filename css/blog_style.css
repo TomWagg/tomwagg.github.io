@@ -13,6 +13,10 @@ body {
     display: none;
 }
 
+.rounded {
+    border-radius: 1rem !important;
+}
+
 a, .nav a.nav-link {
     color: var(--primary);
     text-decoration: none;
