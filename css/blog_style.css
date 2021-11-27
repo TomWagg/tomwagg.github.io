@@ -27,6 +27,12 @@ h4 {
     margin-left: 25px;
 }
 
+h2:before, h4:before {
+    height: 15px;
+    content: "";
+    display:block;
+}
+
 /* buttons */
 .btn-outline-main {
     color: var(--primary);
@@ -147,4 +153,14 @@ h4 {
 
 .zoom-figure {
     cursor: zoom-in;
+}
+
+.jargon {
+    color: #ABCD84;
+    font-weight: bold;
+    white-space: nowrap;
+}
+
+.jargon:hover {
+    color: var(--primary-dark);
 }
