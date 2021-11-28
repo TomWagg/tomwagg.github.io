@@ -27,7 +27,7 @@ a:hover, .nav a.nav-link:hover:not(:active) {
     color: var(--primary-dark);
 }
 
-h4 {
+h4, p.subsec {
     margin-left: 25px;
 }
 
