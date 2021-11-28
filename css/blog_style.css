@@ -168,3 +168,7 @@ h2:before, h4:before {
 .jargon:hover {
     color: var(--primary-dark);
 }
+
+.img-fluid {
+    max-width: min(500px, 100%) !important;
+}
