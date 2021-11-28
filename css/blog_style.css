@@ -27,9 +27,16 @@ a:hover, .nav a.nav-link:hover:not(:active) {
     color: var(--primary-dark);
 }
 
-.subsec {
-    margin-left: 25px;
+@media (min-width: 768px) {
+    .subsec {
+        margin-left: 25px;
+    }
 }
+
+.subsec {
+    margin-left: 0px;
+}
+
 
 h2:before, h4:before {
     height: 15px;
