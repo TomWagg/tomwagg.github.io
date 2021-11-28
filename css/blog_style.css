@@ -169,6 +169,7 @@ h2:before, h4:before {
     color: var(--primary-dark);
 }
 
-.img-fluid {
-    max-width: min(500px, 100%) !important;
+.img-fluid-limited {
+    max-width: min(500px, 100%);
+    height: auto;
 }
