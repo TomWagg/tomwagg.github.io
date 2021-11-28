@@ -238,8 +238,13 @@
                 </p>
                 <h4 id="gal_synth">Next, we need to decide where to put them</h4>
                 <figure>
-                    <img src="../img/galactic_dco_paper/galaxy_diagram.png" class="img-fluid-limited float-start zoom-figure"
-                        data-bs-toggle="modal" data-bs-target="#gal_modal">
+                    <div class="img-fluid-limited float-start position-relative zoom-figure me-2" data-bs-toggle="modal"
+                        data-bs-target="#gal_modal">
+                        <img src="../img/galactic_dco_paper/galaxy_diagram.png" class="img-fluid zoom-figure">
+                        <div class="img-overlay">
+                            <p class="m-0 fw-bold">Click to Zoom</p>
+                        </div>
+                    </div>
                     <div class="modal fade" id="gal_modal" tabindex="-1" aria-labelledby="exampleModalLabel"
                         aria-hidden="true">
                         <div class="modal-dialog modal-fullscreen">
@@ -256,25 +261,50 @@
                     </div>
                 </figure>
                 <p class="subsec">
-                    Time to build a galaxy! For this part of the paper, Neige Frankel's expertise was essential. She helped us to design a new model for the Milky Way,
+                    Time to build a galaxy! For this part of the paper, Neige Frankel's expertise was essential. She
+                    helped us to design a new model for the Milky Way. This model was created based on data from the
+                    APOGEE surveys. The model contains three different components: a central bulge/bar component in the
+                    centre of the
+                    galaxy, a thick disc, which contains older stars and is more vertically
+                    spread out, and a thin disc, which contains younger stars and is less
+                    vertically spread out. The distribution in terms of positions and birth times in each component is
+                    different and is shown in the figure.
+                </p>
+                <p class="subsec">
+                    Other than its more complex models for the birth times and positions, the main of this model is that
+                    it is <i>metallicity dependent</i>. This means that the position and birth time of a system
+                    corresponds to its <span class="jargon">metallicity</span>. Previous studies just assumed the same
+                    metallicity for every system and this can produce misleading results.
+                </p>
+                <p class="subsec">
+                    The figure shows show the different galactic parameters are distributed. For example, the purple
+                    plot shows that most systems are formed earlier in the galaxy, whilst fewer are formed in the past 2
+                    billion years or so. The right hand side shows an example Milky Way created using this model with
+                    both a face-on and side-on view.
                 </p>
                 <h4 id="legwork">And finally, we need to work out which ones turn out to be detectable</h4>
                 <p class="subsec">
-                    Enter <code>LEGWORK</code>.
+                    Last, we need to evolve the sources until present day and work out whether LISA could detect them.
+                    Enter <a href="https://github.com/TeamLEGWORK/LEGWORK" target="_blank"><code>LEGWORK</code></a>, a
+                    Python package that I developed with Katie Breivik with this exact purpose in mind! We use the
+                    package to evolve the sources over time and then calculate their signal-to-noise ratios in LISA. For
+                    any sources that have a signal which is 7 or more times stronger than the noise, we mark it as
+                    detectable. For more information about <a href="https://github.com/TeamLEGWORK/LEGWORK"
+                        target="_blank"><code>LEGWORK</code></a> check out the release paper <a
+                        href="https://arxiv.org/abs/2111.08717" target="_blank">on the ArXiv!</a>
                 </p>
-                <blockquote class="blockquote w-100 float-start">
-                    <div class="prequote">&ldquo;</div>
-                    <p>A well-known quote, contained in a blockquote element. What about a very very very very very
-                        long
-                        quote that spans over two lines</p>
-                </blockquote>
                 <h2 id="resultsI">What does the detectable population look like?</h2>
                 <p class="lipsum"></p>
                 <h4 id="sc_dist">Distribution on the LISA sensitivity curve</h4>
                 <figure>
-                    <img src="../img//galactic_dco_paper/dcos_on_sc.png" class="img-fluid-limited float-start zoom-figure"
-                        data-bs-toggle="modal" data-bs-target="#exampleModal">
-                    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                    <div class="img-fluid-limited float-start position-relative zoom-figure" data-bs-toggle="modal"
+                        data-bs-target="#sc_modal">
+                        <img src="../img/galactic_dco_paper/dcos_on_sc.png" class="img-fluid zoom-figure">
+                        <div class="img-overlay">
+                            <p class="m-0 fw-bold">Click to Zoom</p>
+                        </div>
+                    </div>
+                    <div class="modal fade" id="sc_modal" tabindex="-1" aria-labelledby="exampleModalLabel"
                         aria-hidden="true">
                         <div class="modal-dialog modal-fullscreen">
                             <div class="modal-content">
@@ -312,6 +342,12 @@
                 <p class="lipsum"></p>
                 <h2 id="conclusions">Conclusions: you made it!</h2>
                 <p class="lipsum"></p>
+                <blockquote class="blockquote w-100 float-start">
+                    <div class="prequote">&ldquo;</div>
+                    <p>A well-known quote, contained in a blockquote element. What about a very very very very very
+                        long
+                        quote that spans over two lines</p>
+                </blockquote>
             </div>
         </div>
     </div>

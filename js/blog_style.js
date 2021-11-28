@@ -23,6 +23,7 @@ let glossary = {
     "square kilometre array": "A radio telescope that can be used to detect pulsars",
     "dco": "Double compact object",
     "compact object": "White dwarfs, neutron stars and black holes",
+    "metallicity": "Fraction of the object that is composed of elements more massive than H and He",
 };
 
 window.addEventListener("load", function () {
