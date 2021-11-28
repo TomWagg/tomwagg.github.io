@@ -22,6 +22,7 @@ let glossary = {
     "pulsars": "A rapidly rotating compact object (usually a neutron star) with jets of radiation beaming out its poles",
     "square kilometre array": "A radio telescope that can be used to detect pulsars",
     "dco": "Double compact object",
+    "compact object": "White dwarfs, neutron stars and black holes",
 };
 
 window.addEventListener("load", function () {

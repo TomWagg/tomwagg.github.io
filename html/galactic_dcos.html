@@ -50,7 +50,7 @@
             <i class="fa fa-arrow-left"></i>
         </button>
     </div>
-    <div class="header" style="background-image: url('../img/gw_illustration.jpg')">
+    <div class="header" style="background-image: url('../img/galactic_dco_paper/gw_illustration.jpg')">
         <div class="source">Artwork by Sandbox Studio, Chicago with Corinne Mucha. Source: <a class="link-light"
                 href="https://www.symmetrymagazine.org/article/nobel-recognizes-gravitational-wave-discovery">Symmetry
                 Magazine</a></div>
@@ -113,7 +113,8 @@
                 <h1 class="fw-bold">Gravitational wave sources in our Galactic backyard</h1>
                 <h3 class="fst-italic">A paper summary without all of that pesky jargon!</h3>
                 <p class="text-center">
-                    <a href="https://raw.githubusercontent.com/TomWagg/detecting-DCOs-in-LISA/main/paper/tex/paper.pdf" target="_blank" class="btn bg-transparent rounded project-link">
+                    <a href="https://raw.githubusercontent.com/TomWagg/detecting-DCOs-in-LISA/main/paper/tex/paper.pdf"
+                        target="_blank" class="btn bg-transparent rounded project-link">
                         <i class="fas fa-scroll fa-2x"></i>
                     </a>
                     <a href="https://github.com/TomWagg/detecting-DCOs-in-LISA" target="_blank"
@@ -206,13 +207,61 @@
                     and now we can talk about my paper and the sorts of detections that I predict LISA will have!
                 </p>
                 <h2 id="methods">How did we produce our results?</h2>
-                <p></p>
+                <p>
+                    In order to learn about the LISA detectable population of binary black holes (BHBHs), black hole
+                    neutron stars (BHNSs) and binary neutron stars (NSNSs), we ran several detailed computer. We took a
+                    large population of binaries, positioned them such that they resemble the Milky Way and then evolved
+                    them until present day. We then repeated this all many times to work out how uncertain our results
+                    were.
+                </p>
                 <h4 id="pop_synth">First, we need some binaries</h4>
-                <p class="subsec"></p>
+                <p class="subsec">
+                    So first, the binaries. We use simulations from Floor Broekgaarden's <a
+                        href="https://arxiv.org/abs/2103.02608" target="_blank">recent (and upcoming) papers</a>. Floor
+                    used the population synthesis code <a href="https://www.compas.science/" target="_blank">COMPAS</a>
+                    to produce a <i>huge</i> grid of over 2 billion massive binaries. This code essentially follows a
+                    series of rules that state how the luminosity and temperature of a star changes over time and also
+                    what sort of <span class="jargon">compact object</span> the star becomes upon its death. These rules
+                    are based on very detailed
+                    stellar models, which computed the evolution of certain stars based on the equations of stellar
+                    structure. You can read more about how COMPAS works <a href="https://arxiv.org/abs/2109.10352">in
+                        our methods paper</a> and also more about how the original models were computed in Hurley et al.
+                    (<a href="https://arxiv.org/abs/astro-ph/0001295">2000</a>, <a
+                        href="https://arxiv.org/abs/astro-ph/0201220">2002</a>).
+                </p>
+                <p class="subsec">
+                    Floor's simulations also cover 20 different binary physics variations. This means that each
+                    simulation changes a setting in the COMPAS code to explore how the results change if we assume
+                    something different about binary physics. This is important because a lot of binary physics is still
+                    unknown and so by exploring these changes we can see how important each uncertainty is for LISA
+                    detections.
+                </p>
                 <h4 id="gal_synth">Next, we need to decide where to put them</h4>
-                <p class="subsec"></p>
+                <figure>
+                    <img src="../img/galactic_dco_paper/galaxy_diagram.png" class="img-fluid-limited float-start zoom-figure"
+                        data-bs-toggle="modal" data-bs-target="#gal_modal">
+                    <div class="modal fade" id="gal_modal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                        aria-hidden="true">
+                        <div class="modal-dialog modal-fullscreen">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <img src="../img/galactic_dco_paper/galaxy_diagram.png" class="img-fluid">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </figure>
+                <p class="subsec">
+                    Time to build a galaxy! For this part of the paper, Neige Frankel's expertise was essential. She helped us to design a new model for the Milky Way,
+                </p>
                 <h4 id="legwork">And finally, we need to work out which ones turn out to be detectable</h4>
-                <p class="subsec"></p>
+                <p class="subsec">
+                    Enter <code>LEGWORK</code>.
+                </p>
                 <blockquote class="blockquote w-100 float-start">
                     <div class="prequote">&ldquo;</div>
                     <p>A well-known quote, contained in a blockquote element. What about a very very very very very
@@ -223,7 +272,7 @@
                 <p class="lipsum"></p>
                 <h4 id="sc_dist">Distribution on the LISA sensitivity curve</h4>
                 <figure>
-                    <img src="../img/dcos_on_sc.png" class="img-fluid-limited float-start zoom-figure"
+                    <img src="../img//galactic_dco_paper/dcos_on_sc.png" class="img-fluid-limited float-start zoom-figure"
                         data-bs-toggle="modal" data-bs-target="#exampleModal">
                     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
                         aria-hidden="true">
@@ -234,7 +283,7 @@
                                         aria-label="Close"></button>
                                 </div>
                                 <div class="modal-body">
-                                    <img src="../img/dcos_on_sc.png" class="img-fluid">
+                                    <img src="../img/galactic_dco_paper/dcos_on_sc.png" class="img-fluid">
                                 </div>
                             </div>
                         </div>
