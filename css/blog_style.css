@@ -173,3 +173,15 @@ h2:before, h4:before {
     max-width: min(500px, 100%);
     height: auto;
 }
+
+.project-link {
+    color: var(--primary);
+}
+
+.project-link:hover {
+    color: var(--primary-dark);
+}
+
+.project-link:active {
+    color: var(--primary-dark);
+}
