@@ -163,7 +163,13 @@
                     that you're emitted with your friend on the ice rink.
                 </p>
                 <p>
-                    In this case, gravitational waves can give us access to regimes that were previously unobservable.
+                    It is also important to highlight that the emission of gravitational waves is what causes two
+                    objects (like two black holes) to merge. The gravitational waves carry away energy from the system
+                    and so the two objects have to get closer to one another to compensate. This process accelerates
+                    over time until the dramatic gravitational wave merger occurs.
+                </p>
+                <p>
+                    Gravitational waves can give us access to regimes that were previously unobservable.
                     Black holes themselves will emit no light without an <span class="jargon">accretion disc</span>, and
                     even then it is difficult to learn more about the objects. However, gravitational waves can be used
                     to observe black holes directly in <span class="jargon">binary systems</span>. The extreme gravity
@@ -294,10 +300,17 @@
                         href="https://arxiv.org/abs/2111.08717" target="_blank">on the ArXiv!</a>
                 </p>
                 <h2 id="resultsI">What does the detectable population look like?</h2>
-                <p class="lipsum"></p>
+                <p>
+                    Great! So now we follow the methods above to produce <i>many</i> different Milky Way instances and
+                    find detectable populations in each one. We repeat this for every different physics variation and
+                    also each double compact object (DCO) type (BHBHs, BHNSs and BHNSs). The result of all of this is
+                    collection of detectable sources that we can analyse to see what sort of things LISA will see.
+                    Note that for this section we're just going to consider the fiducial (default) model and we'll
+                    look more at the physics variations in a later section.
+                </p>
                 <h4 id="sc_dist">Distribution on the LISA sensitivity curve</h4>
                 <figure>
-                    <div class="img-fluid-limited float-start position-relative zoom-figure" data-bs-toggle="modal"
+                    <div class="img-fluid-limited float-end position-relative zoom-figure ms-2" data-bs-toggle="modal"
                         data-bs-target="#sc_modal">
                         <img src="../img/galactic_dco_paper/dcos_on_sc.png" class="img-fluid zoom-figure">
                         <div class="img-overlay">
@@ -319,9 +332,39 @@
                         </div>
                     </div>
                 </figure>
-                <p class="lipsum"></p>
+                <p class="subsec">
+                    A common way of visualising a detectable population in LISA is to plot the sources on the LISA
+                    "sensitivity curve". The sensitivity curve shows how well LISA can measure signals at different
+                    frequencies. The higher the sensitivity curve at any frequency, the more difficult it is to
+                    detect a source at that frequency. For binaries, the frequency shows how quickly the two objects
+                    are orbiting one another. The higher the frequency, the faster the objects are orbiting. This
+                    means that sources on the left side of the plot are spinning slowly, whilst those on the right
+                    side are spinning quickly and getting close to merging.
+                </p>
+                <p class="subsec">
+                    Let's just focus on the top panel for now, which contains all three types of <span
+                        class="jargon">DCO</span> together. Each source is plotted at the frequency where it emits most
+                    of its gravitational waves and its height above the sensitivity curve tells you its signal-to-noise
+                    ratio. Since there are so many sources we don't plot them individually but show a density
+                    distribution instead. The blue area shows the density distribution, where the
+                    darker the density distribution is the more systems are found in that location. The first thing we
+                    notice is that there is a gap between the sensitivity curve and the distribution, this is because we
+                    only show detectable sources and they have to be 7 times higher than the curve by definition! You
+                    can also see that the darkest part of the distribution (i.e. where most sources are detected)
+                    coincides with the line for 8kpc, which is roughly the distance to the centre of the galaxy. This
+                    makes sense since most sources are formed at the Galactic centre so it also follows that are most
+                    are detected there.
+                </p>
+                <p class="subsec">
+                    Now let's look at the lower panels. It is slightly difficult to see but, if you look closely, BHBHs
+                    are detected at lower frequencies than BHNSs and the same is true for BHNSs relative to NSNSs.
+                    You'll also see this more in the next section. Finally, in each of the panels you can see there is a
+                    sort of "offshoot" that extends lower than the rest of the distribution. We show in the paper that
+                    this is from <span class="jargon">eccentric systems</span> and so you can possible identify them
+                    from their location in the sensitivity curve.
+                </p>
                 <h4 id="fid_pdfs">Properties of detectable sources</h4>
-                <p class="lipsum"></p>
+                <p class="subsec lipsum"></p>
                 <h4 id="gal_dist">Where are detectable sources in the Milky Way?</h4>
                 <p class="lipsum"></p>
                 <h4 id="measurements">How well can we measure these sources?</h4>

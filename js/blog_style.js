@@ -24,6 +24,7 @@ let glossary = {
     "dco": "Double compact object",
     "compact object": "White dwarfs, neutron stars and black holes",
     "metallicity": "Fraction of the object that is composed of elements more massive than H and He",
+    "eccentric systems": "A system of two objects that have an orbit that isn't circular, but instead more elliptical"
 };
 
 window.addEventListener("load", function () {
