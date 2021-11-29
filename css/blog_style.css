@@ -126,8 +126,8 @@ h4:before {
     z-index: 1;
     font-size: 50px;
     font-family: initial;
-    left: -20px;
-    top: -20px;
+    left: -23px;
+    top: -18px;
 }
 
 .blockquote>p {
@@ -174,7 +174,7 @@ h4:before {
 
 .jargon {
     color: #ABCD84;
-    font-weight: bold;
+    font-weight: normal;
     white-space: nowrap;
 }
 
@@ -204,7 +204,8 @@ h4:before {
     transition: 200ms;
 }
 
-.img-fluid-limited:hover .img-overlay {
+.img-fluid-limited:hover .img-overlay,
+.img-fluid:hover .img-overlay {
     opacity: 0.8;
 }
 
