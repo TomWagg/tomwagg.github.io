@@ -17,13 +17,15 @@ body {
     border-radius: 1rem !important;
 }
 
-a, .nav a.nav-link {
+a,
+.nav a.nav-link {
     color: var(--primary);
     text-decoration: none;
     transition: 0.3s;
 }
 
-a:hover, .nav a.nav-link:hover:not(:active) {
+a:hover,
+.nav a.nav-link:hover:not(:active) {
     color: var(--primary-dark);
 }
 
@@ -40,10 +42,11 @@ a:hover, .nav a.nav-link:hover:not(:active) {
 }
 
 
-h2:before, h4:before {
+h2:before,
+h4:before {
     height: 15px;
     content: "";
-    display:block;
+    display: block;
 }
 
 /* buttons */
@@ -121,14 +124,15 @@ h2:before, h4:before {
 .blockquote>.prequote {
     position: absolute;
     z-index: 1;
-    font-size: 70px;
+    font-size: 50px;
     font-family: initial;
-    left: -25px;
-    top: -25px;
+    left: -20px;
+    top: -20px;
 }
 
 .blockquote>p {
-    font-size: 30px;
+    font-weight: 700;
+    font-size: 1.25rem;
     z-index: 2;
 }
 
@@ -157,7 +161,7 @@ h2:before, h4:before {
 }
 
 .nav-pills .nav-link.active,
-.nav-pills .show > .nav-link,
+.nav-pills .show>.nav-link,
 .nav-pills .dropdown-item.active,
 .nav-pills .dropdown-item:active {
     color: white;
