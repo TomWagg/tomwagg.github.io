@@ -38,7 +38,9 @@ let glossary = {
     "mass ratio": "Ratio of the masses in a binary system. Masses are more equal the closer this is to 1",
     "snr": "Signal-to-noise ratio",
     "snrs": "Signal-to-noise ratios",
-    "chirp mass": "A quantity that combines the two masses of a binary, it is often used in gravitational wave measurements"
+    "chirp mass": "A quantity that combines the two masses of a binary, it is often used in gravitational wave measurements",
+    "common-envelopes": "A possible phase of binary evolution in which the binary is surrounded by a common envelope of gas",
+    "wolf-rayet": "A type of star in a late stage of its life that experiences strong stellar winds",
 };
 
 window.addEventListener("load", function () {

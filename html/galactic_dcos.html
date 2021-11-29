@@ -53,8 +53,16 @@
         </div>
     </div>
     <nav id="nav" class="nav nav-pills flex-column toc float-md-end sticky-md-top p-3 pt-4 text-md-end text-center">
-        <a class="nav-link active" aria-current="page" href="#why_gw">Why gravitational waves?</a>
-        <a class="nav-link" href="#why_lisa">Why use LISA?</a>
+        <a class="nav-link" href="#">Top</a>
+        <hr class="dropdown-divider">
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#methods" role="button"
+                aria-expanded="false">Introduction</a>
+            <ul class="dropdown-menu dropdown-menu-end">
+                <li><a class="nav-link" href="#why_gw">Why gravitational waves?</a></li>
+                <li><a class="nav-link" href="#why_lisa">Why use LISA?</a></li>
+            </ul>
+        </li>
         <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#methods" role="button"
                 aria-expanded="false">Methods</a>
@@ -303,7 +311,7 @@
                     42 BHNSs and 8 NSNSs. And that's an important enough results for me to repeat it in a blockquote for
                     anyone skimming through this!
                 </p>
-                <blockquote class="blockquote w-100 float-start">
+                <blockquote class="blockquote">
                     <div class="prequote">&ldquo;</div>
                     <p>For a 4-year LISA mission, our fiducial model predicts that, on average, LISA will detect 74
                         BHBHs, 42 BHNSs and 8 NSNSs</p>
@@ -444,12 +452,11 @@
                         eccentric" ($0.01 < e < 0.3$) population, whilst <span class="jargon">BHBHs</span> have the
                             largest highly eccentric population.
                     </p>
-                    <blockquote class="blockquote w-100 float-start">
+                    <blockquote class="blockquote">
                         <div class="prequote">&ldquo;</div>
                         <p>
                             We find that all detectable DCOs have nonzero (and sometimes, significant) eccentricity,
-                            which can be useful for
-                            distinguishing them from other LISA sources which are often circular
+                            which can be useful for distinguishing them from other LISA sources which are often circular
                         </p>
                     </blockquote>
                     <p>
@@ -539,8 +546,8 @@
                     <div class="row">
                         <div class="col-12 col-md-4">
                             <figure>
-                                <div class="img-fluid-limited position-relative zoom-figure me-2"
-                                    data-bs-toggle="modal" data-bs-target="#snr_modal">
+                                <div class="img-fluid-limited position-relative zoom-figure me-2" data-bs-toggle="modal"
+                                    data-bs-target="#snr_modal">
                                     <img src="../img/galactic_dco_paper/snr_cumulative_all.png"
                                         class="img-fluid zoom-figure">
                                     <div class="img-overlay">
@@ -565,8 +572,8 @@
                         </div>
                         <div class="col-12 col-md-4">
                             <figure>
-                                <div class="img-fluid-limited position-relative zoom-figure me-2"
-                                    data-bs-toggle="modal" data-bs-target="#chirp_modal">
+                                <div class="img-fluid-limited position-relative zoom-figure me-2" data-bs-toggle="modal"
+                                    data-bs-target="#chirp_modal">
                                     <img src="../img/galactic_dco_paper/chirp_mass_uncertainty_all.png"
                                         class="img-fluid zoom-figure">
                                     <div class="img-overlay">
@@ -591,8 +598,8 @@
                         </div>
                         <div class="col-12 col-md-4">
                             <figure>
-                                <div class="img-fluid-limited position-relative zoom-figure"
-                                    data-bs-toggle="modal" data-bs-target="#ang_modal">
+                                <div class="img-fluid-limited position-relative zoom-figure" data-bs-toggle="modal"
+                                    data-bs-target="#ang_modal">
                                     <img src="../img/galactic_dco_paper/angular_resolution_all.png"
                                         class="img-fluid zoom-figure">
                                     <div class="img-overlay">
@@ -626,11 +633,12 @@
                     consider probe some of the more uncertain areas of binary physics and we aim to investigate out the
                     relative importance of each assumption.
                 </p>
-                <blockquote class="blockquote w-100 float-start">
+                <blockquote class="blockquote">
                     <div class="prequote">&ldquo;</div>
                     <p>
                         We find that, over our 20 physics variations, the expected number of detections in a 4-year LISA
-                        mission varies between approximately 30 and 370. This increases to between 50 and 550 for a 10-year mission.
+                        mission varies between approximately 30 and 370. This increases to between 50 and 550 for a
+                        10-year mission.
                     </p>
                 </blockquote>
                 <p>
@@ -642,8 +650,7 @@
                     <figure>
                         <div class="img-fluid-limited float-end position-relative zoom-figure ms-2"
                             data-bs-toggle="modal" data-bs-target="#det_modal">
-                            <img src="../img/galactic_dco_paper/dco_detections.png"
-                                class="img-fluid zoom-figure">
+                            <img src="../img/galactic_dco_paper/dco_detections.png" class="img-fluid zoom-figure">
                             <div class="img-overlay">
                                 <p class="m-0 fw-bold">Click to Zoom</p>
                             </div>
@@ -656,14 +663,59 @@
                                             aria-label="Close"></button>
                                     </div>
                                     <div class="modal-body text-center">
-                                        <img src="../img/galactic_dco_paper/dco_detections.png"
-                                            class="img-fluid">
+                                        <img src="../img/galactic_dco_paper/dco_detections.png" class="img-fluid">
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </figure>
-                    <p class="lipsum"></p>
+                    <p>
+                        The first thing that we can investigate when changing the underlying physics assumptions is
+                        simply <i>how many</i> DCOs will we detect and this is exactly what the plot shows. The three
+                        panels correspond to <span class="jargon">BHBHs</span>, <span class="jargon">BHNSs</span> and
+                        <span class="jargon">NSNSs</span> respectively. Each point corresponds to a model on the x-axis
+                        (from A to T), which are also labelled on the top of the plot in slightly more detail. The
+                        y-axis gives the detection rate in a 4-year mission on the left and a 10-year mission on the
+                        right. Note as well as the y-axis is a logarithmic scale not linear!
+                    </p>
+                    <p>
+                        We split these variations into four main categories (show in the coloured banners): <span
+                            class="fw-bold" style="color: #db2b25">mass transfer</span> (variations relating to how the
+                        two stars
+                        transfer mass between one another), <span class="fw-bold"
+                            style="color: #FFE300">common-envelope</span> (variations relating to how <span
+                            class="jargon">common-envelopes</span>
+                        are initiated and ejected), <span class="fw-bold" style="color: #089CA3">supernovae</span>
+                        (variations related to the <span class="jargon">compact objects</span> left behind after
+                        supernovae and the kicks that they
+                        receive) and finally <span class="fw-bold" style="color: #7030A0">stellar winds</span>
+                        (variations in the strength of <span class="jargon">Wolf-Rayet</span>-like winds).
+                    </p>
+                    <p>
+                        In the paper we describe in detail how each variation affects the detection rate and suggest
+                        explanations for these trends. This is another part that would require a lot of background
+                        knowledge and detail to explain so I recommend that you check out Section 4.1 if you'd like to
+                        learn about why these trends appear!
+                    </p>
+                    <blockquote class="blockquote">
+                        <div class="prequote">&ldquo;</div>
+                        <p>
+                            Different choices in regards to binary physics assumptions can strongly affect the predicted
+                            detection rates for LISA
+                        </p>
+                    </blockquote>
+                    <p>
+                        However, we can still remark on the general trends. First, we can see that changing our choices
+                        for the maximum neutron star mass (models M and N), not implementing <span
+                            class="jargon">pair-instability supernovae</span> (model O), changing our <span
+                            class="jargon">remnant mass prescription</span> (model L), or decreasing the efficiency of
+                        <span class="jargon">Wolf-Rayet</span>-like winds each have very little effect on the
+                        detection rate for each <span class="jargon">DCO</span> type. However, the rest of the models
+                        can effect changes of at least a factor of two in the detection rate. These large changes
+                        therefore highlight the fact that it is important to consider these model variations since
+                        different choices in regards to binary physics assumptions can strongly affect the predicted
+                        detection rates for LISA.
+                    </p>
                 </div>
                 <div class="subsec">
                     <h4 id="variations">Effect on the properties of detectable systems</h4>
