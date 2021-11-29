@@ -23,6 +23,7 @@ let glossary = {
     "square kilometre array": "A radio telescope that can be used to detect pulsars",
     "dco": "Double compact object",
     "compact object": "White dwarfs, neutron stars and black holes",
+    "compact objects": "White dwarfs, neutron stars and black holes",
     "metallicity": "Fraction of the object that is composed of elements more massive than H and He",
     "eccentric systems": "A system of two objects that have an orbit that isn't circular, but instead more elliptical",
     "orbital frequency": "The frequency at which a binary system completes an orbit (e.g. once per year)",
@@ -32,7 +33,9 @@ let glossary = {
     "bhnss": "Black hole neutron star binaries",
     "nsnss": "Binary neutron star",
     "nsnss": "Binary neutron stars",
-    "fiducial": "default, but not necessarily favoured"
+    "fiducial": "default, but not necessarily favoured",
+    "eccentricity": "A measure of how eccentric an orbit is. Eccentricity of 0 means circular and higher eccentricity is more eccentric/elliptical",
+    "mass ratio": "Ratio of the masses in a binary system. Masses are more equal the closer this is to 1",
 };
 
 window.addEventListener("load", function () {
