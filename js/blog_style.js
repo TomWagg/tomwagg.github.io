@@ -24,7 +24,15 @@ let glossary = {
     "dco": "Double compact object",
     "compact object": "White dwarfs, neutron stars and black holes",
     "metallicity": "Fraction of the object that is composed of elements more massive than H and He",
-    "eccentric systems": "A system of two objects that have an orbit that isn't circular, but instead more elliptical"
+    "eccentric systems": "A system of two objects that have an orbit that isn't circular, but instead more elliptical",
+    "orbital frequency": "The frequency at which a binary system completes an orbit (e.g. once per year)",
+    "bhbh": "Binary black hole",
+    "bhbhs": "Binary black holes",
+    "bhns": "Black hole neutron star binary",
+    "bhnss": "Black hole neutron star binaries",
+    "nsnss": "Binary neutron star",
+    "nsnss": "Binary neutron stars",
+    "fiducial": "default, but not necessarily favoured"
 };
 
 window.addEventListener("load", function () {

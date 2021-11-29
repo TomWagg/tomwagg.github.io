@@ -6,36 +6,28 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="Personal Website for Tom Wagg">
     <meta name="author" content="Tom Wagg">
-
     <title>Galactic DCOs in LISA</title>
     <link href="../img/icon.png" rel="icon">
-
     <!-- Bootstrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-
     <!-- icons and fonts -->
     <script src="https://kit.fontawesome.com/328d20ce71.js" crossorigin="anonymous"></script>
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;700;900&display=swap" rel="stylesheet">
-
     <!-- random css -->
     <link href="../css/animate.css" rel="stylesheet">
     <link href="../css/blog_style.css" rel="stylesheet">
-
     <!-- Bootstrap core JavaScript -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous">
     </script>
-
     <!-- Plugin JavaScript -->
     <script src="../js/jquery.easing.min.js"></script>
-
     <!-- Custom scripts for this template -->
     <script src="../js/blog_style.js"></script>
-    <script type="text/x-mathjax-config">
-        MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+    <script type="text/x-mathjax-config"> MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
             MathJax.Hub.Config({
                 "HTML-CSS": { linebreaks: { automatic: true } },
                         SVG: { linebreaks: { automatic: true } }
@@ -55,13 +47,11 @@
                 href="https://www.symmetrymagazine.org/article/nobel-recognizes-gravitational-wave-discovery">Symmetry
                 Magazine</a></div>
     </div>
-
     <div class="progress-header">
         <div class="progress-container">
             <div class="progress-bar" id="myBar"></div>
         </div>
     </div>
-
     <nav id="nav" class="nav nav-pills flex-column toc float-md-end sticky-md-top p-3 pt-4 text-md-end text-center">
         <a class="nav-link active" aria-current="page" href="#why_gw">Why gravitational waves?</a>
         <a class="nav-link" href="#why_lisa">Why use LISA?</a>
@@ -106,7 +96,6 @@
         <a class="nav-link" href="#comparisons">Comparisons</a>
         <a class="nav-link" href="#conclusions">Conclusions</a>
     </nav>
-
     <div class="container">
         <div class="row">
             <div class="col text-center">
@@ -125,12 +114,14 @@
                         class="btn bg-transparent rounded project-link">
                         <i class="fas fa-database fa-2x"></i>
                     </a>
+
                 </p>
             </div>
         </div>
         <div class="row">
             <div class="col">
-                <p> On this page, I've done my best to explain (without the cryptic jargon and any assumed background
+                <p>
+                    On this page, I've done my best to explain (without the cryptic jargon and any assumed background
                     knowledge) the motivation behind, methods used and results found by my paper on detecting Galactic
                     LISA sources with LISA. On the right you'll find a table of contents so that you can hop around
                     between topics and as you scroll the progress bar will let you know how far through you are.
@@ -141,25 +132,34 @@
                         Broekgaarden</a>, <a href="https://www.selmademink.com/">Selma de Mink</a>, <a
                         href="https://neigef.github.io">Neige Frankel</a>, <a href="https://liekevanson.github.io">Lieke
                         van Son</a> and <a href="https://www.uva.nl/en/profile/j/u/s.justham/s.justham.html">Stephen
-                        Justham</a>. </p>
+                        Justham</a>.
+
+                </p>
                 <h2 id="why_gw">Why investigate gravitational waves?</h2>
-                <p> So before we get into the paper, let's take a step back and consider why it is interesting to
+                <p>
+                    So before we get into the paper, let's take a step back and consider why it is interesting to
                     investigate gravitational waves. We've already got a bunch of telescopes that can observe pretty
                     much anything in the <span class="jargon">electromagnetic spectrum</span>, so why bother? Well, what
                     if what you're observing is behind a giant dust cloud, or doesn't emit any light? In this case,
                     gravitational waves could shed some light (pun intended) on a problem that would otherwise have been
-                    unobservable. </p>
-                <p> For our purposes, gravitational waves are emitted when two objects spiral around one another. This
+                    unobservable.
+                </p>
+                <p>
+                    For our purposes, gravitational waves are emitted when two objects spiral around one another. This
                     could be as simple as two dancers performing or two ice skaters holding hands and spinning around
                     one another. Or, it could be as dramatic as two black holes spinning around one another, closer and
                     closer until they merge. The difference is that the waves from those two black holes are
                     <i>significantly</i> stronger (and so, easier to detect) than those that you're emitted with your
-                    friend on the ice rink. </p>
-                <p> It is also important to highlight that the emission of gravitational waves is what causes two
+                    friend on the ice rink.
+                </p>
+                <p>
+                    It is also important to highlight that the emission of gravitational waves is what causes two
                     objects (like two black holes) to merge. The gravitational waves carry away energy from the system
                     and so the two objects have to get closer to one another to compensate. This process accelerates
-                    over time until the dramatic gravitational wave merger occurs. </p>
-                <p> Gravitational waves can give us access to regimes that were previously unobservable. Black holes
+                    over time until the dramatic gravitational wave merger occurs.
+                </p>
+                <p>
+                    Gravitational waves can give us access to regimes that were previously unobservable. Black holes
                     themselves will emit no light without an <span class="jargon">accretion disc</span>, and even then
                     it is difficult to learn more about the objects. However, gravitational waves can be used to observe
                     black holes directly in <span class="jargon">binary systems</span>. The extreme gravity around black
@@ -167,17 +167,21 @@
                         relativity</span> as well as provide measurements on the <span class="jargon">Hubble
                         constant</span>, which measures the rate of expansion of the Universe. On top of all of this,
                     black holes and neutron stars are the endpoints of massive stars and so we can use them to learn
-                    more about how these types of stars evolve. </p>
+                    more about how these types of stars evolve.
+                </p>
                 <h2 id="why_lisa">Why use LISA to study double compact objects?</h2> <img src="../img/lisa.jpg"
                     class="img-fluid-limited rounded m-md-2 float-md-end">
-                <p> So hopefully you now see why gravitational waves are interesting to study, let's talk more about why
+                <p>
+                    So hopefully you now see why gravitational waves are interesting to study, let's talk more about why
                     LISA is useful. LISA is a space-based gravitational wave detector that will consist of three
                     satellites that will orbit the sun (following the path of the Earth). The image shows an artist's
                     impression of what it will look like. As you may be aware, we already have several operational
                     gravitational wave detectors. <a href="https://www.ligo.org/" target="_blank">LIGO, Virgo and
                         Kagra</a> have already detected several gravitational wave mergers, so you may ask, why do we
-                    need LISA? </p>
-                <p> LISA will observe gravitational waves at a lower frequency than ground-based detectors. This means
+                    need LISA?
+                </p>
+                <p>
+                    LISA will observe gravitational waves at a lower frequency than ground-based detectors. This means
                     that you can observe a local (within the Milky Way) <span class="jargon">stellar-mass</span> binary
                     long before the emission of gravitational waves causes it to merge. These sorts of detections have a
                     lot of potential for discovery, we could learn more about a whole array of phenomena, including
@@ -189,18 +193,25 @@
                     is just from observational or is the result of some sort of formation process. Additionally, LISA
                     could link gravitational wave detections to <span class="jargon">pulsars</span> found with the <span
                         class="jargon">Square Kilometre Array</span> and this could be used to refine the measurements
-                    in both detectors. </p>
-                <p> Hopefully you're now as excited as me about the potential of gravitational wave detections with LISA
-                    and now we can talk about my paper and the sorts of detections that I predict LISA will have! </p>
+                    in both detectors.
+                </p>
+                <p>
+                    Hopefully you're now as excited as me about the potential of gravitational wave detections with LISA
+                    and now we can talk about my paper and the sorts of detections that I predict LISA will have!
+                </p>
                 <h2 id="methods">How did we produce our results?</h2>
-                <p> In order to learn about the LISA detectable population of binary black holes (BHBHs), black hole
-                    neutron stars (BHNSs) and binary neutron stars (NSNSs), we ran several detailed computer. We took a
-                    large population of binaries, positioned them such that they resemble the Milky Way and then evolved
-                    them until present day. We then repeated this all many times to work out how uncertain our results
-                    were. </p>
+                <p>
+                    In order to learn about the LISA detectable population of binary black holes (<span
+                        class="jargon">BHBHs</span>), black hole neutron stars (<span class="jargon">BHNSs</span>) and
+                    binary neutron stars (<span class="jargon">NSNSs</span>), we ran several detailed computer. We took
+                    a large population of binaries, positioned them such that they resemble the Milky Way and then
+                    evolved them until present day. We then repeated this all many times to work out how uncertain our
+                    results were.
+                </p>
                 <div class="subsec">
                     <h4 id="pop_synth">First, we need some binaries</h4>
-                    <p> So first, the binaries. We use simulations from Floor Broekgaarden's <a
+                    <p>
+                        So first, the binaries. We use simulations from Floor Broekgaarden's <a
                             href="https://arxiv.org/abs/2103.02608" target="_blank">recent (and upcoming) papers</a>.
                         Floor used the population synthesis code <a href="https://www.compas.science/"
                             target="_blank">COMPAS</a> to produce a <i>huge</i> grid of over 2 billion massive binaries.
@@ -211,12 +222,15 @@
                         read more about how COMPAS works <a href="https://arxiv.org/abs/2109.10352">in our methods
                             paper</a> and also more about how the original models were computed in Hurley et al. (<a
                             href="https://arxiv.org/abs/astro-ph/0001295">2000</a>, <a
-                            href="https://arxiv.org/abs/astro-ph/0201220">2002</a>). </p>
-                    <p> Floor's simulations also cover 20 different binary physics variations. This means that each
+                            href="https://arxiv.org/abs/astro-ph/0201220">2002</a>).
+                    </p>
+                    <p>
+                        Floor's simulations also cover 20 different binary physics variations. This means that each
                         simulation changes a setting in the COMPAS code to explore how the results change if we assume
                         something different about binary physics. This is important because a lot of binary physics is
                         still unknown and so by exploring these changes we can see how important each uncertainty is for
-                        LISA detections. </p>
+                        LISA detections.
+                    </p>
                 </div>
                 <div class="subsec">
                     <h4 id="gal_synth">Next, we need to decide where to put them</h4>
@@ -239,25 +253,32 @@
                             </div>
                         </div>
                     </figure>
-                    <p> Time to build a galaxy! For this part of the paper, Neige Frankel's expertise was essential. She
+                    <p>
+                        Time to build a galaxy! For this part of the paper, Neige Frankel's expertise was essential. She
                         helped us to design a new model for the Milky Way. This model was created based on data from the
                         APOGEE surveys. The model contains three different components: a central bulge/bar component in
                         the centre of the galaxy, a thick disc, which contains older stars and is more vertically spread
                         out, and a thin disc, which contains younger stars and is less vertically spread out. The
                         distribution in terms of positions and birth times in each component is different and is shown
-                        in the figure. </p>
-                    <p> Other than its more complex models for the birth times and positions, the main of this model is
+                        in the figure.
+                    </p>
+                    <p>
+                        Other than its more complex models for the birth times and positions, the main of this model is
                         that it is <i>metallicity dependent</i>. This means that the position and birth time of a system
                         corresponds to its <span class="jargon">metallicity</span>. Previous studies just assumed the
-                        same metallicity for every system and this can produce misleading results. </p>
-                    <p> The figure shows show the different galactic parameters are distributed. For example, the purple
+                        same metallicity for every system and this can produce misleading results.
+                    </p>
+                    <p>
+                        The figure shows show the different galactic parameters are distributed. For example, the purple
                         plot shows that most systems are formed earlier in the galaxy, whilst fewer are formed in the
                         past 2 billion years or so. The right hand side shows an example Milky Way created using this
-                        model with both a face-on and side-on view. </p>
+                        model with both a face-on and side-on view.
+                    </p>
                 </div>
                 <div class="subsec">
                     <h4 id="legwork">And finally, we need to work out which ones turn out to be detectable</h4>
-                    <p> Last, we need to evolve the sources until present day and work out whether LISA could detect
+                    <p>
+                        Last, we need to evolve the sources until present day and work out whether LISA could detect
                         them. Enter <a href="https://github.com/TeamLEGWORK/LEGWORK"
                             target="_blank"><code>LEGWORK</code></a>, a Python package that I developed with Katie
                         Breivik with this exact purpose in mind! We use the package to evolve the sources over time and
@@ -265,15 +286,19 @@
                         7 or more times stronger than the noise, we mark it as detectable. For more information about <a
                             href="https://github.com/TeamLEGWORK/LEGWORK" target="_blank"><code>LEGWORK</code></a> check
                         out the release paper <a href="https://arxiv.org/abs/2111.08717" target="_blank">on the
-                            ArXiv!</a> </p>
+                            ArXiv!</a>
+                    </p>
                 </div>
                 <h2 id="resultsI">What does the detectable population look like?</h2>
-                <p> Great! So now we follow the methods above to produce <i>many</i> different Milky Way instances and
+                <p>
+                    Great! So now we follow the methods above to produce <i>many</i> different Milky Way instances and
                     find detectable populations in each one. We repeat this for every different physics variation and
-                    also each double compact object (DCO) type (BHBHs, BHNSs and BHNSs). The result of all of this is
+                    also each double compact object (DCO) type (<span class="jargon">BHBHs</span>, <span
+                        class="jargon">BHNSs</span> and <span class="jargon">BHNSs</span>). The result of all of this is
                     collection of detectable sources that we can analyse to see what sort of things LISA will see. Note
-                    that for this section we're just going to consider the fiducial (default) model and we'll look more
-                    at the physics variations in a later section. </p>
+                    that for this section we're just going to consider the <span class="jargon">fiducial</span> model
+                    and we'll look more at the physics variations in a later section.
+                </p>
                 <div class="subsec">
                     <h4 id="sc_dist">Distribution on the LISA sensitivity curve</h4>
                     <figure>
@@ -295,14 +320,16 @@
                             </div>
                         </div>
                     </figure>
-                    <p> A common way of visualising a detectable population in LISA is to plot the sources on the LISA
+                    <p>
+                        A common way of visualising a detectable population in LISA is to plot the sources on the LISA
                         "sensitivity curve". The sensitivity curve shows how well LISA can measure signals at different
                         frequencies. The higher the sensitivity curve at any frequency, the more difficult it is to
                         detect a source at that frequency. For binaries, the frequency shows how quickly the two objects
                         are orbiting one another. The higher the frequency, the faster the objects are orbiting. This
                         means that sources on the left side of the plot are spinning slowly, whilst those on the right
-                        side are spinning quickly and getting close to merging. </p>
-                    <p> Let's just focus on the top panel for now, which contains all three types of <span
+                        side are spinning quickly and getting close to merging.
+                    </p>
+                    <p>Let's just focus on the top panel for now, which contains all three types of <span
                             class="jargon">DCO</span> together. Each source is plotted at the frequency where it emits
                         most of its gravitational waves and its height above the sensitivity curve tells you its
                         signal-to-noise ratio. Since there are so many sources we don't plot them individually but show
@@ -313,13 +340,18 @@
                         definition! You can also see that the darkest part of the distribution (i.e. where most sources
                         are detected) coincides with the line for 8kpc, which is roughly the distance to the centre of
                         the galaxy. This makes sense since most sources are formed at the Galactic centre so it also
-                        follows that are most are detected there. </p>
-                    <p> Now let's look at the lower panels. It is slightly difficult to see but, if you look closely,
-                        BHBHs are detected at lower frequencies than BHNSs and the same is true for BHNSs relative to
-                        NSNSs. You'll also see this more in the next section. Finally, in each of the panels you can see
-                        there is a sort of "offshoot" that extends lower than the rest of the distribution. We show in
-                        the paper that this is from <span class="jargon">eccentric systems</span> and so you can
-                        possible identify them from their location in the sensitivity curve. </p>
+                        follows that are most are detected there.
+                    </p>
+                    <p>
+                        Now let's look at the lower panels. It is slightly difficult to see but, if you look closely,
+                        <span class="jargon">BHBHs</span> are detected at lower frequencies than <span
+                            class="jargon">BHNSs</span> and the same is true for <span class="jargon">BHNSs</span>
+                        relative to <span class="jargon">NSNSs</span>. You'll also see this more in the next section.
+                        Finally, in each of the panels you can see there is a sort of "offshoot" that extends lower than
+                        the rest of the distribution. We show in the paper that this is from <span
+                            class="jargon">eccentric systems</span> and so you can possible identify them from their
+                        location in the sensitivity curve.
+                    </p>
                 </div>
                 <div class="subsec">
                     <h4 id="fid_pdfs">Properties of detectable sources</h4>
@@ -348,7 +380,29 @@
                         </div>
                     </figure>
                     <p>
-                        Hello ello ello
+                        Now let's take a look at some of the different parameters of the detectable systems. The plot
+                        shows the distribution of 6 particular parameters for the <span class="jargon">fiducial</span>
+                        model. Note that explaining the distributions that we see can be require quite a lot of
+                        background knowledge so I'm only going to describe what we see in this section and if you want
+                        to read more about <i>why</i> the distributions looks this way then check out Section 3.2 in the
+                        paper. Also note, that you can click on the plot to zoom in!
+                    </p>
+                    <p>
+                        In each panel, there are three curves which show the distribution for a different <span
+                            class="jargon">DCO</span> type. <span class="jargon">BHBHs</span> are purple, <span
+                            class="jargon">BHNSs</span> are pink and <span class="jargon">NSNSs</span> are yellow. In
+                        the first panel (a), we see that the <span class="jargon">orbital frequency</span> is generally
+                        most likely to be on the order of half a millihertz. Importantly, we note that <span
+                            class="jargon">BHBHs</span> are detected at lower frequencies than <span
+                            class="jargon">BHNSs</span>, which are in turn detected at lower frequencies than <span
+                            class="jargon">NSNSs</span>.
+                    </p>
+                    <p>
+                        In the second panel (b), we show the distribution of the black hole mass (and hence <span
+                            class="jargon">NSNSs</span> are not in this panel). A key point from this plot is that there
+                        is a large fraction of systems detected in the <span class="jargon">"lower mass gap"</span> and
+                        we'll discuss the importance of this later on. Another thing to notice is that the <span
+                            class="jargon">BHBH</span> curve
                     </p>
                 </div>
                 <h4 id="gal_dist">Where are detectable sources in the Milky Way?</h4>
@@ -373,8 +427,7 @@
                 <p class="lipsum"></p>
                 <blockquote class="blockquote w-100 float-start">
                     <div class="prequote">&ldquo;</div>
-                    <p>A well-known quote, contained in a blockquote element. What about a very very very very very
-                        long
+                    <p>A well-known quote, contained in a blockquote element. What about a very very very very very long
                         quote that spans over two lines</p>
                 </blockquote>
             </div>
