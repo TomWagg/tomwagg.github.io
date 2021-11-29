@@ -96,9 +96,6 @@
             <ul class="dropdown-menu dropdown-menu-end">
                 <li><a class="dropdown-item" href="#wdwds">Double white dwarf background</a></li>
                 <li><a class="dropdown-item" href="#each_other">Identifying the source</a></li>
-                <li><a class="dropdown-item" href="#ska">Pulsar matching</a></li>
-                <li><a class="dropdown-item" href="#caveats">Caveats</a></li>
-                <li><a class="dropdown-item" href="#other_channels">Other channels</a></li>
             </ul>
         </li>
         <a class="nav-link" href="#comparisons">Comparisons</a>
@@ -743,15 +740,121 @@
                             </div>
                         </div>
                     </figure>
-                    <p class="lipsum"></p>
+                    <p>
+                        Although it is interesting to see how the number of detections is affected by assumptions we
+                        make about binary physics, it would be a mistake to summarise these changes with a single
+                        number. It is also important to examine how the <i>properties</i> of detectable systems change.
+                    </p>
+                    <p>
+                        However, it would be impossible (or, at least, not very pleasant for you to read) to show how
+                        every parameter of the system changes for every model variation. In the paper we focus on three
+                        in particular and I will highlight one of them here (check out Section 4.2 of the paper to see
+                        the others!).
+                    </p>
+                    <p>
+                        An interesting point to consider is whether LISA could be used to put constraints on the
+                        existence of the <span class="jargon">"lower mass gap"</span>. In the plot we show two curves
+                        that show the distribution of the masses of each component in all detectable sources (weighted
+                        by their detections rate, i.e. BHBHs are more important than NSNSs for the curve). Each curve
+                        uses a different <span class="jargon">remnant mass prescription</span>, which is essentially a
+                        set of rules that define what sort of <span class="jargon">compact object</span> a star becomes
+                        when it dies. The grey line uses a prescription that allows systems to be formed at any mass,
+                        whilst the blue line uses a prescription that forbids the formation of systems in the <span
+                            class="jargon">"lower mass gap"</span> (from 2.5 to 5 solar masses).
+                    </p>
+                    <blockquote class="blockquote">
+                        <div class="prequote">&ldquo;</div>
+                        <p>
+                            Over our binary physics variations, approximately 30-70% of LISA detections (or, in terms of
+                            detections, 15 to 156) will have at least one component in the lower mass gap
+                        </p>
+                    </blockquote>
+                    <p>
+                        We see that if systems are formed with component masses in the gap, LISA will be able to detect
+                        them. For our fiducial model, 55% of systems that LISA will detect will have at least one
+                        component in the <span class="jargon">"lower mass gap"</span>. This fraction varies and we find
+                        over our binary physics variations, approximately 30-70% of LISA detections (or, in terms of
+                        detections, 15 to 156) will have at least one component in the lower mass gap. Overall, though
+                        the fraction in the gap varies, if DCOs are formed in the gap, LISA will detect them and thus
+                        LISA could potentially put constraints on the existence of a lower mass gap.
+                    </p>
                 </div>
-                <h2 id="discussion">Discussion</h2>
-                <h4 id="wdwds">How we do we know we're not seeing a double white dwarf?</h4>
-                <h4 id="each_other">What sort of double compact object is it then?</h4>
-                <h4 id="ska">Could we match LISA detections to pulsars in SKA?</h4>
-                <h4 id="caveats">Some caveats about this paper</h4>
-                <h4 id="other_channels">Other formation channels</h4>
+                <h2 id="discussion">Can we identify the nature of every detected source?</h2>
+                <p>
+                    So far we've talk about how many <span class="jargon">BHBHs</span>, <span
+                        class="jargon">BHNSs</span> and <span class="jargon">NSNSs</span> LISA will detect and also what
+                    their properties will be. However, when the signal arrives in LISA we will, of course, not
+                    immediately know what type of <span class="jargon">DCO</span> produced the signal. Let's talk about
+                    some methods we could use to identify the nature of the sources that we investigated.
+                </p>
+                <div class="subsec">
+                    <h4 id="wdwds">How we do we know we're not seeing a double white dwarf?</h4>
+                    <p>
+                        The first important step to take is to distinguish the source from the double white dwarf (<span
+                            class="jargon">WDWD</span>) background in LISA. <span class="jargon">WDWDs</span> are by far
+                        the most prominent type of stellar-mass source in LISA so it could be easy to mistake one of the
+                        more massive <span class="jargon">DCOs</span> for a <span class="jargon">WDWD</span>. There are
+                        two main ways we could tell that a source is <i>not</i> a <span class="jargon">WDWD</span>.
+                    </p>
+                    <div class="subsec">
+                        <p>
+                            <b>Mass</b>: The maximum possible mass of a white dwarf is defined by the Chandrasekhar mass
+                            (about 1.2 solar masses). This means that if we can say with confidence that the total mass
+                            of a
+                            source is greater than twice the Chandrasekhar limit then we know it isn't a double white
+                            dwarf.
+                        </p>
+                        <p>
+                            <b>Eccentricity + sky position</b>: It is expect that <span class="jargon">WDWDs</span> that
+                            are formed within the disc of the galaxy will have little to no eccentricity. Therefore, if
+                            we can confidently state that a source is within the Galactic plane (given its sky position)
+                            and that it is eccentric, then it is not a <span class="jargon">WDWD</span>.
+                        </p>
+                    </div>
+                    <p>
+                        If we combine these two methods and apply them to our <span class="jargon">fiducial</span> model
+                        then we find that, in a 4-year mission, LISA will detect 37 <span class="jargon">BHBHs</span>,
+                        18 <span class="jargon">BHNSs</span> and 5 <span class="jargon">NSNSs</span> that can be
+                        confidently distinguished from <span class="jargon">WDWDs</span>. This means that approximately
+                        half of all detections of more massive <span class="jargon">DCOs</span> in LISA will be
+                        distinguishable from the double white dwarf background.
+                    </p>
+                    <blockquote class="blockquote">
+                        <div class="prequote">&ldquo;</div>
+                        <p>
+                            Approximately half of all detections of more massive DCOs in LISA will be distinguishable
+                            from the double white dwarf background
+                        </p>
+                    </blockquote>
+                </div>
+                <div class="subsec">
+                    <h4 id="each_other">What sort of double compact object is it then?</h4>
+                    <p>
+                        Well, this is where it gets difficult. For discriminating between <span
+                            class="jargon">NSNSs</span> and the <span class="jargon">DCOs</span> that contain a black
+                        hole, we can repeat a similar exercise to what we used for <span class="jargon">WDWDs</span>.
+                        The maximum neutron star mass is around 2.5 solar masses and we can split the population to
+                        systems that don't contain any black holes and those that must contain at least one. For a
+                        4-year mission, this would result in 16 <span class="jargon">BHBH</span>, 7 <span
+                            class="jargon">BHNS</span> and 4 <span class="jargon">NSNS</span> detections where we can
+                        confidently state whether the system contains a black hole
+                    </p>
+                    <p>
+                        Finally, for telling the difference between <span class="jargon">BHNSs</span> and <span
+                            class="jargon">BHBHs</span> it is difficult to say with certainty what the nature of the
+                        source is without an excellent measurement of the mass. One could possibly infer its nature from
+                        the source's frequency or eccentricity but this would only given an indication of which type is
+                        more likely rather than rule one out.
+                    </p>
+                </div>
                 <h2 id="comparisons">How do our results compare to similar studies?</h2>
+                <p>
+                    In Section 6 of the paper, we compare our results to similar studies that were conducted in the
+                    past. I recommend you read that section if you'd like to see what where we think the reasons for our
+                    differences come from. Below I include the table of comparisons that collated and you can examine
+                    the difference between the studies. For reference, in the later columns the darker the shade of
+                    green, the more reasonable/accurate we find the assumption.
+                </p>
                 <figure>
                     <div class="img-fluid position-relative zoom-figure" data-bs-toggle="modal"
                         data-bs-target="#comp_1_modal">
