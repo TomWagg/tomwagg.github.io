@@ -36,6 +36,9 @@ let glossary = {
     "fiducial": "default, but not necessarily favoured",
     "eccentricity": "A measure of how eccentric an orbit is. Eccentricity of 0 means circular and higher eccentricity is more eccentric/elliptical",
     "mass ratio": "Ratio of the masses in a binary system. Masses are more equal the closer this is to 1",
+    "snr": "Signal-to-noise ratio",
+    "snrs": "Signal-to-noise ratios",
+    "chirp mass": "A quantity that combines the two masses of a binary, it is often used in gravitational wave measurements"
 };
 
 window.addEventListener("load", function () {

@@ -249,7 +249,7 @@
                                         <button type="button" class="btn-close" data-bs-dismiss="modal"
                                             aria-label="Close"></button>
                                     </div>
-                                    <div class="modal-body">
+                                    <div class="modal-body text-center">
                                         <img src="../img/galactic_dco_paper/galaxy_diagram.png" class="img-fluid">
                                     </div>
                                 </div>
@@ -319,8 +319,8 @@
                                         <button type="button" class="btn-close" data-bs-dismiss="modal"
                                             aria-label="Close"></button>
                                     </div>
-                                    <div class="modal-body"> <img src="../img/galactic_dco_paper/dcos_on_sc.png"
-                                            class="img-fluid"> </div>
+                                    <div class="modal-body text-center"> <img
+                                            src="../img/galactic_dco_paper/dcos_on_sc.png" class="img-fluid"> </div>
                                 </div>
                             </div>
                         </div>
@@ -376,7 +376,7 @@
                                         <button type="button" class="btn-close" data-bs-dismiss="modal"
                                             aria-label="Close"></button>
                                     </div>
-                                    <div class="modal-body">
+                                    <div class="modal-body text-center">
                                         <img src="../img/galactic_dco_paper/detectable_properties_4yr.png"
                                             class="img-fluid">
                                     </div>
@@ -443,10 +443,160 @@
                         years to merge.
                     </p>
                 </div>
-                <h4 id="gal_dist">Where are detectable sources in the Milky Way?</h4>
-                <p class="lipsum"></p>
-                <h4 id="measurements">How well can we measure these sources?</h4>
-                <p class="lipsum"></p>
+                <div class="subsec">
+                    <h4 id="gal_dist">Where are detectable sources in the Milky Way?</h4>
+                    <figure>
+                        <div class="img-fluid-limited float-end position-relative zoom-figure ms-2"
+                            data-bs-toggle="modal" data-bs-target="#gal_det_modal">
+                            <img src="../img/galactic_dco_paper/galaxy_density_distribution.png"
+                                class="img-fluid zoom-figure">
+                            <div class="img-overlay">
+                                <p class="m-0 fw-bold">Click to Zoom</p>
+                            </div>
+                        </div>
+                        <div class="modal fade" id="gal_det_modal" tabindex="-1">
+                            <div class="modal-dialog modal-fullscreen">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                            aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body text-center">
+                                        <img src="../img/galactic_dco_paper/galaxy_density_distribution.png"
+                                            class="img-fluid">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </figure>
+                    <p>
+                        So we've talked about what the sources are like, and where they lie in relation to the
+                        sensitivity curve, but what about something more intuitive like where they are in the Milky Way?
+                    </p>
+                    <p>
+                        The plot shows how the detectable systems are distributed in the Milky Way with a face-on view.
+                        First some quick notes on how the plot is set up: the axes are centred on the Galactic centre,
+                        (0, 0) kpc, and I've added some black lines to guide your eye. You can also see a small circle
+                        with a dot in it, this represents the location of the solar system.
+                    </p>
+                    <p>
+                        The blue density distribution (and points) show where all detectable <span
+                            class="jargon">DCO</span> types are found. As expected the peak is in the Galactic centre,
+                        since that is where most systems are formed. There is also a slight bias where the peak is not
+                        <i>quite</i> in the centre and is actually slightly closer to the solar system. This is because
+                        systems that are closer to LISA are easier to detect and so we are more likely to detect them
+                        closer to us. The coloured lines show where 90% of each individual <span
+                            class="jargon">DCO</span> type is found, where <span class="jargon">BHBHs</span> and <span
+                            class="jargon">BHNSs</span> are fairly similar, though <span class="jargon">NSNSs</span> can
+                        be detected a slightly larger distances.
+                    </p>
+                </div>
+                <div class="subsec">
+                    <h4 id="measurements">How well can we measure these sources?</h4>
+                    <p>
+                        An important question to ask is how well can we measure these sources. It's all well and good
+                        that we can predict from simulations what the properties of the detectable systems, but we also
+                        need to know what LISA will actually measure. In a series of plots below, I've shown you the
+                        distribution of signal-to-noise ratios, the error on the chirp mass and the angular resolution
+                        as cumulative distributions that are scaled to the expected number of detections in our <span
+                            class="jargon">fiducial</span> model. This means that the y-value at any given x-value tells
+                        you how many detections have that x-value or less.
+                    </p>
+                    <p>
+                        The signal-to-noise ratio plot shows that many systems are detected with an <span
+                            class="jargon">SNR</span> less than or equal to 10 and won't be very well measured. However,
+                        we also see that there <i>are</i> sources with very high <span class="jargon">SNRs</span> (up to
+                        hundreds!). The second plot shows how well could measure the <span class="jargon">chirp
+                            mass</span>, which is a quantity that combines the two masses of a binary in a certain way.
+                        The way to read this plot is that only systems out of the dark shaded regions have <span
+                            class="jargon">chirp masses</span> that can be measured at all and only systems outside of
+                        the shaded regions can be well measured (with at most 10% errors). Finally, the last plot shows
+                        how well we can resolve a source on the sky (i.e. work out what direction it came from). To give
+                        you a useful comparison, the angular size of the moon on the sky is about half a degree. So you
+                        can see that in a 10 year mission, about 25 sources can be localised to a region that is no
+                        bigger than the size of the moon in the night sky.
+                    </p>
+                    <div class="row">
+                        <div class="col-12 col-md-4">
+                            <figure>
+                                <div class="img-fluid-limited float-end position-relative zoom-figure ms-2"
+                                    data-bs-toggle="modal" data-bs-target="#snr_modal">
+                                    <img src="../img/galactic_dco_paper/snr_cumulative_all.png"
+                                        class="img-fluid zoom-figure">
+                                    <div class="img-overlay">
+                                        <p class="m-0 fw-bold">Click to Zoom</p>
+                                    </div>
+                                </div>
+                                <div class="modal fade" id="snr_modal" tabindex="-1">
+                                    <div class="modal-dialog modal-fullscreen">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                    aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body text-center">
+                                                <img src="../img/galactic_dco_paper/snr_cumulative_all.png"
+                                                    class="img-fluid">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </figure>
+                        </div>
+                        <div class="col-12 col-md-4">
+                            <figure>
+                                <div class="img-fluid-limited float-end position-relative zoom-figure ms-2"
+                                    data-bs-toggle="modal" data-bs-target="#chirp_modal">
+                                    <img src="../img/galactic_dco_paper/chirp_mass_uncertainty_all.png"
+                                        class="img-fluid zoom-figure">
+                                    <div class="img-overlay">
+                                        <p class="m-0 fw-bold">Click to Zoom</p>
+                                    </div>
+                                </div>
+                                <div class="modal fade" id="chirp_modal" tabindex="-1">
+                                    <div class="modal-dialog modal-fullscreen">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                    aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body text-center">
+                                                <img src="../img/galactic_dco_paper/chirp_mass_uncertainty_all.png"
+                                                    class="img-fluid">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </figure>
+                        </div>
+                        <div class="col-12 col-md-4">
+                            <figure>
+                                <div class="img-fluid-limited float-end position-relative zoom-figure ms-2"
+                                    data-bs-toggle="modal" data-bs-target="#ang_modal">
+                                    <img src="../img/galactic_dco_paper/angular_resolution_all.png"
+                                        class="img-fluid zoom-figure">
+                                    <div class="img-overlay">
+                                        <p class="m-0 fw-bold">Click to Zoom</p>
+                                    </div>
+                                </div>
+                                <div class="modal fade" id="ang_modal" tabindex="-1">
+                                    <div class="modal-dialog modal-fullscreen">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                    aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body text-center">
+                                                <img src="../img/galactic_dco_paper/angular_resolution_all.png"
+                                                    class="img-fluid">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </figure>
+                        </div>
+                    </div>
+                </div>
                 <h2 id="resultsII">How does varying our physics assumptions change the results?</h2>
                 <p class="lipsum"></p>
                 <h4 id="det_rates">Effect on the detection rate</h4>
