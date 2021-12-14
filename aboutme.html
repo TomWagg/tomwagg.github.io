@@ -73,7 +73,7 @@
                 <a class="js-scroll-trigger" href="#publications">Publications</a>
             </li>
             <li class="sidebar-nav-item">
-                <a class="js-scroll-trigger" href="#talks">Talks</a>
+                <a class="js-scroll-trigger" href="#presentations">Presentations</a>
             </li>
             <li class="sidebar-nav-item">
                 <a class="js-scroll-trigger" href="#education">Education</a>
@@ -724,24 +724,77 @@
         </div>
     </section>
 
-    <section class="content-section bg-light py-5" id="talks">
+    <section class="content-section bg-light py-5" id="presentations">
         <div class="content-section-heading text-center mb-4">
-            <h1 class="d-inline-block subtitle mb-4 display-3">Talks</h1>
-            <h5>A list of invited talks that I've given</h5>
+            <h1 class="d-inline-block subtitle mb-4 display-3">Presentations</h1>
+            <h5>A list of presentations that I've given about my research</h5>
         </div>
-        <div class="container">
-            <div class="row">
-                <div class="col">
-                    List will go here
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col text-center">
+                    <div class="presentation group-presentation">
+                        <span class="title">Gravitational wave sources in our Galactic backyard: Predictions for BHBH, BHNS and NSNS binaries detectable with LISA</span><span class="group">LISA Community Telecon</span><span class="date">December 2021</span>
+                    </div>
+                    <div class="presentation group-presentation">
+                        <span class="title">Gravitational wave sources in our Galactic backyard: Predictions for BHBH, BHNS and NSNS binaries detectable with LISA</span><span class="group">SESTAS Seminar at Max Planck Institute</span><span class="date">November 2021</span>
+                    </div>
+                    <div class="presentation group-presentation">
+                        <span class="title">LEGWORK: A python package for computing the evolution and detectability of stellar-origin gravitational-wave sources with space-based detectors</span><span class="group">TianQin Research Center for Gravitational Physics</span><span class="date">November 2021</span>
+                    </div>
+                    <div class="presentation conference-presentation">
+                        <span class="title">Predictions for detecting BH-NS binaries with LISA</span><span class="session">Where are the BH-NS binaries?</span><span class="conference">EAS 2021</span><span class="date">June 2021</span>
+                    </div>
+                    <div class="presentation group-presentation">
+                        <span class="title">LEGWORK: A python package for computing the evolution and detectability of stellar-origin gravitational-wave sources with space-based detectors</span><span class="group">CCA Gravitational Wave Group Meeting</span><span class="date">May 2021</span>
+                    </div>
+                    <div class="presentation conference-presentation">
+                        <span class="title">Black Hole—Neutron Star Binaries in LISA</span><span class="session">Stellar Multiples and Planets</span><span class="conference">The 13th International LISA Symposium</span><span class="date">September 2020</span>
+                    </div>
                 </div>
             </div>
             <div class="row justify-content-center">
                 <div class="col-12 col-md-4">
-                    <img class="img-fluid very-rounded" src="img/presentation_backyard.png">
+                    <div class="img-fluid position-relative zoom-figure very-rounded" data-toggle="modal" data-target="#backyard_modal">
+                        <img src="img/presentation_backyard.png" class="img-fluid very-rounded">
+                        <div class="img-overlay very-rounded">
+                            <p class="m-0 fw-bold">Click to Zoom</p>
+                        </div>
+                    </div>
+                    <div class="modal fade" id="backyard_modal" tabindex="-1">
+                        <div class="modal-dialog modal-fullscreen">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                </div>
+                                <div class="modal-body text-center">
+                                    <img src="img/presentation_backyard.png" class="img-fluid">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     <p class="text-center">Galactic DCO paper presentation</p>
                 </div>
                 <div class="col-12 col-md-4">
-                    <img class="img-fluid very-rounded" src="img/presentation_legwork.png" style="border: 3px solid #114864;">
+                    <div class="img-fluid position-relative zoom-figure very-rounded" data-toggle="modal" data-target="#legwork_pres_modal">
+                        <img src="img/presentation_legwork.png" class="img-fluid very-rounded" style="border: 3px solid #114864;">
+                        <div class="img-overlay very-rounded">
+                            <p class="m-0 fw-bold">Click to Zoom</p>
+                        </div>
+                    </div>
+                    <div class="modal fade" id="legwork_pres_modal" tabindex="-1">
+                        <div class="modal-dialog modal-fullscreen">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                </div>
+                                <div class="modal-body text-center">
+                                    <img src="img/presentation_legwork.png" class="img-fluid">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     <p class="text-center">LEGWORK presentation</p>
                 </div>
             </div>
