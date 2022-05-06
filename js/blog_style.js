@@ -71,10 +71,6 @@ window.addEventListener("load", function () {
     });
 
     let conclusions = document.getElementById('conclusion-carousel');
-    new bootstrap.Carousel(conclusions, {
-        interval: false
-    })
-
     conclusions.addEventListener('slide.bs.carousel', function (e) {
         document.querySelector(".conclusion-toggle.active").classList.remove("active");
         document.querySelectorAll(".conclusion-toggle")[e.to].classList.add("active");
