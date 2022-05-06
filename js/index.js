@@ -1,3 +1,9 @@
+var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+  return new bootstrap.Tooltip(tooltipTriggerEl)
+})
+
+
 // flip the profile image every time the mouse 'flicks' it
 document.querySelector("img.profile").addEventListener("mouseout", function (e) {
     this.classList.toggle("flip");
@@ -6,7 +12,7 @@ document.querySelector("img.profile").addEventListener("mouseout", function (e) 
 // make projects bounce in, in sequence
 let i = 0;
 document.querySelectorAll(".project").forEach(function (el) {
-    setTimeout(function() {
+    setTimeout(function () {
         el.classList.add("visible")
         animateCSS(el, "fadeIn");
     }, i * 100);
@@ -14,14 +20,14 @@ document.querySelectorAll(".project").forEach(function (el) {
 });
 
 // social link clickers
-document.querySelectorAll(".social-link").forEach(function(el) {
-    el.addEventListener("click", function() {
+document.querySelectorAll(".social-link").forEach(function (el) {
+    el.addEventListener("click", function () {
         this.children[0].click();
     });
 });
 
-document.querySelectorAll(".research-projects .project").forEach(function(el) {
-    el.addEventListener("click", function() {
+document.querySelectorAll(".research-projects .project").forEach(function (el) {
+    el.addEventListener("click", function () {
         const research_details = document.getElementById("research_details");
         if (research_details.classList.contains("show")) {
             research_details.classList.remove("show");
@@ -39,12 +45,12 @@ document.querySelectorAll(".research-projects .project").forEach(function(el) {
             if (old_details !== null) {
                 old_details.classList.add("hide");
             }
-            
+
             // switch to new details
             details = document.getElementById(el.getAttribute("data-details"));
             research_details.classList.add("show");
             resizeDetails(details);
-            
+
             $('html, body').animate({
                 scrollTop: $("#projects").position().top + $("#projects").outerHeight(true)
             }, 1000);
@@ -62,15 +68,15 @@ function resizeDetails(details) {
     research_details.style.height = height.toString() + "px";
 }
 
-window.addEventListener('resize', function(event) {
+window.addEventListener('resize', function (event) {
     details = document.querySelector("#research_details .details:not(.hide)");
     if (details !== null) {
         resizeDetails(details);
     }
 });
 
-document.querySelectorAll("#research_details .open-close").forEach(function(el) {
-    el.addEventListener("click", function() {
+document.querySelectorAll("#research_details .open-close").forEach(function (el) {
+    el.addEventListener("click", function () {
         document.getElementById("research_details").classList.remove("show");
         document.getElementById("research_details").style.height = "0px";
         setTimeout(() => {
