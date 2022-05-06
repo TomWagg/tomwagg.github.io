@@ -69,4 +69,12 @@ window.addEventListener("load", function () {
         el.setAttribute("title", explanation);
         new bootstrap.Tooltip(el)
     });
+
+    let conclusions = document.getElementById('conclusion-carousel');
+
+    conclusions.addEventListener('slide.bs.carousel', function (e) {
+        document.querySelector(".conclusion-toggle.active").classList.remove("active");
+        document.querySelectorAll(".conclusion-toggle")[e.to].classList.add("active");
+    })
+
 });
