@@ -239,3 +239,7 @@ h4:before {
     border-radius: 10px;
     margin: 5px 0px;
 }
+
+.carousel, .carousel-inner, .carousel-item, .carousel-item p, .carousel-item .row {
+    height: 100%;
+}
