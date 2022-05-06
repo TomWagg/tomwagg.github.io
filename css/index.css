@@ -174,3 +174,16 @@ footer.footer .social-link:active {
 .project-link:active {
     color: var(--primary-dark);
 }
+
+.btn.btn-primary {
+    background-color: var(--primary);
+    border: none;
+}
+
+.btn.btn-primary:hover {
+    background-color: var(--primary-dark);
+}
+
+.btn.btn-primary:active {
+    background-color: var(--primary-dark);
+}
