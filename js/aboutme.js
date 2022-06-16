@@ -1,7 +1,7 @@
 $(function () {
     // open the bib file
     let rawFile = new XMLHttpRequest();
-    rawFile.open("GET", "../html/papers.bib", false);
+    rawFile.open("GET", "../html/papers.bib");
     rawFile.onreadystatechange = function () {
         if (rawFile.readyState === 4) {
             if (rawFile.status === 200 || rawFile.status == 0) {
