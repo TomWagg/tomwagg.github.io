@@ -143,13 +143,12 @@ footer.footer .social-link {
 
 footer.footer .social-link.fa-github {
     border-radius: 100%;
-    height: 78.5px;
 }
 
 footer.footer .social-link.fa-linkedin,
 footer.footer .social-link.fa-twitter-square {
     border-radius: 10px;
-    line-height: 70px;
+    line-height: 50px;
 }
 
 footer.footer .social-link:hover {
