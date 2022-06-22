@@ -121,6 +121,14 @@ function animateCSS(element, animationName, callback) {
     });
 }
 
+document.querySelector("#dark-mode-checkbox").addEventListener("change", function () {
+    if (this.checked) {
+        dark_mode("52");
+    } else {
+        light_mode();
+    }
+});
+
 // define a series of SECRET cheat codes :D
 const cheat_codes = [
     {
@@ -298,6 +306,9 @@ function matrix() {
 function light_mode() {
     document.body.style.backgroundColor = "white";
     document.body.style.color = "black";
+    document.querySelectorAll(".dark-mode-label svg").forEach((el) => {
+        el.style.filter = "";
+    });
     document.querySelectorAll(".research-projects .project .project-description").forEach((el) => {
         el.style.backgroundColor = "rgba(255, 255, 255, 0.9)";
     });
@@ -306,6 +317,9 @@ function light_mode() {
 function dark_mode(blackRGB = "0") {
     document.body.style.backgroundColor = "rgb(" + blackRGB + "," + blackRGB + "," + blackRGB + ")";
     document.body.style.color = "white";
+    document.querySelectorAll(".dark-mode-label svg").forEach((el) => {
+        el.style.filter = "invert(100%)";
+    });
     document.querySelectorAll(".research-projects .project .project-description").forEach((el) => {
         el.style.backgroundColor = "rgba(" + blackRGB + "," + blackRGB + "," + blackRGB + ", 0.9)";
     });
