@@ -134,6 +134,15 @@ const cheat_codes = [
         callback: nyan_time,
     },
     {
+        code: ["\\", "b", "a", "r", "r", "e", "l"],
+        index: 0,
+        callback: function () {
+            document.querySelectorAll(".nyan").forEach((el) => {
+                el.classList.add("barrel");
+            });
+        },
+    },
+    {
         code: ["\\", "m", "a", "t", "r", "i", "x"],
         index: 0,
         callback: matrix,

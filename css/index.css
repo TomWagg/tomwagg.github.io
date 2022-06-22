@@ -197,10 +197,15 @@ footer.footer .social-link:active {
     -o-animation: nyan 3s;
     webkit-animation-fill-mode: forwards;
     animation-timing-function: linear;
+    transition: 1s;
 }
 
 .nyan img {
     height: 80px;
+}
+
+.barrel {
+    transform: rotateX(720deg);
 }
 
 @keyframes nyan {
