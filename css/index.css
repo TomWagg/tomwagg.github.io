@@ -200,8 +200,22 @@ footer.footer .social-link:active {
     transition: 1s;
 }
 
+.rick {
+    transform: rotateY(180deg);
+    filter: hue-rotate(180deg);
+    cursor: pointer;
+}
+
 .nyan img {
     height: 80px;
+}
+
+.nyan-matrix {
+    filter: invert(67%) sepia(82%) saturate(6228%) hue-rotate(81deg) brightness(119%) contrast(123%);
+}
+
+.nyan-matrix.rick {
+    filter: invert(67%) sepia(82%) saturate(6228%) hue-rotate(361deg) brightness(119%) contrast(123%);
 }
 
 .barrel {

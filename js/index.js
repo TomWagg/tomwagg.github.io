@@ -219,12 +219,13 @@ function nyan_time() {
                 a.target = "_blank";
                 a.appendChild(nyan);
                 div.appendChild(a);
-                div.style.transform = "rotateY(180deg)";
-                div.style.filter = "hue-rotate(180deg)";
-                div.style.cursor = "pointer";
+                div.classList.add("rick");
             } else {
-                // div.innerText = "DIE";
                 div.appendChild(nyan);
+            }
+
+            if (matrix_interval !== undefined) {
+                div.classList.add("nyan-matrix");
             }
 
             document.querySelector("#nyans").appendChild(div);
@@ -245,6 +246,10 @@ function matrix() {
     document.documentElement.style.setProperty("--primary", "#14b31e");
     document.documentElement.style.setProperty("--primary-light", "#54b85b");
     document.documentElement.style.setProperty("--primary-dark", "#017809");
+
+    document.querySelectorAll(".nyan:not(.nyan-matrix)").forEach((el) => {
+        el.classList.add("nyan-matrix");
+    });
 
     // the following is a slightly modified version of this codepen!
     // https://codepen.io/yaclive/pen/EayLYO?__cf_chl_tk=SYdhj77pFJIfZWJc2_jCh9DAIqJ5gn4W7DEBBrAAv2A-1655876564-0-gaNycGzNDH0
@@ -314,6 +319,7 @@ function reset_cheats() {
     document.documentElement.style.setProperty("--primary-dark", "#186280");
     if (matrix_interval != undefined) {
         clearInterval(matrix_interval);
+        matrix_interval = undefined;
 
         let canvas = document.querySelector("#matrix-box");
         const ctx = canvas.getContext("2d");
@@ -330,6 +336,7 @@ function reset_cheats() {
 
     if (nyans_interval !== undefined) {
         clearInterval(nyans_interval);
+        nyans_interval = undefined;
     }
 
     document.querySelector("img.profile").src = "img/circle_me.png";
