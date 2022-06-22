@@ -1,12 +1,13 @@
 /* General stuff for everywhere */
 :root {
-    --primary: #1995c6bd;
+    --primary: #50a3c4;
     --primary-light: #6cc7eaa3;
     --primary-dark: #186280;
 }
 
 body {
-    font-family: 'Lato', sans-serif;
+    font-family: "Lato", sans-serif;
+    transition: 500ms;
 }
 
 .hide {
@@ -40,7 +41,6 @@ a:hover,
         margin-left: 25px;
     }
 }
-
 
 h2:before,
 h4:before {
@@ -121,7 +121,7 @@ h4:before {
     margin-left: 25px;
 }
 
-.blockquote>.prequote {
+.blockquote > .prequote {
     position: absolute;
     z-index: 1;
     font-size: 50px;
@@ -130,7 +130,7 @@ h4:before {
     top: -18px;
 }
 
-.blockquote>p {
+.blockquote > p {
     font-weight: 700;
     font-size: 1.25rem;
     z-index: 2;
@@ -161,7 +161,7 @@ h4:before {
 }
 
 .nav-pills .nav-link.active,
-.nav-pills .show>.nav-link,
+.nav-pills .show > .nav-link,
 .nav-pills .dropdown-item.active,
 .nav-pills .dropdown-item:active {
     color: white;
@@ -173,7 +173,7 @@ h4:before {
 }
 
 .jargon {
-    color: #ABCD84;
+    color: #abcd84;
     font-weight: normal;
     white-space: nowrap;
 }
@@ -230,7 +230,8 @@ h4:before {
     background-color: var(--primary-dark);
 }
 
-.btn.btn-primary:active, .btn.btn-primary.active {
+.btn.btn-primary:active,
+.btn.btn-primary.active {
     background-color: var(--primary-dark);
 }
 
@@ -240,6 +241,84 @@ h4:before {
     margin: 5px 0px;
 }
 
-.carousel, .carousel-inner, .carousel-item, .carousel-item p, .carousel-item .row {
+.carousel,
+.carousel-inner,
+.carousel-item,
+.carousel-item p,
+.carousel-item .row {
     height: 100%;
+}
+
+/* Dark mode: I copied/modified this from https://animate.style/ */
+.dark-mode-label #dark-mode-checkbox {
+    position: absolute;
+    visibility: hidden;
+}
+
+.dark-mode-label {
+    display: block;
+    height: 31px;
+    width: 60px;
+    background-color: white;
+    border: 2px solid var(--primary);
+    border-radius: 30px;
+    position: fixed;
+    left: 10px;
+    top: 55px;
+    cursor: pointer;
+    z-index: 10;
+}
+
+.dark-mode-label .dark-mode-ball {
+    position: absolute;
+    width: 25px;
+    height: 25px;
+    top: 1px;
+    left: 1px;
+    border-radius: 50%;
+    background: var(--primary);
+    z-index: 99;
+    transition: 300ms;
+}
+
+.dark-mode-label #dark-mode-checkbox:checked + .dark-mode-ball {
+    transform: translateX(28px);
+}
+
+.moon-svg,
+.sun-svg {
+    width: 16px;
+    height: 16px;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.moon-svg {
+    right: 5px;
+}
+
+.sun-svg {
+    left: 5px;
+}
+
+.dark .dark-mode-label svg {
+    filter: invert(100%);
+}
+
+.dark .dark-mode-label {
+    background: none;
+}
+
+body.dark {
+    background-color: #333;
+    color: white;
+}
+
+.dark .img-overlay {
+    background-color: #333;
+}
+
+.dark .progress-container {
+    background-color: #4a4a4a;
 }
