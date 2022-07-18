@@ -1,59 +1,86 @@
 <!DOCTYPE html>
 <html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="Personal Website for Tom Wagg" />
+        <meta name="author" content="Tom Wagg" />
 
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="Personal Website for Tom Wagg">
-    <meta name="author" content="Tom Wagg">
+        <title>Articulate Spinner</title>
+        <link href="../img/icon.png" rel="icon" />
 
-    <title>Articulate Spinner</title>
-    <link href="img/icon.png" rel="icon">
+        <!-- Bootstrap -->
+        <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css"
+            rel="stylesheet"
+            integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl"
+            crossorigin="anonymous" />
 
-    <!-- Bootstrap -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+        <!-- icons and fonts -->
+        <script src="https://kit.fontawesome.com/328d20ce71.js" crossorigin="anonymous"></script>
+        <link rel="preconnect" href="https://fonts.gstatic.com" />
+        <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;700;900&display=swap" rel="stylesheet" />
 
-    <!-- icons and fonts -->
-    <script src="https://kit.fontawesome.com/328d20ce71.js" crossorigin="anonymous"></script>
-    <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;700;900&display=swap" rel="stylesheet">
+        <!-- random css -->
+        <link href="../css/animate.css" rel="stylesheet" />
+        <link href="../css/index.css" rel="stylesheet" />
+    </head>
 
-    <!-- random css -->
-    <link href="css/animate.css" rel="stylesheet">
-    <link href="css/index.css" rel="stylesheet">
-</head>
+    <body>
+        <style>
+            #colour {
+                font-weight: 900;
+            }
 
-<body>
-    <style>
-        #colour {
-            font-weight: 900;
-        }
-    </style>
+            body {
+                background: url("../img/table.jpg");
+            }
 
-    <div class="container">
-        <div class="row mt-4">
-            <div class="col text-center">
-                <h1 style="font-size: 70px;">Articulate Spinner!!</h1>
+            canvas#spinner {
+                width: 600px;
+                height: 600px;
+            }
+
+            #result {
+                background: #ffffffb0;
+                border-radius: 25px;
+                margin: 20px;
+                padding: 20px;
+                transition: opacity 0.3s;
+            }
+
+            #result p {
+                margin: 0;
+            }
+
+            #result.hide-content {
+                opacity: 0;
+            }
+        </style>
+
+        <div class="container-fluid">
+            <div class="row justify-content-center align-items-center">
+                <div class="col-7">
+                    <canvas id="spinner"></canvas>
+                </div>
+                <div class="col-4 text-center py-2">
+                    <button id="spin" class="btn btn-light btn-lg fs-1 hide">Spin</button>
+                    <div id="result" class="hide">
+                        <p style="font-size: 30px">You got <span id="colour" style="color: darkred">red</span></p>
+                        <p style="font-size: 20px">That means: <span id="explanation">nothing</span></p>
+                    </div>
+                </div>
             </div>
         </div>
-        <div class="row mt-4">
-            <div class="col text-center" style="font-size: 30px;">
-                <p>
-                    You got <span id="colour">orange (nothing)!</span>
-                </p>
-                <button id="spin" class="btn btn-info btn-lg">Spin</button>
-            </div>
-        </div>
-    </div>
 
-    <div id="javascriptbox">
-        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js"
-            integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous">
-        </script>
-        <script src="../js/articulate.js"></script>
-        <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML' async>
-        </script>
-    </div>
-</body>
+        <div id="javascriptbox">
+            <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+            <script
+                src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js"
+                integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0"
+                crossorigin="anonymous"></script>
+            <script src="../js/articulate.js"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML" async></script>
+        </div>
+    </body>
+</html>
