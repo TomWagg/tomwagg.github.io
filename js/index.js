@@ -1,5 +1,5 @@
-var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
-var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+let tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+let tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
     return new bootstrap.Tooltip(tooltipTriggerEl);
 });
 
@@ -171,6 +171,13 @@ const cheat_codes = [
         code: ["\\", "r", "e", "s", "e", "t"],
         index: 0,
         callback: reset_cheats,
+    },
+    {
+        code: ["\\", "a", "r", "t", "i", "c", "u", "l", "a", "t", "e"],
+        index: 0,
+        callback: function () {
+            window.location.href = "html/articulate.html";
+        },
     },
 ];
 
