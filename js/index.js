@@ -179,6 +179,13 @@ const cheat_codes = [
             window.location.href = "html/articulate.html";
         },
     },
+    {
+        code: ["\\", "b", "a", "l", "l", "s"],
+        index: 0,
+        callback: function () {
+            window.location.href = "html/balls.html";
+        },
+    },
 ];
 
 // detect whether cheat codes are occurring

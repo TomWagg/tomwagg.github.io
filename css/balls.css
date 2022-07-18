@@ -1,0 +1,73 @@
+body,
+html {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+}
+
+body {
+    font-family: "Lato", sans-serif;
+    color: grey;
+    transition: 500ms;
+    overflow-x: hidden;
+}
+
+body.light-mode {
+    color: black;
+}
+
+h1 {
+    margin: 0;
+}
+
+.hide {
+    opacity: 0 !important;
+}
+
+canvas#ball-game {
+    position: absolute;
+    top: 0px;
+    height: 100%;
+    width: 100%;
+    background-color: #333;
+    opacity: 0.95;
+}
+
+canvas#ball-game.light-mode {
+    background-color: white;
+}
+
+#ball-score {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    text-align: center;
+}
+
+#ball-score h1 {
+    margin-top: 1rem;
+}
+
+.scores {
+    font-size: 4rem;
+    font-weight: bold;
+}
+
+#player-1-score {
+    margin-right: 1rem;
+    color: #0095dd;
+}
+
+#player-2-score {
+    margin-left: 1rem;
+    color: red;
+}
+
+#message {
+    position: absolute;
+    top: 52%;
+    width: 100%;
+    text-align: center;
+    opacity: 1;
+    transition: opacity 500ms;
+}
