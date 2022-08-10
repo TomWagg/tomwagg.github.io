@@ -339,6 +339,11 @@ function dark_mode(blackRGB = "0") {
     });
 }
 
+const now = new Date();
+if (now.getHours() > 18) {
+    document.querySelector("#dark-mode-checkbox").click();
+}
+
 function reset_cheats() {
     document.body.classList.remove("rainbow");
     light_mode();
