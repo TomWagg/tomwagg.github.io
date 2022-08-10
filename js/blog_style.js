@@ -76,12 +76,4 @@ window.addEventListener("load", function () {
         document.querySelector(".conclusion-toggle.active").classList.remove("active");
         document.querySelectorAll(".conclusion-toggle")[e.to].classList.add("active");
     });
-
-    document.querySelector("#dark-mode-checkbox").addEventListener("change", function () {
-        if (this.checked) {
-            document.body.classList.add("dark");
-        } else {
-            document.body.classList.remove("dark");
-        }
-    });
 });
