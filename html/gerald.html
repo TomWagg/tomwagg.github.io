@@ -53,6 +53,15 @@
                 background: #333;
                 color: white;
             }
+
+            .dark .tooltip-inner {
+                background: white;
+                color: black;
+            }
+
+            .dark .tooltip-arrow::before {
+                border-top-color: white;
+            }
         </style>
     </head>
 
@@ -72,8 +81,8 @@
             </svg>
         </label>
 
-        <div class="container">
-            <div class="row mt-4 mb-5 align-items-center">
+        <div class="container mt-4 mb-5">
+            <div class="row mb-5 align-items-center">
                 <div class="col-12 col-md-3">
                     <img class="img-fluid" src="../img/gerald.png" />
                 </div>
@@ -85,7 +94,7 @@
             <div class="row mt-5">
                 <h1 class="fw-bold">Who's Gerald?</h1>
                 <p class="fs-5">
-                    <a href="https://github.com/TomWagg/gerald">Gerald</a> is a Slack bot made for the UW Astrograds slack workspace. He hangs around trying to make your life easier/occasionally make
+                    <a href="https://github.com/TomWagg/gerald">Gerald</a> is a Slack bot that I made for the UW Astrograds slack workspace. He hangs around trying to make your life easier/occasionally make
                     you laugh with his shenanigans. I designed him for fun but I hope he can actually be useful too 🙃
                 </p>
             </div>
@@ -105,9 +114,9 @@
                         give the person a birthday GIF, how thoughtful.
                     </p>
                     <p class="fs-5">
-                        <code>whinetime_workflow</code> - Finally, if he notices it is Monday he'll first groan internally because Mondays and then pick a random grad to host whinetime this week.
+                        <code>whinetime_workflow</code> - Finally, if he notices it is Monday he'll first groan internally (because Mondays) and then pick a random grad to host whinetime this week.
                         He'll send that person a message in the whinetime channel and let them select the day/time/location (or let them give up the job for this week). After the host has set up the
-                        logistic Gerald will announce to everyone what the plan is and send automated reminders as the date gets closer.
+                        logistics Gerald will announce to everyone what the plan is and send automated reminders as the day gets closer.
                     </p>
                 </div>
 
@@ -120,12 +129,33 @@
 
                 <div class="ms-4">
                     <p class="fs-5">
-                        <code>upcoming_birthdays</code> - Keywords: <span class="kw">next</span>, <span class="kw">birthday</span> - Gerald can tell you whose birthday is next as well as how far away it is
+                        <code>upcoming_birthdays</code> - Keywords: <span class="kw">next</span>, <span class="kw">birthday</span> - Gerald can tell you whose birthday is next, as well as how far away it is
                         <p class="example">
                             @Gerald, whose birthday is next?
                         </p>
                         <p class="example">
                             Who has the next birthday @Gerald?
+                        </p>
+                    </p>
+                    <p class="fs-5">
+                        <code>recent_papers</code> - Keywords: <span class="kw">recent</span>, <span class="kw">latest</span>, <span class="kw">paper(s)</span> - Request that Gerald find the latest <code>n</code> papers from any user, any ORCID ID or for yourself
+                        <p class="example">
+                            @Gerald show me @TomWagg's latest paper!
+                        </p>
+                        <p class="example">
+                            Could you get me the 3 most recent papers from 0000-0001-6147-5761 please @Gerald?
+                        </p>
+                        <p class="example">
+                            @Gerald, let's see my most recent paper!
+                        </p>
+                    </p>
+                    <p class="fs-5">
+                        <code>iq_test</code> - Keywords: <span class="kw">smart</span>, <span class="kw">intelligent</span>, <span class="kw">brain</span>, <span class="kw">you</span>, <span class="kw">your</span> - Ask Gerald how smart he is and he'll give you some snarky reply
+                        <p class="example">
+                            @Gerald how smart are you?
+                        </p>
+                        <p class="example">
+                            How big is your brain @Gerald?
                         </p>
                     </p>
                     <p class="fs-5">
@@ -141,27 +171,6 @@
                         </p>
                         <p class="example">
                             When are everyone's birthdays @Gerald?
-                        </p>
-                    </p>
-                    <p class="fs-5">
-                        <code>iq_test</code> - Keywords: <span class="kw">smart</span>, <span class="kw">intelligent</span>, <span class="kw">brain</span>, <span class="kw">you</span>, <span class="kw">your</span> - Ask Gerald how smart he is and he'll give you some snarky reply
-                        <p class="example">
-                            @Gerald how smart are you?
-                        </p>
-                        <p class="example">
-                            How big is your brain @Gerald?
-                        </p>
-                    </p>
-                    <p class="fs-5">
-                        <code>recent_papers</code> - Keywords: <span class="kw">recent</span>, <span class="kw">latest</span>, <span class="kw">paper(s)</span> - Request that Gerald find the latest <code>n</code> papers from any user, any ORCID ID or for yourself
-                        <p class="example">
-                            @Gerald show me @TomWagg's latest paper!
-                        </p>
-                        <p class="example">
-                            Could you get me the 3 most recent papers from 0000-0001-6147-5761 please @Gerald?
-                        </p>
-                        <p class="example">
-                            @Gerald, let's see my most recent paper!
                         </p>
                     </p>
                     <p class="fs-5">
@@ -183,7 +192,7 @@
 
                 <h3 class="fw-bold">Automatic reactions & responses</h3>
                 <p class="fs-5">
-                    Gerald will also listen to any messages that are sent in channels that you invite him to and then respond or react to some of them. Here are a list of things that may elicit some sort of response or reaction from Gerald
+                    Gerald will also listen to any messages that are sent in channels that you invite him to and then respond or react to some of them. Here are a list of things that may elicit some sort of response or reaction from Gerald but there are more that aren't included here
                 </p>
 
                 <p class="example">
@@ -202,9 +211,21 @@
                     Nevermind, definitely PANIC
                 </p>
 
-                <p class="fs-5 mb-5 ms-4">
+                <p class="fs-5 ms-4">
                     <code>new_emojis</code> - One last thing that Gerald likes to keep an eye on is emojis. Every time there's a new emoji he'll immediately let everyone know and encourage them to use it.
                 </p>
+            </div>
+            <div class="row mt-3">
+                <h1 class="fw-bold">Gerald doesn't know my birthday/can't find my papers</h1>
+                <p class="fs-5">
+                    Not to worry, Gerald gets his information from the <a href="https://github.com/UW-Astro-Grads/GradWiki/wiki/Community%3APhone-List">grad wiki</a> - 
+                    so if you haven't added your birthday or ORCID there yet that'll be your problem. I need to manually grab that information so let me know if you add it.
+                    If your ORCID is already there then you may not have linked it to your arXiv account, try doing so
+                    <a href="https://arxiv.org/user/confirm_orcid_id">here</a> and if it still doesn't work then send me a message!</p>
+            </div>
+            <div class="row mt-3">
+                <h1 class="fw-bold">What if I notice a problem with Gerald's brain?</h1>
+                <p class="fs-5">Please let me know! Or even better, <a href="https://github.com/TomWagg/gerald/issues/new">create an issue</a> on Gerald's GitHub repo!</p>
             </div>
         </div>
 
