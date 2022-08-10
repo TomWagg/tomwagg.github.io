@@ -340,7 +340,7 @@ function dark_mode(blackRGB = "0") {
 }
 
 const now = new Date();
-if (now.getHours() > 18) {
+if ((now.getHours() > 18) | (now.getHours() < 6)) {
     document.querySelector("#dark-mode-checkbox").click();
 }
 
