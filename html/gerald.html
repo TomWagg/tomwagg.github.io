@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="The Book of Gerald" />
+        <meta name="author" content="Tom Wagg" />
+
+        <title>The Book of Gerald</title>
+        <link href="../img/gerald.png" rel="icon" />
+
+        <!-- Bootstrap -->
+        <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css"
+            rel="stylesheet"
+            integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl"
+            crossorigin="anonymous" />
+
+        <!-- icons and fonts -->
+        <script src="https://kit.fontawesome.com/328d20ce71.js" crossorigin="anonymous"></script>
+        <link rel="preconnect" href="https://fonts.gstatic.com" />
+        <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;700;900&display=swap" rel="stylesheet" />
+
+        <!-- random css -->
+        <link href="../css/animate.css" rel="stylesheet" />
+        <link href="../css/index.css" rel="stylesheet" />
+        <link href="../css/dark_mode.css" rel="stylesheet" />
+        <style>
+            .kw {
+                color: var(--primary);
+                font-weight: bold;
+            }
+
+            .example {
+                display: inline-block;
+                padding: 0.1rem;
+                padding-left: 0.5rem;
+                padding-right: 0.5rem;
+                overflow: auto;
+                font-family: var(--bs-font-monospace);
+                unicode-bidi: bidi-override;
+                width: auto;
+                border-radius: 5px;
+                transition: 500ms;
+                cursor: pointer;
+            }
+
+            .dark .example:hover {
+                background: lightgrey;
+                color: black;
+            }
+            .example:hover {
+                background: #333;
+                color: white;
+            }
+        </style>
+    </head>
+
+    <body>
+        <label for="dark-mode-checkbox" class="dark-mode-label">
+            <input type="checkbox" id="dark-mode-checkbox" />
+            <span class="dark-mode-ball"></span>
+            <svg viewBox="0 0 512 512" class="sun-svg">
+                <path
+                    id="sun-svg"
+                    d="M256 160c-52.9 0-96 43.1-96 96s43.1 96 96 96 96-43.1 96-96-43.1-96-96-96zm246.4 80.5l-94.7-47.3 33.5-100.4c4.5-13.6-8.4-26.5-21.9-21.9l-100.4 33.5-47.4-94.8c-6.4-12.8-24.6-12.8-31 0l-47.3 94.7L92.7 70.8c-13.6-4.5-26.5 8.4-21.9 21.9l33.5 100.4-94.7 47.4c-12.8 6.4-12.8 24.6 0 31l94.7 47.3-33.5 100.5c-4.5 13.6 8.4 26.5 21.9 21.9l100.4-33.5 47.3 94.7c6.4 12.8 24.6 12.8 31 0l47.3-94.7 100.4 33.5c13.6 4.5 26.5-8.4 21.9-21.9l-33.5-100.4 94.7-47.3c13-6.5 13-24.7.2-31.1zm-155.9 106c-49.9 49.9-131.1 49.9-181 0-49.9-49.9-49.9-131.1 0-181 49.9-49.9 131.1-49.9 181 0 49.9 49.9 49.9 131.1 0 181z"></path>
+            </svg>
+            <svg viewBox="0 0 512 512" class="moon-svg">
+                <path
+                    id="moon-svg"
+                    d="M283.211 512c78.962 0 151.079-35.925 198.857-94.792 7.068-8.708-.639-21.43-11.562-19.35-124.203 23.654-238.262-71.576-238.262-196.954 0-72.222 38.662-138.635 101.498-174.394 9.686-5.512 7.25-20.197-3.756-22.23A258.156 258.156 0 0 0 283.211 0c-141.309 0-256 114.511-256 256 0 141.309 114.511 256 256 256z"></path>
+            </svg>
+        </label>
+
+        <div class="container">
+            <div class="row mt-4 mb-5 align-items-center">
+                <div class="col-12 col-md-3">
+                    <img class="img-fluid" src="../img/gerald.png" />
+                </div>
+                <div class="col-12 col-md-9">
+                    <div class="display-1 fw-bold">The Book of Gerald</div>
+                    <div class="fs-4">The central location for explaining all things Gerald.</div>
+                </div>
+            </div>
+            <div class="row mt-5">
+                <h1 class="fw-bold">Who's Gerald?</h1>
+                <p class="fs-5">
+                    <a href="https://github.com/TomWagg/gerald">Gerald</a> is a Slack bot made for the UW Astrograds slack workspace. He hangs around trying to make your life easier/occasionally make
+                    you laugh with his shenanigans. I designed him for fun but I hope he can actually be useful too 🙃
+                </p>
+            </div>
+            <div class="row mt-3">
+                <h1 class="fw-bold">What can Gerald do?</h1>
+                <p class="fs-5">Gerald's been working hard to expand his skillset and currently he'll interact with you in Slack in three main ways</p>
+
+                <h3 class="fw-bold">Scheduled tasks</h3>
+                <p class="fs-5">Every morning Gerald will tick a couple of items off his todo list</p>
+                <div class="ms-4">
+                    <p class="fs-5">
+                        <code>any_new_publications</code> - First, Gerald will peruse the arXiv at a leisurely pace, disregarding every paper he sees unless he finds a UW astrograd in the author list.
+                        When this happens he'll get all excited and announce the paper to everyone in the workspace!
+                    </p>
+                    <p class="fs-5">
+                        <code>is_it_a_birthday</code> - Then he'll check his calendar and see whether today is someone's birthday. If he realises that it is then he'll wish them happy birthday and
+                        give the person a birthday GIF, how thoughtful.
+                    </p>
+                    <p class="fs-5">
+                        <code>whinetime_workflow</code> - Finally, if he notices it is Monday he'll first groan internally because Mondays and then pick a random grad to host whinetime this week.
+                        He'll send that person a message in the whinetime channel and let them select the day/time/location (or let them give up the job for this week). After the host has set up the
+                        logistic Gerald will announce to everyone what the plan is and send automated reminders as the date gets closer.
+                    </p>
+                </div>
+
+                <h3 class="fw-bold">Actions & Responses after <code>@Gerald</code> mentions</h3>
+
+                <p class="fs-5">
+                    Gerald is always at your beck and call. Simply write <code>@Gerald</code> and then say something to him or give him a task and he'll get right to it. Additionally, you can send him
+                    a direct message instead and then you can use all of these same commands without even needing to mention him. Here's a list of things you can ask him or get him to do
+                </p>
+
+                <div class="ms-4">
+                    <p class="fs-5">
+                        <code>upcoming_birthdays</code> - Keywords: <span class="kw">next</span>, <span class="kw">birthday</span> - Gerald can tell you whose birthday is next as well as how far away it is
+                        <p class="example">
+                            @Gerald, whose birthday is next?
+                        </p>
+                        <p class="example">
+                            Who has the next birthday @Gerald?
+                        </p>
+                    </p>
+                    <p class="fs-5">
+                        <code>happy_birthday</code> - Keywords: <span class="kw">happy birthday</span> - Wish Gerald a happy birthday! He'll probably make fun of you if it isn't actually his birthday though
+                        <p class="example">
+                            Happy birthday @Gerald!!
+                        </p>
+                    </p>
+                    <p class="fs-5">
+                        <code>list_birthdays</code> - Keywords: <span class="kw">all</span>, <span class="kw">everyone</span>, <span class="kw">birthday</span> - Get Gerald to send you a list of all of the birthdays that he knows (plus names of people who he knows but doesn't know their birthday yet)
+                        <p class="example">
+                            @Gerald could you tell me all of birthdays?
+                        </p>
+                        <p class="example">
+                            When are everyone's birthdays @Gerald?
+                        </p>
+                    </p>
+                    <p class="fs-5">
+                        <code>iq_test</code> - Keywords: <span class="kw">smart</span>, <span class="kw">intelligent</span>, <span class="kw">brain</span>, <span class="kw">you</span>, <span class="kw">your</span> - Ask Gerald how smart he is and he'll give you some snarky reply
+                        <p class="example">
+                            @Gerald how smart are you?
+                        </p>
+                        <p class="example">
+                            How big is your brain @Gerald?
+                        </p>
+                    </p>
+                </div>
+
+                <h3 class="fw-bold">Automatic reactions & responses</h3>
+            </div>
+        </div>
+
+        <div id="javascriptbox">
+            <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+            <script
+                src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js"
+                integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0"
+                crossorigin="anonymous"></script>
+            <script src="../js/dark_mode.js"></script>
+            <script src="../js/gerald.js"></script>
+        </div>
+    </body>
+</html>
