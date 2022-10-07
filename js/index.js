@@ -173,6 +173,13 @@ const cheat_codes = [
         callback: reset_cheats,
     },
     {
+        code: ["\\", "c", "h", "e", "a", "t", "s"],
+        index: 0,
+        callback: function () {
+            document.getElementById("cheats").click();
+        },
+    },
+    {
         code: ["\\", "a", "r", "t", "i", "c", "u", "l", "a", "t", "e"],
         index: 0,
         callback: function () {
@@ -326,6 +333,7 @@ function light_mode() {
     document.querySelectorAll(".research-projects .project .project-description").forEach((el) => {
         el.style.backgroundColor = "rgba(255, 255, 255, 0.9)";
     });
+    document.getElementById("cheats").style.backgroundColor = "lightgrey";
 }
 
 function dark_mode(blackRGB = "0") {
@@ -337,16 +345,21 @@ function dark_mode(blackRGB = "0") {
     document.querySelectorAll(".research-projects .project .project-description").forEach((el) => {
         el.style.backgroundColor = "rgba(" + blackRGB + "," + blackRGB + "," + blackRGB + ", 0.9)";
     });
+    document.getElementById("cheats").style.backgroundColor = "#525252";
 }
 
 const now = new Date();
-if ((now.getHours() > 18) | (now.getHours() < 6)) {
+if ((now.getHours() >= 18) | (now.getHours() < 6)) {
     document.querySelector("#dark-mode-checkbox").click();
 }
 
 function reset_cheats() {
     document.body.classList.remove("rainbow");
-    light_mode();
+    if (document.querySelector("#dark-mode-checkbox").checked) {
+        dark_mode("52");
+    } else {
+        light_mode();
+    }
     document.documentElement.style.setProperty("--primary", "#1995c6bd");
     document.documentElement.style.setProperty("--primary-light", "#6cc7eaa3");
     document.documentElement.style.setProperty("--primary-dark", "#186280");
