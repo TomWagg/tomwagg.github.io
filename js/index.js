@@ -333,7 +333,8 @@ function light_mode() {
     document.querySelectorAll(".research-projects .project .project-description").forEach((el) => {
         el.style.backgroundColor = "rgba(255, 255, 255, 0.9)";
     });
-    document.getElementById("cheats").style.backgroundColor = "lightgrey";
+    document.querySelector("#cheat_code_list .modal-content").style.backgroundColor = "lightgrey";
+    document.querySelector("cheats").style.backgroundColor = "lightgrey";
 }
 
 function dark_mode(blackRGB = "0") {
@@ -345,6 +346,7 @@ function dark_mode(blackRGB = "0") {
     document.querySelectorAll(".research-projects .project .project-description").forEach((el) => {
         el.style.backgroundColor = "rgba(" + blackRGB + "," + blackRGB + "," + blackRGB + ", 0.9)";
     });
+    document.querySelector("#cheat_code_list .modal-content").style.backgroundColor = "rgb(52, 52, 52)";
     document.getElementById("cheats").style.backgroundColor = "#525252";
 }
 
