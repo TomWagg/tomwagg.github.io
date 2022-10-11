@@ -334,7 +334,7 @@ function light_mode() {
         el.style.backgroundColor = "rgba(255, 255, 255, 0.9)";
     });
     document.querySelector("#cheat_code_list .modal-content").style.backgroundColor = "lightgrey";
-    document.querySelector("cheats").style.backgroundColor = "lightgrey";
+    document.getElementById("cheats").style.backgroundColor = "lightgrey";
 }
 
 function dark_mode(blackRGB = "0") {
