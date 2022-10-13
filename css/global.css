@@ -1,0 +1,31 @@
+/* General stuff for everywhere */
+:root {
+    --primary: #50a3c4;
+    --primary-light: #6cc7eaa3;
+    --primary-dark: #186280;
+}
+
+body {
+    font-family: "Lato", sans-serif;
+    transition: 500ms;
+}
+
+.hide {
+    display: none;
+}
+
+.rounded {
+    border-radius: 1rem !important;
+}
+
+a,
+.nav a.nav-link {
+    color: var(--primary);
+    text-decoration: none;
+    transition: 0.3s;
+}
+
+a:hover,
+.nav a.nav-link:hover:not(:active) {
+    color: var(--primary-dark);
+}
