@@ -64,7 +64,8 @@
             <div class="row mb-5">
                 <div class="col">
                     <h1 class="display-3 text-center">Astropy Units Cheatsheet</h1>
-                    <h2 class="fs-4 text-center">Your shortcut for dealing with pesky unit conversions</h2>
+                    <h2 class="fs-4 text-center fst-italic">Your shortcut for dealing with pesky unit conversions</h2>
+                    <p class="text-center">I'm constantly telling people how much I love Astropy units so I figured I would make a quick cheatsheet to make starting to use them easier!</p>
                 </div>
             </div>
             <div class="row mb-3">
@@ -82,7 +83,7 @@
                 </div>
                 <div class="col">
                     <div class="section">
-                        <div class="section-header">Adding units</div>
+                        <div class="section-header">Applying units</div>
                         <div class="section-desc">Multiply by a unit to add it to a variable</div>
                         <div class="highlight">
                             <pre><span></span><span class="n">some_mass</span> <span class="o">=</span> <span class="mi">72</span> <span class="o">*</span> <span class="n">u</span><span class="o">.</span><span class="n">kg</span>
@@ -103,7 +104,7 @@
                     </div>
                 </div>
             </div>
-            <div class="row mb-3">
+            <div class="row align-items-center mb-3">
                 <div class="col">
                     <div class="section">
                         <div class="section-header">Removing units</div>
@@ -112,19 +113,6 @@
                             <pre><span></span><span class="n">some_time</span> <span class="o">=</span> <span class="mf">13.7</span> <span class="o">*</span> <span class="n">u</span><span class="o">.</span><span class="n">Gyr</span>
                                 <br><span class="n">just_the_value</span> <span class="o">=</span> <span class="n">some_time</span><span class="o">.</span><span class="n">value</span>
                                 </pre>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-6">
-                    <div class="section">
-                        <div class="section-header">Simplifying units</div>
-                        <div class="section-desc">The <code>.decompose()</code> method can simplify your units</div>
-                        <div class="highlight">
-                            <pre><span></span><span class="n">something</span> <span class="o">=</span> <span class="mi">10</span> <span class="o">*</span> <span class="n">u</span><span class="o">.</span><span class="n">mg</span> <span class="o">/</span> <span class="p">(</span><span class="mi">100</span> <span class="o">*</span> <span class="n">u</span><span class="o">.</span><span class="n">J</span><span class="p">)</span>
-                               <br><span class="n">something_else</span> <span class="o">=</span> <span class="mi">5</span> <span class="o">*</span> <span class="p">(</span><span class="n">u</span><span class="o">.</span><span class="n">g</span> <span class="o">/</span> <span class="n">u</span><span class="o">.</span><span class="n">cm</span><span class="o">**</span><span class="mi">3</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="mi">10</span> <span class="o">*</span> <span class="n">u</span><span class="o">.</span><span class="n">km</span> <span class="o">/</span> <span class="n">u</span><span class="o">.</span><span class="n">yr</span><span class="p">)</span>
-                               <br><span class="n">lots_of_units</span> <span class="o">=</span> <span class="n">something</span> <span class="o">*</span> <span class="n">something_else</span> <span class="o">*</span> <span class="n">u</span><span class="o">.</span><span class="n">erg</span>
-                               <br><span class="n">lots_of_units</span><span class="o">.</span><span class="n">decompose</span><span class="p">()</span>
-                            </pre>
                         </div>
                     </div>
                 </div>
@@ -143,7 +131,42 @@
                     </div>
                 </div>
             </div>
-            <div class="row mb-3">
+            <div class="row align-items-center mb-3">
+                <div class="col">
+                    <div class="section">
+                        <div class="section-header">Simplifying units</div>
+                        <div class="section-desc">The <code>.decompose()</code> method can simplify your units</div>
+                        <div class="highlight">
+                            <pre><span></span><span class="n">something</span> <span class="o">=</span> <span class="mi">10</span> <span class="o">*</span> <span class="n">u</span><span class="o">.</span><span class="n">mg</span> <span class="o">/</span> <span class="p">(</span><span class="mi">100</span> <span class="o">*</span> <span class="n">u</span><span class="o">.</span><span class="n">J</span><span class="p">)</span>
+                               <br><span class="n">something_else</span> <span class="o">=</span> <span class="mi">5</span> <span class="o">*</span> <span class="p">(</span><span class="n">u</span><span class="o">.</span><span class="n">g</span> <span class="o">/</span> <span class="n">u</span><span class="o">.</span><span class="n">cm</span><span class="o">**</span><span class="mi">3</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="mi">10</span> <span class="o">*</span> <span class="n">u</span><span class="o">.</span><span class="n">km</span> <span class="o">/</span> <span class="n">u</span><span class="o">.</span><span class="n">yr</span><span class="p">)</span>
+                               <br><span class="n">lots_of_units</span> <span class="o">=</span> <span class="n">something</span> <span class="o">*</span> <span class="n">something_else</span> <span class="o">*</span> <span class="n">u</span><span class="o">.</span><span class="n">erg</span>
+                               <br><span class="n">lots_of_units</span><span class="o">.</span><span class="n">decompose</span><span class="p">()</span>
+                            </pre>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="section">
+                        <div class="section-header">Units/Constants Reference</div>
+                        <div class="section-desc">Here's a list of useful links for Astropy Units</div>
+                        <ul class="nav flex-column nav-pills">
+                            <li class="nav-item">
+                                <a class="nav-link active" target="_blank" href="https://docs.astropy.org/en/stable/units/index.html">Official Astropy units documentation</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link active" target="_blank" href="https://docs.astropy.org/en/stable/units/index.html#module-astropy.units.si">All available units</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link active" target="_blank" href="https://docs.astropy.org/en/stable/constants/index.html#module-astropy.constants">All available constants</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link active" target="_blank" href="https://legwork.readthedocs.io/en/latest/notebooks/Units.html">An alternative demo</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
                 <div class="col">
                     <div class="section">
                         <div class="section-header">Common Errors and Pitfalls</div>
@@ -165,30 +188,66 @@
                             <pre><span></span><span class="n">has_units</span> <span class="o">=</span> <span class="mi">10</span> <span class="o">*</span> <span class="n">u</span><span class="o">.</span><span class="n">s</span>
                                 <br><span class="n">no_units</span> <span class="o">=</span> <span class="mi">2</span>
                                 <br><span class="n">has_units</span> <span class="o">-</span> <span class="n">no_units</span>
-                                <br><span class="n ps-3">UnitConversionError</span><span class="p">:</span> <span class="s2">"Can only apply 'subtract' function to dimensionless quantities when other argument is not a quantity (unless the latter is all zero/infinity/nan)"</span>
+                                <br><span class="n ps-3">UnitConversionError</span><span class="p">:</span> <span class="s2">"Can only apply 'subtract' function to dimensionless quantities when..."</span>
                                 </pre>
                         </div>
                         <p class="section-desc">Don't mix your variables with units and those without, astropy will get mad at you!</p>
                     </div>
                 </div>
+            </div>
+            <hr class="mt-5 mb-5" />
+            <div class="row mb-5">
                 <div class="col">
-                    <div class="section">
-                        <div class="section-header">Units/Constants Reference</div>
-                        <div class="section-desc">Here's a list of useful links for Astropy Units</div>
-                        <ul class="nav flex-column nav-pills">
-                            <li class="nav-item">
-                                <a class="nav-link active" target="_blank" href="https://docs.astropy.org/en/stable/units/index.html">Official Astropy units documentation</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link active" target="_blank" href="https://docs.astropy.org/en/stable/units/index.html#module-astropy.units.si">All available units</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link active" target="_blank" href="https://docs.astropy.org/en/stable/constants/index.html#module-astropy.constants">All available constants</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link active" target="_blank" href="https://legwork.readthedocs.io/en/latest/notebooks/Units.html">An alternative demo</a>
-                            </li>
-                        </ul>
+                    <h1>A small working example</h1>
+                    <p>Here's a short little example of using astropy units (using everything above)</p>
+                    <div class="highlight">
+                        <pre><span></span><span class="kn">import</span> <span class="nn">astropy.units</span> <span class="k">as</span> <span class="nn">u</span>
+                            <br><span class="kn">import</span> <span class="nn">astropy.constants</span> <span class="k">as</span> <span class="nn">const</span>
+                            <br><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+                            <br><span class="kn">from</span> <span class="nn">astropy.visualization</span> <span class="kn">import</span> <span class="n">quantity_support</span>
+                            <br><span class="n">quantity_support</span><span class="p">()</span>
+                            <br>
+                            <br><span class="n">plt</span><span class="o">.</span><span class="n">rc</span><span class="p">(</span><span class="s1">'font'</span><span class="p">,</span> <span class="n">family</span><span class="o">=</span><span class="s1">'serif'</span><span class="p">)</span>
+                            <br><span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s1">'text.usetex'</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
+                            <br><span class="n">fs</span> <span class="o">=</span> <span class="mi">24</span>
+                            <br>
+                            <br><span class="c1"># update various fontsizes to match</span>
+                            <br><span class="n">params</span> <span class="o">=</span> <span class="p">{</span><span class="s1">'figure.figsize'</span><span class="p">:</span> <span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">8</span><span class="p">),</span>
+                            <br>          <span class="s1 ps-4">'legend.fontsize'</span><span class="p">:</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="n">fs</span><span class="p">,</span>
+                            <br>          <span class="s1 ps-4">'axes.labelsize'</span><span class="p">:</span> <span class="n">fs</span><span class="p">,</span>
+                            <br>          <span class="s1 ps-4">'xtick.labelsize'</span><span class="p">:</span> <span class="mf">0.6</span> <span class="o">*</span> <span class="n">fs</span><span class="p">,</span>
+                            <br>          <span class="s1 ps-4">'ytick.labelsize'</span><span class="p">:</span> <span class="mf">0.6</span> <span class="o">*</span> <span class="n">fs</span><span class="p">,</span>
+                            <br>          <span class="s1 ps-4">'axes.linewidth'</span><span class="p">:</span> <span class="mf">1.1</span><span class="p">,</span>
+                            <br>          <span class="s1 ps-4">'xtick.major.size'</span><span class="p">:</span> <span class="mi">7</span><span class="p">,</span>
+                            <br>          <span class="s1 ps-4">'xtick.minor.size'</span><span class="p">:</span> <span class="mi">4</span><span class="p">,</span>
+                            <br>          <span class="s1 ps-4">'ytick.major.size'</span><span class="p">:</span> <span class="mi">7</span><span class="p">,</span>
+                            <br>          <span class="s1 ps-4">'ytick.minor.size'</span><span class="p">:</span> <span class="mi">4</span><span class="p">}</span>
+                            <br><span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">params</span><span class="p">)</span>
+                            <br>
+                            <br><span class="k">def</span> <span class="nf">keplers_3rd</span><span class="p">(</span><span class="n">f_orb</span><span class="p">,</span> <span class="n">m_1</span><span class="p">,</span> <span class="n">m_2</span><span class="p">):</span>
+                            <br>    <span class="k ps-4">return</span> <span class="p">(</span><span class="n">const</span><span class="o">.</span><span class="n">G</span> <span class="o">*</span> <span class="p">(</span><span class="n">m_1</span> <span class="o">+</span> <span class="n">m_2</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="n">f_orb</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span><span class="o">**</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="mi">3</span><span class="p">)</span>
+                            <br>
+                            <br><span class="n">n_binaries</span> <span class="o">=</span> <span class="mi">10000</span>
+                            <br>
+                            <br><span class="n">f_orb</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">logspace</span><span class="p">(</span><span class="o">-</span><span class="mi">5</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">n_binaries</span><span class="p">)</span> <span class="o">*</span> <span class="n">u</span><span class="o">.</span><span class="n">Hz</span>
+                            <br><span class="n">m_1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">n_binaries</span><span class="p">)</span> <span class="o">*</span> <span class="n">u</span><span class="o">.</span><span class="n">Msun</span>
+                            <br><span class="n">m_2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">n_binaries</span><span class="p">)</span> <span class="o">*</span> <span class="n">u</span><span class="o">.</span><span class="n">Msun</span>
+                            <br>
+                            <br><span class="n">a</span> <span class="o">=</span> <span class="n">keplers_3rd</span><span class="p">(</span><span class="n">f_orb</span><span class="p">,</span> <span class="n">m_1</span><span class="p">,</span> <span class="n">m_2</span><span class="p">)</span>
+                            <br><span class="nb">print</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">decompose</span><span class="p">())</span>
+                            <br><span class="nb">print</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">u</span><span class="o">.</span><span class="n">angstrom</span><span class="p">))</span>
+                            <br><span class="nb">print</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">u</span><span class="o">.</span><span class="n">km</span><span class="p">)</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>
+                            <br> 
+                            <br><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">50</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">10</span><span class="p">):</span>
+                            <br>    <span class="n ps-4">a</span> <span class="o">=</span> <span class="n">keplers_3rd</span><span class="p">(</span><span class="n">f_orb</span><span class="p">,</span> <span class="n">m_1</span> <span class="o">*</span> <span class="n">i</span><span class="p">,</span> <span class="n">m_2</span><span class="p">)</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">u</span><span class="o">.</span><span class="n">AU</span><span class="p">)</span>
+                            <br>    <span class="n ps-4">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">f_orb</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="n">m_1</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">i</span><span class="p">)</span>
+                            <br><span class="n">plt</span><span class="o">.</span><span class="n">xscale</span><span class="p">(</span><span class="s2">"log"</span><span class="p">)</span>
+                            <br><span class="n">plt</span><span class="o">.</span><span class="n">yscale</span><span class="p">(</span><span class="s2">"log"</span><span class="p">)</span>
+                            <br><span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Orbital Frequency [</span><span class="si">{</span><span class="n">f_orb</span><span class="o">.</span><span class="n">unit</span><span class="si">}</span><span class="s2">]"</span><span class="p">)</span>
+                            <br><span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Separation [</span><span class="si">{</span><span class="n">a</span><span class="o">.</span><span class="n">unit</span><span class="si">}</span><span class="s2">]"</span><span class="p">)</span>
+                            <br><span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s2">"Primary Mass"</span><span class="p">)</span>
+                            <br><span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+                            </pre>
                     </div>
                 </div>
             </div>
