@@ -103,7 +103,7 @@
                     </div>
                 </div>
             </div>
-            <div class="row">
+            <div class="row mb-3">
                 <div class="col">
                     <div class="section">
                         <div class="section-header">Removing units</div>
@@ -112,6 +112,19 @@
                             <pre><span></span><span class="n">some_time</span> <span class="o">=</span> <span class="mf">13.7</span> <span class="o">*</span> <span class="n">u</span><span class="o">.</span><span class="n">Gyr</span>
                                 <br><span class="n">just_the_value</span> <span class="o">=</span> <span class="n">some_time</span><span class="o">.</span><span class="n">value</span>
                                 </pre>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="section">
+                        <div class="section-header">Simplifying units</div>
+                        <div class="section-desc">The <code>.decompose()</code> method can simplify your units</div>
+                        <div class="highlight">
+                            <pre><span></span><span class="n">something</span> <span class="o">=</span> <span class="mi">10</span> <span class="o">*</span> <span class="n">u</span><span class="o">.</span><span class="n">mg</span> <span class="o">/</span> <span class="p">(</span><span class="mi">100</span> <span class="o">*</span> <span class="n">u</span><span class="o">.</span><span class="n">J</span><span class="p">)</span>
+                               <br><span class="n">something_else</span> <span class="o">=</span> <span class="mi">5</span> <span class="o">*</span> <span class="p">(</span><span class="n">u</span><span class="o">.</span><span class="n">g</span> <span class="o">/</span> <span class="n">u</span><span class="o">.</span><span class="n">cm</span><span class="o">**</span><span class="mi">3</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="mi">10</span> <span class="o">*</span> <span class="n">u</span><span class="o">.</span><span class="n">km</span> <span class="o">/</span> <span class="n">u</span><span class="o">.</span><span class="n">yr</span><span class="p">)</span>
+                               <br><span class="n">lots_of_units</span> <span class="o">=</span> <span class="n">something</span> <span class="o">*</span> <span class="n">something_else</span> <span class="o">*</span> <span class="n">u</span><span class="o">.</span><span class="n">erg</span>
+                               <br><span class="n">lots_of_units</span><span class="o">.</span><span class="n">decompose</span><span class="p">()</span>
+                            </pre>
                         </div>
                     </div>
                 </div>
@@ -127,6 +140,55 @@
                                 <br><span class="n">quantity_support</span><span class="p">()</span>
                                 </pre>
                         </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col">
+                    <div class="section">
+                        <div class="section-header">Common Errors and Pitfalls</div>
+                        <div class="section-desc">If you're anything like me you'll probably run into these</div>
+                        <div class="highlight">
+                            <pre><span></span><span class="p">(</span><span class="mi">10</span> <span class="o">*</span> <span class="n">u</span><span class="o">.</span><span class="n">Msun</span><span class="p">)</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">u</span><span class="o">.</span><span class="n">s</span><span class="p">)</span>
+                                <br><span class="n ps-3">UnitConversionError</span><span class="p">:</span> <span class="s2">"'solMass' (mass) and 's' (time) are not convertible"</span>
+                            </pre>
+                        </div>
+                        <p class="section-desc">If you see this one then you've probably got a typo somewhere because it's not possible to convert between these units</p>
+                        <div class="highlight">
+                            <pre><span></span><span class="mf">1e5</span> <span class="o">*</span> <span class="n">u</span><span class="o">.</span><span class="n">J</span> <span class="o">/</span> <span class="mi">5</span> <span class="o">*</span> <span class="n">u</span><span class="o">.</span><span class="n">Myr</span>    <span class="c1"># this gives 20000 J Myr :(</span>
+                                <br><span class="mf">1e5</span> <span class="o">*</span> <span class="n">u</span><span class="o">.</span><span class="n">J</span> <span class="o">/</span> <span class="p">(</span><span class="mi">5</span> <span class="o">*</span> <span class="n">u</span><span class="o">.</span><span class="n">Myr</span><span class="p">)</span>  <span class="c1"># this gives 20000 J/Myr :D</span>
+                                </pre>
+                        </div>
+                        <p class="section-desc">Parentheses are important! Be very careful or you'll probably get <code>UnitConversionErrors</code> because of this one</p>
+
+                        <div class="highlight">
+                            <pre><span></span><span class="n">has_units</span> <span class="o">=</span> <span class="mi">10</span> <span class="o">*</span> <span class="n">u</span><span class="o">.</span><span class="n">s</span>
+                                <br><span class="n">no_units</span> <span class="o">=</span> <span class="mi">2</span>
+                                <br><span class="n">has_units</span> <span class="o">-</span> <span class="n">no_units</span>
+                                <br><span class="n ps-3">UnitConversionError</span><span class="p">:</span> <span class="s2">"Can only apply 'subtract' function to dimensionless quantities when other argument is not a quantity (unless the latter is all zero/infinity/nan)"</span>
+                                </pre>
+                        </div>
+                        <p class="section-desc">Don't mix your variables with units and those without, astropy will get mad at you!</p>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="section">
+                        <div class="section-header">Units/Constants Reference</div>
+                        <div class="section-desc">Here's a list of useful links for Astropy Units</div>
+                        <ul class="nav flex-column nav-pills">
+                            <li class="nav-item">
+                                <a class="nav-link active" target="_blank" href="https://docs.astropy.org/en/stable/units/index.html">Official Astropy units documentation</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link active" target="_blank" href="https://docs.astropy.org/en/stable/units/index.html#module-astropy.units.si">All available units</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link active" target="_blank" href="https://docs.astropy.org/en/stable/constants/index.html#module-astropy.constants">All available constants</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link active" target="_blank" href="https://legwork.readthedocs.io/en/latest/notebooks/Units.html">An alternative demo</a>
+                            </li>
+                        </ul>
                     </div>
                 </div>
             </div>

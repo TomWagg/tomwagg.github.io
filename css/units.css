@@ -16,6 +16,27 @@ body.dark .section {
     padding-bottom: 0.5rem;
 }
 
+.nav {
+    width: fit-content;
+    margin: auto;
+}
+
+.nav .nav-item {
+    margin-bottom: 0.5rem;
+}
+
+.nav-pills .nav-link,
+.nav-pills .show > .nav-link {
+    color: #000 !important;
+    background-color: #fff !important;
+}
+
+body.dark .nav-pills .nav-link,
+body.dark .nav-pills .show > .nav-link {
+    color: white !important;
+    background-color: #525252 !important;
+}
+
 pre {
     line-height: 125%;
     white-space: inherit;
