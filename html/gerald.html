@@ -114,7 +114,7 @@
                         give the person a birthday GIF, how thoughtful.
                     </p>
                     <p class="fs-5">
-                        <code>whinetime_workflow</code> - Finally, if he notices it is Monday he'll first groan internally (because Mondays) and then pick a random grad to host whinetime this week.
+                        <code>whinetime_workflow</code> - Finally, if he notices it is Monday he'll first groan internally (because Mondays) and then pick the next grad in his randomly ordered list to host whinetime this week.
                         He'll send that person a message in the whinetime channel and let them select the day/time/location (or let them give up the job for this week). After the host has set up the
                         logistics Gerald will announce to everyone what the plan is and send automated reminders as the day gets closer.
                     </p>
@@ -138,12 +138,42 @@
                         </p>
                     </p>
                     <p class="fs-5">
-                        <code>recent_papers</code> - Keywords: <span class="kw">recent</span>, <span class="kw">latest</span>, <span class="kw">paper(s)</span> - Request that Gerald find the latest <code>n</code> papers from any user, any ORCID ID or for yourself
+                        <code>query_birthdays</code> - Keywords: <span class="kw">when</span>, <span class="kw">birthday</span> - Gerald can tell you when someone's birthday is, just ask him!
                         <p class="example">
-                            @Gerald show me @TomWagg's latest paper!
+                            @Gerald, when is @Tom Wagg's birthday?
                         </p>
                         <p class="example">
-                            Could you get me the 3 most recent papers from 0000-0001-6147-5761 please @Gerald?
+                            Do you know when my birthday is @Gerald?
+                        </p>
+                    </p>
+                    <p class="fs-5">
+                        <code>list_birthdays</code> - Keywords: <span class="kw">all</span>, <span class="kw">everyone</span>, <span class="kw">birthday</span> - Get Gerald to send you a list of all of the birthdays that he knows (plus names of people who he knows but doesn't know their birthday yet)
+                        <p class="example">
+                            @Gerald could you tell me all of the birthdays you know?
+                        </p>
+                        <p class="example">
+                            When are everyone's birthdays @Gerald?
+                        </p>
+                    </p>
+                    <p class="fs-5">
+                        <code>happy_birthday</code> - Keywords: <span class="kw">happy birthday</span> - Wish Gerald a happy birthday! He'll probably make fun of you if it isn't actually his birthday though
+                        <p class="example">
+                            Happy birthday @Gerald!!
+                        </p>
+                    </p>
+                    <p class="fs-5">
+                        <code>hosting_query</code> - Keywords: <span class="kw">when</span>, <span class="kw">whinetime</span> - Ask Gerald when you're next hosting whinetime
+                        <p class="example">
+                            @Gerald, when am I next hosting whinetime?
+                        </p>
+                    </p>
+                    <p class="fs-5">
+                        <code>recent_papers</code> - Keywords: <span class="kw">recent</span>, <span class="kw">latest</span>, <span class="kw">paper(s)</span> - Request that Gerald find the latest <code>n</code> papers from any user or for yourself
+                        <p class="example">
+                            @Gerald show me @Tom Wagg's latest paper!
+                        </p>
+                        <p class="example">
+                            Could you get me the 3 most recent papers from @Gabrielle Suissa please @Gerald?
                         </p>
                         <p class="example">
                             @Gerald, let's see my most recent paper!
@@ -156,21 +186,6 @@
                         </p>
                         <p class="example">
                             How big is your brain @Gerald?
-                        </p>
-                    </p>
-                    <p class="fs-5">
-                        <code>happy_birthday</code> - Keywords: <span class="kw">happy birthday</span> - Wish Gerald a happy birthday! He'll probably make fun of you if it isn't actually his birthday though
-                        <p class="example">
-                            Happy birthday @Gerald!!
-                        </p>
-                    </p>
-                    <p class="fs-5">
-                        <code>list_birthdays</code> - Keywords: <span class="kw">all</span>, <span class="kw">everyone</span>, <span class="kw">birthday</span> - Get Gerald to send you a list of all of the birthdays that he knows (plus names of people who he knows but doesn't know their birthday yet)
-                        <p class="example">
-                            @Gerald could you tell me all of the birthdays you know?
-                        </p>
-                        <p class="example">
-                            When are everyone's birthdays @Gerald?
                         </p>
                     </p>
                     <p class="fs-5">
@@ -199,9 +214,6 @@
                     I live for Tom Quinn's laugh
                 </p>
                 <p class="example">
-                    Have you tried talking to Gerald?
-                </p>
-                <p class="example">
                     You deserve to be BONKed after that message @TomWagg
                 </p>
                 <p class="example">
@@ -218,10 +230,7 @@
             <div class="row mt-3">
                 <h1 class="fw-bold">Gerald doesn't know my birthday/can't find my papers</h1>
                 <p class="fs-5">
-                    Not to worry, Gerald gets his information from the <a href="https://github.com/UW-Astro-Grads/GradWiki/wiki/Community%3APhone-List">grad wiki</a> - 
-                    so if you haven't added your birthday or ORCID there yet that'll be your problem. I need to manually grab that information so let me know if you add it.
-                    If your ORCID is already there then you may not have linked it to your arXiv account, try doing so
-                    <a href="https://arxiv.org/user/confirm_orcid_id">here</a> and if it still doesn't work then send me a message!</p>
+                    Not to worry, Gerald's information probably just needs updating. Just send me a message with your birthday/ADS query and I'll get him working for you.</p>
             </div>
             <div class="row mt-3">
                 <h1 class="fw-bold">I wish that Gerald would ______</h1>
