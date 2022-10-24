@@ -159,13 +159,17 @@ const cheat_codes = [
         code: ["\\", "d", "a", "r", "k"],
         index: 0,
         callback: function () {
+            document.querySelector("#dark-mode-checkbox").checked = true;
             dark_mode("51");
         },
     },
     {
         code: ["\\", "l", "i", "g", "h", "t"],
         index: 0,
-        callback: light_mode,
+        callback: function () {
+            document.querySelector("#dark-mode-checkbox").checked = false;
+            light_mode();
+        },
     },
     {
         code: ["\\", "r", "e", "s", "e", "t"],
@@ -362,7 +366,7 @@ function reset_cheats() {
     } else {
         light_mode();
     }
-    document.documentElement.style.setProperty("--primary", "#1995c6bd");
+    document.documentElement.style.setProperty("--primary", "#50a3c4");
     document.documentElement.style.setProperty("--primary-light", "#6cc7eaa3");
     document.documentElement.style.setProperty("--primary-dark", "#186280");
     if (matrix_interval != undefined) {
