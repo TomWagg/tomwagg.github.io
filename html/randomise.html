@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="Randomise Board Game" />
+        <meta name="author" content="Tom Wagg" />
+
+        <title>Randomise Game</title>
+        <link href="../img/icon.png" rel="icon" />
+
+        <!-- Bootstrap -->
+        <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css"
+            rel="stylesheet"
+            integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl"
+            crossorigin="anonymous" />
+
+        <!-- icons and fonts -->
+        <script src="https://kit.fontawesome.com/328d20ce71.js" crossorigin="anonymous"></script>
+        <link rel="preconnect" href="https://fonts.gstatic.com" />
+        <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;700;900&display=swap" rel="stylesheet" />
+
+        <!-- random css -->
+        <link href="../css/animate.css" rel="stylesheet" />
+        <link href="../css/index.css" rel="stylesheet" />
+    </head>
+
+    <body>
+        <style>
+            body {
+                background: linear-gradient(rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.5)), url("../img/questions.png");
+                background-size: 300px;
+            }
+
+            .title {
+                font-weight: 1000;
+                font-size: 100px;
+                color: #bf8aa4;
+                text-shadow: -2px -2px 0 white, 2px -2px 0 white, -2px 2px 0 white, 2px 2px 0 white;
+            }
+
+            .card {
+                border-radius: 4rem;
+            }
+
+            #timer {
+                position: absolute;
+                top: 0;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                background: black;
+                opacity: 0.8;
+                z-index: 100;
+                text-align: center;
+                color: white;
+            }
+
+            #timer_value {
+                position: relative;
+                top: 50%;
+                line-height: 0;
+                font-size: 250px;
+                font-weight: bolder;
+            }
+
+            .score {
+                font-size: 50px;
+            }
+
+            .score-arrow {
+                cursor: pointer;
+            }
+        </style>
+
+        <div id="timer" class="hide">
+            <div id="timer_value">30</div>
+        </div>
+
+        <div class="container-fluid text-center py-5">
+            <div>
+                <h1 class="title">Randomise!</h1>
+                <!-- <h2>Draw, act or describe your way to victory!</h2> -->
+            </div>
+            <div class="row justify-content-center align-items-center">
+                <div class="col-3">
+                    <div class="card">
+                        <div class="card-header" style="background-color: #aadfeb">
+                            <h1>Boys' Score</h1>
+                        </div>
+                        <div class="card-body">
+                            <i id="boys_up" class="fa fa-chevron-up fa-4x d-block score-arrow"></i>
+                            <div id="boys_score" class="score">0</div>
+                            <i id="boys_down" class="fa fa-chevron-down fa-4x d-block score-arrow"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-5">
+                    <div id="random_things" class="card">
+                        <div class="card-body">
+                            <div>This round you're going to</div>
+                            <span id="method" class="fs-1 fw-bold">Draw!</span>
+                            <div>you've got</div>
+                            <span id="time" class="fs-3 fw-bold">4</span>
+                            <div>seconds and your lucky numbers are</div>
+                            <div class="row justify-content-center fw-bold">
+                                <div class="col-2">
+                                    <span class="lucky-number fs-2">1</span>
+                                </div>
+                                <div class="col-2">
+                                    <span class="lucky-number fs-2">2</span>
+                                </div>
+                                <div class="col-2">
+                                    <span class="lucky-number fs-2">3</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <button id="randomise" class="btn btn-light btn-lg fs-1">Randomise!</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-3">
+                    <div class="card">
+                        <div class="card-header" style="background-color: #ffb3b7">
+                            <h1>Girls' Score</h1>
+                        </div>
+                        <div class="card-body">
+                            <i id="girls_up" class="fa fa-chevron-up fa-4x d-block score-arrow"></i>
+                            <div id="girls_score" class="score">0</div>
+                            <i id="girls_down" class="fa fa-chevron-down fa-4x d-block score-arrow"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <button id="go" class="btn btn-light btn-lg fs-1 mt-4">Start timer</button>
+        </div>
+
+        <div id="javascriptbox">
+            <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+            <script
+                src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js"
+                integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0"
+                crossorigin="anonymous"></script>
+            <script src="../js/randomise.js"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML" async></script>
+        </div>
+    </body>
+</html>
