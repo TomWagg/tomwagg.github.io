@@ -187,14 +187,14 @@ const cheat_codes = [
         code: ["\\", "a", "r", "t", "i", "c", "u", "l", "a", "t", "e"],
         index: 0,
         callback: function () {
-            window.location.href = "html/articulate.html";
+            window.location.href = "html/games/articulate.html";
         },
     },
     {
         code: ["\\", "b", "a", "l", "l", "s"],
         index: 0,
         callback: function () {
-            window.location.href = "html/balls.html";
+            window.location.href = "html/games/balls.html";
         },
     },
 ];
