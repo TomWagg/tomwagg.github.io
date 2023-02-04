@@ -18,6 +18,10 @@ body {
     border-radius: 1rem !important;
 }
 
+.dark-mode-label {
+    top: 55px !important;
+}
+
 a,
 .nav a.nav-link {
     color: var(--primary);
