@@ -1,611 +1,548 @@
 <!DOCTYPE html>
 <html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="Personal Website for Tom Wagg" />
+        <meta name="author" content="Tom Wagg" />
 
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="Personal Website for Tom Wagg">
-    <meta name="author" content="Tom Wagg">
+        <title>Tom Wagg</title>
+        <link href="img/icon.png" rel="icon" />
 
-    <title>Tom Wagg</title>
-    <link href="img/icon.png" rel="icon">
+        <!-- Bootstrap -->
+        <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css"
+            rel="stylesheet"
+            integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl"
+            crossorigin="anonymous" />
 
-    <!-- Bootstrap -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+        <!-- icons and fonts -->
+        <script src="https://kit.fontawesome.com/328d20ce71.js" crossorigin="anonymous"></script>
+        <link rel="preconnect" href="https://fonts.gstatic.com" />
+        <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;700;900&display=swap" rel="stylesheet" />
 
-    <!-- icons and fonts -->
-    <script src="https://kit.fontawesome.com/328d20ce71.js" crossorigin="anonymous"></script>
-    <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;700;900&display=swap" rel="stylesheet">
+        <!-- random css -->
+        <link href="css/animate.css" rel="stylesheet" />
+        <link href="css/index.css" rel="stylesheet" />
+        <link href="css/dark_mode.css" rel="stylesheet" />
+    </head>
 
-    <!-- random css -->
-    <link href="css/animate.css" rel="stylesheet">
-    <link href="css/index.css" rel="stylesheet">
-    <link href="css/dark_mode.css" rel="stylesheet">
-</head>
-
-<body>
-
-    <button id="cheats" class="btn" data-bs-toggle="modal" data-bs-target="#cheat_code_list"></button>
-    <div class="modal fade" id="cheat_code_list" tabindex="-1">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-body text-center">
-                    <h1>Cheat Codes</h1>
-                    <p>
-                        Nice job, you found the cheat code list! Now you can see what sorts of silly things I have made my website do. Type any of the following anywhere on the homepage (you'll need a keyboard for this, don't think it'll work on phones).
-                    </p>
-                    <code class="cheat-item">\matrix</code>
-                    <code class="cheat-item">\nyan</code>
-                    <code class="cheat-item">\doodle</code>
-                    <code class="cheat-item">\balls</code>
-                    <code class="cheat-item">\articulate</code>
-                    <code class="cheat-item fw-bold">\reset</code>
-                    <p>
-                        Always looking for more ways to procrastinate, so if you think I should add something else <a href="https://github.com/TomWagg/tomwagg.github.io/issues/new">tell me</a>
-                    </p>
+    <body>
+        <button id="cheats" class="btn" data-bs-toggle="modal" data-bs-target="#cheat_code_list"></button>
+        <div class="modal fade" id="cheat_code_list" tabindex="-1">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-body text-center">
+                        <h1>Cheat Codes</h1>
+                        <p>
+                            Nice job, you found the cheat code list! Now you can see what sorts of silly things I have made my website do. Type any of the following anywhere on the homepage (you'll
+                            need a keyboard for this, don't think it'll work on phones).
+                        </p>
+                        <code class="cheat-item">\matrix</code>
+                        <code class="cheat-item">\nyan</code>
+                        <code class="cheat-item">\doodle</code>
+                        <code class="cheat-item">\balls</code>
+                        <code class="cheat-item">\articulate</code>
+                        <code class="cheat-item fw-bold">\reset</code>
+                        <p>Always looking for more ways to procrastinate, so if you think I should add something else <a href="https://github.com/TomWagg/tomwagg.github.io/issues/new">tell me</a></p>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
 
-    <div id="nyans">
-        <audio class="hide">
-            <source src="img/nyan.mp3" type="audio/mpeg">
-        </audio> 
-    </div>
-    <canvas id="matrix-box"></canvas>
-
-    <!-- I copied this from https://animate.style/ -->
-    <label for="dark-mode-checkbox" class="dark-mode-label">
-        <input type="checkbox" id="dark-mode-checkbox">
-        <span class="dark-mode-ball"></span>
-        <svg viewBox="0 0 512 512" class="sun-svg">
-            <path id="sun-svg" d="M256 160c-52.9 0-96 43.1-96 96s43.1 96 96 96 96-43.1 96-96-43.1-96-96-96zm246.4 80.5l-94.7-47.3 33.5-100.4c4.5-13.6-8.4-26.5-21.9-21.9l-100.4 33.5-47.4-94.8c-6.4-12.8-24.6-12.8-31 0l-47.3 94.7L92.7 70.8c-13.6-4.5-26.5 8.4-21.9 21.9l33.5 100.4-94.7 47.4c-12.8 6.4-12.8 24.6 0 31l94.7 47.3-33.5 100.5c-4.5 13.6 8.4 26.5 21.9 21.9l100.4-33.5 47.3 94.7c6.4 12.8 24.6 12.8 31 0l47.3-94.7 100.4 33.5c13.6 4.5 26.5-8.4 21.9-21.9l-33.5-100.4 94.7-47.3c13-6.5 13-24.7.2-31.1zm-155.9 106c-49.9 49.9-131.1 49.9-181 0-49.9-49.9-49.9-131.1 0-181 49.9-49.9 131.1-49.9 181 0 49.9 49.9 49.9 131.1 0 181z">
-            </path>
-        </svg>
-        <svg viewBox="0 0 512 512" class="moon-svg">
-            <path id="moon-svg" d="M283.211 512c78.962 0 151.079-35.925 198.857-94.792 7.068-8.708-.639-21.43-11.562-19.35-124.203 23.654-238.262-71.576-238.262-196.954 0-72.222 38.662-138.635 101.498-174.394 9.686-5.512 7.25-20.197-3.756-22.23A258.156 258.156 0 0 0 283.211 0c-141.309 0-256 114.511-256 256 0 141.309 114.511 256 256 256z">
-            </path>
-        </svg>
-    </label>
-
-    <nav class="nav justify-content-center mt-3">
-        <li class="nav-item">
-            <a class="nav-link" href="html/aboutme.html">about me</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="pdf/cv.pdf">latest CV</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="pdf/cv_short.pdf">one page CV</a>
-        </li>
-    </nav>
-
-    <header class="container-fluid">
-        <div class="row justify-content-center text-center mt-4 mb-2">
-            <div class="col">
-                <img src="img/circle_me.png" class="profile w-100">
-                <img src="img/circle_me_drawing.gif" class="hide">
-            </div>
+        <div id="nyans">
+            <audio class="hide">
+                <source src="img/nyan.mp3" type="audio/mpeg" />
+            </audio>
         </div>
-        <div class="row justify-content-center text-center mb-2">
-            <div class="col col-sm-12 col-md-9 col-lg-6">
-                <h1>tom wagg</h1>
-                <h5 class="text-muted">graduate student<span class="dotsep"></span>gravitational wave
-                    enthusiast<span class="dotsep"></span>astrophysicist?</h5>
-            </div>
-        </div>
-        <div class="row justify-content-center text-center my-3">
-            <div class="col col-sm-9 col-md-6 col-lg-2">
-                <hr class="text-muted">
-            </div>
-        </div>
-    </header>
+        <canvas id="matrix-box"></canvas>
 
-    <section id="projects" class="container mb-3">
+        <!-- I copied this from https://animate.style/ -->
+        <label for="dark-mode-checkbox" class="dark-mode-label">
+            <input type="checkbox" id="dark-mode-checkbox" />
+            <span class="dark-mode-ball"></span>
+            <svg viewBox="0 0 512 512" class="sun-svg">
+                <path
+                    id="sun-svg"
+                    d="M256 160c-52.9 0-96 43.1-96 96s43.1 96 96 96 96-43.1 96-96-43.1-96-96-96zm246.4 80.5l-94.7-47.3 33.5-100.4c4.5-13.6-8.4-26.5-21.9-21.9l-100.4 33.5-47.4-94.8c-6.4-12.8-24.6-12.8-31 0l-47.3 94.7L92.7 70.8c-13.6-4.5-26.5 8.4-21.9 21.9l33.5 100.4-94.7 47.4c-12.8 6.4-12.8 24.6 0 31l94.7 47.3-33.5 100.5c-4.5 13.6 8.4 26.5 21.9 21.9l100.4-33.5 47.3 94.7c6.4 12.8 24.6 12.8 31 0l47.3-94.7 100.4 33.5c13.6 4.5 26.5-8.4 21.9-21.9l-33.5-100.4 94.7-47.3c13-6.5 13-24.7.2-31.1zm-155.9 106c-49.9 49.9-131.1 49.9-181 0-49.9-49.9-49.9-131.1 0-181 49.9-49.9 131.1-49.9 181 0 49.9 49.9 49.9 131.1 0 181z"></path>
+            </svg>
+            <svg viewBox="0 0 512 512" class="moon-svg">
+                <path
+                    id="moon-svg"
+                    d="M283.211 512c78.962 0 151.079-35.925 198.857-94.792 7.068-8.708-.639-21.43-11.562-19.35-124.203 23.654-238.262-71.576-238.262-196.954 0-72.222 38.662-138.635 101.498-174.394 9.686-5.512 7.25-20.197-3.756-22.23A258.156 258.156 0 0 0 283.211 0c-141.309 0-256 114.511-256 256 0 141.309 114.511 256 256 256z"></path>
+            </svg>
+        </label>
+
+        <nav class="nav justify-content-center mt-3">
+            <li class="nav-item">
+                <a class="nav-link" href="html/aboutme.html">about me</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="pdf/cv.pdf">latest CV</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="pdf/cv_short.pdf">one page CV</a>
+            </li>
+        </nav>
+
+        <header class="container-fluid">
+            <div class="row justify-content-center text-center mt-4 mb-2">
+                <div class="col">
+                    <img src="img/circle_me.png" class="profile w-100" />
+                    <img src="img/circle_me_drawing.gif" class="hide" />
+                </div>
+            </div>
+            <div class="row justify-content-center text-center mb-2">
+                <div class="col col-sm-12 col-md-9 col-lg-6">
+                    <h1>tom wagg</h1>
+                    <h5 class="text-muted">graduate student<span class="dotsep"></span>gravitational wave enthusiast<span class="dotsep"></span>astrophysicist?</h5>
+                </div>
+            </div>
+            <div class="row justify-content-center text-center my-3">
+                <div class="col col-sm-9 col-md-6 col-lg-2">
+                    <hr class="text-muted" />
+                </div>
+            </div>
+        </header>
+
+        <section id="projects" class="container mb-3">
+            <div class="row text-center mb-4">
+                <div class="col">
+                    <h3 class="text-muted">recent projects</h3>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <div class="research-projects text-center align-middle">
+                        <article class="project" data-details="lsst_neocp">
+                            <div class="row">
+                                <div class="col">
+                                    <img src="img/asteroid_cartoon.png" />
+                                    <div class="project-description">
+                                        <div class="project-description-text">
+                                            <h4>The Sky is Falling?</h4>
+                                            <h6>predictions and mitigation strategies for NEO follow-up in the Era of LSST</h6>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </article>
+                        <article class="project" data-details="legwork">
+                            <div class="row">
+                                <div class="col">
+                                    <img src="img/legwork_nowords.png" />
+                                    <div class="project-description">
+                                        <div class="project-description-text">
+                                            <h4>LEGWORK</h4>
+                                            <h6>a python package for LISA related calculations and visualisation</h6>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </article>
+                        <article class="project" data-details="MW_dcos">
+                            <div class="row">
+                                <div class="col">
+                                    <img src="img/milky_way_dcos.png" />
+                                    <div class="project-description">
+                                        <div class="project-description-text">
+                                            <h4>Galactic DCOs in LISA</h4>
+                                            <h6>an examination of the galactic population of LISA detectable DCOs</h6>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </article>
+                        <article class="project" data-details="compas">
+                            <div class="row">
+                                <div class="col">
+                                    <img src="img/COMPAS.png" />
+                                    <div class="project-description">
+                                        <div class="project-description-text">
+                                            <h4>COMPAS</h4>
+                                            <h6>a rapid binary population synthesis code</h6>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </article>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="research_details" class="container px-5">
+            <div id="lsst_neocp" class="details hide">
+                <div class="row text-center">
+                    <div class="col">
+                        <h1>The Sky the Falling?</h1>
+                        <h2>NEO follow-up in the Era of LSST</h2>
+                        <hr class="w-25 mx-auto" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col justify-content-center">
+                        <p class="text-center">
+                            <a href="" target="_blank" class="btn bg-transparent rounded project-link disabled">
+                                <i class="fas fa-scroll fa-2x" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Paper coming soon!"></i>
+                            </a>
+                            <a href="https://github.com/dirac-institute/hybrid_sso_catalogue/" target="_blank" class="btn bg-transparent rounded project-link">
+                                <i class="fab fa-github fa-2x" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Paper Repo"></i>
+                            </a>
+                        </p>
+                        <div class="row justify-content-center">
+                            <div class="col-12 col-md-11">
+                                <p class="text-center fst-italic">
+                                    We make predictions for the impact that the Rubin Observatory Legacy Survey of Space and Time (LSST) will have on the Near Earth Object (NEO) follow-up system and
+                                    present strategies for mitigating this impact.
+                                </p>
+                            </div>
+                            <div class="col-12 col-md-9">
+                                <p>
+                                    The sky is falling!? Well, the sky is full of NEOs at least! The sheer volume of objects that will be detected by LSST presents a problem for the NEO follow-up
+                                    system, since so many potential NEOs will be reported each night that efficient follow-up will be very difficult. Even more than that, the submissions will be
+                                    heavily polluted by main belt asteroids masquerading as NEOs.
+                                </p>
+                                <p>
+                                    We quantify this problem and examine exactly how large of an impact LSST will have. Spoiler alert: it's a HUGE impact, particular in the first year. We created a
+                                    new algorithm for predicting which LSST observations will likely not require follow-up and so the application of this algorithm can mitigate the impact
+                                    significantly.
+                                </p>
+                                <p>
+                                    This algorithm doesn't solve the problem entirely, particularly in regards to the background from main belt asteroids. We discuss a couple of potential solutions to
+                                    reducing this background as well as ideas for conservative cuts that could be applied in the first couple years of the survey.
+                                </p>
+                                <div class="row justify-content-center align-items-center">
+                                    <div class="col-12 col-md-6">
+                                        <img class="w-100" src="img/lsst_neo_paper/traffic_purity.png" />
+                                    </div>
+                                    <div class="col-12 col-md-6">
+                                        <img class="w-100 rounded" src="img/lsst_neo_paper/orbits.png" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <div class="text-center">
+                                    <button class="btn open-close" style="color: grey">
+                                        <i class="fa fa-chevron-up fa-2x"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="legwork" class="details hide">
+                <div class="row text-center">
+                    <div class="col">
+                        <h1>LEGWORK</h1>
+                        <hr class="w-25 mx-auto" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col justify-content-center">
+                        <p class="text-center">
+                            <a href="https://ui.adsabs.harvard.edu/abs/2022ApJS..260...52W/abstract" target="_blank" class="btn bg-transparent rounded project-link">
+                                <i class="fas fa-scroll fa-2x" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Paper"></i>
+                            </a>
+                            <a href="https://github.com/TeamLEGWORK/LEGWORK-paper" target="_blank" class="btn bg-transparent rounded project-link">
+                                <i class="fab fa-github fa-2x" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Paper Repo"></i>
+                            </a>
+                            <a href="https://github.com/TeamLEGWORK/LEGWORK" target="_blank" class="btn bg-transparent rounded project-link">
+                                <i class="fas fa-code fa-2x" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Code Repo"></i>
+                            </a>
+                            <a href="https://legwork.readthedocs.io" target="_blank" class="btn bg-transparent rounded project-link">
+                                <i class="fas fa-book fa-2x" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Docs"></i>
+                            </a>
+                        </p>
+                        <div class="row justify-content-center">
+                            <div class="col-12 col-md-11">
+                                <p class="text-center fst-italic">
+                                    LEGWORK is a python package that does the LEGWORK for you by evolving binaries, calculating gravitational-wave strains, computing signal-to-noise ratios for binary
+                                    systems potentially observable with LISA and visualising the results
+                                </p>
+                            </div>
+                            <div class="col-12 col-md-9">
+                                <p>
+                                    My co-authors (<a href="https://katiebreivik.github.io/" target="_blank">Katie Breivik</a> and <a href="https://www.selmademink.com/">Selma de Mink</a>) and I have
+                                    officially released <code>LEGWORK</code> and you can now read the paper on the <a href="https://arxiv.org/abs/2111.08717">ArXiv</a>! This package was dreamt up
+                                    almost entirely independently by both me and Katie, and when we realised that we had the same idea we decided to work together to create this package!
+                                </p>
+                                <p>
+                                    Our motivation behind <code>LEGWORK</code> was to create a package that was completely open-source, since this would (1) allow seasoned experts to collaborate and
+                                    suggest new features or improvements and (2) make it easier for newcomers to quickly understand how to make their own predictions. Another motivation was that, by
+                                    introducing this package to the community, we could create a collaborative code to avoid individual mistakes. We found that many papers have slightly different
+                                    pre-factors in their equations, which could lead to very different predictions, so we aim for <code>LEGWORK</code> to provide a central tool and reference for the
+                                    community to use in order to avoid this confusion.
+                                </p>
+                                <p>The installation of the package should be very simple. Just run</p>
+                                <pre class="ms-4"><code>pip install legwork</code></pre>
+                                <p>
+                                    and you're all set! If you have any installation issues you can check out the full instructions
+                                    <a href="https://legwork.readthedocs.io/en/latest/install.html">here</a>.
+                                </p>
+                                <p>
+                                    <code>LEGWORK</code> can be used to evolve the orbits of binaries, calculating their gravitational-wave strains, compute their signal-to-noise ratios and visualise
+                                    the results! I encourage you to check out all of the tutorials, demos and documentation here. Below I've included some plots that demonstrate the sorts of things
+                                    you could make with <code>LEGWORK</code>. The plot on the left illustrates how eccentricity can affect the detectability of a binary - some eccentricity can be good
+                                    for increasing your SNR, but too much can move the GW emission into an area of the sensitivity curve to which LISA is less sensitive! The plot on the right shows
+                                    the horizon distance for circular binaries over different frequencies and eccentricities. For more information about these plots I encourage you to read the "Use
+                                    Cases" section of the release paper, in which we discuss them in detail!
+                                </p>
+                                <div class="row justify-content-center align-items-center">
+                                    <div class="col-12 col-md-6">
+                                        <img class="w-100" src="img/role_eccentricity.png" />
+                                    </div>
+                                    <div class="col-12 col-md-6">
+                                        <img class="w-100" src="img/horizon_distance.png" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <div class="text-center">
+                                    <button class="btn open-close" style="color: grey">
+                                        <i class="fa fa-chevron-up fa-2x"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="MW_dcos" class="details hide">
+                <div class="row text-center">
+                    <div class="col">
+                        <h1>Gravitational wave sources in our Galactic backyard</h1>
+                        <h3>Predictions for BHBH, BHNS and NSNS binaries detectable with LISA</h3>
+                        <hr class="w-25 mx-auto" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col justify-content-center">
+                        <p class="text-center">
+                            <a href="https://ui.adsabs.harvard.edu/abs/2021arXiv211113704W/abstract" target="_blank" class="btn bg-transparent rounded project-link">
+                                <i class="fas fa-scroll fa-2x" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Paper"></i>
+                            </a>
+                            <a href="https://github.com/TomWagg/detecting-DCOs-in-LISA" target="_blank" class="btn bg-transparent rounded project-link">
+                                <i class="fab fa-github fa-2x" data-bs-toggle="tooltip" data-bs-placement="bottom" title="GitHub Repo"></i>
+                            </a>
+                            <a href="https://zenodo.org/record/5725607" target="_blank" class="btn bg-transparent rounded project-link">
+                                <i class="fas fa-database fa-2x" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Data"></i>
+                            </a>
+                            <a href="html/galactic_dcos.html" class="btn bg-transparent rounded project-link">
+                                <i class="fas fa-comment fa-2x" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Summary Post"></i>
+                            </a>
+                        </p>
+                        <div class="row justify-content-center">
+                            <div class="col-12 col-md-11">
+                                <p class="text-center fst-italic">
+                                    We examine the population of LISA detectable BHBHs, BHNSs and NSNSs in the Milky Way for 20 different binary physics variations, using a new model for the Milky Way
+                                    and large grid of population synthesis simulations
+                                </p>
+                            </div>
+                            <div class="col-12 col-md-9">
+                                <p>
+                                    What happens when a grid of over 2 billion massive binaries, a new empirically-informed model for the Milky Way, a
+                                    <a href="https://legwork.readthedocs.io" target="_blank">Python package for stellar-origin LISA sources</a> and a group of astrophysicists walk into a bar? This
+                                    paper!
+                                </p>
+                                <p>
+                                    Long long ago this paper started off as my senior thesis for college, supervised by Floor Broekgaarden and Selma de Mink. At the time I was quite pleased with
+                                    it...but if you want to amuse yourself, go see how simple <a href="pdf/thesis.pdf" target="_blank">the thesis</a> was by comparison (though I <i>will</i> say that I
+                                    managed to accomplish all of the "future work" section, so there is that!). Then, just in the final days of college, the world erupted into chaos with a pandemic
+                                    and so, given my previous experience with online classes, I decided to take a gap year before starting my PhD. Instead, I spent the last year working on this (and
+                                    <a href="https://legwork.readthedocs.io">LEGWORK</a>) and I'm so very excited to finally share it with everyone!
+                                </p>
+                                <p>
+                                    In this project we investigated the population of LISA detectable binary black holes (BHBHs), black hole neutron stars (BHNSs) and binary neutron stars (NSNSs) that
+                                    reside in the Milky Way. Although similar studies have been done in the past, we made several improvements. We use an improved model for the Milky Way that accounts
+                                    for the chemical enrichment history of the galaxy and the size of our simulations is far larger than those used by others, which reduces our sampling uncertainties.
+                                    We also approached the problem with stellar evolution in mind and thus examined our results for 20 different model variations in order to see how things changed
+                                    when we alter the underlying binary physics assumptions.
+                                </p>
+                                <p class="text-center">
+                                    <a href="html/galactic_dcos.html" class="btn btn-lg btn-primary">Read my paper summary post here!</a>
+                                </p>
+                                <div class="row justify-content-center align-items-center">
+                                    <div class="col-12 col-md-6">
+                                        <img class="w-100" src="img/galactic_dco_paper/dcos_on_sc.png" />
+                                    </div>
+                                    <div class="col-12 col-md-6">
+                                        <img class="w-100" src="img/galactic_dco_paper/dco_detections.png" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <div class="text-center">
+                            <button class="btn open-close" style="color: grey">
+                                <i class="fa fa-chevron-up fa-2x"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="compas" class="details hide">
+                <div class="row text-center">
+                    <div class="col">
+                        <h1>COMPAS</h1>
+                        <hr class="w-25 mx-auto" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col justify-content-center">
+                        <p class="text-center">
+                            <a href="https://ui.adsabs.harvard.edu/abs/2022ApJS..258...34R/abstract" target="_blank" class="btn bg-transparent rounded project-link">
+                                <i class="fas fa-scroll fa-fw fa-2x" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Paper"></i>
+                            </a>
+                            <a href="https://github.com/TeamCOMPAS/COMPAS" target="_blank" class="btn bg-transparent rounded project-link">
+                                <i class="fab fa-github fa-fw fa-2x" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Code Repo"></i>
+                            </a>
+                            <a href="https://compas.readthedocs.io/en/latest/" target="_blank" class="btn bg-transparent rounded project-link">
+                                <i class="fas fa-book fa-fw fa-2x" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Docs"></i>
+                            </a>
+                        </p>
+                        <div class="row justify-content-center">
+                            <div class="col-12 col-md-11">
+                                <p class="text-center fst-italic">
+                                    COMPAS combines tools for statistical analysis and model selection with rapid population synthesis, allowing inferences to be made about the details of stellar and
+                                    binary evolution with ease
+                                </p>
+                            </div>
+                            <div class="col-12 col-md-9">
+                                <p>
+                                    <a href="https://compas.science" target="_blank">COMPAS</a> is an open-source, rapid binary population synthesis code that I help to develop. I was introduced to
+                                    the COMPAS team by Selma de Mink whilst working on my Galactic DCO paper and took a deep-dive into the codebase in order to help improve COMPAS' handling of
+                                    low-mass stars with Selma. I've also taken a detailed look at COMPAS' wind mass loss prescriptions and helped to clean them up as well as change the way COMPAS
+                                    handles luminous blue variable wind mass loss by default.
+                                </p>
+                                <p>
+                                    We recently released a comprehensive methods paper that details how the code works and the science behind it. I really enjoyed helping to write this paper as it
+                                    gave me a great opportunity to get a clear understanding of all of the underlying physics that goes into the code!
+                                </p>
+                                <p>
+                                    I focussed on the single star evolution and, in particular, made Figures 5-8 for the paper. For example, below I include Figure 5 from the paper, which shows a
+                                    Hertzsprung-Russell diagram at two different metallicities, which I produced used COMPAS. You can see the approximate solutions that COMPAS uses in the Hertzsprung
+                                    Gap for example (where the lines are completely straight), yet the general shape of the evolution matches what we expect from stellar evolution. In case you're
+                                    interested in checking them out, the other figures show: the maximum radial extension of each stellar type, the main sequence lifetime for different metallicities
+                                    and the initial-core-remnant mass relations for different metallicities and prescriptions.
+                                </p>
+                                <p>
+                                    If you're interested in learning more about how COMPAS works then I recommend that you read
+                                    <a href="https://arxiv.org/abs/2109.10352" target="_blank">the methods paper</a>, it is very detailed and has a convenient table of contents for you to hop around.
+                                    And if you're less interested in how the code was designed, but instead want to know how to use it then check out
+                                    <a href="https://compas.readthedocs.io/en/latest/" target="_blank">the documentation!</a>
+                                </p>
+                                <div class="row justify-content-center align-items-center mb-4">
+                                    <div class="col-12 col-md-9">
+                                        <img class="w-100" src="img/compas_hrd.png" />
+                                    </div>
+                                </div>
+                                <p class="text-center">
+                                    <a href="https://compas.science" target="_blank">
+                                        <img class="w-50 rounded-pill" src="https://compas.science/images/COMPAS_CasA.png" />
+                                    </a>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <div class="text-center">
+                            <button class="btn open-close" style="color: grey">
+                                <i class="fa fa-chevron-up fa-2x"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <div class="container-fluid text-center">
+            <hr class="text-muted w-75 mx-auto my-5" />
+        </div>
+
         <div class="row text-center mb-4">
             <div class="col">
-                <h3 class="text-muted">
-                    recent projects
-                </h3>
+                <h5 class="text-muted">
+                    find a full list of my publications
+                    <a
+                        target="_blank"
+                        href="https://ui.adsabs.harvard.edu/search/filter_database_fq_database=AND&filter_database_fq_database=database%3A%22astronomy%22&filter_doctype_facet_hier_fq_doctype=AND&filter_doctype_facet_hier_fq_doctype=doctype_facet_hier%3A%220%2FArticle%22&fq=%7B!type%3Daqp%20v%3D%24fq_database%7D&fq=%7B!type%3Daqp%20v%3D%24fq_doctype%7D&fq_database=(database%3A%22astronomy%22)&fq_doctype=(doctype_facet_hier%3A%220%2FArticle%22)&p_=0&q=author%3A%22Wagg%2CTom%22&sort=date%20desc%2C%20bibcode%20desc"
+                        >on ADS</a
+                    >!
+                </h5>
             </div>
         </div>
-        <div class="row">
+
+        <div class="row text-center mb-4">
             <div class="col">
-                <div class="research-projects text-center align-middle">
-                    <article class="project" data-details="lsst_neocp">
-                        <div class="row">
-                            <div class="col">
-                                <img src="img/asteroid_cartoon.png">
-                                <div class="project-description">
-                                    <div class="project-description-text">
-                                        <h4>The Sky is Falling?</h4>
-                                        <h6>predictions and mitigation methods for NEO follow-up in the Era of LSST</h6>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </article>
-                    <article class="project" data-details="legwork">
-                        <div class="row">
-                            <div class="col">
-                                <img src="img/legwork_nowords.png">
-                                <div class="project-description">
-                                    <div class="project-description-text">
-                                        <h4>LEGWORK</h4>
-                                        <h6>a python package for LISA related calculations and visualisation</h6>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </article>
-                    <article class="project" data-details="MW_dcos">
-                        <div class="row">
-                            <div class="col">
-                                <img src="img/milky_way_dcos.png">
-                                <div class="project-description">
-                                    <div class="project-description-text">
-                                        <h4>Galactic DCOs in LISA</h4>
-                                        <h6>an examination of the galactic population of LISA detectable DCOs</h6>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </article>
-                    <article class="project" data-details="compas">
-                        <div class="row">
-                            <div class="col">
-                                <img src="img/COMPAS.png">
-                                <div class="project-description">
-                                    <div class="project-description-text">
-                                        <h4>COMPAS</h4>
-                                        <h6>a rapid binary population synthesis code</h6>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </article>
-                </div>
+                <h5 class="text-muted">for more info about me check out <a href="html/aboutme.html">my biographical page</a>!</h5>
             </div>
         </div>
-    </section>
 
-    <section id="research_details" class="container px-5">
-        <div id="lsst_neocp" class="details hide">
-            <div class="row text-center">
+        <footer class="container footer mb-2">
+            <div class="row mb-5 align-items-center">
+                <div class="col-12 col-sm mb-2 mb-sm-0 text-center">
+                    <a href="mailto:tomwagg@uw.edu">
+                        <i class="far fa-envelope"></i>
+                        tomwagg@uw.edu
+                    </a>
+                </div>
+                <div class="col-12 col-sm mb-2 mb-sm-0 text-center">
+                    <ul class="list-inline mb-2">
+                        <li class="list-inline-item">
+                            <i class="fab fa-twitter-square fa-5x social-link">
+                                <a href="https://twitter.com/tomjwagg" target="_blank"></a>
+                            </i>
+                        </li>
+                        <li class="list-inline-item">
+                            <i class="fab fa-github fa-5x social-link">
+                                <a href="https://github.com/TomWagg" target="_blank"></a>
+                            </i>
+                        </li>
+                        <li class="list-inline-item">
+                            <i class="fab fa-linkedin fa-5x social-link">
+                                <a href="https://www.linkedin.com/in/tom-wagg" target="_blank"></a>
+                            </i>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-12 col-sm mb-2 mb-sm-0 text-center">
+                    <a href="https://goo.gl/maps/G5WuskUkVgy1xy4H6" target="_blank"> Physics & Astronomy Building (B329)<br />3910 15th Ave NE<br />Seattle, WA, 98105 </a>
+                </div>
+            </div>
+            <div class="row text-center mb-3">
                 <div class="col">
-                    <h1>The Sky the Falling?</h1>
-                    <h2>NEO follow-up in the Era of LSST</h2>
-                    <hr class="w-25 mx-auto">
+                    <p class="text-muted small mb-0">Copyright &copy; Tom Wagg 2022 | Made by Tom Wagg (when he definitely should have been working)</p>
                 </div>
             </div>
-            <div class="row">
-                <div class="col justify-content-center">
-                    <p class="text-center">
-                        <a href="" target="_blank"
-                            class="btn bg-transparent rounded project-link">
-                            <i class="fas fa-scroll fa-2x" data-bs-toggle="tooltip" data-bs-placement="bottom"
-                                title="Paper"></i>
-                        </a>
-                        <a href="https://github.com/dirac-institute/hybrid_sso_catalogue/" target="_blank"
-                            class="btn bg-transparent rounded project-link">
-                            <i class="fab fa-github fa-2x" data-bs-toggle="tooltip" data-bs-placement="bottom"
-                                title="Paper Repo"></i>
-                        </a>
-                    </p>
-                    <div class="row justify-content-center">
-                        <div class="col-12 col-md-11">
-                            <p class="text-center fst-italic">Short desc
-                            </p>
-                        </div>
-                        <div class="col-12 col-md-9">
-                            TODO + plots
-                            <div class="row justify-content-center align-items-center">
-                                <div class="col-12 col-md-6">
-                                    <img class="w-100" src="img/role_eccentricity.png">
-                                </div>
-                                <div class="col-12 col-md-6">
-                                    <img class="w-100" src="img/horizon_distance.png">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col">
-                            <div class="text-center">
-                                <button class="btn open-close" style="color:grey;">
-                                    <i class="fa fa-chevron-up fa-2x"></i>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div id="legwork" class="details hide">
-            <div class="row text-center">
-                <div class="col">
-                    <h1>LEGWORK</h1>
-                    <hr class="w-25 mx-auto">
-                </div>
-            </div>
-            <div class="row">
-                <div class="col justify-content-center">
-                    <p class="text-center">
-                        <a href="https://ui.adsabs.harvard.edu/abs/2022ApJS..260...52W/abstract" target="_blank"
-                            class="btn bg-transparent rounded project-link">
-                            <i class="fas fa-scroll fa-2x" data-bs-toggle="tooltip" data-bs-placement="bottom"
-                                title="Paper"></i>
-                        </a>
-                        <a href="https://github.com/TeamLEGWORK/LEGWORK-paper" target="_blank"
-                            class="btn bg-transparent rounded project-link">
-                            <i class="fab fa-github fa-2x" data-bs-toggle="tooltip" data-bs-placement="bottom"
-                                title="Paper Repo"></i>
-                        </a>
-                        <a href="https://github.com/TeamLEGWORK/LEGWORK" target="_blank"
-                            class="btn bg-transparent rounded project-link">
-                            <i class="fas fa-code fa-2x" data-bs-toggle="tooltip" data-bs-placement="bottom"
-                                title="Code Repo"></i>
-                        </a>
-                        <a href="https://legwork.readthedocs.io" target="_blank"
-                            class="btn bg-transparent rounded project-link">
-                            <i class="fas fa-book fa-2x" data-bs-toggle="tooltip" data-bs-placement="bottom"
-                                title="Docs"></i>
-                        </a>
-                    </p>
-                    <div class="row justify-content-center">
-                        <div class="col-12 col-md-11">
-                            <p class="text-center fst-italic">LEGWORK is a python package that does the LEGWORK for you
-                                by evolving binaries, calculating gravitational-wave strains, computing signal-to-noise
-                                ratios for binary systems potentially observable with LISA and visualising the results
-                            </p>
-                        </div>
-                        <div class="col-12 col-md-9">
-                            <p>
-                                My co-authors (<a href="https://katiebreivik.github.io/" target="_blank">Katie
-                                    Breivik</a>
-                                and <a href="https://www.selmademink.com/">Selma de Mink</a>) and I have officially
-                                released
-                                <code>LEGWORK</code> and you can now read the paper on the <a
-                                    href="https://arxiv.org/abs/2111.08717">ArXiv</a>! This
-                                package was dreamt up
-                                almost entirely independently by both me and Katie, and when we realised that we had the
-                                same
-                                idea we decided to work together to create this package!
-                            </p>
-                            <p>
-                                Our motivation behind <code>LEGWORK</code> was to create a package that was completely
-                                open-source, since this would (1) allow seasoned experts to collaborate and suggest new
-                                features or improvements and (2) make it easier for newcomers to quickly understand how
-                                to make their own predictions. Another motivation was that, by introducing
-                                this package to the community, we could create a collaborative code to avoid
-                                individual mistakes. We found that many papers have slightly different pre-factors in
-                                their equations, which could lead to very different predictions, so we aim for
-                                <code>LEGWORK</code> to provide a central tool and reference for the community to use in
-                                order to avoid this confusion.
-                            </p>
-                            <p>
-                                The installation of the package should be very simple. Just run<br>
-                                <pre class="ms-4"><code>pip install legwork</code></pre>
-                                and you're all set! If you have any installation issues you can check out the full
-                                instructions <a href="https://legwork.readthedocs.io/en/latest/install.html">here</a>.
-                            </p>
-                            <p>
-                                <code>LEGWORK</code> can be used to evolve the orbits of binaries, calculating their
-                                gravitational-wave strains, compute their signal-to-noise ratios and visualise the
-                                results! I encourage you to check out all of the tutorials, demos and documentation
-                                here. Below I've included some plots that demonstrate the sorts of things you could make
-                                with <code>LEGWORK</code>. The plot on the left illustrates how eccentricity can affect
-                                the detectability of a binary - some eccentricity can be good for increasing your SNR,
-                                but too much can move the GW emission into an area of the sensitivity curve to which
-                                LISA is less sensitive! The plot on the right shows the horizon distance for circular
-                                binaries over different frequencies and eccentricities. For more information about these
-                                plots I encourage you to read the "Use Cases" section of the release paper, in which we
-                                discuss them in detail!
-                            </p>
-                            <div class="row justify-content-center align-items-center">
-                                <div class="col-12 col-md-6">
-                                    <img class="w-100" src="img/role_eccentricity.png">
-                                </div>
-                                <div class="col-12 col-md-6">
-                                    <img class="w-100" src="img/horizon_distance.png">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col">
-                            <div class="text-center">
-                                <button class="btn open-close" style="color:grey;">
-                                    <i class="fa fa-chevron-up fa-2x"></i>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div id="MW_dcos" class="details hide">
-            <div class="row text-center">
-                <div class="col">
-                    <h1>Gravitational wave sources in our Galactic backyard</h1>
-                    <h3>Predictions for BHBH, BHNS and NSNS binaries detectable with LISA</h3>
-                    <hr class="w-25 mx-auto">
-                </div>
-            </div>
-            <div class="row">
-                <div class="col justify-content-center">
-                    <p class="text-center">
-                        <a href="https://ui.adsabs.harvard.edu/abs/2021arXiv211113704W/abstract" target="_blank"
-                            class="btn bg-transparent rounded project-link">
-                            <i class="fas fa-scroll fa-2x" data-bs-toggle="tooltip" data-bs-placement="bottom"
-                                title="Paper"></i>
-                        </a>
-                        <a href="https://github.com/TomWagg/detecting-DCOs-in-LISA" target="_blank"
-                            class="btn bg-transparent rounded project-link">
-                            <i class="fab fa-github fa-2x" data-bs-toggle="tooltip" data-bs-placement="bottom"
-                                title="GitHub Repo"></i>
-                        </a>
-                        <a href="https://zenodo.org/record/5725607" target="_blank"
-                            class="btn bg-transparent rounded project-link">
-                            <i class="fas fa-database fa-2x" data-bs-toggle="tooltip" data-bs-placement="bottom"
-                                title="Data"></i>
-                        </a>
-                        <a href="html/galactic_dcos.html" class="btn bg-transparent rounded project-link">
-                            <i class="fas fa-comment fa-2x" data-bs-toggle="tooltip" data-bs-placement="bottom"
-                                title="Summary Post"></i>
-                        </a>
-                    </p>
-                    <div class="row justify-content-center">
-                        <div class="col-12 col-md-11">
-                            <p class="text-center fst-italic">
-                                We examine the population of LISA detectable BHBHs, BHNSs and NSNSs in the Milky Way for
-                                20 different binary physics variations, using a new model for the Milky Way and large
-                                grid of population synthesis simulations
-                            </p>
-                        </div>
-                        <div class="col-12 col-md-9">
-                            <p>
-                                What happens when a grid of over 2 billion massive binaries, a new empirically-informed
-                                model for the Milky Way, a <a href="https://legwork.readthedocs.io"
-                                    target="_blank">Python package for stellar-origin LISA sources</a> and a group of
-                                astrophysicists walk into a bar? This paper!
-                            </p>
-                            <p>
-                                Long long ago this paper started off as my senior thesis for college, supervised by
-                                Floor Broekgaarden and Selma de Mink. At the time I was quite pleased with it...but if
-                                you want to amuse yourself, go see how simple <a href="pdf/thesis.pdf"
-                                    target="_blank">the thesis</a> was by comparison (though I <i>will</i> say that I
-                                managed to accomplish all of the "future work" section, so there is that!). Then, just
-                                in the final days of college, the world erupted into chaos with a pandemic and so, given
-                                my previous experience with online classes, I decided to take a gap year before starting
-                                my PhD. Instead, I spent the last year working on this (and <a
-                                    href="https://legwork.readthedocs.io">LEGWORK</a>) and I'm so very excited to
-                                finally share it with everyone!
-                            </p>
-                            <p>
-                                In this project we investigated the population of LISA detectable binary black holes
-                                (BHBHs), black hole neutron stars (BHNSs) and binary neutron stars (NSNSs) that reside
-                                in the Milky Way. Although similar studies have been done in the past, we made several
-                                improvements. We use an improved model for the Milky Way that accounts for the chemical
-                                enrichment history of the galaxy and the size of our simulations is far larger than
-                                those used by others, which reduces our sampling uncertainties. We also approached the
-                                problem with stellar evolution in mind and thus examined our results for 20 different
-                                model variations in order to see how things changed when we alter the underlying binary
-                                physics assumptions.
-                            </p>
-                            <p class="text-center">
-                                <a href="html/galactic_dcos.html" class="btn btn-lg btn-primary">Read my paper summary post here!</a>
-                            </p>
-                            <div class="row justify-content-center align-items-center">
-                                <div class="col-12 col-md-6">
-                                    <img class="w-100" src="img/galactic_dco_paper/dcos_on_sc.png">
-                                </div>
-                                <div class="col-12 col-md-6">
-                                    <img class="w-100" src="img/galactic_dco_paper/dco_detections.png">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col">
-                    <div class="text-center">
-                        <button class="btn open-close" style="color:grey;">
-                            <i class="fa fa-chevron-up fa-2x"></i>
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div id="compas" class="details hide">
-            <div class="row text-center">
-                <div class="col">
-                    <h1>COMPAS</h1>
-                    <hr class="w-25 mx-auto">
-                </div>
-            </div>
-            <div class="row">
-                <div class="col justify-content-center">
-                    <p class="text-center">
-                        <a href="https://ui.adsabs.harvard.edu/abs/2022ApJS..258...34R/abstract" target="_blank"
-                            class="btn bg-transparent rounded project-link">
-                            <i class="fas fa-scroll fa-fw fa-2x" data-bs-toggle="tooltip" data-bs-placement="bottom"
-                                title="Paper"></i>
-                        </a>
-                        <a href="https://github.com/TeamCOMPAS/COMPAS" target="_blank"
-                            class="btn bg-transparent rounded project-link">
-                            <i class="fab fa-github fa-fw fa-2x" data-bs-toggle="tooltip" data-bs-placement="bottom"
-                                title="Code Repo"></i>
-                        </a>
-                        <a href="https://compas.readthedocs.io/en/latest/" target="_blank"
-                            class="btn bg-transparent rounded project-link">
-                            <i class="fas fa-book fa-fw fa-2x" data-bs-toggle="tooltip" data-bs-placement="bottom"
-                                title="Docs"></i>
-                        </a>
-                    </p>
-                    <div class="row justify-content-center">
-                        <div class="col-12 col-md-11">
-                            <p class="text-center fst-italic">
-                                COMPAS combines tools for statistical analysis and model selection with rapid population synthesis, allowing inferences to be made about the details of stellar and binary evolution with ease
-                            </p>
-                        </div>
-                        <div class="col-12 col-md-9">
-                            <p>
-                                <a href="https://compas.science" target="_blank">COMPAS</a> is an open-source, rapid
-                                binary
-                                population synthesis code that I help to develop. I was introduced to the COMPAS team by
-                                Selma
-                                de Mink whilst working on my Galactic DCO paper and took a deep-dive into the codebase
-                                in order
-                                to help improve COMPAS' handling of low-mass stars with Selma. I've also taken a
-                                detailed look
-                                at COMPAS' wind mass loss prescriptions and helped to clean them up as well as change
-                                the way
-                                COMPAS handles luminous blue variable wind mass loss by default.
-                            </p>
-                            <p>
-                                We recently released a comprehensive methods paper that details how the code works and
-                                the
-                                science behind it. I really enjoyed helping to write this paper as it gave me a great
-                                opportunity to get a clear understanding of all of the underlying physics that goes into
-                                the
-                                code!
-                            </p>
-                            <p>
-                                I focussed on the single star evolution and, in particular, made Figures 5-8 for the
-                                paper. For example, below I include Figure 5 from the paper, which shows a
-                                Hertzsprung-Russell
-                                diagram at two different metallicities, which I produced used COMPAS. You can see the
-                                approximate solutions that COMPAS uses in the Hertzsprung Gap for example (where the
-                                lines are
-                                completely straight), yet the general shape of the evolution matches what we expect from
-                                stellar
-                                evolution. In case you're interested in checking them out, the other figures show: the
-                                maximum
-                                radial extension of each stellar type, the main sequence lifetime for different
-                                metallicities
-                                and the initial-core-remnant mass relations for different metallicities and
-                                prescriptions.
-                            </p>
-                            <p>
-                                If you're interested in learning more about how COMPAS works then I recommend that you
-                                read <a href="https://arxiv.org/abs/2109.10352" target="_blank">the methods paper</a>,
-                                it is very
-                                detailed and has a convenient table of contents for you to hop around. And if you're
-                                less
-                                interested in how the code was designed, but instead want to know how to use it then
-                                check out
-                                <a href="https://compas.readthedocs.io/en/latest/" target="_blank">the
-                                    documentation!</a>
-                            </p>
-                            <div class="row justify-content-center align-items-center mb-4">
-                                <div class="col-12 col-md-9">
-                                    <img class="w-100" src="img/compas_hrd.png">
-                                </div>
-                            </div>
-                            <p class="text-center">
-                                <a href="https://compas.science" target="_blank">
-                                    <img class="w-50 rounded-pill" src="https://compas.science/images/COMPAS_CasA.png">
-                                </a>
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col">
-                    <div class="text-center">
-                        <button class="btn open-close" style="color:grey;">
-                            <i class="fa fa-chevron-up fa-2x"></i>
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+        </footer>
 
-    <div class="container-fluid text-center">
-        <hr class="text-muted w-75 mx-auto my-5">
-    </div>
+        <div id="javascriptbox">
+            <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+            <script
+                src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js"
+                integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0"
+                crossorigin="anonymous"></script>
+            <script src="js/index.js"></script>
 
-    <div class="row text-center mb-4">
-        <div class="col">
-            <h5 class="text-muted">
-                find a full list of my publications <a target="_blank"
-                    href="https://ui.adsabs.harvard.edu/search/filter_database_fq_database=AND&filter_database_fq_database=database%3A%22astronomy%22&filter_doctype_facet_hier_fq_doctype=AND&filter_doctype_facet_hier_fq_doctype=doctype_facet_hier%3A%220%2FArticle%22&fq=%7B!type%3Daqp%20v%3D%24fq_database%7D&fq=%7B!type%3Daqp%20v%3D%24fq_doctype%7D&fq_database=(database%3A%22astronomy%22)&fq_doctype=(doctype_facet_hier%3A%220%2FArticle%22)&p_=0&q=author%3A%22Wagg%2CTom%22&sort=date%20desc%2C%20bibcode%20desc">on
-                    ADS</a>!
-            </h5>
-        </div>
-    </div>
-
-    <div class="row text-center mb-4">
-        <div class="col">
-            <h5 class="text-muted">
-                for more info about me check out <a href="html/aboutme.html">my biographical page</a>!
-            </h5>
-        </div>
-    </div>
-
-    <footer class="container footer mb-2">
-        <div class="row mb-5 align-items-center">
-            <div class="col-12 col-sm mb-2 mb-sm-0 text-center">
-                <a href="mailto:tomwagg@uw.edu">
-                    <i class="far fa-envelope"></i>
-                    tomwagg@uw.edu
-                </a>
-            </div>
-            <div class="col-12 col-sm mb-2 mb-sm-0 text-center">
-                <ul class="list-inline mb-2">
-                    <li class="list-inline-item">
-                        <i class="fab fa-twitter-square fa-5x social-link">
-                            <a href="https://twitter.com/tomjwagg" target="_blank"></a>
-                        </i>
-                    </li>
-                    <li class="list-inline-item">
-                        <i class="fab fa-github fa-5x social-link">
-                            <a href="https://github.com/TomWagg" target="_blank"></a>
-                        </i>
-                    </li>
-                    <li class="list-inline-item">
-                        <i class="fab fa-linkedin fa-5x social-link">
-                            <a href="https://www.linkedin.com/in/tom-wagg" target="_blank"></a>
-                        </i>
-                    </li>
-                </ul>
-            </div>
-            <div class="col-12 col-sm mb-2 mb-sm-0 text-center">
-                <a href="https://goo.gl/maps/G5WuskUkVgy1xy4H6" target="_blank">
-                    Physics & Astronomy Building (B329)<br>3910 15th Ave NE<br>Seattle, WA, 98105
-                </a>
-            </div>
-        </div>
-        <div class="row text-center mb-3">
-            <div class="col">
-                <p class="text-muted small mb-0">Copyright &copy; Tom Wagg 2022 | Made by Tom Wagg (when he definitely
-                    should have been working)</p>
-            </div>
-        </div>
-    </footer>
-
-    <div id="javascriptbox">
-        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js"
-            integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous">
-        </script>
-        <script src="js/index.js"></script>
-
-        <script type="text/x-mathjax-config">
-            MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
-            MathJax.Hub.Config({
-                "HTML-CSS": { linebreaks: { automatic: true } },
-                        SVG: { linebreaks: { automatic: true } }
-                });
+            <script type="text/x-mathjax-config">
+                MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+                MathJax.Hub.Config({
+                    "HTML-CSS": { linebreaks: { automatic: true } },
+                            SVG: { linebreaks: { automatic: true } }
+                    });
             </script>
-        <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML' async>
-        </script>
-    </div>
-</body>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML" async></script>
+        </div>
+    </body>
+</html>
