@@ -22,6 +22,7 @@ let glossary = {
     pulsars: "A rapidly rotating compact object (usually a neutron star) with jets of radiation beaming out its poles",
     "square kilometre array": "A radio telescope that can be used to detect pulsars",
     dco: "Double compact object",
+    dcos: "Double compact objects",
     "compact object": "White dwarfs, neutron stars and black holes",
     "compact objects": "White dwarfs, neutron stars and black holes",
     metallicity: "Fraction of the object that is composed of elements more massive than H and He",
@@ -31,16 +32,32 @@ let glossary = {
     bhbhs: "Binary black holes",
     bhns: "Black hole neutron star binary",
     bhnss: "Black hole neutron star binaries",
-    nsnss: "Binary neutron star",
+    nsns: "Binary neutron star",
     nsnss: "Binary neutron stars",
+    wdwd: "Binary white dwarf",
+    wdwds: "Binary white dwarfs",
     fiducial: "default, but not necessarily favoured",
     eccentricity: "A measure of how eccentric an orbit is. Eccentricity of 0 means circular and higher eccentricity is more eccentric/elliptical",
     "mass ratio": "Ratio of the masses in a binary system. Masses are more equal the closer this is to 1",
     snr: "Signal-to-noise ratio",
     snrs: "Signal-to-noise ratios",
     "chirp mass": "A quantity that combines the two masses of a binary, it is often used in gravitational wave measurements",
+    "chirp masses": "A quantity that combines the two masses of a binary, it is often used in gravitational wave measurements",
     "common-envelopes": "A possible phase of binary evolution in which the binary is surrounded by a common envelope of gas",
     "wolf-rayet": "A type of star in a late stage of its life that experiences strong stellar winds",
+    "pair-instability supernovae": "A type of supernova that occurs in very massive stars due to the pair production of electrons and positrons",
+    "remnant mass prescription": "A function that provides the mass of a remnant (e.g. black hole or neutron star) given the mass of the progenitor immediately prior to supernova",
+    // ------------------
+    // Solar system stuff
+    // ------------------
+    neo: "Near-Earth Object",
+    neos: "Near-Earth Objects",
+    mba: "Main Belt Asteroid",
+    mbas: "Main Belt Asteroids",
+    neocp: "Near-Earth Object Confirmation Page",
+    purity: "Fraction of objects that are near-Earth objects (rest are usually main belt asteroids)",
+    traffic: "Number of objects that are submitted to the near-Earth object confirmation page",
+    lsst: "Legacy Survey of Space and Time",
 };
 
 window.addEventListener("load", function () {
