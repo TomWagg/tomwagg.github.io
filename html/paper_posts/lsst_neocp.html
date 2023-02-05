@@ -282,8 +282,29 @@
                     <p>Now the simple question is: <b>how can we achieve or approximate this best case scenario without consulting an oracle?</b> Time to think about some mitigation strategies!</p>
 
                     <h2 id="mitigation">Predicting the future to mitigate LSST's impact on NEO follow-up</h2>
-                    <h3 id="future_results">How effective are we at predicting the future?</h3>
-
+                    <p>
+                        We've just said that if we could predict whether LSST will perform self-follow-up on objects then we'd be able to mitigate LSST's impact. This drove us to create an algorithm
+                        that attempts to do exactly that!
+                    </p>
+                    <p>
+                        For an object to be constrained by LSST it requires at least 2 observations per night, on 3 nights, in a 15 night window. (So we our miraculous foresight only needs to reach
+                        about two weeks into the future 😉). Given these requirements, we need to answer two questions
+                    </p>
+                    <ul class="list-group list-group-flush mb-3">
+                        <li class="list-group-item">
+                            <input class="form-check-input me-1" type="checkbox" />
+                            Where will LSST point over the next two weeks?
+                        </li>
+                        <li class="list-group-item">
+                            <input class="form-check-input me-1" type="checkbox" />
+                            What is the location and brightness of the object during each exposure?
+                        </li>
+                    </ul>
+                    <p>
+                        For predicting LSST's future pointings we use the <code>rubin_sim</code> python package to get an optimistic future schedule (optimistic because it doesn't account for
+                        unscheduled downtime due to things like bad weather). In reality one may able to adapt this algorithm to account for the fact that we'll have some short term weather forecast
+                        and increase its accuracy but we decided to make a conservative estimate.
+                    </p>
                     <figure>
                         <div class="img-fluid-limited float-end position-relative zoom-figure ms-2" data-bs-toggle="modal" data-bs-target="#orbits_modal">
                             <img src="../../img/lsst_neo_paper/orbits.png" class="img-fluid zoom-figure" />
@@ -302,13 +323,37 @@
                             </div>
                         </div>
                     </figure>
+                    <p>
+                        Predicting the location and brightness of the object over time requires a well constrained orbit. The problem is that, from our observations, we only constrain the on-sky
+                        position and motion, but we don't know the distance to the object or the speed at which it is moving towards or away from us. Therefore, there are many possible orbits that
+                        could fit a given observation. Check out the plot to the right that I made to illustrate this point.
+                    </p>
+                    <p>
+                        You can see that given a single set of observations from Earth (in the direction of the arrow), you can get a very different orbit. To account for this we create a grid of
+                        potential orbits based on the distance and speed it is moving towards or away from us (restricted to ranges that are reasonable for an NEO).
+                    </p>
+                    <p>
+                        For each of those orbits we compute its position and brightness over the course of the next two weeks using <code>OpenOrb</code>. From this point it is a simple matter of
+                        checking for each orbit whether it is observed at least twice on 3 nights in this window. We assign the probability of self-follow-up as a simple fraction of these orbits that
+                        achieve self-follow-up.
+                    </p>
+                    <h3 id="future_results">How effective are we at predicting the future?</h3>
+                    <p>
+                        So how did we do? We find that we are able to accurately predict whether an object requires external follow-up 74% of the time on average! In other words, we are able to
+                        predict the future for around 3 of every 4 objects. This has important implications for what LSST will send to the NEOCP.
+                    </p>
+                    <p>
+                        Using a threshold of $p = 0.7$ for submitting an object to the NEOCP, we find that our algorithm reduces the average nightly traffic of the NEOCP back to around 200 objects per
+                        night, very close to the best case scenario! However, only around 5% of these objects turn out to be actual NEOs. Let's talk more about why this is the case and what we can do
+                        about it in the last section.
+                    </p>
 
                     <h2 id="discussion">Discussion</h2>
                     <h3 id="improve_digest2">Improving digest2</h3>
                     <h3 id="delays">Delaying NEO Follow-up</h3>
                     <h3 id="ecl_lat_cuts">And in the meantime...</h3>
 
-                    <figure>
+                    <!-- <figure>
                         <div class="img-fluid-limited float-start position-relative zoom-figure ms-2" data-bs-toggle="modal" data-bs-target="#improvment_modal">
                             <img src="../../img/lsst_neo_paper/digest2_purity_over_lsst.png" class="img-fluid zoom-figure" />
                             <div class="img-overlay">
@@ -344,9 +389,69 @@
                                 </div>
                             </div>
                         </div>
-                    </figure>
+                    </figure> -->
 
                     <h2 id="conclusions">Conclusions</h2>
+                    <p>Click on each of the buttons below to read each of our main conclusions!</p>
+                    <div class="row pb-5">
+                        <div class="col-12 col-md-4 text-center text-md-end">
+                            <div class="row">
+                                <div class="col">
+                                    <button class="btn btn-primary conclusion-toggle active" data-bs-target="#conclusion-carousel" data-bs-slide-to="0">Predictions using current criteria</button>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <button class="btn btn-primary conclusion-toggle" data-bs-target="#conclusion-carousel" data-bs-slide-to="1">Improvements from our algorithm</button>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <button class="btn btn-primary conclusion-toggle" data-bs-target="#conclusion-carousel" data-bs-slide-to="2">Recommendations for early LSST</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div id="conclusion-carousel" class="carousel slide p-2 text-start fs-5" data-bs-ride="carousel" data-bs-interval="false">
+                                <div class="carousel-inner">
+                                    <div class="carousel-item active">
+                                        <div class="row">
+                                            <div class="col justify-content-center align-content-center align-self-center">
+                                                <p class="fw-bold">The NEOCP would be overwhelmed by LSST if we continue to use the current submission criteria</p>
+                                                <p>
+                                                    The traffic (number of objects submitted) and purity (fraction of objects that are NEOs) of the NEOCP will be severely impacted by LSST. The traffic
+                                                    will increase by over 2-3 orders of magnitude to between 1000-20000 objects per night, whilst the purity would range from 0.2%-10%.
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="carousel-item">
+                                        <div class="row">
+                                            <div class="col justify-content-center align-content-center align-self-center">
+                                                <p class="fw-bold">Our algorithm would reduce the impact of LSST on the NEOCP, but not fully solve the problem</p>
+                                                <p>
+                                                    Our LSST self-follow-up prediction algorithm would reduce the traffic back to reasonable levels of approximately 200 objects per night. However the
+                                                    purity still remains at an average of 5% due to the large MBA background
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="carousel-item">
+                                        <div class="row">
+                                            <div class="col justify-content-center align-content-center align-self-center">
+                                                <p class="fw-bold">NEO follow-up from LSST should be limited to large ecliptic latitudes for the first year</p>
+                                                <p>
+                                                    Due to the vast number of MBA observations in the first year, NEO follow-up will be difficult. For the first year an ecliptic latitude cut can be
+                                                    used to remove MBAs from the sample. After the first year around 85% of MBAs will have been identified, whilst the rate of NEO observations will
+                                                    remain roughly constant and so the purity of NEOCP submissions from LSST would return to reasonable levels when applying our algorithm
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
