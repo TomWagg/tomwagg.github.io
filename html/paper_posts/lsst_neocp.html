@@ -121,8 +121,8 @@
             <div class="row">
                 <div class="col">
                     <p class="fs-4">
-                        PANIC! The sky is falling! Okay, not exactly, but LSST <i>is</i> going to have a huge impact on NEO follow-up and it's essential that we prepare strategies for mitigating this
-                        impact before first light. Let's talk about why...
+                        PANIC! The sky is falling! Okay, not exactly, but LSST <i>is</i> going to have a huge impact on <span class="jargon">NEO</span> follow-up and it's essential that we prepare
+                        strategies for mitigating this impact before first light. Let's talk about why...
                     </p>
                     <blockquote class="blockquote">
                         <div class="prequote">&ldquo;</div>
@@ -159,8 +159,8 @@
 
                     <h2 id="sims">Simulating NEO follow-up during LSST</h2>
                     <p>
-                        Hopefully you're now convinced it is a good idea to keep track of all of these objects! Our job at this point was to simulate how LSST will affect NEO follow-up and for that we
-                        essentially need three things:
+                        Hopefully you're now convinced it is a good idea to keep track of all of these objects! Our job at this point was to simulate how LSST will affect
+                        <span class="jargon">NEO</span> follow-up and for that we essentially need three things:
                     </p>
                     <ul class="list-group list-group-flush mb-3">
                         <li class="list-group-item">
@@ -177,8 +177,8 @@
                         </li>
                     </ul>
                     <p>
-                        The first step is relatively simple since catalogues of these objects already exist, in particular we use the Simulated Solar System Catalogue (S3M). We did additionally
-                        improve on this catalogue by accounting for prior known objects and created a hybrid catalogue, but I'll talk about that in a separate post.
+                        The first step is relatively simple since catalogues of these objects already exist, in particular we use the Simulated Solar System Catalogue. We did additionally improve on
+                        this catalogue by accounting for prior known objects and created a hybrid catalogue, but I'll talk about that in a separate post.
                     </p>
                     <p>
                         For the predicted schedule and observations we know the baseline survey strategy plan for LSST, which outlines which areas of the sky it will observe and for how long. We used
@@ -209,21 +209,21 @@
                         </div>
                     </figure>
                     <p>
-                        Finally, to talk about scoring potential NEOs we first need to briefly talk about observations and tracklets. Observations of solar system objects are general formed out of a
-                        series of "tracklets", which consist of at least 2 observations within a short period of time. The motion over these short periods of time is generally linear and it is easier
-                        to associate the two observations with one another. You can then connect these tracklets over time and fit an orbit to their motion (this is referred to as "linking"). Check
-                        out the digram to see an example of this where we get 3 successive nights of observations.
+                        Finally, to talk about scoring potential <span class="jargon">NEOs</span> we first need to briefly talk about observations and tracklets. Observations of solar system objects
+                        are general formed out of a series of "tracklets", which consist of at least 2 observations within a short period of time. The motion over these short periods of time is
+                        generally linear and it is easier to associate the two observations with one another. You can then connect these tracklets over time and fit an orbit to their motion (this is
+                        referred to as "linking"). Check out the digram to see an example of this where we get 3 successive nights of observations.
                     </p>
                     <p>
-                        In reality, there are uncertainties on observations and so multiple orbits can fit the same tracklet. The scoring of these tracklets are potential NEOs is simply done as a
-                        fraction of the orbits that correspond to an NEO orbit (which remember from above just means a closest approach to the sun of 1.3 au). This calculation is done using a code
-                        called <code>digest2</code>.
+                        In reality, there are uncertainties on observations and so multiple orbits can fit the same tracklet. The scoring of these tracklets are potential
+                        <span class="jargon">NEOs</span> is simply done as a fraction of the orbits that correspond to an <span class="jargon">NEO</span> orbit (which remember from above just means a
+                        closest approach to the sun of 1.3 au). This calculation is done using a code called <code>digest2</code>.
                     </p>
                     <h3 id="traffic_purity">The impact of LSST using current criteria</h3>
                     <p>
-                        Okay so now putting that all together, we have a series of mock observations of simulated solar system objects, each of which is assigned an NEO score from 0 to 100. The
-                        current threshold for submission to the NEOCP is a score of 65 and so, using thism we calculated, the number of objects that would be submitted to the NEOCP in the first year
-                        of LSST using current criteria.
+                        Okay so now putting that all together, we have a series of mock observations of simulated solar system objects, each of which is assigned an
+                        <span class="jargon">NEO</span> score from 0 to 100. The current threshold for submission to the <span class="jargon">NEOCP</span> is a score of 65 and so, using thism we
+                        calculated, the number of objects that would be submitted to the <span class="jargon">NEOCP</span> in the first year of LSST using current criteria.
                     </p>
                     <figure>
                         <div class="img-fluid position-relative zoom-figure" data-bs-toggle="modal" data-bs-target="#tp_plot">
@@ -244,32 +244,35 @@
                         </div>
                     </figure>
                     <p>
-                        There's a lot of information in this plot so let's walk through it in detail. The top panel shows the traffic of the NEOCP, which means the total number of objects that will be
-                        submitted to the NEOCP according to current criteria. The bottom panel shows the purity, which means the fraction of the submitted objects that are <i>actually</i> NEOs. Each
-                        of these quantities are plotted over the first year of LSST and for a variety of required number of observations. For example, this means that the $N_{\rm obs} = 3$ line means
-                        we only include that tracklets that have at least 3 observations.
+                        There's a lot of information in this plot so let's walk through it in detail. The top panel shows the traffic of the <span class="jargon">NEOCP</span>, which means the total
+                        number of objects that will be submitted to the <span class="jargon">NEOCP</span> according to current criteria. The bottom panel shows the purity, which means the fraction of
+                        the submitted objects that are <i>actually</i> <span class="jargon">NEOs</span>. Each of these quantities are plotted over the first year of LSST and for a variety of required
+                        number of observations. For example, this means that the $N_{\rm obs} = 3$ line means we only include that tracklets that have at least 3 observations.
                     </p>
                     <p>
                         From the top panel we see that the traffic could increase to as much as 50,000 objects in a single night and the purity could go as low as 0.5%. Remember that the current
                         numbers are around two dozen objects with a purity of around 25%. The impact of LSST is HUGE, even when requiring a large number of observations of each tracklet 😨
                     </p>
                     <p>
-                        In case you're wondering about the general trends: the long period increase and decrease is seasonal and is due to the ecliptic plane (where MBAs reside) moving low and being
-                        observed more at certain times of year. The shorter term changes are due to the moon, you'll note there are dips in purity around every 30 days!
+                        In case you're wondering about the general trends: the long period increase and decrease is seasonal and is due to the <span class="jargon">ecliptic</span> plane (where
+                        <span class="jargon">MBAs</span>s reside) moving low and being observed more at certain times of year. The shorter term changes are due to the moon, you'll note there are dips
+                        in purity around every 30 days!
                     </p>
 
                     <h3 id="best_case">What about the best case scenario?</h3>
                     <p>
-                        Well, that's not good for NEO follow-up! 😱 Let's imagine the best case scenario in which we can fully predict the future, would things be better? LSST can confirm many NEOs
-                        without any help from the follow-up community, so if we knew beforehand which objects would get re-observed enough by LSST then we could skip sending them to the NEOCP.
+                        Well, that's not good for <span class="jargon">NEO</span> follow-up! 😱 Let's imagine the best case scenario in which we can fully predict the future, would things be better?
+                        LSST can confirm many <span class="jargon">NEOs</span> without any help from the follow-up community, so if we knew beforehand which objects would get re-observed enough by
+                        LSST then we could skip sending them to the <span class="jargon">NEOCP</span>.
                     </p>
                     <p>
-                        In this scenario, the traffic can still get as high as 200 objects on a single night but for the majority of the year it should still be in the current range that the NEOCP
-                        expects. The average purity is around 25% which is approximately what you find on the NEOCP currently. So this is great news!
+                        In this scenario, the traffic can still get as high as 200 objects on a single night but for the majority of the year it should still be in the current range that the
+                        <span class="jargon">NEOCP</span> expects. The average purity is around 25% which is approximately what you find on the <span class="jargon">NEOCP</span> currently. So this is
+                        great news!
                     </p>
                     <p>Now the simple question is: <b>how can we achieve or approximate this best case scenario without consulting an oracle?</b> Time to think about some mitigation strategies!</p>
 
-                    <h2 id="mitigation">Predicting the future to mitigate LSST's impact on NEO follow-up</h2>
+                    <h2 id="mitigation">Predicting the future to mitigate LSST's impact on <span class="jargon">NEO</span> follow-up</h2>
                     <p>
                         We've just said that if we could predict whether LSST will perform self-follow-up on objects then we'd be able to mitigate LSST's impact. This drove us to create an algorithm
                         that attempts to do exactly that!
@@ -318,7 +321,7 @@
                     </p>
                     <p>
                         You can see that given a single set of observations from Earth (in the direction of the arrow), you can get a very different orbit. To account for this we create a grid of
-                        potential orbits based on the distance and speed it is moving towards or away from us (restricted to ranges that are reasonable for an NEO).
+                        potential orbits based on the distance and speed it is moving towards or away from us (restricted to ranges that are reasonable for an <span class="jargon">NEO</span>).
                     </p>
                     <p>
                         For each of those orbits we compute its position and brightness over the course of the next two weeks using <code>OpenOrb</code>. From this point it is a simple matter of
@@ -328,25 +331,29 @@
                     <h3 id="future_results">How effective are we at predicting the future?</h3>
                     <p>
                         So how did we do? We find that we are able to accurately predict whether an object requires external follow-up 74% of the time on average! In other words, we are able to
-                        predict the future for around 3 of every 4 objects. This has important implications for what LSST will send to the NEOCP.
+                        predict the future for around 3 of every 4 objects. This has important implications for what LSST will send to the <span class="jargon">NEOCP</span>.
                     </p>
                     <p>
-                        Using a threshold of $p = 0.7$ for submitting an object to the NEOCP, we find that our algorithm reduces the average nightly traffic of the NEOCP back to around 200 objects per
-                        night, very close to the best case scenario! However, only around 5% of these objects turn out to be actual NEOs. Let's talk more about why this is the case and what we can do
-                        about it in the last section.
+                        Using a threshold of $p = 0.7$ for submitting an object to the <span class="jargon">NEOCP</span>, we find that our algorithm reduces the average nightly traffic of the
+                        <span class="jargon">NEOCP</span> back to around 200 objects per night, very close to the best case scenario! However, only around 5% of these objects turn out to be actual
+                        <span class="jargon">NEOs</span>. Let's talk more about why this is the case and what we can do about it in the last section.
                     </p>
+                    <blockquote class="blockquote">
+                        <div class="prequote">&ldquo;</div>
+                        <p>Our algorithm reduces the nightly traffic of the NEOCP back to reasonable levels, but still results in low purity due to the MBA background</p>
+                    </blockquote>
 
                     <h2 id="discussion">Discussion</h2>
                     <p>
                         We've shown how our new algorithm could really improve the situation but there is still the problem of purity of submissions. The main cause for the lack purity is the large
-                        background of MBAs. This isn't a problem currently as all of the brighter MBAs have been identified, however LSST will probe to much fainter depths and so there is an immense
-                        volume of undiscovered MBAs that will be observed. Hope is not lost though! There are a couple of different approaches for reducing the effect of this background that we can
-                        consider.
+                        background of <span class="jargon">MBAs</span>. This isn't a problem currently as all of the brighter <span class="jargon">MBAs</span> have been identified, however LSST will
+                        probe to much fainter depths and so there is an immense volume of undiscovered <span class="jargon">MBAs</span> that will be observed. Hope is not lost though! There are a
+                        couple of different approaches for reducing the effect of this background that we can consider.
                     </p>
                     <h3 id="improve_digest2">Improving how we score potential NEOs</h3>
                     <p>
-                        The current way that we score potential NEOs only considers the 6 orbital elements but there are several other indicators of whether an object is an NEO. Some of the ones that
-                        we could consider are:
+                        The current way that we score potential <span class="jargon">NEOs</span> only considers the 6 orbital elements but there are several other indicators of whether an object is an
+                        <span class="jargon">NEO</span>. Some of the ones that we could consider are:
                     </p>
                     <div class="text-center">
                         <div class="row">
@@ -356,8 +363,9 @@
                                         <div class="card-title">Ecliptic latitude</div>
                                     </div>
                                     <div class="card-body text-start">
-                                        Main belt asteroids are constrained to reside within the ecliptic plane but NEOs could be anywhere in ecliptic latitude. Therefore if you detect something at
-                                        high ecliptic latitudes it is more likely to be an NEO
+                                        Main belt asteroids are constrained to reside within the <span class="jargon">ecliptic</span> plane but <span class="jargon">NEOs</span> could be anywhere in
+                                        <span class="jargon">ecliptic latitude</span>. Therefore if you detect something at a high <span class="jargon">ecliptic latitude</span> it is more likely to be
+                                        an <span class="jargon">NEO</span>
                                     </div>
                                 </div>
                             </div>
@@ -367,8 +375,8 @@
                                         <div class="card-title">Brightness</div>
                                     </div>
                                     <div class="card-body text-start">
-                                        NEOs tend to be smaller in size than MBAs and we find that NEOs, in general, tend to be fainter than MBAs because of this. It is not clear cut but could be
-                                        considered in the scoring.
+                                        <span class="jargon">NEOs</span> tend to be smaller in size than <span class="jargon">MBAs</span> and we find that NEOs, in general, tend to be fainter than
+                                        <span class="jargon">MBAs</span> because of this. It is not clear cut but could be considered in the scoring.
                                     </div>
                                 </div>
                             </div>
@@ -380,8 +388,8 @@
                                         <div class="card-title">Direction of motion</div>
                                     </div>
                                     <div class="card-body">
-                                        Since MBAs have to reside within the belt, their on-sky motion is generally along the ecliptic. However NEOs are much closer and could be moving in any
-                                        direction so we'd expect to see much greater variation.
+                                        Since <span class="jargon">MBAs</span> have to reside within the belt, their on-sky motion is generally along the <span class="jargon">ecliptic</span>. However
+                                        <span class="jargon">NEOs</span> are much closer and could be moving in any direction so we'd expect to see much greater variation.
                                     </div>
                                 </div>
                             </div>
@@ -391,16 +399,17 @@
                                         <div class="card-title">Tumbling rate</div>
                                     </div>
                                     <div class="card-body">
-                                        As mentioned above, NEOs are generally smaller than MBAs. This means that we would expect them to rotate faster given the same angular momentum and we could
-                                        measure this as a rate of their brightness changing.
+                                        As mentioned above, <span class="jargon">NEOs</span> are generally smaller than <span class="jargon">MBAs</span>. This means that we would expect them to rotate
+                                        faster given the same angular momentum and we could measure this as a rate of their brightness changing.
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <p>
-                        None of these factors will necessarily separate NEOs from MBAs alone, but one can imagine combining them together into an overall score. For example, if you found an object at
-                        high ecliptic latitudes, moving further from the ecliptic and it was faint and rapidly tumbling, you'd probably think it much more likely that it was an NEO!
+                        None of these factors will necessarily separate <span class="jargon">NEOs</span> from <span class="jargon">MBAs</span> alone, but one can imagine combining them together into
+                        an overall score. For example, if you found an object at a high <span class="jargon">ecliptic latitude</span>, moving further from the <span class="jargon">ecliptic</span> and
+                        it was faint and rapidly tumbling, you'd probably think it much more likely that it was an <span class="jargon">NEO</span>!
                     </p>
                     <h3 id="delays">Delaying follow-up from LSST</h3>
                     <figure>
@@ -422,28 +431,29 @@
                         </div>
                     </figure>
                     <p>
-                        As we talked about above, the main issue is that LSST will discover a plethora of previously unknown faint MBAs and these are the unfortunate background against which we are
-                        searching for NEOs. It is expected that after the first year of LSST that 85% of MBAs will be identified. One could therefore imagine that waiting until this first year was
-                        complete would make follow-up much easier.
+                        As we talked about above, the main issue is that LSST will discover a plethora of previously unknown faint <span class="jargon">MBAs</span> and these are the unfortunate
+                        background against which we are searching for <span class="jargon">NEOs</span>. It is expected that after the first year of LSST that 85% of
+                        <span class="jargon">MBAs</span> will be identified. One could therefore imagine that waiting until this first year was complete would make follow-up much easier.
                     </p>
                     <p>
                         We tested whether delaying would have any effect and you can see the results in the plot to the right. The top panel shows how the traffic from previously unknown sources
-                        changes over the course of the 10 years (we only compute it for the first 50 nights in each year that have observations). Note the log scale, MBAs decrease drastically over the
-                        first few years before aligning with the constant steady rate from NEOs which doesn't change significantly over the entire survey.
+                        changes over the course of the 10 years (we only compute it for the first 50 nights in each year that have observations). Note the log scale,
+                        <span class="jargon">MBAs</span> decrease drastically over the first few years before aligning with the constant steady rate from <span class="jargon">NEOs</span> which doesn't
+                        change significantly over the entire survey.
                     </p>
 
                     <p>
-                        The implications of this can be seen in the second panel, where we see the average nightly purity strongly increase as the survey progress and the remaining MBAs are
-                        identified.
+                        The implications of this can be seen in the second panel, where we see the average nightly purity strongly increase as the survey progress and the remaining
+                        <span class="jargon">MBAs</span> are identified.
                     </p>
                     <p>
-                        We therefore recommend that general NEO follow-up from LSST not be attempted for at least the first year of LSST. However, this doesn't mean that we need to ignore
-                        <i>every</i> object that is identified as a potential NEO by LSST. Instead we can just place a conservative cut on the observed objects to ensure that we maintain a reasonable
-                        traffic and purity.
+                        We therefore recommend that general <span class="jargon">NEO</span> follow-up from LSST not be attempted for at least the first year of LSST. However, this doesn't mean that we
+                        need to ignore <i>every</i> object that is identified as a potential <span class="jargon">NEO</span> by LSST. Instead we can just place a conservative cut on the observed
+                        objects to ensure that we maintain a reasonable traffic and purity.
                     </p>
                     <p>
-                        We explore that in one last plot to see how varying the minimum ecliptic latitude can affect the average nightly traffic and purity. If you're interested then go ahead and try
-                        out an interactive version of this plot using the button below.
+                        We explore that in one last plot to see how varying the minimum <span class="jargon">ecliptic latitude</span> can affect the average nightly traffic and purity. If you're
+                        interested then go ahead and try out an interactive version of this plot using the button below.
                     </p>
                     <a href="../interact/neocp_ecliptic_latitude.html" target="_blank" class="btn btn-primary btn-lg fs-5">Try an interactive version of the plot</a>
 
@@ -478,8 +488,9 @@
                                             <div class="col justify-content-center align-content-center align-self-center">
                                                 <p class="fw-bold">The NEOCP would be overwhelmed by LSST if we continue to use the current submission criteria</p>
                                                 <p>
-                                                    The traffic (number of objects submitted) and purity (fraction of objects that are NEOs) of the NEOCP will be severely impacted by LSST. The traffic
-                                                    will increase by over 2-3 orders of magnitude to between 1000-20000 objects per night, whilst the purity would range from 0.2%-10%.
+                                                    The traffic (number of objects submitted) and purity (fraction of objects that are <span class="jargon">NEOs</span>) of the
+                                                    <span class="jargon">NEOCP</span> will be severely impacted by LSST. The traffic will increase by over 2-3 orders of magnitude to between 1000-20000
+                                                    objects per night, whilst the purity would range from 0.2%-10%.
                                                 </p>
                                             </div>
                                         </div>
@@ -490,7 +501,7 @@
                                                 <p class="fw-bold">Our algorithm would reduce the impact of LSST on the NEOCP, but not fully solve the problem</p>
                                                 <p>
                                                     Our LSST self-follow-up prediction algorithm would reduce the traffic back to reasonable levels of approximately 200 objects per night. However the
-                                                    purity still remains at an average of 5% due to the large MBA background
+                                                    purity still remains at an average of 5% due to the large <span class="jargon">MBA</span> background
                                                 </p>
                                             </div>
                                         </div>
@@ -500,9 +511,11 @@
                                             <div class="col justify-content-center align-content-center align-self-center">
                                                 <p class="fw-bold">NEO follow-up from LSST should be limited to large ecliptic latitudes for the first year</p>
                                                 <p>
-                                                    Due to the vast number of MBA observations in the first year, NEO follow-up will be difficult. For the first year an ecliptic latitude cut can be
-                                                    used to remove MBAs from the sample. After the first year around 85% of MBAs will have been identified, whilst the rate of NEO observations will
-                                                    remain roughly constant and so the purity of NEOCP submissions from LSST would return to reasonable levels when applying our algorithm
+                                                    Due to the vast number of <span class="jargon">MBA</span> observations in the first year, <span class="jargon">NEO</span> follow-up will be
+                                                    difficult. For the first year an <span class="jargon">ecliptic latitude</span> cut can be used to remove <span class="jargon">MBAs</span> from the
+                                                    sample. After the first year around 85% of <span class="jargon">MBAs</span> will have been identified, whilst the rate of
+                                                    <span class="jargon">NEO</span> observations will remain roughly constant and so the purity of <span class="jargon">NEOCP</span> submissions from
+                                                    LSST would return to reasonable levels when applying our algorithm
                                                 </p>
                                             </div>
                                         </div>

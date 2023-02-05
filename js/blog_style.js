@@ -50,14 +50,16 @@ let glossary = {
     // ------------------
     // Solar system stuff
     // ------------------
-    neo: "Near-Earth Object",
-    neos: "Near-Earth Objects",
+    neo: "Near-Earth Object (asteroid or comet that comes with 1.3au of the Sun)",
+    neos: "Near-Earth Objects (asteroids or comets that comes with 1.3au of the Sun)",
     mba: "Main Belt Asteroid",
     mbas: "Main Belt Asteroids",
-    neocp: "Near-Earth Object Confirmation Page",
+    neocp: "Near-Earth Object Confirmation Page - Website updated nightly with potential near-Earth objects that require follow-up",
     purity: "Fraction of objects that are near-Earth objects (rest are usually main belt asteroids)",
     traffic: "Number of objects that are submitted to the near-Earth object confirmation page",
     lsst: "Legacy Survey of Space and Time",
+    ecliptic: "The orbital plane of the Earth around the Sun (most planets and the asteroid belt lie on this plane)",
+    "ecliptic latitude": "Latitude above or below the ecliptic plane",
 };
 
 window.addEventListener("load", function () {
