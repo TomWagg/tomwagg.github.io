@@ -52,8 +52,8 @@ let glossary = {
     // ------------------
     neo: "Near-Earth Object (asteroid or comet that comes with 1.3au of the Sun)",
     neos: "Near-Earth Objects (asteroids or comets that comes with 1.3au of the Sun)",
-    mba: "Main Belt Asteroid",
-    mbas: "Main Belt Asteroids",
+    mba: "Main Belt Asteroid (an asteroid from the asteroid belt that resides between Mars and Jupiter)",
+    mbas: "Main Belt Asteroids (asteroids from the asteroid belt that resides between Mars and Jupiter)",
     neocp: "Near-Earth Object Confirmation Page - Website updated nightly with potential near-Earth objects that require follow-up",
     purity: "Fraction of objects that are near-Earth objects (rest are usually main belt asteroids)",
     traffic: "Number of objects that are submitted to the near-Earth object confirmation page",
