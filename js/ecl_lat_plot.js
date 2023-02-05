@@ -1,10 +1,6 @@
 make_plot();
 document.getElementById("dark-mode-checkbox").addEventListener("change", make_plot);
 
-document.getElementById("goto-me").addEventListener("click", function () {
-    window.location.href = "../../index.html";
-});
-
 function make_plot() {
     fetch("./ecl_lat_data.csv")
         .then((response) => response.text())
