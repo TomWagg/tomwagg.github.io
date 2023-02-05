@@ -62,10 +62,16 @@ body.dark {
     color: white;
 }
 
-.dark .img-overlay {
+.dark .img-overlay,
+.dark .list-group-item,
+.dark .list-group-item .form-check-input {
     background-color: #333;
 }
 
 .dark .progress-container {
     background-color: #4a4a4a;
+}
+
+.dark .list-group-item {
+    color: white;
 }
