@@ -139,7 +139,7 @@
 
                     <h2 id="intro">Setting the Scene</h2>
                     <p>
-                        Let's take a step back for a moment and cover some basic background information. First, let's talk about the stars of this production: <span class="jargon">NEOs</span>.
+                        Let's take a step back for a moment and cover some basic background information. First, let's talk about the stars of this production: <span class="jargon">NEOs</span> 🪨.
                         Near-Earth objects are defined as asteroids and comets that have a perihelion distance (its closest distance to the Sun) less than 1.3 times the distance from the Earth to the
                         Sun. These objects are important for a variety of reasons from astrobiology to rare material mining, but perhaps most important is the potential threat they pose to Earth. To
                         put it simply, we do not want the end up like the dinosaurs.
@@ -226,7 +226,7 @@
                         of LSST using current criteria.
                     </p>
                     <figure>
-                        <div class="img-fluid position-relative zoom-figure ms-2" data-bs-toggle="modal" data-bs-target="#tp_plot">
+                        <div class="img-fluid position-relative zoom-figure" data-bs-toggle="modal" data-bs-target="#tp_plot">
                             <img src="../../img/lsst_neo_paper/traffic_purity.png" class="img-fluid zoom-figure" />
                             <div class="img-overlay">
                                 <p class="m-0 fw-bold">Click to Zoom</p>
@@ -337,12 +337,74 @@
                     </p>
 
                     <h2 id="discussion">Discussion</h2>
-                    <h3 id="improve_digest2">Improving digest2</h3>
-                    <h3 id="delays">Delaying NEO Follow-up</h3>
-                    <h3 id="ecl_lat_cuts">And in the meantime...</h3>
-
-                    <!-- <figure>
-                        <div class="img-fluid-limited float-start position-relative zoom-figure ms-2" data-bs-toggle="modal" data-bs-target="#improvment_modal">
+                    <p>
+                        We've shown how our new algorithm could really improve the situation but there is still the problem of purity of submissions. The main cause for the lack purity is the large
+                        background of MBAs. This isn't a problem currently as all of the brighter MBAs have been identified, however LSST will probe to much fainter depths and so there is an immense
+                        volume of undiscovered MBAs that will be observed. Hope is not lost though! There are a couple of different approaches for reducing the effect of this background that we can
+                        consider.
+                    </p>
+                    <h3 id="improve_digest2">Improving how we score potential NEOs</h3>
+                    <p>
+                        The current way that we score potential NEOs only considers the 6 orbital elements but there are several other indicators of whether an object is an NEO. Some of the ones that
+                        we could consider are:
+                    </p>
+                    <div class="text-center">
+                        <div class="row">
+                            <div class="col p-4">
+                                <div class="card w-75 m-auto">
+                                    <div class="card-header">
+                                        <div class="card-title">Ecliptic latitude</div>
+                                    </div>
+                                    <div class="card-body text-start">
+                                        Main belt asteroids are constrained to reside within the ecliptic plane but NEOs could be anywhere in ecliptic latitude. Therefore if you detect something at
+                                        high ecliptic latitudes it is more likely to be an NEO
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col p-4">
+                                <div class="card w-75 m-auto">
+                                    <div class="card-header">
+                                        <div class="card-title">Brightness</div>
+                                    </div>
+                                    <div class="card-body text-start">
+                                        NEOs tend to be smaller in size than MBAs and we find that NEOs, in general, tend to be fainter than MBAs because of this. It is not clear cut but could be
+                                        considered in the scoring.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col p-4">
+                                <div class="card w-75 m-auto">
+                                    <div class="card-header">
+                                        <div class="card-title">Direction of motion</div>
+                                    </div>
+                                    <div class="card-body">
+                                        Since MBAs have to reside within the belt, their on-sky motion is generally along the ecliptic. However NEOs are much closer and could be moving in any
+                                        direction so we'd expect to see much greater variation.
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col p-4">
+                                <div class="card w-75 m-auto">
+                                    <div class="card-header">
+                                        <div class="card-title">Tumbling rate</div>
+                                    </div>
+                                    <div class="card-body">
+                                        As mentioned above, NEOs are generally smaller than MBAs. This means that we would expect them to rotate faster given the same angular momentum and we could
+                                        measure this as a rate of their brightness changing.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <p>
+                        None of these factors will necessarily separate NEOs from MBAs alone, but one can imagine combining them together into an overall score. For example, if you found an object at
+                        high ecliptic latitudes, moving further from the ecliptic and it was faint and rapidly tumbling, you'd probably think it much more likely that it was an NEO!
+                    </p>
+                    <h3 id="delays">Delaying follow-up from LSST</h3>
+                    <figure>
+                        <div class="img-fluid-limited float-end position-relative zoom-figure ms-2" data-bs-toggle="modal" data-bs-target="#improvment_modal">
                             <img src="../../img/lsst_neo_paper/digest2_purity_over_lsst.png" class="img-fluid zoom-figure" />
                             <div class="img-overlay">
                                 <p class="m-0 fw-bold">Click to Zoom</p>
@@ -359,28 +421,37 @@
                             </div>
                         </div>
                     </figure>
+                    <p>
+                        As we talked about above, the main issue is that LSST will discover a plethora of previously unknown faint MBAs and these are the unfortunate background against which we are
+                        searching for NEOs. It is expected that after the first year of LSST that 85% of MBAs will be identified. One could therefore imagine that waiting until this first year was
+                        complete would make follow-up much easier.
+                    </p>
+                    <p>
+                        We tested whether delaying would have any effect and you can see the results in the plot to the right. The top panel shows how the traffic from previously unknown sources
+                        changes over the course of the 10 years (we only compute it for the first 50 nights in each year that have observations). Note the log scale, MBAs decrease drastically over the
+                        first few years before aligning with the constant steady rate from NEOs which doesn't change significantly over the entire survey.
+                    </p>
 
-                    <figure>
-                        <div class="img-fluid-limited float-end position-relative zoom-figure ms-2" data-bs-toggle="modal" data-bs-target="#cutoff_modal">
-                            <img src="../../img/lsst_neo_paper/ecliptic_latitude_cutoff.png" class="img-fluid zoom-figure" />
-                            <div class="img-overlay">
-                                <p class="m-0 fw-bold">Click to Zoom</p>
-                            </div>
-                        </div>
-                        <div class="modal fade" id="cutoff_modal" tabindex="-1">
-                            <div class="modal-dialog modal-fullscreen">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                    </div>
-                                    <div class="modal-body text-center"><img src="../../img/lsst_neo_paper/ecliptic_latitude_cutoff.png" class="img-fluid" /></div>
-                                </div>
-                            </div>
-                        </div>
-                    </figure> -->
+                    <p>
+                        The implications of this can be seen in the second panel, where we see the average nightly purity strongly increase as the survey progress and the remaining MBAs are
+                        identified.
+                    </p>
+                    <p>
+                        We therefore recommend that general NEO follow-up from LSST not be attempted for at least the first year of LSST. However, this doesn't mean that we need to ignore
+                        <i>every</i> object that is identified as a potential NEO by LSST. Instead we can just place a conservative cut on the observed objects to ensure that we maintain a reasonable
+                        traffic and purity.
+                    </p>
+                    <p>
+                        We explore that in one last plot to see how varying the minimum ecliptic latitude can affect the average nightly traffic and purity. If you're interested then go ahead and try
+                        out an interactive version of this plot using the button below.
+                    </p>
+                    <a href="../interact/neocp_ecliptic_latitude.html" target="_blank" class="btn btn-primary btn-lg fs-5">Try an interactive version of the plot</a>
 
                     <h2 id="conclusions">Conclusions</h2>
-                    <p>Click on each of the buttons below to read each of our main conclusions!</p>
+                    <p>
+                        I hope you enjoyed learning about this project! Click on each of the buttons below to read each of our main conclusions. Please feel free to reach out if you have any questions
+                        or would like to discuss this :)
+                    </p>
                     <div class="row pb-5">
                         <div class="col-12 col-md-4 text-center text-md-end">
                             <div class="row">

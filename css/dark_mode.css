@@ -64,7 +64,8 @@ body.dark {
 
 .dark .img-overlay,
 .dark .list-group-item,
-.dark .list-group-item .form-check-input {
+.dark .list-group-item .form-check-input,
+.dark .card {
     background-color: #333;
 }
 
