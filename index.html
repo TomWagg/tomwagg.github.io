@@ -153,6 +153,19 @@
                                 </div>
                             </div>
                         </article>
+                        <article class="project" data-details="hybrid_sso">
+                            <div class="row">
+                                <div class="col">
+                                    <img src="img/hybrid_sso_catalogue/hybridcat.png" class="img-fluid p-3" />
+                                    <div class="project-description">
+                                        <div class="project-description-text">
+                                            <h4>Hybrid Solar System Catalogue</h4>
+                                            <h6>a new catalogue of solar system objects combining simulated objects with real observations</h6>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </article>
                         <article class="project" data-details="compas">
                             <div class="row">
                                 <div class="col">
@@ -391,6 +404,68 @@
                             <button class="btn open-close" style="color: grey">
                                 <i class="fa fa-chevron-up fa-2x"></i>
                             </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="hybrid_sso" class="details hide">
+                <div class="row text-center">
+                    <div class="col">
+                        <h1>Hybrid Solar System Catalogue</h1>
+                        <hr class="w-25 mx-auto" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col justify-content-center">
+                        <p class="text-center">
+                            <a href="https://github.com/dirac-institute/hybrid_sso_catalogue/" target="_blank" class="btn bg-transparent rounded project-link">
+                                <i class="fab fa-github fa-2x" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Code Repo"></i>
+                            </a>
+                            <a href="html/paper_posts/hybrid_sso.html" class="btn bg-transparent rounded project-link">
+                                <i class="fas fa-comment fa-2x" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Summary Post"></i>
+                            </a>
+                        </p>
+                        <div class="row justify-content-center">
+                            <div class="col-12 col-md-11">
+                                <p class="text-center fst-italic">
+                                    We built a framework for creating hybrid catalogues of solar system objects that combine real objects with MPCORB with simulated catalogues to allow for LSST
+                                    predictions that account for prior observations
+                                </p>
+                            </div>
+                            <div class="col-12 col-md-9">
+                                <p>
+                                    Current predictions for LSST solar system observations are often done using synthetic solar system catalogues. These catalogues contain every expected solar system
+                                    object, <i>not</i> accounting for the fact that we have already found many of the larger or brighter ones. I think the implications of this can be best expressed by
+                                    Gru:
+                                </p>
+                                <div class="row justify-content-center mb-2">
+                                    <div class="col-12 col-md-9">
+                                        <img class="img-fluid" style="border-radius: 2rem" src="img/hybrid_sso_catalogue/gru_explains_hybrid_catalogue.png" />
+                                    </div>
+                                </div>
+                                <p>
+                                    Predicting the re-discovery of Ceres, or any of the known solar system bodies for that matter, would of course be unfortunate. Therefore we've built a framework
+                                    that can create a hybrid catalogue that combines the latest data from the Minor Planet Center with the Simulated Solar System Catalogue (S3M)
+                                </p>
+                                <p>You can read more about it in the summary post (linked below) or the Appendix of Wagg+2023</p>
+                                <p class="text-center">
+                                    <a href="html/paper_posts/hybrid_sso.html" class="btn btn-lg btn-primary">Read the summary post here!</a>
+                                </p>
+                                <div class="row justify-content-center align-items-center">
+                                    <div class="col-12 col-md-6">
+                                        <img class="w-100 rounded" src="img/hybrid_sso_catalogue/density_one_panel.png" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <div class="text-center">
+                                    <button class="btn open-close" style="color: grey">
+                                        <i class="fa fa-chevron-up fa-2x"></i>
+                                    </button>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
