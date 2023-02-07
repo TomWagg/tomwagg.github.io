@@ -179,6 +179,80 @@
                         So, hundreds of millions of objects and several hours on the computing cluster later, we have our hybrid catalogue! Now the question is how well we did at combining the
                         catalogues intelligently to keep the underlying distributions unchanged.
                     </p>
+                    <figure>
+                        <div class="img-fluid-limited float-end position-relative zoom-figure ms-2" data-bs-toggle="modal" data-bs-target="#cdfs">
+                            <img src="../../img/hybrid_sso_catalogue/hybrid_vs_s3m_distributions.png" class="img-fluid zoom-figure" />
+                            <div class="img-overlay">
+                                <p class="m-0 fw-bold">Click to Zoom</p>
+                            </div>
+                        </div>
+                        <div class="modal fade" id="cdfs" tabindex="-1">
+                            <div class="modal-dialog modal-fullscreen">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body text-center"><img src="../../img/hybrid_sso_catalogue/hybrid_vs_s3m_distributions.png" class="img-fluid" /></div>
+                                </div>
+                            </div>
+                        </div>
+                    </figure>
+                    <p>
+                        Let's first plot up the cumulative distribution functions of each of the 7 parameters that we used to determine whether two objects are similar. Check out the plot to the
+                        right, the top panel shows the absolute magnitude, the second row is the position and the third row is the velocity. In each panel we plot a green line for the synthetic S3M
+                        model and a blue line for our new hybrid catalogue. One immediate thing to note is that in most panels you can only really see one line, the two distributions align almost
+                        perfectly!
+                    </p>
+                    <p>
+                        The one difference that you can see is for the smallest absolute magnitude objects. We see that the hybrid catalogue has slightly more bright (meaning <i>large</i>) objects
+                        than S3M. This is due to the objects that are added directly since they don't have near neighbours in our parameter space. To put it another way: we have discovered several
+                        bright objects that were not directly represented in the simulated dataset.
+                    </p>
+                    <p>
+                        Okay so they <i>look</i> the same but let's be a little more quantitative than that. A common way to check whether two samples are drawn from the same distribution is to use a
+                        <a href="https://en.wikipedia.org/wiki/Kolmogorov%E2%80%93Smirnov_test">K-S Test</a>. We find when applying this test that both catalogues are consistent with having been drawn
+                        from the same distribution. Sounds good so far!
+                    </p>
+                    <figure>
+                        <div class="img-fluid-limited float-start position-relative zoom-figure me-4" data-bs-toggle="modal" data-bs-target="#density">
+                            <img src="../../img/hybrid_sso_catalogue/density_comparisons.png" class="img-fluid zoom-figure" />
+                            <div class="img-overlay">
+                                <p class="m-0 fw-bold">Click to Zoom</p>
+                            </div>
+                        </div>
+                        <div class="modal fade" id="density" tabindex="-1">
+                            <div class="modal-dialog modal-fullscreen">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body text-center"><img src="../../img/hybrid_sso_catalogue/density_comparisons.png" class="img-fluid" /></div>
+                                </div>
+                            </div>
+                        </div>
+                    </figure>
+                    <p>
+                        Let's do one more check just to be sure. This time I'd like you to spot the difference between the two density distributions on the left 🙃 The top panel shows a distribution
+                        for the real detections from the MPCORB database, whilst the bottom panels for the distribution of objects that our algorithm matched to be replaced by the MPCORB objects.
+                    </p>
+                    <p>
+                        Each plot is showing the density distribution of objects within 5AU (5 times the distance from the Earth to the Sun) of the Sun. Brighter areas have more objects and dark
+                        regions correspond to voids. You can see a couple of fun things in these plots:
+                    </p>
+                    <ul class="list-group list-group mb-2">
+                        <li class="list-group-item">The central thin ring around 1au are likely objects that were identified as NEOs</li>
+                        <li class="list-group-item">The thick bright ring centred on 3au is the asteroid belt</li>
+                        <li class="list-group-item">The regions of higher density outside the ring are the Jupiter Trojans</li>
+                    </ul>
+                    <p>
+                        Now you can take a moment to stare at these two density plots and try to see some differences. Hopefully you agree with me that it's hard to find much of a difference
+                        (especially given that the colour scale is logarithmic).
+                    </p>
+                    <p>
+                        Once more we can be a little more quantitative about this and check the <a href="https://en.wikipedia.org/wiki/Kullback%E2%80%93Leibler_divergence">KL Divergence</a> of the two
+                        densities. This gives a measure of expected excess surprise from using one density distribution as a model and managing to draw the other one. A value of 0 would indicate
+                        identical densities and we find a value close to 1 which indicates extremely similar densities. Once more this indicates we did a good job!
+                    </p>
                 </div>
             </div>
         </div>
