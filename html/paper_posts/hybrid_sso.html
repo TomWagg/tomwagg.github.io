@@ -82,11 +82,17 @@
                 <a class="nav-link" href="#intro" role="button" aria-expanded="false">What's the problem?</a>
             </li>
             <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#sims" role="button" aria-expanded="false">Simulating NEO Follow-up</a>
+                <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#method" role="button" aria-expanded="false">Creating the catalogue</a>
                 <ul class="dropdown-menu dropdown-menu-end">
-                    <li><a class="nav-link" href="#traffic_purity">Impact with current criteria</a></li>
-                    <li><a class="nav-link" href="#best_case">Best case scenario</a></li>
+                    <li><a class="nav-link" href="#methods">The idea</a></li>
+                    <li><a class="nav-link" href="#method_details">The execution</a></li>
                 </ul>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#assess" role="button">Assessing catalogue quality</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#wrapup" role="button">Wrapping Up</a>
             </li>
         </nav>
         <div class="container">
@@ -174,7 +180,7 @@
                         the second closest simulated object. Finally, for the fifth real object, it is so far from any of the simulated objects that we do not perform a replacement but instead inject
                         it directly into the hybrid catalogue.
                     </p>
-                    <h2>Assessing how well we combined the catalogues</h2>
+                    <h2 id="assess">Assessing how well we combined the catalogues</h2>
                     <p>
                         So, hundreds of millions of objects and several hours on the computing cluster later, we have our hybrid catalogue! Now the question is how well we did at combining the
                         catalogues intelligently to keep the underlying distributions unchanged.
@@ -253,6 +259,18 @@
                         densities. This gives a measure of expected excess surprise from using one density distribution as a model and managing to draw the other one. A value of 0 would indicate
                         identical densities and we find a value close to 1 which indicates extremely similar densities. Once more this indicates we did a good job!
                     </p>
+                    <h2 id="wrapup">Wrapping up</h2>
+                    <p>
+                        Our framework for building hybrid catalogues manages to retain the underlying distributions of synthetic catalogues, whilst also identifying which objects have already been
+                        detected. This means that we can make predictions that account for prior solar system detections.
+                    </p>
+                    <p>
+                        You can try this out for yourself using the <code>hybridcat</code> code,
+                        <a href="https://github.com/dirac-institute/hybrid_sso_catalogue" class="fw-bold">available on GitHub</a> and pip installable!
+                    </p>
+                    <div class="text-center mb-3">
+                        <img src="../../img/hybrid_sso_catalogue/hybridcat.png" class="img-fluid" style="max-width: min(200px, 100%)" />
+                    </div>
                 </div>
             </div>
         </div>
