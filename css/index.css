@@ -27,13 +27,15 @@ body {
     content: "•";
 }
 
-a {
+a,
+a.nav-link {
     color: var(--primary);
     text-decoration: none;
     transition: 0.3s;
 }
 
-a:hover {
+a:hover,
+a.nav-link:hover {
     color: var(--primary-dark);
 }
 

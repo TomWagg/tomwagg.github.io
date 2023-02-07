@@ -331,6 +331,7 @@ function matrix() {
 function light_mode() {
     document.body.style.backgroundColor = "white";
     document.body.style.color = "black";
+    document.body.classList.remove("dark");
     document.querySelectorAll(".dark-mode-label svg").forEach((el) => {
         el.style.filter = "";
     });
@@ -344,6 +345,7 @@ function light_mode() {
 function dark_mode(blackRGB = "0") {
     document.body.style.backgroundColor = "rgb(" + blackRGB + "," + blackRGB + "," + blackRGB + ")";
     document.body.style.color = "white";
+    document.body.classList.add("dark");
     document.querySelectorAll(".dark-mode-label svg").forEach((el) => {
         el.style.filter = "invert(100%)";
     });

@@ -65,7 +65,8 @@ body.dark {
 .dark .img-overlay,
 .dark .list-group-item,
 .dark .list-group-item .form-check-input,
-.dark .card {
+.dark .card,
+.dark .dropdown-menu {
     background-color: #333;
 }
 
