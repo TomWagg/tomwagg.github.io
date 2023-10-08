@@ -213,6 +213,8 @@ footer.footer .social-link:active {
     height: 80px;
 }
 
+html.matrix .research-projects img,
+html.matrix #research_details img,
 .nyan-matrix {
     filter: invert(67%) sepia(82%) saturate(6228%) hue-rotate(81deg) brightness(119%) contrast(123%);
 }

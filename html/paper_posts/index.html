@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="A paper post from Tom Wagg" />
+        <meta name="author" content="Tom Wagg" />
+        <title>Hybrid Solar System Catalogue</title>
+        <link href="../../img/icon.png" rel="icon" />
+        <!-- Bootstrap -->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous" />
+        <!-- icons and fonts -->
+        <script src="https://kit.fontawesome.com/328d20ce71.js" crossorigin="anonymous"></script>
+        <link rel="preconnect" href="https://fonts.gstatic.com" />
+        <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;700;900&display=swap" rel="stylesheet" />
+        <!-- random css -->
+        <link href="../../css/animate.css" rel="stylesheet" />
+        <link href="../../css/blog_style.css" rel="stylesheet" />
+        <link href="../../css/dark_mode.css" rel="stylesheet" />
+
+        <!-- Bootstrap core JavaScript -->
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+        <!-- Plugin JavaScript -->
+        <script src="../../js/jquery.easing.min.js"></script>
+        <!-- Custom scripts for this template -->
+        <!-- <script src="../../js/blog_style.js"></script> -->
+        <script src="../../js/dark_mode.js"></script>
+        <script type="text/x-mathjax-config">
+            MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+                       MathJax.Hub.Config({
+                           "HTML-CSS": { linebreaks: { automatic: true } },
+                                   SVG: { linebreaks: { automatic: true } }
+                           });
+        </script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML" async></script>
+        <style>
+            .back-button {
+                margin: 10px !important;
+            }
+            .dark-mode-label {
+                top: 5px !important;
+                right: 5px !important;
+                left: unset !important;
+            }
+            .post-header-img {
+                height: 40vh;
+                background-size: cover !important;
+                background-position: center center !important;
+                border-top-left-radius: 25px;
+                border-top-right-radius: 25px;
+            }
+            .card {
+                border-radius: 2rem;
+                border: 5px solid var(--primary);
+                cursor: pointer;
+            }
+            .carousel {
+                transition: 300ms;
+            }
+            .carousel:hover {
+                scale: 1.05;
+            }
+        </style>
+    </head>
+
+    <body style="position: relative" data-bs-spy="scroll" data-bs-target="#nav" data-bs-offset="0" tabindex="0">
+        <div class="back-button">
+            <button id="home" class="btn btn-outline-main rounded-circle">
+                <i class="fa fa-home"></i>
+            </button>
+        </div>
+        <!-- I copied this from https://animate.style/ -->
+        <label for="dark-mode-checkbox" class="dark-mode-label">
+            <input type="checkbox" id="dark-mode-checkbox" />
+            <span class="dark-mode-ball"></span>
+            <svg viewBox="0 0 512 512" class="sun-svg">
+                <path
+                    id="sun-svg"
+                    d="M256 160c-52.9 0-96 43.1-96 96s43.1 96 96 96 96-43.1 96-96-43.1-96-96-96zm246.4 80.5l-94.7-47.3 33.5-100.4c4.5-13.6-8.4-26.5-21.9-21.9l-100.4 33.5-47.4-94.8c-6.4-12.8-24.6-12.8-31 0l-47.3 94.7L92.7 70.8c-13.6-4.5-26.5 8.4-21.9 21.9l33.5 100.4-94.7 47.4c-12.8 6.4-12.8 24.6 0 31l94.7 47.3-33.5 100.5c-4.5 13.6 8.4 26.5 21.9 21.9l100.4-33.5 47.3 94.7c6.4 12.8 24.6 12.8 31 0l47.3-94.7 100.4 33.5c13.6 4.5 26.5-8.4 21.9-21.9l-33.5-100.4 94.7-47.3c13-6.5 13-24.7.2-31.1zm-155.9 106c-49.9 49.9-131.1 49.9-181 0-49.9-49.9-49.9-131.1 0-181 49.9-49.9 131.1-49.9 181 0 49.9 49.9 49.9 131.1 0 181z"
+                ></path>
+            </svg>
+            <svg viewBox="0 0 512 512" class="moon-svg">
+                <path id="moon-svg" d="M283.211 512c78.962 0 151.079-35.925 198.857-94.792 7.068-8.708-.639-21.43-11.562-19.35-124.203 23.654-238.262-71.576-238.262-196.954 0-72.222 38.662-138.635 101.498-174.394 9.686-5.512 7.25-20.197-3.756-22.23A258.156 258.156 0 0 0 283.211 0c-141.309 0-256 114.511-256 256 0 141.309 114.511 256 256 256z"></path>
+            </svg>
+        </label>
+        <div class="container text-center" style="padding-top: 3rem">
+            <div class="row justify-content-center">
+                <div class="col col-lg-6">
+                    <h1>Research Summary Posts</h1>
+                    <p>Hey there! This is where I index all of the posts I write about my research, click the options below to learn about each of my projects!</p>
+                </div>
+            </div>
+            <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel" data-bs-interval="5000">
+                <div class="carousel-inner">
+                    <div class="carousel-item active">
+                        <div class="card">
+                            <div style="background: url('../../img/galactic_dco_paper/gw_illustration.jpg')" class="post-header-img"></div>
+                            <div class="card-body">
+                                <h3 class="card-title">Gravitational wave sources in our Galactic backyard</h3>
+                                <h6>Predictions for BHBH, BHNS, and NSNS Binaries Detectable with LISA</h6>
+                            </div>
+                            <a href="galactic_dcos.html" style="display: none"></a>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <div class="card">
+                            <div style="background: url('../../img/hybrid_sso_catalogue/asteroid_belt.jpg')" class="post-header-img"></div>
+                            <div class="card-body">
+                                <h3 class="card-title">Hybrid Solar System Catalogue</h3>
+                                <h6>How can we account for prior detections in our predictions?</h6>
+                            </div>
+                            <a href="hybrid_sso.html" style="display: none"></a>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <div class="card">
+                            <div style="background: url('../../img/asteroids.jpg')" class="post-header-img"></div>
+                            <div class="card-body">
+                                <h3 class="card-title">Too much of a good thing?</h3>
+                                <h6>Rapid NEO-Follow up in the Era of LSST</h6>
+                            </div>
+                            <a href="lsst_neocp.html" style="display: none"></a>
+                        </div>
+                    </div>
+                </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+                    <i class="fa fa-chevron-left fa-5x"></i>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+                    <i class="fa fa-chevron-right fa-5x"></i>
+                </button>
+            </div>
+        </div>
+    </body>
+    <script>
+        document.querySelectorAll('.card').forEach((el) => {
+            el.addEventListener('click', () => {
+                el.querySelector('a').click()
+            })
+        })
+        document.getElementById('home').addEventListener('click', function () {
+            window.location.href = '/'
+        })
+    </script>
+</html>
