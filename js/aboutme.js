@@ -115,6 +115,7 @@ $(function () {
 
     document.querySelectorAll('.card.slider .back .btn').forEach(function (el) {
         el.addEventListener('click', function () {
+            document.querySelector(this.getAttribute('data-mycard')).scrollTop = 0
             document.querySelector(this.getAttribute('data-mycard')).classList.remove('active')
         })
     })

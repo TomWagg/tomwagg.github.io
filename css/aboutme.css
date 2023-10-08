@@ -461,6 +461,7 @@ a.white-link:active {
 
 .card.slider:not(.active) {
     cursor: pointer;
+    overflow-y: hidden;
 }
 
 .card.slider .icon-holder {
