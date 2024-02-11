@@ -15,7 +15,6 @@ body {
     font-family: "Lato", sans-serif;
     transition: 500ms;
     overflow-x: hidden;
-    font-size: 14px;
 }
 
 .hide {
