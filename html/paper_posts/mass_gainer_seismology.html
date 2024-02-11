@@ -119,9 +119,12 @@
                     <p>So the aim of the paper was to simulate one of these systems, track how its internal structure changes and how its asteroseismic signals change as a result. Let's get into it!</p>
 
                     <h2 id="bse">Simulating a binary</h2>
-                    <p>Our first step was to simulate a binary system. We used the <a href="http://mesa.sourceforge.net/" target="_blank">MESA</a> stellar evolution code to simulate a binary system where one star is accreting mass from the other. We then tracked how the accreting star's internal structure changed over time.</p>
+                    <p>The first thing we need is a fully evolved binary system. Luckily, doing these sorts of simulations in 1D is made convenient with the open-source code MESA!</p>
 
                     <h3 id="mesa">A word on MESA</h3>
+                    <p>We used the <a href="http://mesa.sourceforge.net/" target="_blank">MESA</a> 1D stellar evolution code to simulate a binary system. MESA is a powerful tool that allows us to simulate the evolution of stars and binary systems in great detail. You can read the paper for the exact details on the exact settings that we used, but one thing to keep in mind is that we don't include rotation in any of our simulations.</p>
+                    <p>If you get interested in running models like ours or some of your own, you can check out the <a href="https://github.com/TomWagg/mass-gainer-seismology/">GitHub repo</a> for this project and the <a href="https://zenodo.org/uploads/10011675">Zenodo</a> archive to find scripts to run models and the data for the core models in the paper.</p>
+
                     <h3 id="hrd">Stellar evolution</h3>
 
                     <figure>
