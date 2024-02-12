@@ -290,3 +290,8 @@ html.matrix #research_details img,
     display: block;
     font-size: 30px;
 }
+
+.js-plotly-plot .plotly .modebar {
+    right: unset;
+    left: 20%;
+}
