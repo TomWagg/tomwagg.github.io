@@ -82,7 +82,7 @@
                 </ul>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#bv" role="button">Aside: The Royal Meteorological<br />Society of the 1920s</a>
+                <a class="nav-link" href="#bv" role="button">A story about the derivation<br />of the Brunt-Väisälä Frequency</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="#psp" role="button">Asteroseismic signals</a>
@@ -126,15 +126,16 @@
                     <p>If you get interested in running models like ours or some of your own, you can check out the <a href="https://github.com/TomWagg/mass-gainer-seismology/">GitHub repo</a> for this project and the <a href="https://zenodo.org/uploads/10011675">Zenodo</a> archive to find scripts to run models and the data for the core models in the paper.</p>
 
                     <h3 id="hrd">Stellar evolution</h3>
+                    <p>Now let's take a look at how this system evolves. In the figure on the right you can see the Hertzsprung-Russel diagram for the evolution of this binary. This is the classic evolution diagram for stellar evolution and describes how a star's luminosity and temperature changes over time.</p>
 
                     <figure>
-                        <div class="img-fluid-limited float-end position-relative zoom-figure ms-2" data-bs-toggle="modal" data-bs-target="#cdfs">
+                        <div class="img-fluid-limited float-end position-relative zoom-figure ms-2" data-bs-toggle="modal" data-bs-target="#hrd_plot">
                             <img src="../../img/asteroseismology_paper/HRD_binary_compromise.png" class="img-fluid zoom-figure" />
                             <div class="img-overlay">
                                 <p class="m-0 fw-bold">Click to Zoom</p>
                             </div>
                         </div>
-                        <div class="modal fade" id="cdfs" tabindex="-1">
+                        <div class="modal fade" id="hrd_plot" tabindex="-1">
                             <div class="modal-dialog modal-fullscreen">
                                 <div class="modal-content">
                                     <div class="modal-header">
@@ -146,9 +147,107 @@
                         </div>
                     </figure>
 
+                    <p>On this plot you can see that there are two tracks, one for the donor star (the one that transfers mass <i>onto</i> its companion) and one for the accretor star (which receives material from its companion).</p>
+
+                    <p>
+                        You can check out the paper for a detailed description of what exactly is happening in this plot. But what I'd like you to take away is that, at first glance, it seems that the accretor star seems to evolve just like a more massive single star after the accretion. Look at how the track (underlined in green) after point A4 almost exactly lines up with the dashed line of a 3.5 solar mass single star. So it seems like accretion <i>doesn't</i> affect how the star evolves??
+                        Did I lie to you before?!
+                    </p>
+                    <p>
+                        The key question to ask is: <b>what's going on <i>inside</i> the accretor star?</b>
+                    </p>
+
                     <h3 id="xh">Internal structure evolution</h3>
-                    <h2 id="bv">Insights into the Royal Meteorological Society of the 1920s</h2>
+
+                    <p>Now let's take a look at how the abundance of hydrogen inside the star changes over time. We're going to compare a single star (in orange) to our accretor model (in purple).</p>
+
+                    <figure>
+                        <div class="img-fluid-limited float-start position-relative zoom-figure ms-2" data-bs-toggle="modal" data-bs-target="#xh_plot" style="max-width: min(250px, 100%)">
+                            <img src="../../img/asteroseismology_paper/XH_profile_all.png" class="img-fluid zoom-figure" />
+                            <div class="img-overlay">
+                                <p class="m-0 fw-bold">Click to Zoom</p>
+                            </div>
+                        </div>
+                        <div class="modal fade" id="xh_plot" tabindex="-1">
+                            <div class="modal-dialog modal-fullscreen">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body text-center"><img src="../../img/asteroseismology_paper/XH_profile_all.png" class="img-fluid" /></div>
+                                </div>
+                            </div>
+                        </div>
+                    </figure>
+
+                    <p>Each panel in this plot shows a different timestep (which is annotated based on how much hydrogen is left at the star's centre, $X_c$). The $x$-axis is a function of mass coordinate inside the star (just think of it as the left being the centre and the right being further out), the axis is also zoomed in mostly on the centre of the star.</p>
+                    <p>At first in panel A, you can see that for both models they have a uniform abundance (70%) of hydrogen throughout. Over time the star burns fuel at its centre, reducing the abundance and shrinking the core.</p>
+                    <p>The difference comes in once accretion occurs. The extra mass causes the core of the accretor to expand and push into the gradient left behind, leading to a kink in the distribution. You can see this sticks around in every subsequent panel, all the way until the end of the main sequence.</p>
+                    <p>This shows that the internal structure of an accretor remains significantly different from an equivalent single star throughout its main sequence.</p>
+
+                    <blockquote class="blockquote">
+                        <div class="prequote">&ldquo;</div>
+                        <p>The internal structure of an accretor remains significantly different from an equivalent single star throughout its main sequence</p>
+                    </blockquote>
+
+                    <h2 id="bv">A story about deriving the Brunt-Väisälä Frequency</h2>
+
+                    <p>Perhaps my favourite part of this project was reading the original papers for the derivation of the Brunt-Väisälä Frequency. This frequency describes the regions of convective instability and can be useful for determining the period distribution of g-modes in a star. I have plots showing the distribution of this frequency within the star over time in the paper.</p>
+                    <p>But that's not what this aside is about, this about the original <i>derivation</i> of the Brunt-Väisälä frequency.</p>
+                    <p>It turns out that this frequency is actually very important in atmospheric sciences and cloud formation and so was actually first derived independently by two different meteorologists.</p>
+                    <p>In 1925, Finnish meteorologist Vilho Väisälä <a href="https://ui.adsabs.harvard.edu/abs/1925SSFCP...2...19V/abstract">first published a derivation of this frequency</a> in a Finnish journal written in German. Later in 1927, David Brunt <a href="https://ui.adsabs.harvard.edu/abs/1927QJRMS..53...30B/abstract">independently derived the frequency</a>, publishing it in English in the Quarterly Journal of the Royal Meteorological Society.</p>
+                    <p>In an update to the paper, Brunt acknowledged the paper by Väisälä but claimed that he'd derived in lectures in 1921-24 previously and published his work anyway. To this day his name is still used first in reference to the frequency despite Väisälä first publishing it.</p>
+
+                    <figure>
+                        <div class="img-fluid-limited float-end position-relative zoom-figure ms-2" data-bs-toggle="modal" data-bs-target="#clouds" style="max-width: min(250px, 100%)">
+                            <img src="../../img/asteroseismology_paper/clouds_jelly.png" class="img-fluid zoom-figure" />
+                            <img src="../../img/asteroseismology_paper/clouds_rats.png" class="img-fluid zoom-figure" />
+                            <div class="img-overlay">
+                                <p class="m-0 fw-bold">Click to Zoom</p>
+                            </div>
+                        </div>
+                        <div class="modal fade" id="clouds" tabindex="-1">
+                            <div class="modal-dialog modal-fullscreen">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body text-center">
+                                        <img src="../../img/asteroseismology_paper/clouds_jelly.png" class="img-fluid zoom-figure" />
+                                        <img src="../../img/asteroseismology_paper/clouds_rats.png" class="img-fluid zoom-figure" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </figure>
+
+                    <p>
+                        On a more amusing note, the paper directly following Brunt's in the journal concerns <i>The Soaring Flight of Birds</i>, in which "the bird was kept under constant observation through a range-finder for no less than 45 minutes". But the reason I bring this up is because they include several figures of clouds that they observed whilst watching for the bird. And these figures do not detail cloud formation or evolution, but are simply included
+                        <b>because the authors thought they looked like certain animals!!</b>
+                    </p>
+                    <p>In summary, publishing was slightly different in the 1920s.</p>
+
                     <h2 id="psp">Asteroseismic signals from a mass-gainer</h2>
+
+                    <figure>
+                        <div class="img-fluid-limited float-start position-relative zoom-figure ms-2" data-bs-toggle="modal" data-bs-target="#psp_plot" style="max-width: min(300px, 100%)">
+                            <img src="../../img/asteroseismology_paper/period_spacing_mdm20.png" class="img-fluid zoom-figure" />
+                            <div class="img-overlay">
+                                <p class="m-0 fw-bold">Click to Zoom</p>
+                            </div>
+                        </div>
+                        <div class="modal fade" id="psp_plot" tabindex="-1">
+                            <div class="modal-dialog modal-fullscreen">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body text-center"><img src="../../img/asteroseismology_paper/period_spacing_mdm20.png" class="img-fluid" /></div>
+                                </div>
+                            </div>
+                        </div>
+                    </figure>
+
                     <h2 id="fitting">A cautionary tale on fitting mass-gainers</h2>
                     <h2 id="wrapup">Wrapping up</h2>
                 </div>
