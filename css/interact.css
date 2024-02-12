@@ -63,3 +63,39 @@ input[type='range']::-moz-range-thumb {
     transform: translate(-50%, -50%);
     transition: 0.3s;
 }
+
+.accordion-item {
+    border: 0;
+    background: none;
+}
+.accordion-button {
+    color: white;
+    font-weight: bold;
+    box-shadow: none !important;
+    transition: 200ms;
+}
+
+.accordion-button:not(.collapsed) {
+    color: white;
+}
+
+.accordion-button.cat1 {
+    background-color: var(--primary-dark);
+}
+
+.accordion-button.cat2 {
+    background-color: var(--primary);
+}
+
+.accordion-button.cat3 {
+    background-color: var(--primary-light);
+}
+
+.accordion-button::after {
+    --bs-accordion-btn-icon: unset !important;
+    --bs-accordion-btn-active-icon: unset !important;
+}
+
+.accordion-button:hover {
+    filter: brightness(0.9);
+}
