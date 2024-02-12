@@ -1,8 +1,77 @@
+let intervalID;
+let direction = 1;
+
 make_plot();
 
 this.window.addEventListener("load", function () {
     document.getElementById("dark-mode-checkbox").addEventListener("change", make_plot);
+    
+    const range = document.getElementById("profile-slider");
+    const bubble = document.getElementById("profile-slider-bubble");
+
+    range.addEventListener("input", function () {
+        const val = range.value;
+        const min = range.min ? range.min : 0;
+        const max = range.max ? range.max : 100;
+        const fraction = Number(((val - min)) / (max - min));
+        bubble.innerText = String(val).padStart(3, " ");
+    
+        const range_width = range.getBoundingClientRect().width - 36;
+        const range_left = range.getBoundingClientRect().left;
+        let left = range_left + fraction * range_width;
+        if (val < 10) {
+            left += 6;
+        } else if (val < 100) {
+            left += 3;
+        }
+        bubble.style.left = `${left}px`;
+        document.getElementById("profile-age").innerText = val
+    });
+    range.addEventListener("mouseover", function () {
+        bubble.style.opacity = 1;
+    });
+    range.addEventListener("mouseout", function () {
+        bubble.style.opacity = 0;
+    });
+    range.dispatchEvent(new Event("input"));
+
+    const play = document.getElementById("profile-play");
+    const pause = document.getElementById("profile-pause");
+
+    play.addEventListener("click", function () {
+        intervalID = setInterval(function () {
+            let new_value = parseInt(range.value) + direction;
+            if (new_value < 0 || new_value > 300) {
+                direction *= -1;
+                new_value += direction
+            }
+            range.value = new_value;
+            range.dispatchEvent(new Event("input"));
+        }, 50);
+        this.disabled = true;
+        pause.disabled = false;
+    });
+
+    pause.addEventListener("click", function () {
+        clearInterval(intervalID);
+        play.disabled = false;
+        this.disabled = true;
+    });
 });
+
+
+function deepClone(obj) {
+    if (typeof obj !== "object" || obj === null) {
+      return obj;
+    }
+  
+    let clone = {};
+    for (let key in obj) {
+      clone[key] = deepClone(obj[key]);
+    }
+  
+    return clone;
+  }
 
 function make_plot() {
     fetch('profile_data.h5')
@@ -29,8 +98,8 @@ function profile_plots(f) {
         let mg_mass = f.get('t_' + i + '/mg/mass').value;
         let mg_xh = f.get('t_' + i + '/mg/xh').value;
         let mg_bv = f.get('t_' + i + '/mg/N').value;
-        xh_frames.push({data: [{x: s_mass, y: s_xh}, {x: mg_mass, y: mg_xh}]});
-        bv_frames.push({data: [{x: s_mass, y: s_bv}, {x: mg_mass, y: mg_bv}]});
+        xh_frames.push({name: "t_" + i, data: [{x: s_mass, y: s_xh}, {x: mg_mass, y: mg_xh}]});
+        bv_frames.push({name: "t_" + i, data: [{x: s_mass, y: s_bv}, {x: mg_mass, y: mg_bv}]});
     }
 
     // create slider steps from frames
@@ -66,21 +135,30 @@ function profile_plots(f) {
     }
 
     var layout = {
+        title: "Hydrogen mass fraction profile",
         xaxis: {
-            title: "Mass",
+            title: {
+                text: "${\\rm Mass} \\, [\\rm M_{\\odot}]$",
+                standoff: 10,
+            },
             hoverformat: "1.2f",
             zerolinecolor: grey,
             gridcolor: grey,
-            range: [0.0, 1],
+            range: [0.0, 1.0],
+            automargin: true,
         },
         yaxis: {
-            title: "Hydrogen abundance",
+            title: {
+                text: "$X_{\\rm H}$",
+                standoff: 10,
+            },
             hoverformat: "1.3f",
             zerolinecolor: grey,
             gridcolor: grey,
             ticklen: 5,
             tickcolor: bg,
-            range: [0.0, 1],
+            range: [0.0, 0.75],
+            automargin: true,
         },
         paper_bgcolor: bg,
         plot_bgcolor: bg,
@@ -89,7 +167,10 @@ function profile_plots(f) {
         },
         showlegend: false,
         margin: {
-            t: 0,
+            t: 30,
+            b: 0,
+            l: 0,
+            r: 0,
         },
     };
 
@@ -101,6 +182,19 @@ function profile_plots(f) {
 
     Plotly.newPlot("xh-profile", data, layout, config).then(function () {
         Plotly.addFrames('xh-profile', xh_frames);
+    });
+
+    document.getElementById("profile-slider").addEventListener("input", function () {
+        Plotly.animate("xh-profile", xh_frames[this.value], {
+            mode: 'immediate',
+            transition: {duration: 0},
+            frame: {duration: 0, redraw: false},
+        });
+        Plotly.animate("bv-profile", bv_frames[this.value], {
+            mode: 'immediate',
+            transition: {duration: 0},
+            frame: {duration: 0, redraw: false},
+        });
     });
 
     data = [];
@@ -115,22 +209,25 @@ function profile_plots(f) {
             hovertemplate: "~%{y:1.3e} / day<extra></extra>"
         });
     }
-    layout.yaxis = {
-        title: "Brunt-Väisälä frequency",
+
+    let new_layout = deepClone(layout);
+    new_layout.yaxis = {
+        title: {
+            text: "$\\log_{10} (N / {\\rm day^{-1}})$",
+            standoff: 10,
+        },
         hoverformat: "1.3e",
         zerolinecolor: grey,
         gridcolor: "none",
         ticklen: 5,
         tickcolor: bg,
-        type: "log",
-        tickformat: "1.1e",
-        tickvals: [1e2, 5e2, 1e3, 5e3],
-        range: [2.0, 4],
+        range: [2.0, 3.7],
+        automargin: true,
     },
-    layout.sliders = [{steps: bv_slider_steps}];
-    layout.xaxis.range = [0.0, 3.5];
+    new_layout.title = "Brunt-Väisälä frequency profile";
+    new_layout.xaxis.range = [0.0, 3.5];
 
-    Plotly.newPlot("bv-profile", data, layout, config).then(function () {
+    Plotly.newPlot("bv-profile", data, new_layout, config).then(function () {
         Plotly.addFrames('bv-profile', bv_frames);
     });
 }
