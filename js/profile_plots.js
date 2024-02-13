@@ -1,3 +1,4 @@
+// Globals for animations
 let intervalID
 let direction = 1
 let interval_time = 70
@@ -11,7 +12,20 @@ const time_range = [
 make_plot()
 
 this.window.addEventListener('load', function () {
-    document.getElementById('dark-mode-checkbox').addEventListener('change', make_plot)
+    document.getElementById('dark-mode-checkbox').addEventListener('change', function () {
+        const plots = ['hrd', 'xh-profile', 'bv-profile']
+        plots.forEach((plot) => {
+            Plotly.relayout(plot, {
+                paper_bgcolor: this.checked ? '#333' : 'white',
+                plot_bgcolor: this.checked ? '#333' : 'white',
+                'font.color': this.checked ? 'white' : '#333',
+                'xaxis.zerolinecolor': this.checked ? '#595656' : '#eee',
+                'xaxis.gridcolor': this.checked ? '#595656' : '#eee',
+                'yaxis.zerolinecolor': this.checked ? '#595656' : '#eee',
+                'yaxis.gridcolor': this.checked ? '#595656' : '#eee',
+            })
+        })
+    })
 
     const range = document.getElementById('profile-slider')
     const bubble = document.getElementById('profile-slider-bubble')
@@ -84,25 +98,116 @@ this.window.addEventListener('load', function () {
 })
 
 function deepClone(obj) {
+    /* Deep clone an object */
     if (typeof obj !== 'object' || obj === null) {
         return obj
     }
-
     let clone = {}
     for (let key in obj) {
         clone[key] = deepClone(obj[key])
     }
-
     return clone
 }
 
 function make_plot() {
+    fetch('hrd.h5')
+        .then((response) => response.arrayBuffer())
+        .then(function (buffer) {
+            var f = new hdf5.File(buffer, 'hrd.h5')
+            hrd(f)
+        })
     fetch('profile_data.h5')
         .then((response) => response.arrayBuffer())
         .then(function (buffer) {
-            var f = new hdf5.File(buffer, 'test.h5')
+            var f = new hdf5.File(buffer, 'profile_data.h5')
             profile_plots(f)
         })
+}
+
+function hrd(f) {
+    const dark_mode = document.getElementById('dark-mode-checkbox').checked
+    let bg = dark_mode ? '#333' : 'white'
+    let anti_bg = dark_mode ? 'white' : '#333'
+    let grey = dark_mode ? '#595656' : '#eee'
+
+    let logT = f.get('donor_no_detach/log_Teff').value
+    let logL = f.get('donor_no_detach/log_L').value
+    let mdot = f.get('donor_no_detach/log_abs_mdot').value
+    let t = f.get('donor_no_detach/star_age').value
+
+    console.log(t)
+
+    const labels = ['Single', 'Mass-gainer']
+    const colours = ['#fe9f6d', '#641a80']
+
+    let data = [
+        {
+            x: logT,
+            y: logL,
+            customdata: t,
+            mode: 'markers',
+            marker: {
+                size: 5,
+                color: mdot,
+                colorscale: 'Electric',
+                colorbar: {
+                    title: 'Log Mass Loss Rate<br>[Msun / year]',
+                    titleside: 'right',
+                },
+            },
+            hovertemplate: 'Donor<br>Teff: 10^%{x:1.2f} K<br>L: 10^%{y:1.2f} Lsun<br>Mdot: 10^%{marker.color:1.2f} Msun / year<br>Age: %{customdata:1.2f} Myr<extra></extra>',
+            name: 'Donor',
+        },
+    ]
+
+    var layout = {
+        xaxis: {
+            title: {
+                text: '$\\log_{10} (T_{\\rm eff} / {\\rm K})$',
+                standoff: 10,
+            },
+            hoverformat: '1.2f',
+            zerolinecolor: grey,
+            gridcolor: grey,
+            range: [4.6, 3.55],
+            automargin: true,
+        },
+        yaxis: {
+            title: {
+                // text: '$X_{\\rm H}$',
+                text: '$\\log_{10} (L / L_{\\odot})$',
+                standoff: 10,
+            },
+            hoverformat: '1.3f',
+            zerolinecolor: grey,
+            gridcolor: grey,
+            ticklen: 5,
+            tickcolor: bg,
+            // range: [0.0, 0.75],
+            automargin: true,
+        },
+        paper_bgcolor: bg,
+        plot_bgcolor: bg,
+        font: {
+            color: anti_bg,
+        },
+        showlegend: false,
+        margin: {
+            t: 30,
+            b: 0,
+            l: 0,
+            r: 0,
+        },
+        hovermode: 'closest',
+    }
+
+    config = {
+        responsive: true,
+        modeBarButtonsToRemove: ['zoomIn2d', 'zoomOut2d'],
+        displaylogo: false,
+    }
+
+    Plotly.newPlot('hrd', data, layout, config)
 }
 
 function profile_plots(f) {
@@ -224,19 +329,6 @@ function profile_plots(f) {
         Plotly.addFrames('xh-profile', xh_frames)
     })
 
-    document.getElementById('profile-slider').addEventListener('input', function () {
-        Plotly.animate('xh-profile', xh_frames[this.value], {
-            mode: 'immediate',
-            transition: { duration: 0 },
-            frame: { duration: 0, redraw: false },
-        })
-        Plotly.animate('bv-profile', bv_frames[this.value], {
-            mode: 'immediate',
-            transition: { duration: 0 },
-            frame: { duration: 0, redraw: false },
-        })
-    })
-
     data = []
     for (let i = 0; i < 2; i++) {
         data.push({
@@ -269,5 +361,18 @@ function profile_plots(f) {
 
     Plotly.newPlot('bv-profile', data, new_layout, config).then(function () {
         Plotly.addFrames('bv-profile', bv_frames)
+    })
+
+    document.getElementById('profile-slider').addEventListener('input', function () {
+        Plotly.animate('xh-profile', xh_frames[this.value], {
+            mode: 'immediate',
+            transition: { duration: 0 },
+            frame: { duration: 0, redraw: false },
+        })
+        Plotly.animate('bv-profile', bv_frames[this.value], {
+            mode: 'immediate',
+            transition: { duration: 0 },
+            frame: { duration: 0, redraw: false },
+        })
     })
 }

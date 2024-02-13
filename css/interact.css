@@ -99,3 +99,8 @@ input[type='range']::-moz-range-thumb {
 .accordion-button:hover {
     filter: brightness(0.9);
 }
+
+.js-plotly-plot .plotly .modebar {
+    /* right: unset; */
+    /* left: 50%; */
+}
