@@ -51,19 +51,45 @@
                     </div>
                 </div>
             </div>
-            <div class="row justify-content-center mb-3">
-                <h2>Hertzsprung-Russel Diagram</h2>
-                <div class="col-8">
+            <div class="row justify-content-center align-items-center mb-3">
+                <h2>Hertzsprung-Russell Diagram</h2>
+                <div class="col-12 col-lg-8">
                     <div id="hrd" style="aspect-ratio: 1.7"></div>
+                </div>
+                <div class="col-12 col-lg-4 text-center">
+                    <h3>Key evolution points</h3>
+                    <p>Click on the buttons to see where the stars are in the HRD at different key points in their evolution.</p>
+                    <div class="row">
+                        <div class="col-12 col-md-6 text-center">
+                            <div id="hrd-d-movers" class="btn-group-vertical toggle-group mb-2">
+                                <button class="btn btn-primary active" data-x="4.168956386113182" data-y="2.3750136585921697">Zero-age Main Sequence</button>
+                                <button class="btn btn-primary" data-x="3.94681646926182" data-y="2.6988635490939523">Mass transfer start</button>
+                                <button class="btn btn-primary" data-x="3.7161504907602856" data-y="1.7884027061733956">Closest approach</button>
+                                <button class="btn btn-primary" data-x="3.657512654219595" data-y="2.9162729193936707">Mass transfer end</button>
+                                <button class="btn btn-primary" data-x="4.512732370490664" data-y="1.7262851074794894">Core helium burning starts</button>
+                            </div>
+                            <h5>Donor</h5>
+                        </div>
+                        <div class="col-12 col-md-6 text-center">
+                            <div id="hrd-a-movers" class="btn-group-vertical toggle-group mb-2">
+                                <button class="btn btn-primary active" data-x="4.0851762555044555" data-y="1.902796758284236">Zero-age Main Sequence</button>
+                                <button class="btn btn-primary" data-x="4.053213788216325" data-y="1.991024643710956">Mass transfer start</button>
+                                <button class="btn btn-primary" data-x="4.157140871690832" data-y="2.5477034112921486">Mass transfer end</button>
+                                <button class="btn btn-primary" data-x="4.104894273354565" data-y="2.2147816305010632">Post-mass-transfer equilibrium</button>
+                                <button class="btn btn-primary" data-x="4.06" data-y="2.47">Main sequence ends</button>
+                            </div>
+                            <h5>Accretor</h5>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="row mb-3">
                 <h2>Internal structure profiles over time</h2>
                 <p>The two plots below show how the evolution of the internal structure of a mass-gainer, which starts as a $3.0 \, \rm M_\odot$ star and accretes $0.5 \, \rm M_\odot$, compares to that of a single star with the same final mass. You can use the buttons below to animate the plot and the slider to hop around to specific times. For reference, the mass transfer occurs around 162 Myr (you'll notice the time resolution get much finer).</p>
-                <div class="col-12 col-md-6">
+                <div class="col-12 col-lg-6">
                     <div id="xh-profile" style="aspect-ratio: 2.3"></div>
                 </div>
-                <div class="col-12 col-md-6">
+                <div class="col-12 col-lg-6">
                     <div id="bv-profile" style="aspect-ratio: 2.3"></div>
                 </div>
             </div>
@@ -85,7 +111,7 @@
             <h3>Understanding the plots</h3>
             <p>There's a lot of information to unpack in these plots - I'll put on my best teacher hat and suggest that we try stepping through them in detail with some questions order approximately chronologically.</p>
             <div class="row">
-                <div class="col-12 col-md-6">
+                <div class="col-12 col-lg-6">
                     <h5 class="text-center">Hydrogen abundance</h5>
                     <div class="accordion" id="xh-questions">
                         <div class="accordion-item">
@@ -138,7 +164,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-12 col-md-6"></div>
+                <div class="col-12 col-lg-6"></div>
             </div>
         </div>
 

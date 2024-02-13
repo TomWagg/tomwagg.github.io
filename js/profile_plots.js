@@ -161,20 +161,68 @@ function hrd(f) {
             },
             hovertemplate: 'Donor<br>Teff: 10^%{x:1.2f} K<br>L: 10^%{y:1.2f} Lsun<br>Mdot: 10^%{marker.color:1.2f} Msun / year<br>Age: %{customdata:1.2f} Myr<extra></extra>',
             name: 'Donor',
+            showlegend: false,
         },
         {
-            x: [4],
-            y: [2.5],
+            x: f.get('accretor/log_Teff').value,
+            y: f.get('accretor/log_L').value,
+            type: 'line',
+            line: { color: '#86d934', width: 8 },
+            hoverinfo: 'none',
+            showlegend: false,
+        },
+        {
+            x: f.get('accretor/log_Teff').value,
+            y: f.get('accretor/log_L').value,
+            customdata: f.get('accretor/star_age').value,
             mode: 'markers',
             marker: {
-                size: 25,
-                color: 'rgba(0, 0, 0, 0)',
-                line: { color: 'teal', width: 3 },
+                size: 5,
+                color: f.get('accretor/log_abs_mdot').value,
+                colorscale: plasma,
             },
-            hoverinfo: 'none',
-            name: 'ZAMS',
+            hovertemplate: 'Accretor<br>Teff: 10^%{x:1.2f} K<br>L: 10^%{y:1.2f} Lsun<br>Mdot: 10^%{marker.color:1.2f} Msun / year<br>Age: %{customdata:1.2f} Myr<extra></extra>',
+            name: 'Accretor',
+            showlegend: false,
+        },
+        {
+            x: [4.168956386113182],
+            y: [2.3750136585921697],
+            mode: 'markers',
+            marker: {
+                size: 15,
+                color: 'rgba(0, 0, 0, 0)',
+                line: { color: 'red', width: 3 },
+            },
+            hovertemplate: 'Zero-age main sequence<extra></extra>',
+            name: 'Donor marker',
+        },
+        {
+            x: [4.0851762555044555],
+            y: [1.902796758284236],
+            mode: 'markers',
+            marker: {
+                size: 15,
+                color: 'rgba(0, 0, 0, 0)',
+                symbol: 'diamond',
+                line: { color: 'red', width: 3 },
+            },
+            hovertemplate: 'Zero-age main sequence<extra></extra>',
+            name: 'Accretor marker',
         },
     ]
+
+    // Ms = [3.0, 3.1, 3.2, 3.3, 3.4, 3.5, 3.6, 3.7, 3.8, 3.9, 4.0]
+    // for (let i = 0; i < Ms.length; i++) {
+    //     data.push({
+    //         x: f.get('single_' + Ms[i].toFixed(1) + '/log_Teff').value,
+    //         y: f.get('single_' + Ms[i].toFixed(1) + '/log_L').value,
+    //         type: 'line',
+    //         line: { color: 'lightgrey', width: 1 },
+    //         hoverinfo: 'none',
+    //         showlegend: false,
+    //     })
+    // }
 
     var layout = {
         xaxis: {
@@ -199,7 +247,7 @@ function hrd(f) {
             gridcolor: grey,
             ticklen: 5,
             tickcolor: bg,
-            // range: [0.0, 0.75],
+            range: [1.65, 3],
             automargin: true,
         },
         paper_bgcolor: bg,
@@ -209,7 +257,7 @@ function hrd(f) {
         },
         showlegend: true,
         legend: {
-            x: 0.5,
+            x: 0.4,
             xanchor: 'right',
             y: 0,
         },
@@ -229,6 +277,40 @@ function hrd(f) {
     }
 
     Plotly.newPlot('hrd', data, layout, config)
+
+    const group_ids = [
+        ['hrd-d-movers', 3],
+        ['hrd-a-movers', 4],
+    ]
+    for (let i = 0; i < group_ids.length; i++) {
+        let group_id = group_ids[i][0]
+        let trace_id = group_ids[i][1]
+        console.log(group_id, trace_id)
+        document.querySelectorAll('#' + group_id + ' button').forEach((el) => {
+            el.addEventListener('click', () => {
+                document.querySelectorAll('#' + group_id + ' button').forEach((mover) => {
+                    mover.classList.remove('active')
+                })
+                el.classList.add('active')
+                Plotly.animate('hrd', [
+                    {
+                        data: [{ x: [el.getAttribute('data-x')], y: [el.getAttribute('data-y')], hovertemplate: el.innerText + '<extra></extra>' }],
+                        traces: [trace_id],
+                    },
+                    {
+                        transition: {
+                            duration: 1000,
+                            easing: 'cubic-in-out',
+                        },
+                        frame: {
+                            duration: 1000,
+                            redraw: false,
+                        },
+                    },
+                ])
+            })
+        })
+    }
 }
 
 function profile_plots(f) {

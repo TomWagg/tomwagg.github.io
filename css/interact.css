@@ -104,3 +104,7 @@ input[type='range']::-moz-range-thumb {
     /* right: unset; */
     /* left: 50%; */
 }
+
+.btn-group-vertical.toggle-group button.active {
+    background-color: var(--primary-dark) !important;
+}
