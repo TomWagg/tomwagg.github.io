@@ -9,6 +9,20 @@ const time_range = [
     272, 273, 274, 275, 276, 277, 278, 279, 280, 281, 282, 283, 284, 285, 286, 287, 288, 289, 290, 291, 292, 293, 294, 295, 296, 297, 298, 299, 300,
 ]
 
+const plasma = [
+    ['0.0', 'rgb(13, 8, 135)'],
+    ['0.1', 'rgb(65, 4, 157)'],
+    ['0.2', 'rgb(106, 0, 168)'],
+    ['0.3', 'rgb(143, 13, 164)'],
+    ['0.4', 'rgb(177, 42, 144)'],
+    ['0.5', 'rgb(204, 71, 120)'],
+    ['0.6', 'rgb(225, 100, 98)'],
+    ['0.7', 'rgb(242, 132, 75)'],
+    ['0.8', 'rgb(252, 166, 54)'],
+    ['0.9', 'rgb(252, 206, 37)'],
+    ['1.0', 'rgb(240, 249, 33)'],
+]
+
 make_plot()
 
 this.window.addEventListener('load', function () {
@@ -130,26 +144,16 @@ function hrd(f) {
     let anti_bg = dark_mode ? 'white' : '#333'
     let grey = dark_mode ? '#595656' : '#eee'
 
-    let logT = f.get('donor_no_detach/log_Teff').value
-    let logL = f.get('donor_no_detach/log_L').value
-    let mdot = f.get('donor_no_detach/log_abs_mdot').value
-    let t = f.get('donor_no_detach/star_age').value
-
-    console.log(t)
-
-    const labels = ['Single', 'Mass-gainer']
-    const colours = ['#fe9f6d', '#641a80']
-
     let data = [
         {
-            x: logT,
-            y: logL,
-            customdata: t,
+            x: f.get('donor_no_detach/log_Teff').value,
+            y: f.get('donor_no_detach/log_L').value,
+            customdata: f.get('donor_no_detach/star_age').value,
             mode: 'markers',
             marker: {
                 size: 5,
-                color: mdot,
-                colorscale: 'Electric',
+                color: f.get('donor_no_detach/log_abs_mdot').value,
+                colorscale: plasma,
                 colorbar: {
                     title: 'Log Mass Loss Rate<br>[Msun / year]',
                     titleside: 'right',
@@ -157,6 +161,18 @@ function hrd(f) {
             },
             hovertemplate: 'Donor<br>Teff: 10^%{x:1.2f} K<br>L: 10^%{y:1.2f} Lsun<br>Mdot: 10^%{marker.color:1.2f} Msun / year<br>Age: %{customdata:1.2f} Myr<extra></extra>',
             name: 'Donor',
+        },
+        {
+            x: [4],
+            y: [2.5],
+            mode: 'markers',
+            marker: {
+                size: 25,
+                color: 'rgba(0, 0, 0, 0)',
+                line: { color: 'teal', width: 3 },
+            },
+            hoverinfo: 'none',
+            name: 'ZAMS',
         },
     ]
 
@@ -191,7 +207,12 @@ function hrd(f) {
         font: {
             color: anti_bg,
         },
-        showlegend: false,
+        showlegend: true,
+        legend: {
+            x: 0.5,
+            xanchor: 'right',
+            y: 0,
+        },
         margin: {
             t: 30,
             b: 0,
