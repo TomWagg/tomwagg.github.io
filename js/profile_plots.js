@@ -310,7 +310,12 @@ function profile_plots(f) {
         font: {
             color: anti_bg,
         },
-        showlegend: false,
+        showlegend: true,
+        legend: {
+            x: 1,
+            xanchor: 'right',
+            y: 0,
+        },
         margin: {
             t: 30,
             b: 0,
@@ -343,7 +348,7 @@ function profile_plots(f) {
     }
 
     let new_layout = deepClone(layout)
-    ;(new_layout.yaxis = {
+    new_layout.yaxis = {
         title: {
             text: '$\\log_{10} (N / {\\rm day^{-1}})$',
             standoff: 10,
@@ -355,9 +360,10 @@ function profile_plots(f) {
         tickcolor: bg,
         range: [2.0, 3.7],
         automargin: true,
-    }),
-        (new_layout.title = 'Brunt-Väisälä frequency profile')
+    }
+    new_layout.title = 'Brunt-Väisälä frequency profile'
     new_layout.xaxis.range = [0.0, 3.5]
+    new_layout.legend = { x: 1, y: 1, xanchor: 'right' }
 
     Plotly.newPlot('bv-profile', data, new_layout, config).then(function () {
         Plotly.addFrames('bv-profile', bv_frames)
