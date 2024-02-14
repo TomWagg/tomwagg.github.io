@@ -109,7 +109,7 @@
                     <h2 id="intro">What's the problem?</h2>
 
                     <figure>
-                        <div class="img-fluid-limited float-end position-relative ms-2">
+                        <div class="img-fluid-500 float-end position-relative ms-2">
                             <img src="../../img/hybrid_sso_catalogue/gru_explains_hybrid_catalogue.png" class="img-fluid" style="border-radius: 2rem" />
                         </div>
                     </figure>
@@ -128,7 +128,7 @@
                     <p>As we said above, the key is to replace <i>similar</i> objects. We use 7 parameters to define similarity between objects: position ($x, y, z$), velocity ($v_x, v_y, v_z$) and absolute magnitude ($H$, sort of a proxy for size). To start, we separate the catalogues into bins of absolute magnitude and then for each real object in that bin:</p>
 
                     <figure>
-                        <div class="img-fluid-limited float-start position-relative me-2" style="max-width: min(350px, 100%)">
+                        <div class="img-fluid-500 float-start position-relative me-2" style="max-width: min(350px, 100%)">
                             <img src="../../img/hybrid_sso_catalogue/hybrid_methods.gif" class="img-fluid" style="border-radius: 2rem" />
                         </div>
                     </figure>
@@ -148,7 +148,7 @@
                     <h2 id="assess">Assessing how well we combined the catalogues</h2>
                     <p>So, hundreds of millions of objects and several hours on the computing cluster later, we have our hybrid catalogue! Now the question is how well we did at combining the catalogues intelligently to keep the underlying distributions unchanged.</p>
                     <figure>
-                        <div class="img-fluid-limited float-end position-relative zoom-figure ms-2" data-bs-toggle="modal" data-bs-target="#cdfs">
+                        <div class="img-fluid-500 float-end position-relative zoom-figure ms-2" data-bs-toggle="modal" data-bs-target="#cdfs">
                             <img src="../../img/hybrid_sso_catalogue/hybrid_vs_s3m_distributions.png" class="img-fluid zoom-figure" />
                             <div class="img-overlay">
                                 <p class="m-0 fw-bold">Click to Zoom</p>
@@ -172,7 +172,7 @@
                     <p>The one difference that you can see is for the smallest absolute magnitude objects. We see that the hybrid catalogue has slightly more bright (meaning <i>large</i>) objects than S3M. This is due to the objects that are added directly since they don't have near neighbours in our parameter space. To put it another way: we have discovered several bright objects that were not directly represented in the simulated dataset.</p>
                     <p>Okay so they <i>look</i> the same but let's be a little more quantitative than that. A common way to check whether two samples are drawn from the same distribution is to use a <a href="https://en.wikipedia.org/wiki/Kolmogorov%E2%80%93Smirnov_test">K-S Test</a>. We find when applying this test that both catalogues are consistent with having been drawn from the same distribution. Sounds good so far!</p>
                     <figure>
-                        <div class="img-fluid-limited float-start position-relative zoom-figure me-4" data-bs-toggle="modal" data-bs-target="#density">
+                        <div class="img-fluid-500 float-start position-relative zoom-figure me-4" data-bs-toggle="modal" data-bs-target="#density">
                             <img src="../../img/hybrid_sso_catalogue/density_comparisons.png" class="img-fluid zoom-figure" />
                             <div class="img-overlay">
                                 <p class="m-0 fw-bold">Click to Zoom</p>

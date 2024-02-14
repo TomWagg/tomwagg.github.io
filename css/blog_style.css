@@ -194,7 +194,7 @@ h4:before {
     color: var(--primary-dark);
 }
 
-.img-fluid-limited {
+.img-fluid-500 {
     max-width: min(500px, 100%);
     height: auto;
 }
@@ -216,7 +216,7 @@ h4:before {
     transition: 200ms;
 }
 
-.img-fluid-limited:hover .img-overlay,
+.img-fluid-500:hover .img-overlay,
 .img-fluid:hover .img-overlay {
     opacity: 0.8;
 }
