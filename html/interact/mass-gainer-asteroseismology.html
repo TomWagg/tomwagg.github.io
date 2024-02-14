@@ -51,6 +51,16 @@
                     </div>
                 </div>
             </div>
+            <div class="row">
+                <div class="col">
+                    <h2>A brief introduction</h2>
+                    <p>
+                        This page is an interactive version of some of the plots from my paper <span class="fst-italic">Wagg+2024</span>, which investigates the asteroseismic imprints of mass transfer on an accretor star. We used <a href="https://docs.mesastar.org/en/latest/"><code>MESA</code></a> and <a href="https://gyre.readthedocs.io/en/stable/"><code>GYRE</code></a> to simulate the asteroseismic signals from a $3.0 \, \rm M_\odot$ star that accretes $0.5 \, \rm M_\odot$ from a companion
+                        star.
+                    </p>
+                    <p>Below you can explore some of our main results interactively and learn about the evolution and asteroseismic signals from our accretor star model. If you'd like to reproduce any of the results or plots from our paper, our inlists, scripts and data are available on <a href="">GitHub</a> and <a href="">Zenodo</a>.</p>
+                </div>
+            </div>
             <div class="row justify-content-center align-items-center mb-3">
                 <h2>Hertzsprung-Russell Diagram</h2>
                 <p><b>What am I looking at:</b> In the plot below I show the Hertzsprung-Russell diagram for both the donor and accretor star in my models (see Fig. 1 in the paper). The accretor track is outlined in green and both tracks are coloured by the rate of mass transfer. Note that this plot shows the full evolution of the donor when we allow it continue mass transfer in its entirety, but for the paper we end mass transfer once $0.5 \, \rm M_\odot$ has been accreted.</p>
@@ -114,7 +124,7 @@
                     <label for="profile-slider" class="form-label fs-3">Time = <span id="profile-age">0</span> Myr</label>
                 </div>
             </div>
-            <h4>Understanding the plots</h4>
+            <h4>Understanding the internal structure</h4>
             <p>There's a lot of information to unpack in these internal structure plots - I'll put on my best teacher hat and suggest that we try stepping through them in detail with some questions, ordered approximately chronologically.</p>
             <div class="row">
                 <div class="col-12 col-lg-6">
@@ -194,7 +204,7 @@
                             <h2 class="accordion-header">
                                 <button class="accordion-button collapsed cat1" type="button" data-bs-toggle="collapse" data-bs-target="#bv-q1">Why is there no value for the Brunt-Väisälä frequency towards the centre?</button>
                             </h2>
-                            <div id="bv-q1" class="accordion-collapse collapse" data-bs-parent="#xh-questions">
+                            <div id="bv-q1" class="accordion-collapse collapse" data-bs-parent="#bv-questions">
                                 <div class="accordion-body">
                                     <p><b>This is the convective core!</b> The Brunt-Väisälä frequency defines the frequency at which a small element of vertically displaced material will oscillate within a radiative region.</p>
                                     <p>This means it is not defined in convective regions (where a small element but not oscillate but instead keep moving upwards), so the absence of a value towards the centre indicates the presence of a convective core.</p>
@@ -205,7 +215,7 @@
                             <h2 class="accordion-header">
                                 <button class="accordion-button collapsed cat2" type="button" data-bs-toggle="collapse" data-bs-target="#bv-q2">What causes the peak that emerges towards the centre after ~100 Myr? (Hint: look at the abundance profile)</button>
                             </h2>
-                            <div id="bv-q2" class="accordion-collapse collapse" data-bs-parent="#xh-questions">
+                            <div id="bv-q2" class="accordion-collapse collapse" data-bs-parent="#bv-questions">
                                 <div class="accordion-body">
                                     <p><b>The chemical composition gradient!</b> If you look at the abundance profile you'll see that the peak in the Brunt-Väisälä frequency is at precisely the same mass coordiantes as the chemical composition gradient (diagonal part of the line) that is left behind as the core recedes.</p>
 
@@ -218,7 +228,7 @@
                             <h2 class="accordion-header">
                                 <button class="accordion-button collapsed cat3" type="button" data-bs-toggle="collapse" data-bs-target="#bv-q3">By the final timestep the models are nearly identical except around 0.8 Msun, what happened there?</button>
                             </h2>
-                            <div id="bv-q3" class="accordion-collapse collapse" data-bs-parent="#xh-questions">
+                            <div id="bv-q3" class="accordion-collapse collapse" data-bs-parent="#bv-questions">
                                 <div class="accordion-body">
                                     <p><b>It's a signature of accretion!</b> The kink in the abundance profile is a long-lived signature of mass transfer and, since the Brunt-Väisälä frequency is sensitive to the chemical composition gradient, it is also sensitive to the signature.</p>
                                     <p>Keep reading to see how this affects the asteroseismic signals!</p>
