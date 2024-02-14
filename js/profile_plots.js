@@ -126,19 +126,19 @@ function deepClone(obj) {
 }
 
 function make_plot() {
-    fetch('hrd.h5')
+    fetch('../../data/hrd.h5')
         .then((response) => response.arrayBuffer())
         .then(function (buffer) {
             var f = new hdf5.File(buffer, 'hrd.h5')
             hrd(f)
         })
-    fetch('profile_data.h5')
+    fetch('../../data/profile_data.h5')
         .then((response) => response.arrayBuffer())
         .then(function (buffer) {
             var f = new hdf5.File(buffer, 'profile_data.h5')
             profile_plots(f)
         })
-    fetch('psp.h5')
+    fetch('../../data/psp.h5')
         .then((response) => response.arrayBuffer())
         .then(function (buffer) {
             var f = new hdf5.File(buffer, 'psp.h5')
