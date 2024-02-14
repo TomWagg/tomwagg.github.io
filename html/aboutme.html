@@ -1,941 +1,709 @@
 <!DOCTYPE html>
 <html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="Personal Website for Tom Wagg" />
+        <meta name="author" content="Tom Wagg" />
 
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="Personal Website for Tom Wagg">
-    <meta name="author" content="Tom Wagg">
+        <title>Tom Wagg</title>
+        <link href="../img/icon.png" rel="icon" />
 
-    <title>Tom Wagg</title>
-    <link href="../img/icon.png" rel="icon">
+        <!-- Bootstrap Core CSS -->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous" />
 
-    <!-- Bootstrap Core CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
-        integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+        <!-- Custom Fonts -->
+        <script src="https://kit.fontawesome.com/328d20ce71.js" crossorigin="anonymous"></script>
+        <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css" />
 
-    <!-- Custom Fonts -->
-    <script src="https://kit.fontawesome.com/328d20ce71.js" crossorigin="anonymous"></script>
-    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,300italic,400italic,700italic"
-        rel="stylesheet" type="text/css">
+        <!-- Custom CSS -->
+        <link href="../css/animate.css" rel="stylesheet" />
+        <link href="../css/aboutme.css" rel="stylesheet" />
 
-    <!-- Custom CSS -->
-    <link href="../css/animate.css" rel="stylesheet">
-    <link href="../css/aboutme.css" rel="stylesheet">
+        <!-- Bootstrap core JavaScript -->
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
 
-    <!-- Bootstrap core JavaScript -->
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
-        integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous">
-    </script>
+        <!-- Plugin JavaScript -->
+        <script src="../js/jquery.easing.min.js"></script>
+        <script src="../js/ScrollTrigger.min.js"></script>
+        <script src="../js/bibtexParse.js"></script>
 
-    <!-- Plugin JavaScript -->
-    <script src="../js/jquery.easing.min.js"></script>
-    <script src="../js/ScrollTrigger.min.js"></script>
-    <script src="../js/bibtexParse.js"></script>
+        <!-- Custom scripts for this template -->
+        <script src="../js/aboutme.js"></script>
+        <script type="text/x-mathjax-config">
+            MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+            MathJax.Hub.Config({
+                "HTML-CSS": { linebreaks: { automatic: true } },
+                        SVG: { linebreaks: { automatic: true } }
+               });
+        </script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML" async></script>
+    </head>
 
-    <!-- Custom scripts for this template -->
-    <script src="../js/aboutme.js"></script>
-    <script type="text/x-mathjax-config">
-        MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
-        MathJax.Hub.Config({
-            "HTML-CSS": { linebreaks: { automatic: true } },
-                    SVG: { linebreaks: { automatic: true } }
-           });
-      </script>
-    <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML' async></script>
-</head>
-
-<body id="page-top">
-
-    <!-- Navigation -->
-    <a class="menu-toggle rounded" href="#">
-        <i class="fas fa-bars"></i>
-    </a>
-    <nav id="sidebar-wrapper">
-        <ul class="sidebar-nav">
-            <li class="sidebar-brand">
-                <a class="js-scroll-trigger" href="#page-top">Tom Wagg</a>
-            </li>
-            <li class="sidebar-nav-item">
-                <a class="js-scroll-trigger" href="/">Back to main page</a>
-            </li>
-            <li class="sidebar-nav-item">
-                <a class="js-scroll-trigger" href="#about">About Me</a>
-            </li>
-            <li class="sidebar-nav-item">
-                <a class="js-scroll-trigger" href="#research">Research Experience</a>
-            </li>
-            <li class="sidebar-nav-item">
-                <a class="js-scroll-trigger" href="#work">Work Experience</a>
-            </li>
-            <li class="sidebar-nav-item">
-                <a class="js-scroll-trigger" href="#publications">Publications</a>
-            </li>
-            <li class="sidebar-nav-item">
-                <a class="js-scroll-trigger" href="#presentations">Presentations</a>
-            </li>
-            <li class="sidebar-nav-item">
-                <a class="js-scroll-trigger" href="#education">Education</a>
-            </li>
-        </ul>
-    </nav>
-
-    <a href="/" class="back-button rounded">
-        <i class="fa fa-home" aria-hidden="true"></i>
-    </a>
-
-    <!-- Header -->
-    <header class="masthead d-flex">
-        <div class="container text-center">
-            <div class="row h-66 align-items-end">
-                <div class="col">
-                    <h1 class="mb-4 mt-auto">Tom Wagg</h1>
-                </div>
-            </div>
-            <div class="row h-33 align-items-end">
-                <div class="col">
-                    <a class="btn btn-outline-light js-scroll-trigger mb-4" href="#about">Find Out More</a>
-                </div>
-            </div>
-        </div>
-        <div class="overlay"></div>
-    </header>
-
-    <!-- About -->
-    <section class="content-section bg-primary text-white py-5" id="about">
-        <div class="container-fluid">
-            <div class="row text-center">
-                <div class="col-12 col-md-8 mb-2 text-left">
-                    <h1 class="d-inline-block subtitle mb-4 display-3" style="margin-left: 30px;">About</h1>
-                    <div class="about-text">
-                        <p data-scroll="toggle(.fromBottomIn, .fromBottomOut)" style="font-weight: 500;">
-                            Astrophysics PhD student at the University of Washington
-                        </p>
-                        <div class="text-faded" style="font-weight: 200;">
-                            <p data-scroll="toggle(.fromBottomIn, .fromBottomOut)">
-                                I'm currently working on my PhD at the University of Washington and, having explored near-Earth object solar system research with Mario Jurić and exoplanets with Eric Agol, I've settled into a thesis designing and applying self-consistent population synthesis and galactic dynamics simulations. Previously, I graduated from Harvard University with a degree in Physics and Astrophysics and spent a year working as a research fellow with Professor Selma de Mink, researching stellar evolution and gravitational waves.
-                            </p>
-                            <p data-scroll="toggle(.fromBottomIn, .fromBottomOut)">
-                                I'm originally from the luscious English countryside near Newcastle-under-Lyme
-                                and I grew up with a passion for learning and understanding the world, which
-                                quickly led me to Physics. I've always been interested in the big questions that are still left
-                                unanswered about our Universe; What is the mysterious Dark Matter that permeates our
-                                Universe? How did the Universe begin? How unique is Life? What can we learn from
-                                gravitational waves?
-                                Therefore I am fascinated by astrophysics and the answers that it could offer to these
-                                questions!
-                            </p>
-                            <p data-scroll="toggle(.fromBottomIn, .fromBottomOut)">
-                                I invite you to check out my <a
-                                    href="/" style="color:white">main page</a> to learn more about my current
-                                and recent projects!
-                            </p>
-                            <p class="text-center" data-scroll="toggle(.fromBottomIn, .fromBottomOut)">
-                                <a class="white-link font-weight-normal" target="_blank" href="../pdf/cv.pdf">Latest
-                                    CV</a>
-                                (September 2023)
-                            </p>
-                        </div>
-                    </div>
-                    <div class="text-center" data-scroll="toggle(.fromBottomIn, .fromBottomOut)"
-                        class="learn-more-cont">
-                        <h5 class="mt-3">More about me</h5>
-                        <div class="row">
-                            <div class="col">
-                                <a href="#research" class="btn btn-light js-scroll-trigger mr-2">Research</a>
-                                <a href="#work" class="btn btn-light js-scroll-trigger mr-2">Work</a>
-                                <a href="#publications" class="btn btn-light js-scroll-trigger mr-2">Publications</a>
-                                <a href="#presentations" class="btn btn-light js-scroll-trigger mr-2">Presentations</a>
-                                <a href="#education" class="btn btn-light js-scroll-trigger mr-2">Education</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-12 col-md-4">
-                    <div class="row h-100 align-items-center">
-                        <div class="col">
-                            <span class="text-primary ouch hide">Hey! Careful!</span>
-                            <img class="img-fluid very-rounded align-self-middle" src="../img/wagg_headshot.jpg">
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-
-
-    <!-- Research -->
-    <div id="research_carousel" class="carousel slide">
-        <div class="carousel-inner">
-            <div class="carousel-item">
-                <div class="header" style="background-image: url('../img/wasp_142.jpg');"></div>
-                <div class="container-fluid pt-4">
-                    <div class="row">
-                        <div class="col-11">
-                            <h1>Transiting Exoplanets</h1>
-                            <h3 class="font-weight-light mb-4">How can we detect planets orbiting distant stars?</h3>
-                            <p>
-                                Since planets do not produce their own light, it is extremely difficult to directly
-                                detect them.
-                                Therefore, astrophysicists use indirection detection methods to search for them. One
-                                such
-                                method, focuses on attempting to detect the transits of exoplanets in front of stars.
-                            </p>
-                            <div class="float-left floated-img-sized mr-3 my-2">
-                                <img class="img-fluid rounded" src='../img/transit-animation.gif'>
-                                <div class="text-center font-small">Animation Credit: NASA</div>
-                            </div>
-                            <p>
-                                As a planet passes in front of its host star, there is a small decrease in the
-                                amount of light that we detect. Therefore, if we notice a periodic dimming of a
-                                star, this could
-                                imply that there is a planet orbiting it.
-                            </p>
-                            <p>
-                                From these 'lightcurves', we can infer information about the planet. For
-                                example, if we know the size of the star and the depth of the lightcurve, we can
-                                estimate the size of the planet.
-                            </p>
-                            <p>
-                                Whilst still in high school, I worked in the Astrophysics department with Professor Coel
-                                Hellier. As part of SuperWASP, the UK's leading exoplanet detection program, I was
-                                tasked with analysing possible signals in order to detect new planets.
-                            </p>
-                            <p>
-                                During my work, I was lucky to <a target="_blank"
-                                    href="https://www.keele.ac.uk/pressreleases/2015/work-experienceschoolboydiscoversanewplanet.php">discover</a>
-                                WASP-142b, a previously unknown exoplanet
-                                orbiting a star nearly 3000 light years from Earth, and become the youngest person to
-                                have discovered an exoplanet. I worked with Professor Hellier to analyse the planetary
-                                system and several other recent discoveries and these findings were <a target="_blank"
-                                    href="https://academic.oup.com/mnras/article/465/3/3693/2556157">published</a> in
-                                <i>Monthly Notices of the Royal Astronomical Society</i>.
-                            </p>
-                            <p>
-                                In 2018, TESS, the transiting exoplanet survey satellite, launched and began its hunt
-                                for new exoplanets with improved apparatus, I'm excited to see the new worlds that it
-                                discovers!
-                            </p>
-                        </div>
-                    </div>
-                </div>
-                <div class="return right">
-                    <div class="row h-100 align-items-center">
-                        <div class="col">
-                            <i class="fa fa-2x fa-chevron-right"></i>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="carousel-item">
-                <div class="header" style="background-image: url('../img/dna.jpg');"></div>
-                <div class="container-fluid pt-4">
-                    <div class="row">
-                        <div class="col-11">
-                            <h1>Population Genetics</h1>
-                            <h3 class="font-weight-light">
-                                How does migration and changing environments affect genetic evolution?
-                            </h3>
-                            <p>
-                                There exist many predictions for the evolution of populations if we assume a constant
-                                environment and no spatial separation. It is relatively simply to produce simulations
-                                involving selection, mutation and genetic drift under these considerations. We can first
-                                assume that within the population, every individual has either an <b>a</b> or an
-                                <b>A</b> Allele. Then we can define mutation rates between these alleles and their
-                                relative fitnesses. Finally, using these parameters, you can evolve the population, with
-                                one random individual dying and one randomly weighted individual being born at each time
-                                step.
-                            </p>
-                            <p>
-                                I created quick simulation <a href="moran_circles.html" target="_blank">here</a> to
-                                help
-                                understand the concept. You can adjust the
-                                parameters to see
-                                how this affects the evolution and be sure to click the help button for an explanation
-                                of the exact mathematics of how the simulation proceeds if you're interested!
-                            </p>
-                            <img class="img-fluid rounded float-right floated-img-sized ml-3 my-2"
-                                src='../img/environment_change.jpg'>
-                            <p>
-                                My research with Professor Michael Desai focussed on creating a model for populations
-                                that are exposed to
-                                environmental changes and are divided into spatially separated subpopulations. I spent
-                                time iterating on creating an effective model that reproduced experimental results.
-                                Eventually I settled on the following; split individuals into M demes and then at each
-                                time step, randomly change environment between two environments with fixed
-                                probabilities. The alleles can then be assigned different fitnesses based on their
-                                environment.
-                            </p>
-                            <p>
-                                Based on this model, I wrote a simulation in Python that could evolve a population for
-                                tens of thousands of generations in a couple of hours. These simulations produced
-                                intriguing results. I found that the allele which was beneficial for more of the time
-                                but with a lower fitness benefit was favoured as we increased the number of demes.
-                            </p>
-                        </div>
-                    </div>
-                </div>
-                <div class="return right">
-                    <div class="row h-100 align-items-center">
-                        <div class="col">
-                            <i class="fa fa-2x fa-chevron-right"></i>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="carousel-item active">
-                <section class="content-section" id="research">
-                    <div class="container">
-                        <div class="content-section-heading text-center">
-                            <h2 class="mb-0">Research Experience</h2>
-                            <h3 class="text-warning mb-2">Past Projects</h3>
-                        </div>
-                        <div class="text-center font-small">
-                            <p>(for more information on my <i>current</i> research projects, check out my <a
-                                    href="../index.html#projects" class="text-warning mb-5">main page</a>!)</p>
-                        </div>
-                        <div class="row portfolio-item-container no-gutters">
-                            <div class="col-lg-6">
-                                <a class="portfolio-item" data-to="0" style="border-top-left-radius: 15px">
-                                    <span class="caption">
-                                        <span class="caption-content">
-                                            <h2>Transiting Exoplanets</h2>
-                                            <p class="mb-0">Analysis of Planetary Systems and Discovery of WASP-142b</p>
-                                        </span>
-                                    </span>
-                                    <img class="img-fluid" src="../img/wasp_142.jpg" alt="">
-                                </a>
-                            </div>
-                            <div class="col-lg-6">
-                                <a class="portfolio-item" data-to="3" style="border-top-right-radius: 15px">
-                                    <span class="caption">
-                                        <span class="caption-content">
-                                            <h2>Galaxies</h2>
-                                            <p class="mb-0">Identification of Luminous Red Galaxies and Analysis</p>
-                                        </span>
-                                    </span>
-                                    <img class="img-fluid" src="../img/galaxy.jpg" alt="">
-                                </a>
-                            </div>
-                            <div class="col-lg-6">
-                                <a class="portfolio-item" data-to="1" style="border-bottom-left-radius: 15px">
-                                    <span class="caption">
-                                        <span class="caption-content">
-                                            <h2>Population Genetics</h2>
-                                            <p class="mb-0">Investigating the effects of migration and changing
-                                                environments on
-                                                genetic evolution</p>
-                                        </span>
-                                    </span>
-                                    <img class="img-fluid" src="../img/dna.jpg" alt="">
-                                </a>
-                            </div>
-                            <div class="col-lg-6">
-                                <a class="portfolio-item" data-to="4" style="border-bottom-right-radius: 15px">
-                                    <span class="caption">
-                                        <span class="caption-content">
-                                            <h2>Gravitational Waves</h2>
-                                            <p class="mb-0">Estimating the detectability of black hole-neutron star
-                                                binary systems
-                                                with LISA</p>
-                                        </span>
-                                    </span>
-                                    <img class="img-fluid" src="../img/binarybh.jpg" alt="">
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-            </div>
-            <div class="carousel-item">
-                <div class="header" style="background-image: url('../img/galaxy.jpg');"></div>
-                <div class="container-fluid pt-4">
-                    <div class="row justify-content-end">
-                        <div class="col-11">
-                            <h1>Luminous Red Galaxies</h1>
-                            <h3 class="font-weight-light">What can we learn from luminous galaxies in the Universe?</h3>
-                            <p>
-                                The most luminous galaxies in a cluster are known to have an extremely narrow range of
-                                colour and luminosity. This means that we can identify them efficiently within data.
-                                These galaxies are incredibly useful as, due to their high luminosity, they can be
-                                observed at extreme distances. Therefore, galaxies of this kind can help us to probe the
-                                large-scale structure of the Universe.
-                            </p>
-                            <div class="float-right floated-img-sized ml-3 my-2">
-                                <img class="img-fluid rounded" src='../img/lrg.jpeg'>
-                                <div class="text-center font-small">Photo Credit: <a target="_blank"
-                                        href="http://news.mit.edu/2012/cool-luminous-galaxy-cluster-identified-0815">MIT
-                                        News</a></div>
-                            </div>
-                            <p>
-                                During my sophomore summer and junior year, I worked with Professor Daniel Eisenstein on
-                                a project identifying and analysing high redshift, luminous red galaxies (LRGs) within
-                                the <a target="_blank" href="http://legacysurvey.org/">Legacy Surveys</a> data. I
-                                created a pipeline that, having identified the
-                                galaxies with the data, performs a series of analyses. Firstly, I use the <a
-                                    href="http://vipers.inaf.it/" target="_blank">VIPERS</a>
-                                galaxy catalogue to create a redshift distribution of the sample, which allows us to
-                                demonstrate that the sample is at high redshift ($z > 0.6$).
-                            </p>
-                            <p>
-                                Additionally, in order to demonstrate the quality of the sample, I produce
-                                autocorrelations and cross correlations with the <a
-                                    href="http://www.sdss3.org/dr9/algorithms/boss_galaxy_ts.php" target="_blank">BOSS
-                                    CMASS LOWZ</a> sample. Using Healpy, I
-                                create pixelized representations of the sample and demonstrate correlations with the
-                                Sunayev-Zeldovich and Cosmic Infrared Background maps. Finally, I assign galaxies into
-                                clusters using a friends-of-friends algorithm.
-                            </p>
-                            <p>
-                                As new data releases have occurred, our pipeline has been used to further refine our
-                                understanding of these LRGs and identify them at higher redshifts than previously
-                                possible.
-                            </p>
-                        </div>
-                    </div>
-                </div>
-                <div class="return">
-                    <div class="row h-100 align-items-center">
-                        <div class="col">
-                            <i class="fa fa-2x fa-chevron-left"></i>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="carousel-item">
-                <div class="header" style="background-image: url('../img/binarybh.jpg');"></div>
-                <div class="container-fluid pt-4">
-                    <div class="row justify-content-end">
-                        <div class="col-11">
-                            <h1>Gravitational Waves</h1>
-                            <h3 class="font-weight-light">How can we use gravitational waves to understand the most
-                                massive objects in the Universe?</h3>
-                            <p>
-                                You may have read in the news about LIGO’s first <a
-                                    href="https://www.ligo.caltech.edu/page/press-release-gw170817"
-                                    target="_blank">detection</a> of gravitational waves. This
-                                ground-breaking result has opened a new realm of gravitational wave astrophysics. LIGO,
-                                the ground-based detector, is able to measure massive binary systems just as they are
-                                merging. The next generation detector, LISA, which will be set up in space, is set to be
-                                sensitive to systems that are not yet merging. The detection of a BH-NS with LISA would
-                                be incredible! It would provide insight into the endpoint of massive stars, whilst also
-                                helping to constrain the formation channels of BH-NSs. A BH-NS could also be used to
-                                measure the Hubble constant or even test general relativity!
-                            </p>
-                            <div class="float-left floated-img-sized mr-3 my-2">
-                                <img class="img-fluid rounded" src='../img/lisa.jpg'>
-                                <div class="text-center font-small">The LISA Detector - Photo Credit: <a target="_blank"
-                                        href="https://www.researchgate.net/figure/Artists-view-of-the-LISA-space-mission-Three-satellites-form-a-Michelson_fig1_279829392">Research
-                                        Gate</a></div>
-                            </div>
-                            <p>I worked with Professor Selma de Mink and Floor Broekgaarden to write my <a
-                                    href="../pdf/thesis.pdf" target="_blank">senior thesis</a> on this topic in my
-                                final year at Harvard. I really encourage you to take a look at the thesis and the plots
-                                in particular, I found some really cool results such as: LISA can detect BH-NSs up to a
-                                megaparsec from Earth and most detectable BH-NSs will have been formed relatively
-                                recently (in the past billion years).
-                            </p>
-                            <p>
-                                I was able to provide a survey of the problem with some analytical estimations before
-                                diving into an answer to how many BH-NSs would be detectable by LISA. I used the
-                                population synthesis code COMPAS to create a sample of binaries, which I placed in
-                                synthetic Milky Ways in order to estimate a detection rate. For my thesis I only
-                                considered circular binaries and made some other approximations due to the time
-                                constraints. However, I have now finished this project by incorporating different types
-                                of binaries, eccentricity, supernovae kicks, physics variations and some other
-                                improvements.
-                            </p>
-                            <p>
-                                I discuss the paper that I published with these findings on my <a href="../index.html#projects">main page</a>
-                                and you can read a post summarising the findings <a href="galactic_dcos.html">on this
-                                    page</a>!
-                            </p>
-                        </div>
-                    </div>
-                </div>
-                <div class="return">
-                    <div class="row h-100 align-items-center">
-                        <div class="col">
-                            <i class="fa fa-2x fa-chevron-left"></i>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Work -->
-    <section class="content-section bg-dark" id="work">
-        <div class="container-fluid">
-            <div class="content-section-heading text-center">
-                <h2 class="text-white">Work Experience</h2>
-                <div class="text-white mb-5 font-italic">Click each to toggle more info</div>
-            </div>
-            <div class="card-deck justify-content-center px-3">
-                <div id="work_judaica" class="card slider text-white">
-                    <div class="front bg-primary text-center d-flex flex-column">
-                        <div class="row align-items-center flex-grow-1 icon-holder">
-                            <div class="col">
-                                <i class="fa fa-10x fa-university p-3 py-4"></i>
-                            </div>
-                        </div>
-                        <div class="card-body">
-                            <h2>Senior Programmer</h2>
-                        </div>
-                        <div class="card-footer">
-                            <div class="card-text">
-                                Judaica Divison of Widener Library
-                            </div>
-                        </div>
-                    </div>
-                    <div class="back bg-primary">
-                        <div class="card-body">
-                            <div class="card-title text-center">
-                                <h2>Senior Programmer</h2>
-                                <hr>
-                            </div>
-                            <div class="card-text p-2 bg-primary-darker rounded mb-2">
-                                <h5>Responsibilities</h5>
-                                <div class="work-details">
-                                    Create automation tools that increase the efficiency of monotonous or repetitive
-                                    tasks.
-                                </div>
-                                <h5>Accomplishments</h5>
-                                <div class="work-details">
-                                    Designed Chrome Extension to automate Alma library system, which has
-                                    been adopted by multiple libraries and is
-                                    critical to the operation of the Judaica Division. You can find more details or
-                                    install it <a class="text-warning" target="_blank"
-                                        href="https://developers.exlibrisgroup.com/appcenter/hj-alma-booster/">here</a>.
-                                </div>
-                                <h5>Contact</h5>
-                                <div class="work-details">
-                                    Reach out to Elizabeth Vernon at <a class="text-warning" target="_blank"
-                                        href="mailto:juddiv@fas.harvard.edu">juddiv@fas.harvard.edu</a>
-                                </div>
-                            </div>
-                            <button class="btn btn-outline-light btn-block" data-mycard="#work_judaica">Close</button>
-                        </div>
-                    </div>
-                    <div class="overlay bg-dark">
-                        <div class="row h-100 align-items-center">
-                            <div class="col">
-                                <div class="font-italic">Click to learn more</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div id="work_cs" class="card slider text-white">
-                    <div class="front bg-primary text-center">
-                        <div class="row align-items-center flex-grow-1 icon-holder">
-                            <div class="col">
-                                <i class="fa fa-10x fa-laptop-code p-3 py-4"></i>
-                            </div>
-                        </div>
-                        <div class="card-body">
-                            <h2>Teaching Fellow</h2>
-                        </div>
-                        <div class="card-footer">
-                            <div class="card-text">
-                                Harvard Department of Computer Science
-                            </div>
-                        </div>
-                    </div>
-                    <div class="back bg-primary">
-                        <div class="card-body">
-                            <div class="card-title text-center">
-                                <h2>Teaching Fellow</h2>
-                                <hr>
-                            </div>
-                            <div class="card-text p-2 bg-primary-darker rounded mb-2">
-                                <h5>Responsibilities</h5>
-                                <div class="work-details">
-                                    Teach a section, run office hours and grade problem sets for introductory
-                                    computer systems class
-                                </div>
-                                <h5>Accomplishments</h5>
-                                <div class="work-details">
-                                    Honed teaching abilities by leadings sections of roughly twenty students in
-                                    consolidating lecture material. Helped students to improve through meetings in
-                                    office hours or advice through remote Piazza posts.
-                                </div>
-                                <h5>Contact</h5>
-                                <div class="work-details">
-                                    Contact Professor Eddie Kohler at <a class="text-warning" target="_blank"
-                                        href="mailto:kohler@seas.harvard.edu">kohler@seas.harvard.edu</a>
-                                </div>
-                            </div>
-                            <button class="btn btn-outline-light btn-block" data-mycard="#work_cs">Close</button>
-                        </div>
-                    </div>
-                    <div class="overlay bg-dark">
-                        <div class="row h-100 align-items-center">
-                            <div class="col">
-                                <div class="font-italic">Click to learn more</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div id="work_hsa" class="card slider text-white">
-                    <div class="front text-center bg-primary">
-                        <div class="row align-items-center flex-grow-1 icon-holder">
-                            <div class="col">
-                                <i class="fa fa-10x fa-chalkboard-teacher p-3 py-4"></i>
-                            </div>
-                        </div>
-                        <div class="card-body">
-                            <h2>Tutor</h2>
-                        </div>
-                        <div class="card-footer">
-                            <div class="card-text">
-                                Tutoring Division of Harvard Student Agencies
-                            </div>
-                        </div>
-                    </div>
-                    <div class="back bg-primary">
-                        <div class="card-body">
-                            <div class="card-title text-center">
-                                <h2>Tutor</h2>
-                                <hr>
-                            </div>
-                            <div class="card-text p-2 bg-primary-darker rounded mb-2">
-                                <h5>Responsibilities</h5>
-                                <div class="work-details">
-                                    Tutor local students in Physics, Maths and Computer Science
-                                </div>
-                                <h5>Accomplishments</h5>
-                                <div class="work-details">
-                                    Consistently helped students to improve their understanding of confusing topics.
-                                    Rewarded by HSA manager thanks to consistent positive reviews from students.
-                                </div>
-                                <h5>Contact</h5>
-                                <div class="work-details">
-                                    E-mail <a class="text-warning" target="_blank"
-                                        href="mailto:tutoring@hsa.net">tutoring@hsa.net</a>
-                                </div>
-                            </div>
-                            <button class="btn btn-outline-light btn-block" data-mycard="#work_hsa">Close</button>
-                        </div>
-                    </div>
-                    <div class="overlay bg-dark">
-                        <div class="row h-100 align-items-center">
-                            <div class="col">
-                                <div class="font-italic">Click to learn more</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div id="work_cfa" class="card slider text-white">
-                    <div class="front text-center bg-primary">
-                        <div class="row align-items-center flex-grow-1 icon-holder">
-                            <div class="col">
-                                <i class="fa fa-10x fa-satellite p-3 py-4"></i>
-                            </div>
-                        </div>
-                        <div class="card-body">
-                            <h2>Research Fellow</h2>
-                        </div>
-                        <div class="card-footer">
-                            <div class="card-text">
-                                Center for Astrophysics | Harvard & Smithsonian
-                            </div>
-                        </div>
-                    </div>
-                    <div class="back bg-primary">
-                        <div class="card-body">
-                            <div class="card-title text-center">
-                                <h2>Research Fellow</h2>
-                                <hr>
-                            </div>
-                            <div class="card-text p-2 bg-primary-darker rounded mb-2">
-                                <h5>Responsibilities</h5>
-                                <div class="work-details">
-                                    Work on various research projects related to massive stars and gravitational wave
-                                    progenitors.
-                                </div>
-                                <h5>Accomplishments</h5>
-                                <div class="work-details">
-                                    Create Python package <a class="text-warning" target="_blank"
-                                        href="https://legwork.readthedocs.io/en/latest/">LEGWORK</a> for working with
-                                    LISA sources. Worked with COMPAS team to improve wind prescriptions in COMPAS and
-                                    handling of low mass stars. Wrote first-author paper on the Galactic population of
-                                    double compact objects that will be observable with LISA.
-                                </div>
-                                <h5>Contact</h5>
-                                <div class="work-details">
-                                    Contact Professor Selma de Mink at <a class="text-warning" target="_blank"
-                                        href="mailto:sedemink@mpa-garching.mpg.de">sedemink@mpa-garching.mpg.de</a>
-                                </div>
-                            </div>
-                            <button class="btn btn-outline-light btn-block" data-mycard="#work_cfa">Close</button>
-                        </div>
-                    </div>
-                    <div class="overlay bg-dark">
-                        <div class="row h-100 align-items-center">
-                            <div class="col">
-                                <div class="font-italic">Click to learn more</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section class="content-section bg-white py-5" id="publications">
-        <div class="content-section-heading text-center mb-4">
-            <h1 class="d-inline-block subtitle mb-4 display-3">Publications
-            </h1>
-            <a class="d-block" target="_blank"
-                href="https://ui.adsabs.harvard.edu/search/filter_database_fq_database=AND&filter_database_fq_database=database%3A%22astronomy%22&filter_doctype_facet_hier_fq_doctype=AND&filter_doctype_facet_hier_fq_doctype=doctype_facet_hier%3A%220%2FArticle%22&fq=%7B!type%3Daqp%20v%3D%24fq_database%7D&fq=%7B!type%3Daqp%20v%3D%24fq_doctype%7D&fq_database=(database%3A%22astronomy%22)&fq_doctype=(doctype_facet_hier%3A%220%2FArticle%22)&p_=0&q=author%3A%22Wagg%2CTom%22&sort=date%20desc%2C%20bibcode%20desc">
-                Full ADS Search Results
-            </a>
-        </div>
-        <div class="container-fluid thiccc">
-            <div class="row">
-                <div class="col">
-                    <h2>First-author papers</h2>
-                </div>
-            </div>
-            <div class="row">
-                <div id="first_author_list" class="col">
-                    <div id="pub_template" class="publication hide">
-                        <div class="main-details">
-                            <div class="first-line">
-                                <a class="title" href="" target="_blank"></a>
-                            </div>
-                            <div class="second-line ml-0 ml-md-3">
-                                <span class="authors"></span> <span class="journal"></span>, <span
-                                    class="journal-details"></span>, <span class="date"></span>. <a class="expand"
-                                    data-toggle="collapse" role="button" href="">Expand abstract</a>.
-                                <div class="abstract collapse"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col">
-                    <h2>Co-author papers</h2>
-                </div>
-            </div>
-            <div class="row">
-                <div id="co_author_list" class="col"></div>
-            </div>
-        </div>
-    </section>
-
-    <section class="content-section bg-light py-5" id="presentations">
-        <div class="content-section-heading text-center mb-4">
-            <h1 class="d-inline-block subtitle mb-4 display-3">Presentations</h1>
-            <h5>A list of presentations that I've given about my research</h5>
-        </div>
-        <div class="container-fluid">
-            <div class="row mb-2">
-                <div class="col text-center">
-                    <div class="presentation group-presentation">
-                        <span class="title">LEGWORK: A python package for computing the evolution and detectability of
-                            stellar-origin gravitational-wave sources with space-based detectors</span><span
-                            class="group">Joey Key, University of Washington (Bothell)</span><span class="date">January
-                            2022</span>
-                    </div>
-                    <div class="presentation group-presentation">
-                        <span class="title">LEGWORK: A python package for computing the evolution and detectability of
-                            stellar-origin gravitational-wave sources with space-based detectors</span><span
-                            class="group">LECS Software Series #1</span><span class="date">January 2022</span>
-                    </div>
-                    <div class="presentation group-presentation">
-                        <span class="title">Gravitational wave sources in our Galactic backyard: Predictions for BHBH,
-                            BHNS and NSNS binaries detectable with LISA</span><span class="group">LISA Community
-                            Telecon</span><span class="date">December 2021</span>
-                    </div>
-                    <div class="presentation group-presentation">
-                        <span class="title">Gravitational wave sources in our Galactic backyard: Predictions for BHBH,
-                            BHNS and NSNS binaries detectable with LISA</span><span class="group">SESTAS Seminar at Max
-                            Planck Institute</span><span class="date">November 2021</span>
-                    </div>
-                    <div class="presentation group-presentation">
-                        <span class="title">LEGWORK: A python package for computing the evolution and detectability of
-                            stellar-origin gravitational-wave sources with space-based detectors</span><span
-                            class="group">TianQin Research Center for Gravitational Physics</span><span
-                            class="date">November 2021</span>
-                    </div>
-                    <div class="presentation conference-presentation">
-                        <span class="title">Predictions for detecting BH-NS binaries with LISA</span><span
-                            class="session">Where are the BH-NS binaries?</span><span class="conference">EAS
-                            2021</span><span class="date">June 2021</span>
-                    </div>
-                    <div class="presentation group-presentation">
-                        <span class="title">LEGWORK: A python package for computing the evolution and detectability of
-                            stellar-origin gravitational-wave sources with space-based detectors</span><span
-                            class="group">CCA Gravitational Wave Group Meeting</span><span class="date">May 2021</span>
-                    </div>
-                    <div class="presentation conference-presentation">
-                        <span class="title">Black Hole—Neutron Star Binaries in LISA</span><span class="session">Stellar
-                            Multiples and Planets</span><span class="conference">The 13th International LISA
-                            Symposium</span><span class="date">September 2020</span>
-                    </div>
-                </div>
-            </div>
-            <div class="row justify-content-center">
-                <div class="col-12 col-md-4">
-                    <div class="img-fluid position-relative zoom-figure very-rounded" data-toggle="modal"
-                        data-target="#backyard_modal">
-                        <img src="../img/presentation_backyard.png" class="img-fluid very-rounded">
-                        <div class="img-overlay very-rounded">
-                            <p class="m-0 fw-bold">Click to Zoom</p>
-                        </div>
-                    </div>
-                    <div class="modal fade" id="backyard_modal" tabindex="-1">
-                        <div class="modal-dialog modal-fullscreen">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                </div>
-                                <div class="modal-body text-center">
-                                    <img src="../img/presentation_backyard.png" class="img-fluid">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <p class="text-center">Galactic DCO paper presentation</p>
-                </div>
-                <div class="col-12 col-md-4">
-                    <div class="img-fluid position-relative zoom-figure very-rounded" data-toggle="modal"
-                        data-target="#legwork_pres_modal">
-                        <img src="../img/presentation_legwork.png" class="img-fluid very-rounded"
-                            style="border: 3px solid #114864;">
-                        <div class="img-overlay very-rounded">
-                            <p class="m-0 fw-bold">Click to Zoom</p>
-                        </div>
-                    </div>
-                    <div class="modal fade" id="legwork_pres_modal" tabindex="-1">
-                        <div class="modal-dialog modal-fullscreen">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                </div>
-                                <div class="modal-body text-center">
-                                    <img src="../img/presentation_legwork.png" class="img-fluid">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <p class="text-center">LEGWORK presentation</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Education -->
-    <section class="content-section bg-dark" id="education">
-        <div class="container">
-            <div class="content-section-heading text-center mb-4">
-                <h1 class="d-inline-block subtitle mb-4 display-3 text-white">Education</h1>
-            </div>
-            <div data-scroll="toggle(.fromLeftIn, .fromLeftOut)" class="row justify-content-center">
-                <div class="col-7 col-md-9 text-left text-light">
-                    <div class="row h-100 align-items-center">
-                        <div class="col">
-                            <h3>Harvard University</h3>
-                            <h5 class="font-weight-light mb-4">A.B in Physics and Astrophysics<span
-                                    class="separator"></span>Secondary in Computer Science<span
-                                    class="separator"></span>Highest Honours<span class="separator"></span>2016-2020
-                            </h5>
-                            <div class="font-weight-bold">Awards and Fellowships</div>
-                            <div class="pl-4 font-weight-light">
-                                <p>Leo Goldberg Prize<span class="separator"></span>Bloomberg Creative Science
-                                    Prize<span class="separator"></span>Alex G. Booth Fellowship<span
-                                        class="separator"></span>Haase Fellowship<span class="separator"></span>Harvard
-                                    College Research Program Grant</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-5 col-md-3">
-                    <div class="row h-100 align-items-center justify-content-end">
-                        <div class="col">
-                            <img class="img-fluid" src="../img/harvardlogo.png">
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <hr>
-            <div data-scroll="toggle(.fromRightIn, .fromRightOut)" class="row justify-content-center">
-                <div class="col-7 col-md-9 text-light">
-                    <div class="row h-100 align-items-center">
-                        <div class="col">
-                            <div class="text-left mb-4">
-                                <h3>Newcastle-under-Lyme School</h3>
-                                <h5 class="font-weight-light">Head Boy<span class="separator"></span>Prefect<span
-                                        class="separator"></span>House Captain<span class="separator"></span>2004-2016
-                                </h5>
-                            </div>
-                            <div class="text-left font-weight-bold">Qualifications</div>
-                            <div class="pl-4 font-weight-light">
-                                <p class="mb-1">5 A Levels in Physics, Maths, Further Maths, EPQ and Latin with 4A*s and
-                                    an A</p>
-                                <p>13 GCSEs with 13A*s - a record for the school</p>
-                            </div>
-                            <div class="text-left font-weight-bold">Awards</div>
-                            <div class="pl-4 font-weight-light">
-                                <p>Duke of Edinburgh Bronze, Silver and Gold Awards<span
-                                        class="separator"></span>Innovation Prize<span
-                                        class="separator"></span>Leadership Prize<span class="separator"></span>Physics
-                                    and Latin Prizes</p>
-                            </div>
-                            <div class="text-left font-weight-bold">Positions</div>
-                            <div class="pl-4 font-weight-light">
-                                <p>Student Council<span class="separator"></span>Field Hockey Vice Captain<span
-                                        class="separator"></span>Cricket Team Bowler</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-5 col-md-3 end-logo">
-                    <div class="row h-100 align-items-center">
-                        <div class="col">
-                            <img class="img-fluid" src="../img/nulslogo.png">
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="footer text-center bg-light">
-        <div class="container">
-            <ul class="list-inline mb-2">
-                <li class="list-inline-item">
-                    <i class="fab fa-twitter fa-3x social-link rounded-circle">
-                        <a href="https://www.twitter.com/tomjwagg" target="_blank"></a>
-                    </i>
+    <body id="page-top">
+        <!-- Navigation -->
+        <a class="menu-toggle rounded" href="#">
+            <i class="fas fa-bars"></i>
+        </a>
+        <nav id="sidebar-wrapper">
+            <ul class="sidebar-nav">
+                <li class="sidebar-brand">
+                    <a class="js-scroll-trigger" href="#page-top">Tom Wagg</a>
                 </li>
-                <li class="list-inline-item">
-                    <i class="fab fa-github fa-3x social-link rounded-circle">
-                        <a href="https://github.com/TomWagg" target="_blank"></a>
-                    </i>
+                <li class="sidebar-nav-item">
+                    <a class="js-scroll-trigger" href="/">Back to main page</a>
                 </li>
-                <li class="list-inline-item">
-                    <i class="fab fa-linkedin-in fa-3x social-link rounded-circle">
-                        <a href="https://www.linkedin.com/in/tom-wagg" target="_blank"></a>
-                    </i>
+                <li class="sidebar-nav-item">
+                    <a class="js-scroll-trigger" href="#about">About Me</a>
+                </li>
+                <li class="sidebar-nav-item">
+                    <a class="js-scroll-trigger" href="#research">Research Experience</a>
+                </li>
+                <li class="sidebar-nav-item">
+                    <a class="js-scroll-trigger" href="#work">Work Experience</a>
+                </li>
+                <li class="sidebar-nav-item">
+                    <a class="js-scroll-trigger" href="#publications">Publications</a>
+                </li>
+                <li class="sidebar-nav-item">
+                    <a class="js-scroll-trigger" href="#presentations">Presentations</a>
+                </li>
+                <li class="sidebar-nav-item">
+                    <a class="js-scroll-trigger" href="#education">Education</a>
                 </li>
             </ul>
-            <p class="text-muted small mb-0">Copyright &copy; Tom Wagg 2022</p>
+        </nav>
+
+        <a href="/" class="back-button rounded">
+            <i class="fa fa-home" aria-hidden="true"></i>
+        </a>
+
+        <!-- Header -->
+        <header class="masthead d-flex">
+            <div class="container text-center">
+                <div class="row h-66 align-items-end">
+                    <div class="col">
+                        <h1 class="mb-4 mt-auto">Tom Wagg</h1>
+                    </div>
+                </div>
+                <div class="row h-33 align-items-end">
+                    <div class="col">
+                        <a class="btn btn-outline-light js-scroll-trigger mb-4" href="#about">Find Out More</a>
+                    </div>
+                </div>
+            </div>
+            <div class="overlay"></div>
+        </header>
+
+        <!-- About -->
+        <section class="content-section bg-primary text-white py-5" id="about">
+            <div class="container-fluid">
+                <div class="row text-center">
+                    <div class="col-12 col-md-8 mb-2 text-left">
+                        <h1 class="d-inline-block subtitle mb-4 display-3" style="margin-left: 30px">About</h1>
+                        <div class="about-text">
+                            <p data-scroll="toggle(.fromBottomIn, .fromBottomOut)" style="font-weight: 500">Astrophysics PhD student at the University of Washington</p>
+                            <div class="text-faded" style="font-weight: 200">
+                                <p data-scroll="toggle(.fromBottomIn, .fromBottomOut)">
+                                    I'm currently working on my PhD at the University of Washington and, having explored near-Earth object solar system research with Mario Jurić and exoplanets with Eric Agol, I've settled into a thesis designing and applying self-consistent population synthesis and galactic dynamics simulations. Previously, I graduated from Harvard University with a degree in Physics and Astrophysics and spent a year working as a research fellow with Professor Selma de Mink,
+                                    researching stellar evolution and gravitational waves.
+                                </p>
+                                <p data-scroll="toggle(.fromBottomIn, .fromBottomOut)">
+                                    I'm originally from the luscious English countryside near Newcastle-under-Lyme and I grew up with a passion for learning and understanding the world, which quickly led me to Physics. I've always been interested in the big questions that are still left unanswered about our Universe; What is the mysterious Dark Matter that permeates our Universe? How did the Universe begin? How unique is Life? What can we learn from gravitational waves? Therefore I am fascinated
+                                    by astrophysics and the answers that it could offer to these questions!
+                                </p>
+                                <p data-scroll="toggle(.fromBottomIn, .fromBottomOut)">I invite you to check out my <a href="/" style="color: white">main page</a> to learn more about my current and recent projects!</p>
+                                <p class="text-center" data-scroll="toggle(.fromBottomIn, .fromBottomOut)">
+                                    <a class="white-link font-weight-normal" target="_blank" href="../pdf/cv.pdf">Latest CV</a>
+                                    (September 2023)
+                                </p>
+                            </div>
+                        </div>
+                        <div class="text-center" data-scroll="toggle(.fromBottomIn, .fromBottomOut)" class="learn-more-cont">
+                            <h5 class="mt-3">More about me</h5>
+                            <div class="row">
+                                <div class="col">
+                                    <a href="#research" class="btn btn-light js-scroll-trigger mr-2">Research</a>
+                                    <a href="#work" class="btn btn-light js-scroll-trigger mr-2">Work</a>
+                                    <a href="#publications" class="btn btn-light js-scroll-trigger mr-2">Publications</a>
+                                    <a href="#presentations" class="btn btn-light js-scroll-trigger mr-2">Presentations</a>
+                                    <a href="#education" class="btn btn-light js-scroll-trigger mr-2">Education</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-4">
+                        <div class="row h-100 align-items-center">
+                            <div class="col">
+                                <span class="text-primary ouch hide">Hey! Careful!</span>
+                                <img class="img-fluid very-rounded align-self-middle" src="../img/wagg_headshot.jpg" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Research -->
+        <div id="research_carousel" class="carousel slide">
+            <div class="carousel-inner">
+                <div class="carousel-item">
+                    <div class="header" style="background-image: url('../img/wasp_142.jpg')"></div>
+                    <div class="container-fluid pt-4">
+                        <div class="row">
+                            <div class="col-11">
+                                <h1>Transiting Exoplanets</h1>
+                                <h3 class="font-weight-light mb-4">How can we detect planets orbiting distant stars?</h3>
+                                <p>Since planets do not produce their own light, it is extremely difficult to directly detect them. Therefore, astrophysicists use indirection detection methods to search for them. One such method, focuses on attempting to detect the transits of exoplanets in front of stars.</p>
+                                <div class="float-left floated-img-sized mr-3 my-2">
+                                    <img class="img-fluid rounded" src="../img/transit-animation.gif" />
+                                    <div class="text-center font-small">Animation Credit: NASA</div>
+                                </div>
+                                <p>As a planet passes in front of its host star, there is a small decrease in the amount of light that we detect. Therefore, if we notice a periodic dimming of a star, this could imply that there is a planet orbiting it.</p>
+                                <p>From these 'lightcurves', we can infer information about the planet. For example, if we know the size of the star and the depth of the lightcurve, we can estimate the size of the planet.</p>
+                                <p>Whilst still in high school, I worked in the Astrophysics department with Professor Coel Hellier. As part of SuperWASP, the UK's leading exoplanet detection program, I was tasked with analysing possible signals in order to detect new planets.</p>
+                                <p>
+                                    During my work, I was lucky to <a target="_blank" href="https://www.keele.ac.uk/pressreleases/2015/work-experienceschoolboydiscoversanewplanet.php">discover</a> WASP-142b, a previously unknown exoplanet orbiting a star nearly 3000 light years from Earth, and become the youngest person to have discovered an exoplanet. I worked with Professor Hellier to analyse the planetary system and several other recent discoveries and these findings were
+                                    <a target="_blank" href="https://academic.oup.com/mnras/article/465/3/3693/2556157">published</a> in <i>Monthly Notices of the Royal Astronomical Society</i>.
+                                </p>
+                                <p>In 2018, TESS, the transiting exoplanet survey satellite, launched and began its hunt for new exoplanets with improved apparatus, I'm excited to see the new worlds that it discovers!</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="return right">
+                        <div class="row h-100 align-items-center">
+                            <div class="col">
+                                <i class="fa fa-2x fa-chevron-right"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <div class="header" style="background-image: url('../img/dna.jpg')"></div>
+                    <div class="container-fluid pt-4">
+                        <div class="row">
+                            <div class="col-11">
+                                <h1>Population Genetics</h1>
+                                <h3 class="font-weight-light">How does migration and changing environments affect genetic evolution?</h3>
+                                <p>
+                                    There exist many predictions for the evolution of populations if we assume a constant environment and no spatial separation. It is relatively simply to produce simulations involving selection, mutation and genetic drift under these considerations. We can first assume that within the population, every individual has either an <b>a</b> or an <b>A</b> Allele. Then we can define mutation rates between these alleles and their relative fitnesses. Finally, using
+                                    these parameters, you can evolve the population, with one random individual dying and one randomly weighted individual being born at each time step.
+                                </p>
+                                <p>I created quick simulation <a href="moran_circles.html" target="_blank">here</a> to help understand the concept. You can adjust the parameters to see how this affects the evolution and be sure to click the help button for an explanation of the exact mathematics of how the simulation proceeds if you're interested!</p>
+                                <img class="img-fluid rounded float-right floated-img-sized ml-3 my-2" src="../img/environment_change.jpg" />
+                                <p>
+                                    My research with Professor Michael Desai focussed on creating a model for populations that are exposed to environmental changes and are divided into spatially separated subpopulations. I spent time iterating on creating an effective model that reproduced experimental results. Eventually I settled on the following; split individuals into M demes and then at each time step, randomly change environment between two environments with fixed probabilities. The
+                                    alleles can then be assigned different fitnesses based on their environment.
+                                </p>
+                                <p>Based on this model, I wrote a simulation in Python that could evolve a population for tens of thousands of generations in a couple of hours. These simulations produced intriguing results. I found that the allele which was beneficial for more of the time but with a lower fitness benefit was favoured as we increased the number of demes.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="return right">
+                        <div class="row h-100 align-items-center">
+                            <div class="col">
+                                <i class="fa fa-2x fa-chevron-right"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="carousel-item active">
+                    <section class="content-section" id="research">
+                        <div class="container">
+                            <div class="content-section-heading text-center">
+                                <h2 class="mb-0">Research Experience</h2>
+                                <h3 class="text-warning mb-2">Past Projects</h3>
+                            </div>
+                            <div class="text-center font-small">
+                                <p>(for more information on my <i>current</i> research projects, check out my <a href="../index.html#projects" class="text-warning mb-5">main page</a>!)</p>
+                            </div>
+                            <div class="row portfolio-item-container no-gutters">
+                                <div class="col-lg-6">
+                                    <a class="portfolio-item" data-to="0" style="border-top-left-radius: 15px">
+                                        <span class="caption">
+                                            <span class="caption-content">
+                                                <h2>Transiting Exoplanets</h2>
+                                                <p class="mb-0">Analysis of Planetary Systems and Discovery of WASP-142b</p>
+                                            </span>
+                                        </span>
+                                        <img class="img-fluid" src="../img/wasp_142.jpg" alt="" />
+                                    </a>
+                                </div>
+                                <div class="col-lg-6">
+                                    <a class="portfolio-item" data-to="3" style="border-top-right-radius: 15px">
+                                        <span class="caption">
+                                            <span class="caption-content">
+                                                <h2>Galaxies</h2>
+                                                <p class="mb-0">Identification of Luminous Red Galaxies and Analysis</p>
+                                            </span>
+                                        </span>
+                                        <img class="img-fluid" src="../img/galaxy.jpg" alt="" />
+                                    </a>
+                                </div>
+                                <div class="col-lg-6">
+                                    <a class="portfolio-item" data-to="1" style="border-bottom-left-radius: 15px">
+                                        <span class="caption">
+                                            <span class="caption-content">
+                                                <h2>Population Genetics</h2>
+                                                <p class="mb-0">Investigating the effects of migration and changing environments on genetic evolution</p>
+                                            </span>
+                                        </span>
+                                        <img class="img-fluid" src="../img/dna.jpg" alt="" />
+                                    </a>
+                                </div>
+                                <div class="col-lg-6">
+                                    <a class="portfolio-item" data-to="4" style="border-bottom-right-radius: 15px">
+                                        <span class="caption">
+                                            <span class="caption-content">
+                                                <h2>Gravitational Waves</h2>
+                                                <p class="mb-0">Estimating the detectability of black hole-neutron star binary systems with LISA</p>
+                                            </span>
+                                        </span>
+                                        <img class="img-fluid" src="../img/binarybh.jpg" alt="" />
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+                <div class="carousel-item">
+                    <div class="header" style="background-image: url('../img/galaxy.jpg')"></div>
+                    <div class="container-fluid pt-4">
+                        <div class="row justify-content-end">
+                            <div class="col-11">
+                                <h1>Luminous Red Galaxies</h1>
+                                <h3 class="font-weight-light">What can we learn from luminous galaxies in the Universe?</h3>
+                                <p>The most luminous galaxies in a cluster are known to have an extremely narrow range of colour and luminosity. This means that we can identify them efficiently within data. These galaxies are incredibly useful as, due to their high luminosity, they can be observed at extreme distances. Therefore, galaxies of this kind can help us to probe the large-scale structure of the Universe.</p>
+                                <div class="float-right floated-img-sized ml-3 my-2">
+                                    <img class="img-fluid rounded" src="../img/lrg.jpeg" />
+                                    <div class="text-center font-small">Photo Credit: <a target="_blank" href="http://news.mit.edu/2012/cool-luminous-galaxy-cluster-identified-0815">MIT News</a></div>
+                                </div>
+                                <p>
+                                    During my sophomore summer and junior year, I worked with Professor Daniel Eisenstein on a project identifying and analysing high redshift, luminous red galaxies (LRGs) within the <a target="_blank" href="http://legacysurvey.org/">Legacy Surveys</a> data. I created a pipeline that, having identified the galaxies with the data, performs a series of analyses. Firstly, I use the <a href="http://vipers.inaf.it/" target="_blank">VIPERS</a>
+                                    galaxy catalogue to create a redshift distribution of the sample, which allows us to demonstrate that the sample is at high redshift ($z > 0.6$).
+                                </p>
+                                <p>
+                                    Additionally, in order to demonstrate the quality of the sample, I produce autocorrelations and cross correlations with the <a href="http://www.sdss3.org/dr9/algorithms/boss_galaxy_ts.php" target="_blank">BOSS CMASS LOWZ</a> sample. Using Healpy, I create pixelized representations of the sample and demonstrate correlations with the Sunayev-Zeldovich and Cosmic Infrared Background maps. Finally, I assign galaxies into clusters using a friends-of-friends
+                                    algorithm.
+                                </p>
+                                <p>As new data releases have occurred, our pipeline has been used to further refine our understanding of these LRGs and identify them at higher redshifts than previously possible.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="return">
+                        <div class="row h-100 align-items-center">
+                            <div class="col">
+                                <i class="fa fa-2x fa-chevron-left"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <div class="header" style="background-image: url('../img/binarybh.jpg')"></div>
+                    <div class="container-fluid pt-4">
+                        <div class="row justify-content-end">
+                            <div class="col-11">
+                                <h1>Gravitational Waves</h1>
+                                <h3 class="font-weight-light">How can we use gravitational waves to understand the most massive objects in the Universe?</h3>
+                                <p>
+                                    You may have read in the news about LIGO’s first <a href="https://www.ligo.caltech.edu/page/press-release-gw170817" target="_blank">detection</a> of gravitational waves. This ground-breaking result has opened a new realm of gravitational wave astrophysics. LIGO, the ground-based detector, is able to measure massive binary systems just as they are merging. The next generation detector, LISA, which will be set up in space, is set to be sensitive to systems that
+                                    are not yet merging. The detection of a BH-NS with LISA would be incredible! It would provide insight into the endpoint of massive stars, whilst also helping to constrain the formation channels of BH-NSs. A BH-NS could also be used to measure the Hubble constant or even test general relativity!
+                                </p>
+                                <div class="float-left floated-img-sized mr-3 my-2">
+                                    <img class="img-fluid rounded" src="../img/lisa.jpg" />
+                                    <div class="text-center font-small">The LISA Detector - Photo Credit: <a target="_blank" href="https://www.researchgate.net/figure/Artists-view-of-the-LISA-space-mission-Three-satellites-form-a-Michelson_fig1_279829392">Research Gate</a></div>
+                                </div>
+                                <p>I worked with Professor Selma de Mink and Floor Broekgaarden to write my <a href="../pdf/thesis.pdf" target="_blank">senior thesis</a> on this topic in my final year at Harvard. I really encourage you to take a look at the thesis and the plots in particular, I found some really cool results such as: LISA can detect BH-NSs up to a megaparsec from Earth and most detectable BH-NSs will have been formed relatively recently (in the past billion years).</p>
+                                <p>
+                                    I was able to provide a survey of the problem with some analytical estimations before diving into an answer to how many BH-NSs would be detectable by LISA. I used the population synthesis code COMPAS to create a sample of binaries, which I placed in synthetic Milky Ways in order to estimate a detection rate. For my thesis I only considered circular binaries and made some other approximations due to the time constraints. However, I have now finished this
+                                    project by incorporating different types of binaries, eccentricity, supernovae kicks, physics variations and some other improvements.
+                                </p>
+                                <p>I discuss the paper that I published with these findings on my <a href="../index.html#projects">main page</a> and you can read a post summarising the findings <a href="galactic_dcos.html">on this page</a>!</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="return">
+                        <div class="row h-100 align-items-center">
+                            <div class="col">
+                                <i class="fa fa-2x fa-chevron-left"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-    </footer>
 
-    <!-- Scroll to Top Button-->
-    <a class="scroll-to-top rounded js-scroll-trigger" href="#page-top">
-        <i class="fas fa-angle-up"></i>
-    </a>
+        <!-- Work -->
+        <section class="content-section bg-dark" id="work">
+            <div class="container-fluid">
+                <div class="content-section-heading text-center">
+                    <h2 class="text-white">Work Experience</h2>
+                    <div class="text-white mb-5 font-italic">Click each to toggle more info</div>
+                </div>
+                <div class="card-deck justify-content-center px-3">
+                    <div id="work_judaica" class="card slider text-white">
+                        <div class="front bg-primary text-center d-flex flex-column">
+                            <div class="row align-items-center flex-grow-1 icon-holder">
+                                <div class="col">
+                                    <i class="fa fa-7x fa-university p-3 py-4"></i>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <h2>Senior Programmer</h2>
+                            </div>
+                            <div class="card-footer">
+                                <div class="card-text">Judaica Divison of Widener Library</div>
+                            </div>
+                        </div>
+                        <div class="back bg-primary">
+                            <div class="card-body">
+                                <div class="card-title text-center">
+                                    <h2>Senior Programmer</h2>
+                                    <hr />
+                                </div>
+                                <div class="card-text p-2 bg-primary-darker rounded mb-2">
+                                    <h5>Responsibilities</h5>
+                                    <div class="work-details">Create automation tools that increase the efficiency of monotonous or repetitive tasks.</div>
+                                    <h5>Accomplishments</h5>
+                                    <div class="work-details">Designed Chrome Extension to automate Alma library system, which has been adopted by multiple libraries and is critical to the operation of the Judaica Division. You can find more details or install it <a class="text-warning" target="_blank" href="https://developers.exlibrisgroup.com/appcenter/hj-alma-booster/">here</a>.</div>
+                                    <h5>Contact</h5>
+                                    <div class="work-details">Reach out to Elizabeth Vernon at <a class="text-warning" target="_blank" href="mailto:juddiv@fas.harvard.edu">juddiv@fas.harvard.edu</a></div>
+                                </div>
+                                <button class="btn btn-outline-light btn-block" data-mycard="#work_judaica">Close</button>
+                            </div>
+                        </div>
+                        <div class="overlay bg-dark">
+                            <div class="row h-100 align-items-center">
+                                <div class="col">
+                                    <div class="font-italic">Click to learn more</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="work_cs" class="card slider text-white">
+                        <div class="front bg-primary text-center">
+                            <div class="row align-items-center flex-grow-1 icon-holder">
+                                <div class="col">
+                                    <i class="fa fa-7x fa-laptop-code p-3 py-4"></i>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <h2>Teaching Fellow</h2>
+                            </div>
+                            <div class="card-footer">
+                                <div class="card-text">Harvard Department of Computer Science</div>
+                            </div>
+                        </div>
+                        <div class="back bg-primary">
+                            <div class="card-body">
+                                <div class="card-title text-center">
+                                    <h2>Teaching Fellow</h2>
+                                    <hr />
+                                </div>
+                                <div class="card-text p-2 bg-primary-darker rounded mb-2">
+                                    <h5>Responsibilities</h5>
+                                    <div class="work-details">Teach a section, run office hours and grade problem sets for introductory computer systems class</div>
+                                    <h5>Accomplishments</h5>
+                                    <div class="work-details">Honed teaching abilities by leadings sections of roughly twenty students in consolidating lecture material. Helped students to improve through meetings in office hours or advice through remote Piazza posts.</div>
+                                    <h5>Contact</h5>
+                                    <div class="work-details">Contact Professor Eddie Kohler at <a class="text-warning" target="_blank" href="mailto:kohler@seas.harvard.edu">kohler@seas.harvard.edu</a></div>
+                                </div>
+                                <button class="btn btn-outline-light btn-block" data-mycard="#work_cs">Close</button>
+                            </div>
+                        </div>
+                        <div class="overlay bg-dark">
+                            <div class="row h-100 align-items-center">
+                                <div class="col">
+                                    <div class="font-italic">Click to learn more</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="work_hsa" class="card slider text-white">
+                        <div class="front text-center bg-primary">
+                            <div class="row align-items-center flex-grow-1 icon-holder">
+                                <div class="col">
+                                    <i class="fa fa-7x fa-chalkboard-teacher p-3 py-4"></i>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <h2>Tutor</h2>
+                            </div>
+                            <div class="card-footer">
+                                <div class="card-text">Tutoring Division of Harvard Student Agencies</div>
+                            </div>
+                        </div>
+                        <div class="back bg-primary">
+                            <div class="card-body">
+                                <div class="card-title text-center">
+                                    <h2>Tutor</h2>
+                                    <hr />
+                                </div>
+                                <div class="card-text p-2 bg-primary-darker rounded mb-2">
+                                    <h5>Responsibilities</h5>
+                                    <div class="work-details">Tutor local students in Physics, Maths and Computer Science</div>
+                                    <h5>Accomplishments</h5>
+                                    <div class="work-details">Consistently helped students to improve their understanding of confusing topics. Rewarded by HSA manager thanks to consistent positive reviews from students.</div>
+                                    <h5>Contact</h5>
+                                    <div class="work-details">E-mail <a class="text-warning" target="_blank" href="mailto:tutoring@hsa.net">tutoring@hsa.net</a></div>
+                                </div>
+                                <button class="btn btn-outline-light btn-block" data-mycard="#work_hsa">Close</button>
+                            </div>
+                        </div>
+                        <div class="overlay bg-dark">
+                            <div class="row h-100 align-items-center">
+                                <div class="col">
+                                    <div class="font-italic">Click to learn more</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="work_cfa" class="card slider text-white">
+                        <div class="front text-center bg-primary">
+                            <div class="row align-items-center flex-grow-1 icon-holder">
+                                <div class="col">
+                                    <i class="fa fa-7x fa-satellite p-3 py-4"></i>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <h2>Research Fellow</h2>
+                            </div>
+                            <div class="card-footer">
+                                <div class="card-text">Center for Astrophysics | Harvard & Smithsonian</div>
+                            </div>
+                        </div>
+                        <div class="back bg-primary">
+                            <div class="card-body">
+                                <div class="card-title text-center">
+                                    <h2>Research Fellow</h2>
+                                    <hr />
+                                </div>
+                                <div class="card-text p-2 bg-primary-darker rounded mb-2">
+                                    <h5>Responsibilities</h5>
+                                    <div class="work-details">Work on various research projects related to massive stars and gravitational wave progenitors.</div>
+                                    <h5>Accomplishments</h5>
+                                    <div class="work-details">Create Python package <a class="text-warning" target="_blank" href="https://legwork.readthedocs.io/en/latest/">LEGWORK</a> for working with LISA sources. Worked with COMPAS team to improve wind prescriptions in COMPAS and handling of low mass stars. Wrote first-author paper on the Galactic population of double compact objects that will be observable with LISA.</div>
+                                    <h5>Contact</h5>
+                                    <div class="work-details">Contact Professor Selma de Mink at <a class="text-warning" target="_blank" href="mailto:sedemink@mpa-garching.mpg.de">sedemink@mpa-garching.mpg.de</a></div>
+                                </div>
+                                <button class="btn btn-outline-light btn-block" data-mycard="#work_cfa">Close</button>
+                            </div>
+                        </div>
+                        <div class="overlay bg-dark">
+                            <div class="row h-100 align-items-center">
+                                <div class="col">
+                                    <div class="font-italic">Click to learn more</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-</body>
+        <section class="content-section bg-white py-5" id="publications">
+            <div class="content-section-heading text-center mb-4">
+                <h1 class="d-inline-block subtitle mb-4 display-3">Publications</h1>
+                <a
+                    class="d-block"
+                    target="_blank"
+                    href="https://ui.adsabs.harvard.edu/search/filter_database_fq_database=AND&filter_database_fq_database=database%3A%22astronomy%22&filter_doctype_facet_hier_fq_doctype=AND&filter_doctype_facet_hier_fq_doctype=doctype_facet_hier%3A%220%2FArticle%22&fq=%7B!type%3Daqp%20v%3D%24fq_database%7D&fq=%7B!type%3Daqp%20v%3D%24fq_doctype%7D&fq_database=(database%3A%22astronomy%22)&fq_doctype=(doctype_facet_hier%3A%220%2FArticle%22)&p_=0&q=author%3A%22Wagg%2CTom%22&sort=date%20desc%2C%20bibcode%20desc"
+                >
+                    Full ADS Search Results
+                </a>
+            </div>
+            <div class="container-fluid thiccc">
+                <div class="row">
+                    <div class="col">
+                        <h2>First-author papers</h2>
+                    </div>
+                </div>
+                <div class="row">
+                    <div id="first_author_list" class="col">
+                        <div id="pub_template" class="publication hide">
+                            <div class="main-details">
+                                <div class="first-line">
+                                    <a class="title" href="" target="_blank"></a>
+                                </div>
+                                <div class="second-line ml-0 ml-md-3">
+                                    <span class="authors"></span>, <span class="journal"></span>, <span class="journal-details"></span>, <span class="date"></span>. <a class="expand" data-toggle="collapse" role="button" href="">Expand abstract</a>.
+                                    <div class="abstract collapse"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <h2>Co-author papers</h2>
+                    </div>
+                </div>
+                <div class="row">
+                    <div id="co_author_list" class="col"></div>
+                </div>
+            </div>
+        </section>
 
+        <section class="content-section bg-light py-5" id="presentations">
+            <div class="content-section-heading text-center mb-4">
+                <h1 class="d-inline-block subtitle mb-4 display-3">Presentations</h1>
+                <h5>A list of presentations that I've given about my research</h5>
+            </div>
+            <div class="container-fluid">
+                <div class="row mb-2">
+                    <div class="col text-center">
+                        <div class="presentation group-presentation"><span class="title">LEGWORK: A python package for computing the evolution and detectability of stellar-origin gravitational-wave sources with space-based detectors</span><span class="group">Joey Key, University of Washington (Bothell)</span><span class="date">January 2022</span></div>
+                        <div class="presentation group-presentation"><span class="title">LEGWORK: A python package for computing the evolution and detectability of stellar-origin gravitational-wave sources with space-based detectors</span><span class="group">LECS Software Series #1</span><span class="date">January 2022</span></div>
+                        <div class="presentation group-presentation"><span class="title">Gravitational wave sources in our Galactic backyard: Predictions for BHBH, BHNS and NSNS binaries detectable with LISA</span><span class="group">LISA Community Telecon</span><span class="date">December 2021</span></div>
+                        <div class="presentation group-presentation"><span class="title">Gravitational wave sources in our Galactic backyard: Predictions for BHBH, BHNS and NSNS binaries detectable with LISA</span><span class="group">SESTAS Seminar at Max Planck Institute</span><span class="date">November 2021</span></div>
+                        <div class="presentation group-presentation"><span class="title">LEGWORK: A python package for computing the evolution and detectability of stellar-origin gravitational-wave sources with space-based detectors</span><span class="group">TianQin Research Center for Gravitational Physics</span><span class="date">November 2021</span></div>
+                        <div class="presentation conference-presentation"><span class="title">Predictions for detecting BH-NS binaries with LISA</span><span class="session">Where are the BH-NS binaries?</span><span class="conference">EAS 2021</span><span class="date">June 2021</span></div>
+                        <div class="presentation group-presentation"><span class="title">LEGWORK: A python package for computing the evolution and detectability of stellar-origin gravitational-wave sources with space-based detectors</span><span class="group">CCA Gravitational Wave Group Meeting</span><span class="date">May 2021</span></div>
+                        <div class="presentation conference-presentation"><span class="title">Black Hole—Neutron Star Binaries in LISA</span><span class="session">Stellar Multiples and Planets</span><span class="conference">The 13th International LISA Symposium</span><span class="date">September 2020</span></div>
+                    </div>
+                </div>
+                <div class="row justify-content-center">
+                    <div class="col-12 col-md-4">
+                        <div class="img-fluid position-relative zoom-figure very-rounded" data-toggle="modal" data-target="#backyard_modal">
+                            <img src="../img/presentation_backyard.png" class="img-fluid very-rounded" />
+                            <div class="img-overlay very-rounded">
+                                <p class="m-0 fw-bold">Click to Zoom</p>
+                            </div>
+                        </div>
+                        <div class="modal fade" id="backyard_modal" tabindex="-1">
+                            <div class="modal-dialog modal-fullscreen">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body text-center">
+                                        <img src="../img/presentation_backyard.png" class="img-fluid" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <p class="text-center">Galactic DCO paper presentation</p>
+                    </div>
+                    <div class="col-12 col-md-4">
+                        <div class="img-fluid position-relative zoom-figure very-rounded" data-toggle="modal" data-target="#legwork_pres_modal">
+                            <img src="../img/presentation_legwork.png" class="img-fluid very-rounded" style="border: 3px solid #114864" />
+                            <div class="img-overlay very-rounded">
+                                <p class="m-0 fw-bold">Click to Zoom</p>
+                            </div>
+                        </div>
+                        <div class="modal fade" id="legwork_pres_modal" tabindex="-1">
+                            <div class="modal-dialog modal-fullscreen">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body text-center">
+                                        <img src="../img/presentation_legwork.png" class="img-fluid" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <p class="text-center">LEGWORK presentation</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Education -->
+        <section class="content-section bg-dark" id="education">
+            <div class="container">
+                <div class="content-section-heading text-center mb-4">
+                    <h1 class="d-inline-block subtitle mb-4 display-3 text-white">Education</h1>
+                </div>
+                <div data-scroll="toggle(.fromLeftIn, .fromLeftOut)" class="row justify-content-center">
+                    <div class="col-7 col-md-9 text-left text-light">
+                        <div class="row h-100 align-items-center">
+                            <div class="col">
+                                <h3>Harvard University</h3>
+                                <h5 class="font-weight-light mb-4">A.B in Physics and Astrophysics<span class="separator"></span>Secondary in Computer Science<span class="separator"></span>Highest Honours<span class="separator"></span>2016-2020</h5>
+                                <div class="font-weight-bold">Awards and Fellowships</div>
+                                <div class="pl-4 font-weight-light">
+                                    <p>Leo Goldberg Prize<span class="separator"></span>Bloomberg Creative Science Prize<span class="separator"></span>Alex G. Booth Fellowship<span class="separator"></span>Haase Fellowship<span class="separator"></span>Harvard College Research Program Grant</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-5 col-md-3">
+                        <div class="row h-100 align-items-center justify-content-end">
+                            <div class="col">
+                                <img class="img-fluid" src="../img/harvardlogo.png" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <hr />
+                <div data-scroll="toggle(.fromRightIn, .fromRightOut)" class="row justify-content-center">
+                    <div class="col-7 col-md-9 text-light">
+                        <div class="row h-100 align-items-center">
+                            <div class="col">
+                                <div class="text-left mb-4">
+                                    <h3>Newcastle-under-Lyme School</h3>
+                                    <h5 class="font-weight-light">Head Boy<span class="separator"></span>Prefect<span class="separator"></span>House Captain<span class="separator"></span>2004-2016</h5>
+                                </div>
+                                <div class="text-left font-weight-bold">Qualifications</div>
+                                <div class="pl-4 font-weight-light">
+                                    <p class="mb-1">5 A Levels in Physics, Maths, Further Maths, EPQ and Latin with 4A*s and an A</p>
+                                    <p>13 GCSEs with 13A*s - a record for the school</p>
+                                </div>
+                                <div class="text-left font-weight-bold">Awards</div>
+                                <div class="pl-4 font-weight-light">
+                                    <p>Duke of Edinburgh Bronze, Silver and Gold Awards<span class="separator"></span>Innovation Prize<span class="separator"></span>Leadership Prize<span class="separator"></span>Physics and Latin Prizes</p>
+                                </div>
+                                <div class="text-left font-weight-bold">Positions</div>
+                                <div class="pl-4 font-weight-light">
+                                    <p>Student Council<span class="separator"></span>Field Hockey Vice Captain<span class="separator"></span>Cricket Team Bowler</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-5 col-md-3 end-logo">
+                        <div class="row h-100 align-items-center">
+                            <div class="col">
+                                <img class="img-fluid" src="../img/nulslogo.png" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="footer text-center bg-light">
+            <div class="container">
+                <ul class="list-inline mb-2">
+                    <li class="list-inline-item">
+                        <i class="fab fa-twitter fa-3x social-link rounded-circle">
+                            <a href="https://www.twitter.com/tomjwagg" target="_blank"></a>
+                        </i>
+                    </li>
+                    <li class="list-inline-item">
+                        <i class="fab fa-github fa-3x social-link rounded-circle">
+                            <a href="https://github.com/TomWagg" target="_blank"></a>
+                        </i>
+                    </li>
+                    <li class="list-inline-item">
+                        <i class="fab fa-linkedin-in fa-3x social-link rounded-circle">
+                            <a href="https://www.linkedin.com/in/tom-wagg" target="_blank"></a>
+                        </i>
+                    </li>
+                </ul>
+                <p class="text-muted small mb-0">Copyright &copy; Tom Wagg 2023</p>
+            </div>
+        </footer>
+
+        <!-- Scroll to Top Button-->
+        <a class="scroll-to-top rounded js-scroll-trigger" href="#page-top">
+            <i class="fas fa-angle-up"></i>
+        </a>
+    </body>
 </html>

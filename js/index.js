@@ -280,6 +280,8 @@ function matrix() {
     document.documentElement.style.setProperty("--primary-light", "#54b85b");
     document.documentElement.style.setProperty("--primary-dark", "#017809");
 
+    document.querySelector("html").classList.add("matrix");
+
     document.querySelectorAll(".nyan:not(.nyan-matrix)").forEach((el) => {
         el.classList.add("nyan-matrix");
     });
@@ -379,6 +381,8 @@ function reset_cheats() {
         const ctx = canvas.getContext("2d");
 
         ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        document.querySelector("html").classList.remove("matrix");
     }
 
     const audio = document.querySelector("#nyans audio");

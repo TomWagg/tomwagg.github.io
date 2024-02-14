@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="Personal Website for Tom Wagg" />
+        <meta name="author" content="Tom Wagg" />
+
+        <title>Interactive Asteroseismology</title>
+        <link href="../../img/icon.png" rel="icon" />
+        <!-- Bootstrap -->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous" />
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+
+        <script src="https://kit.fontawesome.com/328d20ce71.js" crossorigin="anonymous"></script>
+        <link rel="preconnect" href="https://fonts.gstatic.com" />
+        <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;700;900&display=swap" rel="stylesheet" />
+
+        <link href="../../css/index.css" rel="stylesheet" />
+        <link href="../../css/dark_mode.css" rel="stylesheet" />
+        <link href="../../css/interact.css" rel="stylesheet" />
+        <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    </head>
+    <body>
+        <div class="back-button">
+            <button id="home" class="btn btn-outline-main rounded-circle">
+                <i class="fa fa-home"></i>
+            </button>
+        </div>
+        <!-- I copied this from https://animate.style/ -->
+        <label for="dark-mode-checkbox" class="dark-mode-label top-right">
+            <input type="checkbox" id="dark-mode-checkbox" />
+            <span class="dark-mode-ball"></span>
+            <svg viewBox="0 0 512 512" class="sun-svg">
+                <path
+                    id="sun-svg"
+                    d="M256 160c-52.9 0-96 43.1-96 96s43.1 96 96 96 96-43.1 96-96-43.1-96-96-96zm246.4 80.5l-94.7-47.3 33.5-100.4c4.5-13.6-8.4-26.5-21.9-21.9l-100.4 33.5-47.4-94.8c-6.4-12.8-24.6-12.8-31 0l-47.3 94.7L92.7 70.8c-13.6-4.5-26.5 8.4-21.9 21.9l33.5 100.4-94.7 47.4c-12.8 6.4-12.8 24.6 0 31l94.7 47.3-33.5 100.5c-4.5 13.6 8.4 26.5 21.9 21.9l100.4-33.5 47.3 94.7c6.4 12.8 24.6 12.8 31 0l47.3-94.7 100.4 33.5c13.6 4.5 26.5-8.4 21.9-21.9l-33.5-100.4 94.7-47.3c13-6.5 13-24.7.2-31.1zm-155.9 106c-49.9 49.9-131.1 49.9-181 0-49.9-49.9-49.9-131.1 0-181 49.9-49.9 131.1-49.9 181 0 49.9 49.9 49.9 131.1 0 181z"
+                ></path>
+            </svg>
+            <svg viewBox="0 0 512 512" class="moon-svg">
+                <path id="moon-svg" d="M283.211 512c78.962 0 151.079-35.925 198.857-94.792 7.068-8.708-.639-21.43-11.562-19.35-124.203 23.654-238.262-71.576-238.262-196.954 0-72.222 38.662-138.635 101.498-174.394 9.686-5.512 7.25-20.197-3.756-22.23A258.156 258.156 0 0 0 283.211 0c-141.309 0-256 114.511-256 256 0 141.309 114.511 256 256 256z"></path>
+            </svg>
+        </label>
+        <div class="container-fluid" style="padding: 2rem">
+            <div class="row mt-3 text-center">
+                <div class="col">
+                    <p class="fs-2 mb-1">The asteroseismic imprints of mass transfer on an accretor star</p>
+                    <p class="fs-5">Interactive version of plots from <span class="fst-italic">Wagg+2024</span></p>
+                </div>
+            </div>
+            <!-- <div class="row justify-content-center">
+                <div class="col-10">
+                    <div class="text-center">
+                        <a href="../paper_posts/mass_gainer_asteroseismology.html" class="btn btn-primary mb-2 mb-sm-0">Read more about this project</a>
+                        <a href="../../index.html" class="btn btn-primary">Learn more about me (Tom Wagg)</a>
+                    </div>
+                </div>
+            </div> -->
+            <div class="row mt-5">
+                <div class="col">
+                    <h2>A brief introduction</h2>
+                    <p>
+                        This page is an interactive version of some of the plots from my paper <span class="fst-italic">Wagg+2024</span>, which investigates the asteroseismic imprints of mass transfer on an accretor star. We used <a href="https://docs.mesastar.org/en/latest/"><code>MESA</code></a> and <a href="https://gyre.readthedocs.io/en/stable/"><code>GYRE</code></a> to simulate the asteroseismic signals from a $3.0 \, \rm M_\odot$ star that accretes $0.5 \, \rm M_\odot$ from a companion
+                        star.
+                    </p>
+                    <p>Below you can explore some of our main results interactively and learn about the evolution and asteroseismic signals from our accretor star model. If you'd like to reproduce any of the results or plots from our paper, our inlists, scripts and data are available on <a href="https://github.com/TomWagg/mass-gainer-seismology/">GitHub</a> and <a href="https://zenodo.org/uploads/10011675">Zenodo</a>.</p>
+                </div>
+            </div>
+            <div class="row justify-content-center align-items-center mb-3">
+                <h2>Hertzsprung-Russell Diagram</h2>
+                <p><b>What am I looking at:</b> In the plot below I show the Hertzsprung-Russell diagram for both the donor and accretor star in my models (see Fig. 1 in the paper). The accretor track is outlined in green and both tracks are coloured by the rate of mass transfer. Note that this plot shows the full evolution of the donor when we allow it continue mass transfer in its entirety, but for the paper we end mass transfer once $0.5 \, \rm M_\odot$ has been accreted.</p>
+                <p><b>How can I interact with it:</b> You can pan and zoom across the plot, as well as hover over individual points to see the values of $L$, $T_{\rm eff}$, $\dot{m}$ and $t$ (I recommend looking at the times to see that most of time is spent is a relatively small area on this plot!). Additionally, the "Key evolution points" buttons will move the red markers to help guide your eye to where certain events occur.</p>
+                <p><b>Where can I read more:</b> For more information explaining this plot in detail check out Section 3.1 of the paper!</p>
+                <div class="col-12 col-lg-8">
+                    <div id="hrd" style="aspect-ratio: 1.7"></div>
+                </div>
+                <div class="col-12 col-lg-4 text-center">
+                    <h3>Key evolution points</h3>
+                    <p>Click on the buttons to see where the stars are in the HRD at different key points in their evolution.</p>
+                    <div class="row">
+                        <div class="col-12 col-md-6 text-center">
+                            <h5>Donor</h5>
+                            <div id="hrd-d-movers" class="btn-group-vertical toggle-group mb-2">
+                                <button class="btn btn-primary active" data-x="4.168956386113182" data-y="2.3750136585921697">Zero-age Main Sequence</button>
+                                <button class="btn btn-primary" data-x="3.94681646926182" data-y="2.6988635490939523">Mass transfer start</button>
+                                <button class="btn btn-primary" data-x="3.7161504907602856" data-y="1.7884027061733956">Closest approach</button>
+                                <button class="btn btn-primary" data-x="3.657512654219595" data-y="2.9162729193936707">Mass transfer end</button>
+                                <button class="btn btn-primary" data-x="4.512732370490664" data-y="1.7262851074794894">Core helium burning starts</button>
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-6 text-center">
+                            <h5>Accretor</h5>
+                            <div id="hrd-a-movers" class="btn-group-vertical toggle-group mb-2">
+                                <button class="btn btn-primary active" data-x="4.0851762555044555" data-y="1.902796758284236">Zero-age Main Sequence</button>
+                                <button class="btn btn-primary" data-x="4.053213788216325" data-y="1.991024643710956">Mass transfer start</button>
+                                <button class="btn btn-primary" data-x="4.157140871690832" data-y="2.5477034112921486">Mass transfer end</button>
+                                <button class="btn btn-primary" data-x="4.1066" data-y="2.236">Post-mass-transfer equilibrium</button>
+                                <button class="btn btn-primary" data-x="4.056589" data-y="2.47219">Main sequence ends</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <h2>Internal structure profiles over time</h2>
+                <p>
+                    <b>What am I looking at:</b> The two plots below show evolution of the <i>internal</i> structure of a mass-gainer (accretor), which starts as a $3.0 \, \rm M_\odot$ star and accretes $0.5 \, \rm M_\odot$, compares to that of a single star with the same final mass. The left plot shows the hydrogen abundance profile, which tells you how the composition of the star changes throughout. The right plot shows the Brunt-Väisälä frequency, $N$, which is a measure of convective
+                    instability and directly determines the period distribution of $g$ mode oscillations in the star.
+                </p>
+                <p><b>How can I interact with it:</b> As above, you can pan around the plot and zoom in. You can also toggle which lines to show by clicking their labels in the legend. In addition, you can use the buttons below to animate the plot (and change the speed of animation), or alternatively use the slider to hop around to specific times. For reference, the mass transfer occurs around 162 Myr (you'll notice the time resolution gets much finer there).</p>
+                <p><b>Where can I read more:</b> For more information explaining these plots in detail check out Section 3.2 and 4.1 of the paper!</p>
+                <div class="col-12 col-lg-6">
+                    <div id="xh-profile" style="aspect-ratio: 2.3"></div>
+                </div>
+                <div class="col-12 col-lg-6">
+                    <div id="bv-profile" style="aspect-ratio: 2.3"></div>
+                </div>
+            </div>
+            <div class="row justify-content-center text-center mt-5">
+                <div class="col-12 col-8-md">
+                    <div class="d-flex">
+                        <div class="btn-group me-2" role="group">
+                            <button class="btn btn-primary" id="profile-slower"><i class="fas fa-backward"></i></button>
+                            <button class="btn btn-primary" id="profile-play"><i class="fas fa-play"></i></button>
+                            <button class="btn btn-primary" id="profile-pause"><i class="fas fa-pause"></i></button>
+                            <button class="btn btn-primary" id="profile-faster"><i class="fas fa-forward"></i></button>
+                        </div>
+                        <input type="range" id="profile-slider" min="0" max="330" value="0" />
+                        <output id="profile-slider-bubble" class="bubble">0</output>
+                    </div>
+                    <label for="profile-slider" class="form-label fs-3">Time = <span id="profile-age">0</span> Myr</label>
+                </div>
+            </div>
+            <h4>Understanding the internal structure</h4>
+            <p>There's a lot of information to unpack in these internal structure plots - I'll put on my best teacher hat and suggest that we try stepping through them in detail with some questions, ordered approximately chronologically.</p>
+            <div class="row">
+                <div class="col-12 col-lg-6">
+                    <h5 class="text-center">Hydrogen abundance</h5>
+                    <div class="accordion" id="xh-questions">
+                        <div class="accordion-item">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed cat1" type="button" data-bs-toggle="collapse" data-bs-target="#xh-q1">What causes the abundance to decrease at the centre?</button>
+                            </h2>
+                            <div id="xh-q1" class="accordion-collapse collapse" data-bs-parent="#xh-questions">
+                                <div class="accordion-body">
+                                    <p><b>Nuclear fusion!</b> Fusion in the core of the star converts hydrogen into helium, which causes the abundance of hydrogen to decrease at the centre.</p>
+                                    <p>Since the core of this star is convective, the hydrogen abundance is uniform in the core and you see an extended region decrease in abundance over time.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed cat1" type="button" data-bs-toggle="collapse" data-bs-target="#xh-q2">The central region of uniform abundance seems to shrink over time, why's that?</button>
+                            </h2>
+                            <div id="xh-q2" class="accordion-collapse collapse" data-bs-parent="#xh-questions">
+                                <div class="accordion-body">
+                                    <p><b>The core is contracting!</b> As the star evolves, the core contracts and the region of uniform abundance shrinks.</p>
+                                    <p>This is because the reduced abundance in the core decreases its opacity, allowing radiation to travel more freely and ending convection at a lower mass coordinate.</p>
+                                    <p>Did you notice that as the core recedes it leaves a <span style="color: var(--primary)">chemical composition gradient</span> behind (the diagonal line in the profile)? That'll be important later!</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed cat1" type="button" data-bs-toggle="collapse" data-bs-target="#xh-q3">Before the accretion the stars evolve at different rates, why?</button>
+                            </h2>
+                            <div id="xh-q3" class="accordion-collapse collapse" data-bs-parent="#xh-questions">
+                                <div class="accordion-body">
+                                    <p><b>They have different masses!</b> A more massive star evolves faster and the single star is initially $0.5 \, \rm M_\odot$ more massive than the mass-gainer. You'll note they also have different size cores for the same reason.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed cat2" type="button" data-bs-toggle="collapse" data-bs-target="#xh-q4">Why does the core expand during accretion?</button>
+                            </h2>
+                            <div id="xh-q4" class="accordion-collapse collapse" data-bs-parent="#xh-questions">
+                                <div class="accordion-body">
+                                    <p><b>The star's luminosity increases!</b> The star's luminosity increases as it gains mass, which causes the core to expand.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed cat2" type="button" data-bs-toggle="collapse" data-bs-target="#xh-q5">Did you notice the core abundance of the mass-gainer increased during accretion? What happened?</button>
+                            </h2>
+                            <div id="xh-q5" class="accordion-collapse collapse" data-bs-parent="#xh-questions">
+                                <div class="accordion-body">
+                                    <p><b>This is rejuvenation!</b> As the core expands due to accretion, it mixes in the more hydrogen-rich material outside the core and increases the abundance in the core. This effectively "rejuvenates" the star and extends its lifetime.</p>
+                                    <p>If you're interested in looking into some of the first rejuvenation investigations you could read <a href="https://ui.adsabs.harvard.edu/abs/1977PASJ...29..249N/abstract">Neo+1977</a> or <a href="https://ui.adsabs.harvard.edu/abs/1983Ap%26SS..96...37H/abstract">Hellings+1983</a>.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed cat3" type="button" data-bs-toggle="collapse" data-bs-target="#xh-q6">What smooths the kink in the profile after accretion?</button>
+                            </h2>
+                            <div id="xh-q6" class="accordion-collapse collapse" data-bs-parent="#xh-questions">
+                                <div class="accordion-body">
+                                    <p><b>Diffusive mixing!</b> Over time, the kink in the profile is smoothed out by diffusive mixing after accretion - though it sticks around all the way until the end of the main sequence!</p>
+                                    <p>This kink is a long-lived signature of mass transfer that ends up directly affecting the asteroseismic signals.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-lg-6">
+                    <h5 class="text-center">Brunt-Väisälä frequency</h5>
+                    <div class="accordion" id="bv-questions">
+                        <div class="accordion-item">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed cat1" type="button" data-bs-toggle="collapse" data-bs-target="#bv-q1">Why is there no value for the Brunt-Väisälä frequency towards the centre?</button>
+                            </h2>
+                            <div id="bv-q1" class="accordion-collapse collapse" data-bs-parent="#bv-questions">
+                                <div class="accordion-body">
+                                    <p><b>This is the convective core!</b> The Brunt-Väisälä frequency defines the frequency at which a small element of vertically displaced material will oscillate within a radiative region.</p>
+                                    <p>This means it is not defined in convective regions (where a small element but not oscillate but instead keep moving upwards), so the absence of a value towards the centre indicates the presence of a convective core.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed cat2" type="button" data-bs-toggle="collapse" data-bs-target="#bv-q2">What causes the peak that emerges towards the centre after ~100 Myr? (Hint: look at the abundance profile)</button>
+                            </h2>
+                            <div id="bv-q2" class="accordion-collapse collapse" data-bs-parent="#bv-questions">
+                                <div class="accordion-body">
+                                    <p><b>The chemical composition gradient!</b> If you look at the abundance profile you'll see that the peak in the Brunt-Väisälä frequency is at precisely the same mass coordiantes as the chemical composition gradient (diagonal part of the line) that is left behind as the core recedes.</p>
+
+                                    <p>For an ideal gas, the Brunt-Väisälä frequency is given by $$ N^2 = \frac{g^2 \rho}{P} (\nabla_{\rm ad} - \nabla + \nabla_\mu) $$ where $g$ is the acceleration due to gravity, $\rho$ is the density, $P$ is the pressure, $\nabla_{\rm ad}$ is the adiabatic temperature gradient and $\nabla \equiv \frac{d \ln T}{d \ln P}$ is the temperature gradient and $\nabla_\mu \equiv \frac{d \ln \mu}{d \ln P}$ is the chemical composition gradient.</p>
+                                    <p>So as the $\nabla_\mu$ term increases, so does the Brunt-Väisälä frequency.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed cat3" type="button" data-bs-toggle="collapse" data-bs-target="#bv-q3">By the final timestep the models are nearly identical except around 0.8 Msun, what happened there?</button>
+                            </h2>
+                            <div id="bv-q3" class="accordion-collapse collapse" data-bs-parent="#bv-questions">
+                                <div class="accordion-body">
+                                    <p><b>It's a signature of accretion!</b> The kink in the abundance profile is a long-lived signature of mass transfer and, since the Brunt-Väisälä frequency is sensitive to the chemical composition gradient, it is also sensitive to the signature.</p>
+                                    <p>Keep reading to see how this affects the asteroseismic signals!</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row mt-5 mb-3">
+                <div class="col">
+                    <h2>Period Spacing Pattern</h2>
+                    <p><b>What am I looking at:</b> The plot below shows the period spacing pattern for the mass-gainer and single star. This shows the spacing between the periods of consecutive $g$ modes in the star, which is sensitive to the Brunt-Väisälä frequency and hence the internal structure of the star. This is a key observable in asteroseismology and is used to infer the internal structure of stars.</p>
+                    <p><b>How can I interact with it:</b> As above, you can pan around the plot and zoom in. You can also toggle which lines to show by clicking their labels in the legend. In addition, you can use the buttons below to switch the central hydrogen abundance and see how the pattern changes over time.</p>
+                    <p><b>Where can I read more:</b> For more information explaining this plot in detail check out Section 4.2 of the paper!</p>
+                    <div class="row justify-content-center align-items-center">
+                        <div class="col-12 col-lg-8">
+                            <div id="psp" style="aspect-ratio: 2.3"></div>
+                        </div>
+                        <div class="col-12 col-lg-4">
+                            <h4>$X_c$ switcher</h4>
+                            <p>Click on the buttons to see how the period spacing pattern changes with the central hydrogen abundance.</p>
+                            <p>The buttons are separated slightly to highlight where accretion occurs.</p>
+                            <div id="psp-movers" class="btn-group toggle-group mb-2" role="group">
+                                <button class="btn btn-primary arrow">0.7</button>
+                                <button class="btn btn-primary">0.53</button>
+                                <button class="btn btn-primary group-sep">0.47</button>
+                                <button class="btn btn-primary">0.3</button>
+                                <button class="btn btn-primary">0.1</button>
+                                <button class="btn btn-primary">0.01</button>
+                            </div>
+                            <p>This is similar to seeing how the pattern evolves over time, but allows a consistent comparison between the single star and mass-gainer.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col">
+                    <h2>Conclusions</h2>
+                    <p>I hope you've enjoyed exploring these plots and learning about the asteroseismic imprints of mass transfer on an accretor star! If you have any questions or would like to know more about the paper, the models or the results, please don't hesitate to get in touch with me.</p>
+                    <p class="text-center">
+                        <a href="" target="_blank" class="btn bg-transparent rounded project-link">
+                            <i class="fas fa-scroll fa-2x" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Paper coming soon!"></i>
+                        </a>
+                        <a href="https://github.com/TomWagg/mass-gainer-seismology" target="_blank" class="btn bg-transparent rounded project-link">
+                            <i class="fab fa-github fa-2x" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Paper Repo"></i>
+                        </a>
+                        <!-- <a href="../paper_posts/mass_gainer_asteroseismology.html" class="btn bg-transparent rounded project-link">
+                            <i class="fas fa-comment fa-2x" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Summary Post"></i>
+                        </a> -->
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <script type="text/x-mathjax-config">
+            MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+            MathJax.Hub.Config({
+                "HTML-CSS": { linebreaks: { automatic: true } },
+                        SVG: { linebreaks: { automatic: true } }
+                });
+        </script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML" async></script>
+        <script src="https://cdn.jsdelivr.net/npm/jsfive@0.3.10/dist/browser/hdf5.js"></script>
+        <script src="../../js/dark_mode.js"></script>
+        <script src="../../js/asteroseismology_interactive.js"></script>
+    </body>
+</html>
