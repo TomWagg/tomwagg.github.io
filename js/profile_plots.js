@@ -9,6 +9,8 @@ const time_range = [
     272, 273, 274, 275, 276, 277, 278, 279, 280, 281, 282, 283, 284, 285, 286, 287, 288, 289, 290, 291, 292, 293, 294, 295, 296, 297, 298, 299, 300,
 ]
 
+const xc_range = ['0.69905', '0.53', '0.47', '0.3', '0.1', '0.01']
+
 const plasma = [
     ['0.0', 'rgb(13, 8, 135)'],
     ['0.1', 'rgb(65, 4, 157)'],
@@ -27,7 +29,7 @@ make_plot()
 
 this.window.addEventListener('load', function () {
     document.getElementById('dark-mode-checkbox').addEventListener('change', function () {
-        const plots = ['hrd', 'xh-profile', 'bv-profile']
+        const plots = ['hrd', 'xh-profile', 'bv-profile', 'psp']
         plots.forEach((plot) => {
             Plotly.relayout(plot, {
                 paper_bgcolor: this.checked ? '#333' : 'white',
@@ -135,6 +137,12 @@ function make_plot() {
         .then(function (buffer) {
             var f = new hdf5.File(buffer, 'profile_data.h5')
             profile_plots(f)
+        })
+    fetch('psp.h5')
+        .then((response) => response.arrayBuffer())
+        .then(function (buffer) {
+            var f = new hdf5.File(buffer, 'psp.h5')
+            psp(f)
         })
 }
 
@@ -272,7 +280,7 @@ function hrd(f) {
 
     config = {
         responsive: true,
-        modeBarButtonsToRemove: ['zoomIn2d', 'zoomOut2d'],
+        modeBarButtonsToRemove: ['zoomIn2d', 'zoomOut2d', 'select2d', 'lasso2d', 'autoScale2d'],
         displaylogo: false,
     }
 
@@ -484,4 +492,147 @@ function profile_plots(f) {
             frame: { duration: 0, redraw: false },
         })
     })
+}
+
+function psp(f) {
+    const dark_mode = document.getElementById('dark-mode-checkbox').checked
+    let bg = dark_mode ? '#333' : 'white'
+    let anti_bg = dark_mode ? 'white' : '#333'
+    let grey = dark_mode ? '#595656' : '#eee'
+
+    // transform data into frame lists for each plot
+    let frames = []
+    for (let i = 0; i < xc_range.length; i++) {
+        let s_period = f.get('s/xc_' + xc_range[i] + '/periods').value
+        let s_deltap = f.get('s/xc_' + xc_range[i] + '/delta_p').value
+        let mg_period = f.get('mg/xc_' + xc_range[i] + '/periods').value
+        let mg_deltap = f.get('mg/xc_' + xc_range[i] + '/delta_p').value
+        let s_aps = f.get('s/xc_' + xc_range[i]).attrs['aps']
+        let mg_aps = f.get('mg/xc_' + xc_range[i]).attrs['aps']
+        frames.push({
+            name: 'xc_' + xc_range[i],
+            data: [
+                { x: [0, 4.5], y: [s_aps, s_aps] },
+                { x: [0, 4.5], y: [mg_aps, mg_aps] },
+                { x: s_period, y: s_deltap },
+                { x: mg_period, y: mg_deltap },
+            ],
+        })
+    }
+
+    // create slider steps from frames
+    let steps = []
+    for (i = 0; i < frames.length; i++) {
+        steps.push({
+            method: 'animate',
+            label: xc_range[i],
+            args: [
+                [frames[i]],
+                {
+                    mode: 'immediate',
+                    transition: { duration: 0 },
+                    frame: { duration: 0, redraw: false },
+                },
+            ],
+        })
+    }
+
+    const labels = ['Single', 'Mass-gainer']
+    const colours = ['#fe9f6d', '#641a80']
+
+    let data = []
+    for (let i = 0; i < 2; i++) {
+        data.push({
+            x: frames[0].data[i].x,
+            y: frames[0].data[i].y,
+            legendgroup: labels[i],
+            name: 'Asymptotic Period Spacing (' + labels[i] + ')',
+            mode: 'lines',
+            line: { width: 1, color: colours[i], dash: 'dot' },
+        })
+    }
+    for (let i = 2; i < 4; i++) {
+        data.push({
+            x: frames[0].data[i].x,
+            y: frames[0].data[i].y,
+            name: labels[i - 2],
+            legendgroup: labels[i - 2],
+            type: 'line',
+            mode: 'lines+markers',
+            line: { width: 1, color: colours[i - 2] },
+            marker: { size: 10, color: colours[i - 2] },
+        })
+    }
+
+    var layout = {
+        xaxis: {
+            title: {
+                text: '${\\rm Period} \\, [\\rm days]$',
+                standoff: 10,
+            },
+            hoverformat: '1.2f',
+            zerolinecolor: grey,
+            gridcolor: grey,
+            range: [0.0, 4.1],
+            automargin: true,
+        },
+        yaxis: {
+            title: {
+                text: '${\\rm Period \\, Spacing}, \\, \\Delta P \\, [\\rm days]$',
+                standoff: 10,
+            },
+            hoverformat: '1.3f',
+            zerolinecolor: grey,
+            gridcolor: grey,
+            ticklen: 5,
+            tickcolor: bg,
+            range: [0.02, 0.11],
+            automargin: true,
+        },
+        paper_bgcolor: bg,
+        plot_bgcolor: bg,
+        font: {
+            color: anti_bg,
+        },
+        showlegend: true,
+        legend: {
+            x: 0.5,
+            y: 1.0,
+            xanchor: 'center',
+            yanchor: 'top',
+            orientation: 'h',
+        },
+        margin: {
+            t: 30,
+            b: 0,
+            l: 0,
+            r: 0,
+        },
+        hovermode: 'closest',
+    }
+
+    config = {
+        responsive: true,
+        modeBarButtonsToRemove: ['zoomIn2d', 'zoomOut2d', 'select2d', 'lasso2d', 'autoScale2d'],
+        displaylogo: false,
+    }
+
+    Plotly.newPlot('psp', data, layout, config).then(function () {
+        Plotly.addFrames('psp', frames)
+    })
+
+    const psp_buttons = document.querySelectorAll('#psp-movers button')
+    for (let i = 0; i < psp_buttons.length; i++) {
+        psp_buttons[i].addEventListener('click', function () {
+            document.querySelectorAll('#psp-movers button').forEach((mover) => {
+                mover.classList.remove('arrow')
+            })
+            this.classList.add('arrow')
+            Plotly.animate('psp', frames[i], {
+                mode: 'immediate',
+                transition: { duration: 500 },
+                frame: { duration: 500, redraw: false },
+            })
+        })
+    }
 }

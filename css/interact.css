@@ -105,6 +105,35 @@ input[type='range']::-moz-range-thumb {
     /* left: 50%; */
 }
 
-.btn-group-vertical.toggle-group button.active {
+.btn-group-vertical.toggle-group button.active,
+.btn-group.toggle-group button.active {
     background-color: var(--primary-dark) !important;
+}
+
+button.group-sep {
+    border-left: 3px solid white !important;
+}
+body.dark button.group-sep {
+    border-left: 3px solid #333 !important;
+}
+
+.btn-group-vertical.toggle-group button.arrow,
+.btn-group.toggle-group button.arrow {
+    z-index: 100;
+    transition: 300ms;
+    font-weight: bold;
+}
+
+.btn-group-vertical.toggle-group button.arrow::after,
+.btn-group.toggle-group button.arrow::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 0;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-bottom: 5px solid white; /* Color of the triangle */
 }
