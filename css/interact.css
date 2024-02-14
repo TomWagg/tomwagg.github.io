@@ -80,7 +80,7 @@ input[type='range']::-moz-range-thumb {
 }
 
 .accordion-button.cat1 {
-    background-color: var(--primary-dark);
+    background-color: #2081a8;
 }
 
 .accordion-button.cat2 {
@@ -88,7 +88,7 @@ input[type='range']::-moz-range-thumb {
 }
 
 .accordion-button.cat3 {
-    background-color: var(--primary-light);
+    background-color: #7eafc1;
 }
 
 .accordion-button::after {
