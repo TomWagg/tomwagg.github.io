@@ -194,9 +194,21 @@ h4:before {
     color: var(--primary-dark);
 }
 
-.img-fluid-500 {
-    max-width: min(500px, 100%);
-    height: auto;
+@media (min-width: 768px) {
+    .img-fluid-500 {
+        max-width: min(500px, 100%);
+        height: auto;
+    }
+
+    .img-fluid-100 {
+        max-width: min(100px, 100%);
+        height: auto;
+    }
+
+    .img-fluid-250 {
+        max-width: min(250px, 100%);
+        height: auto;
+    }
 }
 
 .img-overlay {

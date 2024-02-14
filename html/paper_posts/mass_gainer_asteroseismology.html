@@ -161,29 +161,33 @@
 
                     <p>Now let's take a look at how the abundance of hydrogen inside the star changes over time. We're going to compare a single star (in orange) to our accretor model (in purple).</p>
 
-                    <figure>
-                        <div class="img-fluid-500 float-start position-relative zoom-figure ms-2" data-bs-toggle="modal" data-bs-target="#xh_plot" style="max-width: min(250px, 100%)">
-                            <img src="../../img/asteroseismology_paper/XH_profile_all.png" class="img-fluid zoom-figure" />
-                            <div class="img-overlay">
-                                <p class="m-0 fw-bold">Click to Zoom</p>
-                            </div>
-                        </div>
-                        <div class="modal fade" id="xh_plot" tabindex="-1">
-                            <div class="modal-dialog modal-fullscreen">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <div class="row align-items-center">
+                        <div class="col-12 col-md-4">
+                            <figure>
+                                <div class="img-fluid zoom-figure position-relative" data-bs-toggle="modal" data-bs-target="#xh_plot">
+                                    <img src="../../img/asteroseismology_paper/XH_profile_all.png" class="img-fluid zoom-figure" />
+                                    <div class="img-overlay">
+                                        <p class="m-0 fw-bold">Click to Zoom</p>
                                     </div>
-                                    <div class="modal-body text-center"><img src="../../img/asteroseismology_paper/XH_profile_all.png" class="img-fluid" /></div>
                                 </div>
-                            </div>
+                                <div class="modal fade" id="xh_plot" tabindex="-1">
+                                    <div class="modal-dialog modal-fullscreen">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body text-center"><img src="../../img/asteroseismology_paper/XH_profile_all.png" class="img-fluid" /></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </figure>
                         </div>
-                    </figure>
-
-                    <p>Each panel in this plot shows a different timestep (which is annotated based on how much hydrogen is left at the star's centre, $X_c$). The $x$-axis is a function of mass coordinate inside the star (just think of it as the left being the centre and the right being further out), the axis is also zoomed in mostly on the centre of the star.</p>
-                    <p>At first in panel A, you can see that for both models they have a uniform abundance (70%) of hydrogen throughout. Over time the star burns fuel at its centre, reducing the abundance and shrinking the core.</p>
-                    <p>The difference comes in once accretion occurs. The extra mass causes the core of the accretor to expand and push into the gradient left behind, leading to a kink in the distribution. You can see this sticks around in every subsequent panel, all the way until the end of the main sequence.</p>
-                    <p>This shows that the internal structure of an accretor remains significantly different from an equivalent single star throughout its main sequence.</p>
+                        <div class="col">
+                            <p>Each panel in this plot shows a different timestep (which is annotated based on how much hydrogen is left at the star's centre, $X_c$). The $x$-axis is a function of mass coordinate inside the star (just think of it as the left being the centre and the right being further out), the axis is also zoomed in mostly on the centre of the star.</p>
+                            <p>The takeaway point from this plot is that the hydrogen mass fraction profile for the mass-gainer has a kink in the distribution around $M \approx 0.8 {\rm M_{\odot}}$ as a result of accretion. And critically, this kink doesn't go away over time.</p>
+                            <p>This shows that the internal structure of an accretor remains significantly different from an equivalent single star throughout its main sequence.</p>
+                        </div>
+                    </div>
 
                     <blockquote class="blockquote">
                         <div class="prequote">&ldquo;</div>
@@ -197,7 +201,7 @@
                     <p>It turns out that this frequency is actually very important in atmospheric sciences and cloud formation and so was actually first derived independently by two different meteorologists.</p>
 
                     <figure>
-                        <div class="img-fluid-500 float-end position-relative zoom-figure ms-2" data-bs-toggle="modal" data-bs-target="#clouds">
+                        <div class="img-fluid-250 float-end position-relative zoom-figure ms-2" data-bs-toggle="modal" data-bs-target="#clouds">
                             <img src="../../img/asteroseismology_paper/clouds_jelly.png" class="img-fluid zoom-figure" />
                             <img src="../../img/asteroseismology_paper/clouds_rats.png" class="img-fluid zoom-figure" />
                             <div class="img-overlay">
