@@ -1,3 +1,8 @@
+let tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+let tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+    return new bootstrap.Tooltip(tooltipTriggerEl)
+})
+
 // Globals for animations
 let intervalID
 let direction = 1
@@ -41,6 +46,10 @@ this.window.addEventListener('load', function () {
                 'yaxis.gridcolor': this.checked ? '#595656' : '#eee',
             })
         })
+    })
+
+    document.getElementById('home').addEventListener('click', function () {
+        window.location.href = '../../index.html'
     })
 
     const range = document.getElementById('profile-slider')
