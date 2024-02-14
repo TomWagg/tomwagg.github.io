@@ -103,8 +103,11 @@
                         <a href="" target="_blank" class="btn bg-transparent rounded project-link">
                             <i class="fas fa-scroll fa-2x" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Paper"></i>
                         </a>
-                        <a href="https://github.com/dirac-institute/hybrid_sso_catalogue" target="_blank" class="btn bg-transparent rounded project-link">
+                        <a href="https://github.com/tomwagg/mass-gainer-seismology" target="_blank" class="btn bg-transparent rounded project-link">
                             <i class="fab fa-github fa-2x" data-bs-toggle="tooltip" data-bs-placement="bottom" title="GitHub Repo"></i>
+                        </a>
+                        <a href="../interact/mass-gainer-asteroseismology.html" class="btn bg-transparent rounded project-link">
+                            <i class="fas fa-chart-area fa-2x" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Interactive Plots"></i>
                         </a>
                     </p>
                 </div>
@@ -253,8 +256,68 @@
                         </div>
                     </figure>
 
+                    <p class="lipsum"></p>
+
                     <h2 id="fitting">A cautionary tale on fitting mass-gainers</h2>
+
+                    <figure>
+                        <div class="img-fluid-500 float-start position-relative zoom-figure ms-2" data-bs-toggle="modal" data-bs-target="#chi2-plot" style="max-width: min(300px, 100%)">
+                            <img src="../../img/asteroseismology_paper/chi2_xc_0.1.png" class="img-fluid zoom-figure" />
+                            <div class="img-overlay">
+                                <p class="m-0 fw-bold">Click to Zoom</p>
+                            </div>
+                        </div>
+                        <div class="modal fade" id="chi2-plot" tabindex="-1">
+                            <div class="modal-dialog modal-fullscreen">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body text-center"><img src="../../img/asteroseismology_paper/chi2_xc_0.1.png" class="img-fluid" /></div>
+                                </div>
+                            </div>
+                        </div>
+                    </figure>
+                    <p class="lipsum"></p>
+
                     <h2 id="wrapup">Wrapping up</h2>
+                    <p>I hope you enjoyed learning about this project! Click on each of the buttons below to read each of our main conclusions. Please feel free to reach out if you have any questions or would like to discuss this work :)</p>
+                    <div class="row pb-5">
+                        <div class="col-12 col-md-4 text-center">
+                            <div class="row">
+                                <div class="col">
+                                    <button class="btn btn-primary conclusion-toggle active" data-bs-target="#conclusion-carousel" data-bs-slide-to="0">Mass transfer imprints</button>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <button class="btn btn-primary conclusion-toggle" data-bs-target="#conclusion-carousel" data-bs-slide-to="1">Fitting mass-gainers</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div id="conclusion-carousel" class="carousel slide p-2 text-start fs-5" data-bs-ride="carousel" data-bs-interval="false">
+                                <div class="carousel-inner">
+                                    <div class="carousel-item active">
+                                        <div class="row">
+                                            <div class="col justify-content-center align-content-center align-self-center">
+                                                <p class="fw-bold">Mass transfer leaves asteroseismic imprints</p>
+                                                <p>TODO</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="carousel-item">
+                                        <div class="row">
+                                            <div class="col justify-content-center align-content-center align-self-center">
+                                                <p class="fw-bold">Assuming single star evolution can lead to significant inaccuracies</p>
+                                                <p>TODO</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

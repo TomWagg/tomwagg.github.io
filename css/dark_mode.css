@@ -17,6 +17,12 @@
     z-index: 100;
 }
 
+.dark-mode-label.top-right {
+    position: absolute;
+    right: 5px;
+    left: unset;
+}
+
 .dark-mode-label .dark-mode-ball {
     position: absolute;
     width: 25px;

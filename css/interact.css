@@ -1,3 +1,33 @@
+.back-button {
+    position: absolute;
+    z-index: 10;
+    left: 0;
+    top: 0;
+    margin: 5px;
+}
+
+.back-button button {
+    aspect-ratio: 1;
+}
+
+/* buttons */
+.btn-outline-main {
+    color: var(--primary);
+    border-color: var(--primary);
+}
+
+.btn-outline-main:hover {
+    color: white;
+    background-color: var(--primary);
+    border-color: var(--primary);
+}
+
+.btn-outline-main:active {
+    color: white;
+    background-color: var(--primary-dark);
+    border-color: var(--primary-dark);
+}
+
 input[type='range'] {
     height: 36px;
     -webkit-appearance: none;

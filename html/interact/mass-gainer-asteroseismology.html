@@ -22,8 +22,13 @@
         <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
     </head>
     <body>
+        <div class="back-button">
+            <button id="home" class="btn btn-outline-main rounded-circle">
+                <i class="fa fa-home"></i>
+            </button>
+        </div>
         <!-- I copied this from https://animate.style/ -->
-        <label for="dark-mode-checkbox" class="dark-mode-label">
+        <label for="dark-mode-checkbox" class="dark-mode-label top-right">
             <input type="checkbox" id="dark-mode-checkbox" />
             <span class="dark-mode-ball"></span>
             <svg viewBox="0 0 512 512" class="sun-svg">
@@ -43,15 +48,15 @@
                     <p class="fs-5">Interactive version of plots from <span class="fst-italic">Wagg+2024</span></p>
                 </div>
             </div>
-            <div class="row justify-content-center mb-5">
+            <!-- <div class="row justify-content-center">
                 <div class="col-10">
                     <div class="text-center">
                         <a href="../paper_posts/mass_gainer_asteroseismology.html" class="btn btn-primary mb-2 mb-sm-0">Read more about this project</a>
                         <a href="../../index.html" class="btn btn-primary">Learn more about me (Tom Wagg)</a>
                     </div>
                 </div>
-            </div>
-            <div class="row">
+            </div> -->
+            <div class="row mt-5">
                 <div class="col">
                     <h2>A brief introduction</h2>
                     <p>
@@ -280,6 +285,9 @@
                         <a href="https://github.com/TomWagg/mass-gainer-seismology" target="_blank" class="btn bg-transparent rounded project-link">
                             <i class="fab fa-github fa-2x" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Paper Repo"></i>
                         </a>
+                        <!-- <a href="../paper_posts/mass_gainer_asteroseismology.html" class="btn bg-transparent rounded project-link">
+                            <i class="fas fa-comment fa-2x" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Summary Post"></i>
+                        </a> -->
                     </p>
                 </div>
             </div>
@@ -295,6 +303,6 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML" async></script>
         <script src="https://cdn.jsdelivr.net/npm/jsfive@0.3.10/dist/browser/hdf5.js"></script>
         <script src="../../js/dark_mode.js"></script>
-        <script src="../../js/profile_plots.js"></script>
+        <script src="../../js/asteroseismology_interactive.js"></script>
     </body>
 </html>
