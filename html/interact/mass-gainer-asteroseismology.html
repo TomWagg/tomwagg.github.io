@@ -60,10 +60,10 @@
                 <div class="col">
                     <h2>A brief introduction</h2>
                     <p>
-                        This page is an interactive version of some of the plots from my paper <span class="fst-italic">Wagg+2024</span>, which investigates the asteroseismic imprints of mass transfer on an accretor star. We used <a href="https://docs.mesastar.org/en/latest/"><code>MESA</code></a> and <a href="https://gyre.readthedocs.io/en/stable/"><code>GYRE</code></a> to simulate the asteroseismic signals from a $3.0 \, \rm M_\odot$ star that accretes $0.5 \, \rm M_\odot$ from a companion
-                        star.
+                        This page is an interactive version of some of the plots from my paper <span class="fst-italic">Wagg+2024</span>, which investigates the asteroseismic imprints of mass transfer on an accretor star. We used <a class="fw-bold" href="https://docs.mesastar.org/en/latest/"><code>MESA</code></a> and <a class="fw-bold" href="https://gyre.readthedocs.io/en/stable/"><code>GYRE</code></a> to simulate the asteroseismic signals from a $3.0 \, \rm M_\odot$ star that accretes $0.5 \,
+                        \rm M_\odot$ from a companion star.
                     </p>
-                    <p>Below you can explore some of our main results interactively and learn about the evolution and asteroseismic signals from our accretor star model. If you'd like to reproduce any of the results or plots from our paper, our inlists, scripts and data are available on <a href="https://github.com/TomWagg/mass-gainer-seismology/">GitHub</a> and <a href="https://zenodo.org/uploads/10011675">Zenodo</a>.</p>
+                    <p>Below you can explore some of our main results interactively and learn about the evolution and asteroseismic signals from our accretor star model. If you'd like to reproduce any of the results or plots from our paper, our inlists, scripts and data are available on <a class="fw-bold" href="https://github.com/TomWagg/mass-gainer-seismology/">GitHub</a> and <a class="fw-bold" href="https://zenodo.org/uploads/10011675">Zenodo</a>.</p>
                 </div>
             </div>
             <div class="row justify-content-center align-items-center mb-3">
@@ -77,8 +77,8 @@
                 <div class="col-12 col-lg-4 text-center">
                     <h3>Key evolution points</h3>
                     <p>Click on the buttons to see where the stars are in the HRD at different key points in their evolution.</p>
-                    <div class="row">
-                        <div class="col-12 col-md-6 text-center">
+                    <div class="row justify-content-center">
+                        <div class="col-12 col-md-4 text-center">
                             <h5>Donor</h5>
                             <div id="hrd-d-movers" class="btn-group-vertical toggle-group mb-2">
                                 <button class="btn btn-primary active" data-x="4.168956386113182" data-y="2.3750136585921697">Zero-age Main Sequence</button>
@@ -88,7 +88,7 @@
                                 <button class="btn btn-primary" data-x="4.512732370490664" data-y="1.7262851074794894">Core helium burning starts</button>
                             </div>
                         </div>
-                        <div class="col-12 col-md-6 text-center">
+                        <div class="col-12 col-md-4 text-center">
                             <h5>Accretor</h5>
                             <div id="hrd-a-movers" class="btn-group-vertical toggle-group mb-2">
                                 <button class="btn btn-primary active" data-x="4.0851762555044555" data-y="1.902796758284236">Zero-age Main Sequence</button>
@@ -104,8 +104,8 @@
             <div class="row mb-3">
                 <h2>Internal structure profiles over time</h2>
                 <p>
-                    <b>What am I looking at:</b> The two plots below show evolution of the <i>internal</i> structure of a mass-gainer (accretor), which starts as a $3.0 \, \rm M_\odot$ star and accretes $0.5 \, \rm M_\odot$, compares to that of a single star with the same final mass. The left plot shows the hydrogen abundance profile, which tells you how the composition of the star changes throughout. The right plot shows the Brunt-Väisälä frequency, $N$, which is a measure of convective
-                    instability and directly determines the period distribution of $g$ mode oscillations in the star.
+                    <b>What am I looking at:</b> The two plots below show evolution of the <i>internal</i> structure of a mass-gainer (accretor), which starts as a $3.0 \, \rm M_\odot$ star and accretes $0.5 \, \rm M_\odot$, compared to that of a single star with the same final mass ($3.5 \, {\rm M_\odot}$). The left plot shows the hydrogen abundance profile, which tells you how the composition of the star changes throughout. The right plot shows the Brunt-Väisälä frequency, $N$, which is a
+                    measure of convective instability and directly determines the period distribution of $g$ mode oscillations in the star.
                 </p>
                 <p><b>How can I interact with it:</b> As above, you can pan around the plot and zoom in. You can also toggle which lines to show by clicking their labels in the legend. In addition, you can use the buttons below to animate the plot (and change the speed of animation), or alternatively use the slider to hop around to specific times. For reference, the mass transfer occurs around 162 Myr (you'll notice the time resolution gets much finer there).</p>
                 <p><b>Where can I read more:</b> For more information explaining these plots in detail check out Section 3.2 and 4.1 of the paper!</p>
@@ -132,7 +132,7 @@
                 </div>
             </div>
             <h4>Understanding the internal structure</h4>
-            <p>There's a lot of information to unpack in these internal structure plots - I'll put on my best teacher hat and suggest that we try stepping through them in detail with some questions, ordered approximately chronologically.</p>
+            <p>There's a lot of information to unpack in these internal structure plots - let's try stepping through them in detail with some questions about each, ordered approximately chronologically.</p>
             <div class="row">
                 <div class="col-12 col-lg-6">
                     <h5 class="text-center">Hydrogen abundance</h5>
@@ -154,7 +154,7 @@
                             </h2>
                             <div id="xh-q2" class="accordion-collapse collapse" data-bs-parent="#xh-questions">
                                 <div class="accordion-body">
-                                    <p><b>The core is contracting!</b> As the star evolves, the core contracts and the region of uniform abundance shrinks.</p>
+                                    <p><b>The core is contracting!</b> As the star evolves, the core contracts (in mass coordinate) and the region of uniform abundance shrinks.</p>
                                     <p>This is because the reduced abundance in the core decreases its opacity, allowing radiation to travel more freely and ending convection at a lower mass coordinate.</p>
                                     <p>Did you notice that as the core recedes it leaves a <span style="color: var(--primary)">chemical composition gradient</span> behind (the diagonal line in the profile)? That'll be important later!</p>
                                 </div>
@@ -172,11 +172,11 @@
                         </div>
                         <div class="accordion-item">
                             <h2 class="accordion-header">
-                                <button class="accordion-button collapsed cat2" type="button" data-bs-toggle="collapse" data-bs-target="#xh-q4">Why does the core expand during accretion?</button>
+                                <button class="accordion-button collapsed cat2" type="button" data-bs-toggle="collapse" data-bs-target="#xh-q4">Why does the core expand in mass coordinate during accretion?</button>
                             </h2>
                             <div id="xh-q4" class="accordion-collapse collapse" data-bs-parent="#xh-questions">
                                 <div class="accordion-body">
-                                    <p><b>The star's luminosity increases!</b> The star's luminosity increases as it gains mass, which causes the core to expand.</p>
+                                    <p><b>The star's luminosity increases!</b> As the star gains mass, its luminosity increases, which causes the region of convection to expand in mass coordinate through the star.</p>
                                 </div>
                             </div>
                         </div>
