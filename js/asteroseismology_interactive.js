@@ -463,7 +463,7 @@ function profile_plots(f) {
             name: labels[i],
             type: 'line',
             line: { width: 3, color: colours[i] },
-            hovertemplate: '~%{y:1.3e} / day<extra></extra>',
+            hovertemplate: 'N = 10^%{y:1.3f} / day<extra></extra>',
         })
     }
 
