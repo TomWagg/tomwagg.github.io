@@ -66,7 +66,7 @@
                     <p>Below you can explore some of our main results interactively and learn about the evolution and asteroseismic signals from our accretor star model. If you'd like to reproduce any of the results or plots from our paper, our inlists, scripts and data are available on <a class="fw-bold" href="https://github.com/TomWagg/mass-gainer-seismology/">GitHub</a> and <a class="fw-bold" href="https://zenodo.org/uploads/10011675">Zenodo</a>.</p>
                 </div>
             </div>
-            <div class="row justify-content-center align-items-center mb-3">
+            <div id="fig1" class="row justify-content-center align-items-center mb-3">
                 <h2>Hertzsprung-Russell Diagram</h2>
                 <p><b>What am I looking at:</b> In the plot below I show the Hertzsprung-Russell diagram for both the donor and accretor star in my models (see Fig. 1 in the paper). The accretor track is outlined in green and both tracks are coloured by the rate of mass transfer. Note that this plot shows the full evolution of the donor when we allow it continue mass transfer in its entirety, but for the paper we end mass transfer once $0.5 \, \rm M_\odot$ has been accreted.</p>
                 <p><b>How can I interact with it:</b> You can pan and zoom across the plot, as well as hover over individual points to see the values of $L$, $T_{\rm eff}$, $\dot{m}$ and $t$ (I recommend looking at the times to see that most of time is spent is a relatively small area on this plot!). Additionally, the "Key evolution points" buttons will move the red markers to help guide your eye to where certain events occur.</p>
@@ -78,17 +78,17 @@
                     <h3>Key evolution points</h3>
                     <p>Click on the buttons to see where the stars are in the HRD at different key points in their evolution.</p>
                     <div class="row justify-content-center">
-                        <div class="col-12 col-md-4 text-center">
+                        <div class="col-12 col-lg-6 col-md-4 text-center">
                             <h5>Donor</h5>
                             <div id="hrd-d-movers" class="btn-group-vertical toggle-group mb-2">
                                 <button class="btn btn-primary active" data-x="4.168956386113182" data-y="2.3750136585921697">Zero-age Main Sequence</button>
                                 <button class="btn btn-primary" data-x="3.94681646926182" data-y="2.6988635490939523">Mass transfer start</button>
-                                <button class="btn btn-primary" data-x="3.7161504907602856" data-y="1.7884027061733956">Closest approach</button>
+                                <button class="btn btn-primary" data-x="3.7161504907602856" data-y="1.7884027061733956">Roche Lobe minimum</button>
                                 <button class="btn btn-primary" data-x="3.657512654219595" data-y="2.9162729193936707">Mass transfer end</button>
                                 <button class="btn btn-primary" data-x="4.512732370490664" data-y="1.7262851074794894">Core helium burning starts</button>
                             </div>
                         </div>
-                        <div class="col-12 col-md-4 text-center">
+                        <div class="col-12 col-lg-6 col-md-4 text-center">
                             <h5>Accretor</h5>
                             <div id="hrd-a-movers" class="btn-group-vertical toggle-group mb-2">
                                 <button class="btn btn-primary active" data-x="4.0851762555044555" data-y="1.902796758284236">Zero-age Main Sequence</button>
@@ -101,7 +101,7 @@
                     </div>
                 </div>
             </div>
-            <div class="row mb-3">
+            <div id="fig2-4" class="row mb-3">
                 <h2>Internal structure profiles over time</h2>
                 <p>
                     <b>What am I looking at:</b> The two plots below show evolution of the <i>internal</i> structure of a mass-gainer (accretor), which starts as a $3.0 \, \rm M_\odot$ star and accretes $0.5 \, \rm M_\odot$, compared to that of a single star with the same final mass ($3.5 \, {\rm M_\odot}$). The left plot shows the hydrogen abundance profile, which tells you how the composition of the star changes throughout. The right plot shows the Brunt-Väisälä frequency, $N$, which is a
@@ -246,7 +246,7 @@
                 </div>
             </div>
 
-            <div class="row mt-5 mb-3">
+            <div id="fig5" class="row mt-5 mb-2">
                 <div class="col">
                     <h2>Period Spacing Pattern</h2>
                     <p><b>What am I looking at:</b> The plot below shows the period spacing pattern for the mass-gainer and single star. This shows the spacing between the periods of consecutive $g$ modes in the star, which is sensitive to the Brunt-Väisälä frequency and hence the internal structure of the star. This is a key observable in asteroseismology and is used to infer the internal structure of stars.</p>
@@ -269,6 +269,49 @@
                                 <button class="btn btn-primary">0.01</button>
                             </div>
                             <p>This is similar to seeing how the pattern evolves over time, but allows a consistent comparison between the single star and mass-gainer.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row mb-5">
+                <div class="col-12">
+                    <h5 class="text-center">Questions about the period spacing pattern</h5>
+                    <div class="accordion" id="psp-questions">
+                        <div class="accordion-item">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed cat1" type="button" data-bs-toggle="collapse" data-bs-target="#psp-q1">Why are the lines offset (have different asymptotic period spacings) at first?</button>
+                            </h2>
+                            <div id="psp-q1" class="accordion-collapse collapse" data-bs-parent="#psp-questions">
+                                <div class="accordion-body">
+                                    <p>
+                                        <b>The stars have different convective core sizes!</b> Before accretion, the single star is $0.5 \, \rm M_\odot$ more massive and so has a larger convective core. The asymptotic period spacing is defined as $$ \Delta P = \frac{2 \pi^2}{\sqrt{l(l+1)}} \int_{r_1}^{r_2} \frac{N}{r} \, dr $$ where $N$ is the Brunt-Väisälä frequency, $l$ is the degree of the mode, $r$ is the radius and the integral is over the radiative region of the star (set by $r_1$ and
+                                        $r_2$). A different convective core size alters $r_1$ and hence the asymptotic period spacing.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed cat2" type="button" data-bs-toggle="collapse" data-bs-target="#psp-q2">What causes the dips/oscillations around the asymptotic spacing as the star evolves?</button>
+                            </h2>
+                            <div id="psp-q2" class="accordion-collapse collapse" data-bs-parent="#psp-questions">
+                                <div class="accordion-body">
+                                    <p><b>It's the chemical composition gradient!</b> Any abrupt shifts in the Brunt-Väisälä frequency profile trap particular modes in certain regions of the star, altering their periods relative to the regular pattern.</p>
+                                    <p>Remember from the section above that the Brunt-Väisälä frequency is sensitive to the chemical composition gradient, so any changes in the gradient will affect the period spacing pattern in this way. Therefore, we see more modes trapped over time as the chemical composition gradient develops over the star's main sequence.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed cat3" type="button" data-bs-toggle="collapse" data-bs-target="#psp-q3">Why are there differences at the pattern after accretion (even at the end of the main sequence)?</button>
+                            </h2>
+                            <div id="psp-q3" class="accordion-collapse collapse" data-bs-parent="#psp-questions">
+                                <div class="accordion-body">
+                                    <p><b>It's a signature of accretion!</b> The kink in the abundance profile is a long-lived signature of mass transfer and, since the period spacing pattern is sensitive to the chemical composition gradient, it is also sensitive to the signature.</p>
+                                    <p>As we saw in the internal structure plots, this feature remains present until the end of the main sequence. You can also see (maybe focus on $X_c = 0.1$) that only a subset of the modes actually end up out-of-phase, whilst others lines up quite well. That's because the mass-gainer profile is only different from the single star in very specific locations and so only certain modes are sensitive to the differences.</p>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
