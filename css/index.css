@@ -277,3 +277,8 @@ html.matrix #research_details img,
     display: block;
     font-size: 30px;
 }
+
+.rat-focus {
+    font-weight: bold;
+    color: var(--primary);
+}
