@@ -94,8 +94,10 @@ window.addEventListener('load', function () {
     })
 
     let conclusions = document.getElementById('conclusion-carousel')
-    conclusions.addEventListener('slide.bs.carousel', function (e) {
-        document.querySelector('.conclusion-toggle.active').classList.remove('active')
-        document.querySelectorAll('.conclusion-toggle')[e.to].classList.add('active')
-    })
+    if (conclusions !== null) {
+        conclusions.addEventListener('slide.bs.carousel', function (e) {
+            document.querySelector('.conclusion-toggle.active').classList.remove('active')
+            document.querySelectorAll('.conclusion-toggle')[e.to].classList.add('active')
+        })
+    }
 })
