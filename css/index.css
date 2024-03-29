@@ -277,3 +277,35 @@ html.matrix #research_details img,
     display: block;
     font-size: 30px;
 }
+
+.rat-focus {
+    font-weight: bold;
+    color: var(--primary);
+}
+
+.rat {
+    opacity: 0;
+    animation-name: rat;
+    animation-iteration-count: infinite;
+    animation-timing-function: ease-in-out;
+    transition: 1s;
+}
+
+@keyframes rat {
+    0% {
+        top: 0%;
+        opacity: 0;
+    }
+    1% {
+        top: 1%;
+        opacity: 1;
+    }
+    99% {
+        top: 99%;
+        opacity: 1;
+    }
+    100% {
+        top: 100%;
+        opacity: 0;
+    }
+}
