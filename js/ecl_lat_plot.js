@@ -1,73 +1,79 @@
-make_plot();
-document.getElementById("dark-mode-checkbox").addEventListener("change", make_plot);
+make_plot()
+document.getElementById('dark-mode-checkbox').addEventListener('change', make_plot)
 
 function make_plot() {
-    fetch("./ecl_lat_data.csv")
+    fetch('../../data/asteroids/ecl_lat_data.csv')
         .then((response) => response.text())
         .then((datastring) => {
-            setup_plot(datastring);
-        });
+            setup_plot(datastring)
+        })
 }
 
 function setup_plot(datastring) {
-    const dark_mode = document.getElementById("dark-mode-checkbox").checked;
+    const dark_mode = document.getElementById('dark-mode-checkbox').checked
 
-    let bg = dark_mode ? "#333" : "white";
-    let anti_bg = dark_mode ? "white" : "#333";
-    let grey = dark_mode ? "#595656" : "#eee";
+    let bg = dark_mode ? '#333' : 'white'
+    let anti_bg = dark_mode ? 'white' : '#333'
+    let grey = dark_mode ? '#595656' : '#eee'
 
-    let lines = datastring.split("\n");
-    let cutoffs = lines[0].split(",").map(parseFloat);
-    let traffic = lines[1].split(",").map(parseFloat);
-    let purity = lines[2].split(",").map(parseFloat);
+    let lines = datastring.split('\n')
+    let cutoffs = lines[0].split(',').map(parseFloat)
+    let traffic = lines[1].split(',').map(parseFloat)
+    let purity = lines[2].split(',').map(parseFloat)
+    console.log(lines)
+    console.log(cutoffs, traffic, purity)
     var trace1 = {
         x: cutoffs,
         y: traffic,
-        name: "Traffic",
-        type: "line",
-        hovertemplate: "~%{y:1.1f} objects submitted<extra></extra>",
-    };
+        name: 'Traffic',
+        type: 'line',
+        line: {
+            width: 3,
+        },
+        hovertemplate: '~%{y:1.1f} objects submitted<extra></extra>',
+    }
 
     var trace2 = {
         x: cutoffs,
         y: purity,
-        name: "Purity",
-        yaxis: "y2",
-        type: "line",
+        name: 'Purity',
+        yaxis: 'y2',
+        type: 'line',
         line: {
-            color: "rgb(148, 103, 189)",
+            color: 'rgb(148, 103, 189)',
+            width: 3,
         },
-        hovertemplate: "~%{y:1.1f}% are NEOs<extra></extra>",
-    };
+        hovertemplate: '~%{y:1.1f}% are NEOs<extra></extra>',
+    }
 
-    var data = [trace1, trace2];
+    var data = [trace1, trace2]
 
     var layout = {
         xaxis: {
-            title: "Absolute Ecliptic Latitude Cutoff in Degrees",
-            hoverformat: "1.1f",
+            title: 'Absolute Ecliptic Latitude Cutoff in Degrees',
+            hoverformat: '1.1f',
             zerolinecolor: grey,
             gridcolor: grey,
         },
         yaxis: {
-            title: "Average Nightly Traffic",
-            titlefont: {color: "#1f75b1"},
-            tickfont: {color: "#1f75b1"},
-            type: "log",
-            hoverformat: "1.1f",
+            title: 'Average Nightly Traffic',
+            titlefont: { color: '#1f75b1' },
+            tickfont: { color: '#1f75b1' },
+            // type: 'log',
+            hoverformat: '1.1f',
             zerolinecolor: grey,
             gridcolor: grey,
             ticklen: 5,
             tickcolor: bg,
-            tickvals: [0.01, 0.1, 1, 10, 100, 1000],
-            ticktext: [0.01, 0.1, 1, 10, 100, 1000],
+            // tickvals: [0.01, 0.1, 1, 10, 100, 1000],
+            // ticktext: [0.01, 0.1, 1, 10, 100, 1000],
         },
         yaxis2: {
-            title: "Average Purity [%]",
-            titlefont: {color: "rgb(148, 103, 189)"},
-            tickfont: {color: "rgb(148, 103, 189)"},
-            overlaying: "y",
-            side: "right",
+            title: 'Average Purity [%]',
+            titlefont: { color: 'rgb(148, 103, 189)' },
+            tickfont: { color: 'rgb(148, 103, 189)' },
+            overlaying: 'y',
+            side: 'right',
             zerolinecolor: grey,
             gridcolor: grey,
             ticklen: 5,
@@ -82,7 +88,7 @@ function setup_plot(datastring) {
         margin: {
             t: 0,
         },
-    };
+    }
 
-    Plotly.newPlot("graph", data, layout, {responsive: true});
+    Plotly.newPlot('graph', data, layout, { responsive: true })
 }
