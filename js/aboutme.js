@@ -9,6 +9,9 @@ $(function () {
                 let papers = rawFile.responseText
                 let paper_json = bibtexParse.toJSON(papers)
 
+                let first_author_els = []
+                let co_author_els = []
+
                 // for each publication
                 for (let i = 0; i < paper_json.length; i++) {
                     // grab the template, clone, remove id and reveal
@@ -31,7 +34,7 @@ $(function () {
                     publication.querySelector('.expand').setAttribute('href', '#' + 'abs_' + i.toString())
 
                     // do a bunch of stuff to get the authors formatted nicely
-                    let authors = paper_json[i]['entryTags']['author'].replace(/[{}]/g, '').replace(/[~]/g, '').split(' and ')
+                    let authors = paper_json[i]['entryTags']['author'].replace(/[{}]/g, '').replace(/[~]/g, '').replace("\\'o", 'ó').split(' and ')
                     let author_list = ''
                     let found_tom = false
                     let first_author = false
@@ -66,10 +69,25 @@ $(function () {
 
                     // add the corresponding list depending on author order
                     if (first_author) {
-                        document.getElementById('first_author_list').appendChild(publication)
+                        first_author_els.push(publication)
                     } else {
+                        co_author_els.push(publication)
                         document.getElementById('co_author_list').appendChild(publication)
                     }
+                }
+
+                const total_papers = first_author_els.length + co_author_els.length
+                let i = 0
+                for (let el of first_author_els) {
+                    el.querySelector('.title').innerHTML = `${total_papers - i}. ` + el.querySelector('.title').innerHTML
+                    i += 1
+                    document.getElementById('first_author_list').appendChild(el)
+                }
+
+                for (let el of co_author_els) {
+                    el.querySelector('.title').innerHTML = `${total_papers - i}. ` + el.querySelector('.title').innerHTML
+                    i += 1
+                    document.getElementById('co_author_list').appendChild(el)
                 }
             }
         }
@@ -253,6 +271,7 @@ function expandJournal(journal) {
     journal = journal.replace('\\apjs', 'Astrophysical Journal, Supplement')
     journal = journal.replace('\\mnras', 'Monthly Notices of the RAS')
     journal = journal.replace('\\aj', 'Astronomical Journal')
+    journal = journal.replace('\\prl', 'Physical Review Letters')
     return journal
 }
 
