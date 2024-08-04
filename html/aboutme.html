@@ -84,12 +84,13 @@
             <div class="container text-center">
                 <div class="row h-66 align-items-end">
                     <div class="col">
-                        <h1 class="mb-4 mt-auto">Tom Wagg</h1>
+                        <h1 class="mt-auto">Tom Wagg</h1>
+                        <h5 class="mb-4">Astrophysics PhD Candidate at the University of Washington</h5>
                     </div>
                 </div>
                 <div class="row h-33 align-items-end">
                     <div class="col">
-                        <a class="btn btn-outline-light js-scroll-trigger mb-4" href="#about">Find Out More</a>
+                        <a id="findoutmore" class="btn btn-outline-light js-scroll-trigger mb-4" href="#about">Find Out More</a>
                     </div>
                 </div>
             </div>
@@ -97,27 +98,48 @@
         </header>
 
         <!-- About -->
-        <section class="content-section bg-primary text-white py-5" id="about">
+        <section class="content-section bg-primary-darker py-5" id="about">
             <div class="container-fluid">
                 <div class="row text-center">
                     <div class="col-12 col-md-8 mb-2 text-left">
-                        <h1 class="d-inline-block subtitle mb-4 display-3" style="margin-left: 30px">About</h1>
-                        <div class="about-text">
-                            <p data-scroll="toggle(.fromBottomIn, .fromBottomOut)" style="font-weight: 500">Astrophysics PhD student at the University of Washington</p>
-                            <div class="text-faded" style="font-weight: 200">
-                                <p data-scroll="toggle(.fromBottomIn, .fromBottomOut)">
-                                    I'm currently working on my PhD at the University of Washington and, having explored near-Earth object solar system research with Mario Jurić and exoplanets with Eric Agol, I've settled into a thesis designing and applying self-consistent population synthesis and galactic dynamics simulations. Previously, I graduated from Harvard University with a degree in Physics and Astrophysics and spent a year working as a research fellow with Professor Selma de Mink,
-                                    researching stellar evolution and gravitational waves.
-                                </p>
-                                <p data-scroll="toggle(.fromBottomIn, .fromBottomOut)">
-                                    I'm originally from the luscious English countryside near Newcastle-under-Lyme and I grew up with a passion for learning and understanding the world, which quickly led me to Physics. I've always been interested in the big questions that are still left unanswered about our Universe; What is the mysterious Dark Matter that permeates our Universe? How did the Universe begin? How unique is Life? What can we learn from gravitational waves? Therefore I am fascinated
-                                    by astrophysics and the answers that it could offer to these questions!
-                                </p>
-                                <p data-scroll="toggle(.fromBottomIn, .fromBottomOut)">I invite you to check out my <a href="/" style="color: white">main page</a> to learn more about my current and recent projects!</p>
-                                <p class="text-center" data-scroll="toggle(.fromBottomIn, .fromBottomOut)">
-                                    <a class="white-link font-weight-normal" target="_blank" href="../pdf/cv.pdf">Latest CV</a>
-                                    (September 2023)
-                                </p>
+                        <h1 class="d-inline-block subtitle mb-4 display-3 text-white" style="margin-left: 30px">About</h1>
+                        <div class="about-text bg-primary">
+                            <div style="font-weight: 200">
+                                <div data-scroll="toggle(.fromBottomIn, .fromBottomOut)">
+                                    <h3>Linking binary evolution and galactic dynamics</h3>
+                                    <p>
+                                        I am broadly interested in constraining <b>binary stellar evolution</b>, in particular most recently by using the <b>kinematics</b> of stars and compact objects. With this goal in mind, my PhD thesis focuses on developing, and applying, self-consistent population synthesis and galactic dynamics simulations with a new framework I created called <a href="https://cogsworth.readthedocs.io"><code style="color: black; font-weight: 500">cogsworth</code></a
+                                        >.
+                                    </p>
+                                    <p>I've applied this framework to a variety of problems so far, from <b>runaway stars</b> to <b>supernova feedback</b>, in order to better understand binary stellar evolution and the impact it can have on its environment.</p>
+                                </div>
+                                <div data-scroll="toggle(.fromBottomIn, .fromBottomOut)">
+                                    <h3>From asteroseismology to gravitational waves</h3>
+                                    <p>Given the complexity of the problem, it's important to constrain binary evolution using many different techniques. In a recent paper, I used detailed stellar evolution models to show, for the first time, that mass transfer leaves an imprint on the asteroseismic signals of a star for the rest of its main sequence.</p>
+                                    <p>
+                                        Previously I simulated populations of double compact objects in the Milky Way and used <a href="https://legwork.readthedocs.io"><code style="color: black; font-weight: 500">LEGWORK</code></a
+                                        >, a Python package that I developed, to estimate the subpopulations that would be detectable by the upcoming LISA gravitational wave detector. I showed how these populations varied with different binary physics for comparison with the actual observed populations.
+                                    </p>
+                                </div>
+                                <div data-scroll="toggle(.fromBottomIn, .fromBottomOut)">
+                                    <h3>Open-source software development</h3>
+                                    <p>
+                                        I'm passionate about developing and applying open-source software in my work. I'm the lead developer for two codes I mentioned above: <a href="https://cogsworth.readthedocs.io"><code style="color: black; font-weight: 500">cogsworth</code></a> and <a href="https://legwork.readthedocs.io"><code style="color: black; font-weight: 500">LEGWORK</code></a
+                                        >. I contribute to a number of other projects, including <a href="https://compas.science"><code style="color: black; font-weight: 500">COMPAS</code></a
+                                        >, <a href="https://cosmic-popsynth.github.io"><code style="color: black; font-weight: 500">COSMIC</code></a
+                                        >, and <a href="https://gala.adrian.pw"><code style="color: black; font-weight: 500">gala</code></a
+                                        >.
+                                    </p>
+                                    <p>I'm also the co-creator of the <a href="https://tomwagg.com/software-citation-station" style="color: black; font-weight: 500">Software Citation Station</a>, a tool to help researchers generate citations for the software they use in their work.</p>
+                                </div>
+                                <div data-scroll="toggle(.fromBottomIn, .fromBottomOut)">
+                                    <h3>Beyond the science</h3>
+                                    <p>I'm originally from the luscious English countryside near Newcastle-under-Lyme and, thanks in no small part to a passionate science teacher mum, I grew up wanting to understand everything around me, which quickly led me to Physics. I play on two field hockey teams in Seattle and enjoy hiking and camping in the beautiful Pacific Northwest. In typical astronomer fashion I'm also rather partial to some bouldering!</p>
+                                </div>
+                                <div class="text-center" data-scroll="toggle(.fromBottomIn, .fromBottomOut)">
+                                    <p>I invite you to check out my <a href="/" style="color: white">main page</a> to learn more about my current and recent projects!</p>
+                                    <p><a class="white-link font-weight-normal" target="_blank" href="../pdf/cv.pdf">Latest CV</a> (September 2023)</p>
+                                </div>
                             </div>
                         </div>
                         <div class="text-center" data-scroll="toggle(.fromBottomIn, .fromBottomOut)" class="learn-more-cont">
@@ -146,7 +168,7 @@
         </section>
 
         <!-- Research -->
-        <div id="research_carousel" class="carousel slide">
+        <!-- <div id="research_carousel" class="carousel slide">
             <div class="carousel-inner">
                 <div class="carousel-item">
                     <div class="header" style="background-image: url('../img/wasp_142.jpg')"></div>
@@ -332,175 +354,7 @@
                     </div>
                 </div>
             </div>
-        </div>
-
-        <!-- Work -->
-        <section class="content-section bg-dark" id="work">
-            <div class="container-fluid">
-                <div class="content-section-heading text-center">
-                    <h2 class="text-white">Work Experience</h2>
-                    <div class="text-white mb-5 font-italic">Click each to toggle more info</div>
-                </div>
-                <div class="card-deck justify-content-center px-3">
-                    <div id="work_judaica" class="card slider text-white">
-                        <div class="front bg-primary text-center d-flex flex-column">
-                            <div class="row align-items-center flex-grow-1 icon-holder">
-                                <div class="col">
-                                    <i class="fa fa-7x fa-university p-3 py-4"></i>
-                                </div>
-                            </div>
-                            <div class="card-body">
-                                <h2>Senior Programmer</h2>
-                            </div>
-                            <div class="card-footer">
-                                <div class="card-text">Judaica Divison of Widener Library</div>
-                            </div>
-                        </div>
-                        <div class="back bg-primary">
-                            <div class="card-body">
-                                <div class="card-title text-center">
-                                    <h2>Senior Programmer</h2>
-                                    <hr />
-                                </div>
-                                <div class="card-text p-2 bg-primary-darker rounded mb-2">
-                                    <h5>Responsibilities</h5>
-                                    <div class="work-details">Create automation tools that increase the efficiency of monotonous or repetitive tasks.</div>
-                                    <h5>Accomplishments</h5>
-                                    <div class="work-details">Designed Chrome Extension to automate Alma library system, which has been adopted by multiple libraries and is critical to the operation of the Judaica Division. You can find more details or install it <a class="text-warning" target="_blank" href="https://developers.exlibrisgroup.com/appcenter/hj-alma-booster/">here</a>.</div>
-                                    <h5>Contact</h5>
-                                    <div class="work-details">Reach out to Elizabeth Vernon at <a class="text-warning" target="_blank" href="mailto:juddiv@fas.harvard.edu">juddiv@fas.harvard.edu</a></div>
-                                </div>
-                                <button class="btn btn-outline-light btn-block" data-mycard="#work_judaica">Close</button>
-                            </div>
-                        </div>
-                        <div class="overlay bg-dark">
-                            <div class="row h-100 align-items-center">
-                                <div class="col">
-                                    <div class="font-italic">Click to learn more</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div id="work_cs" class="card slider text-white">
-                        <div class="front bg-primary text-center">
-                            <div class="row align-items-center flex-grow-1 icon-holder">
-                                <div class="col">
-                                    <i class="fa fa-7x fa-laptop-code p-3 py-4"></i>
-                                </div>
-                            </div>
-                            <div class="card-body">
-                                <h2>Teaching Fellow</h2>
-                            </div>
-                            <div class="card-footer">
-                                <div class="card-text">Harvard Department of Computer Science</div>
-                            </div>
-                        </div>
-                        <div class="back bg-primary">
-                            <div class="card-body">
-                                <div class="card-title text-center">
-                                    <h2>Teaching Fellow</h2>
-                                    <hr />
-                                </div>
-                                <div class="card-text p-2 bg-primary-darker rounded mb-2">
-                                    <h5>Responsibilities</h5>
-                                    <div class="work-details">Teach a section, run office hours and grade problem sets for introductory computer systems class</div>
-                                    <h5>Accomplishments</h5>
-                                    <div class="work-details">Honed teaching abilities by leadings sections of roughly twenty students in consolidating lecture material. Helped students to improve through meetings in office hours or advice through remote Piazza posts.</div>
-                                    <h5>Contact</h5>
-                                    <div class="work-details">Contact Professor Eddie Kohler at <a class="text-warning" target="_blank" href="mailto:kohler@seas.harvard.edu">kohler@seas.harvard.edu</a></div>
-                                </div>
-                                <button class="btn btn-outline-light btn-block" data-mycard="#work_cs">Close</button>
-                            </div>
-                        </div>
-                        <div class="overlay bg-dark">
-                            <div class="row h-100 align-items-center">
-                                <div class="col">
-                                    <div class="font-italic">Click to learn more</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div id="work_hsa" class="card slider text-white">
-                        <div class="front text-center bg-primary">
-                            <div class="row align-items-center flex-grow-1 icon-holder">
-                                <div class="col">
-                                    <i class="fa fa-7x fa-chalkboard-teacher p-3 py-4"></i>
-                                </div>
-                            </div>
-                            <div class="card-body">
-                                <h2>Tutor</h2>
-                            </div>
-                            <div class="card-footer">
-                                <div class="card-text">Tutoring Division of Harvard Student Agencies</div>
-                            </div>
-                        </div>
-                        <div class="back bg-primary">
-                            <div class="card-body">
-                                <div class="card-title text-center">
-                                    <h2>Tutor</h2>
-                                    <hr />
-                                </div>
-                                <div class="card-text p-2 bg-primary-darker rounded mb-2">
-                                    <h5>Responsibilities</h5>
-                                    <div class="work-details">Tutor local students in Physics, Maths and Computer Science</div>
-                                    <h5>Accomplishments</h5>
-                                    <div class="work-details">Consistently helped students to improve their understanding of confusing topics. Rewarded by HSA manager thanks to consistent positive reviews from students.</div>
-                                    <h5>Contact</h5>
-                                    <div class="work-details">E-mail <a class="text-warning" target="_blank" href="mailto:tutoring@hsa.net">tutoring@hsa.net</a></div>
-                                </div>
-                                <button class="btn btn-outline-light btn-block" data-mycard="#work_hsa">Close</button>
-                            </div>
-                        </div>
-                        <div class="overlay bg-dark">
-                            <div class="row h-100 align-items-center">
-                                <div class="col">
-                                    <div class="font-italic">Click to learn more</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div id="work_cfa" class="card slider text-white">
-                        <div class="front text-center bg-primary">
-                            <div class="row align-items-center flex-grow-1 icon-holder">
-                                <div class="col">
-                                    <i class="fa fa-7x fa-satellite p-3 py-4"></i>
-                                </div>
-                            </div>
-                            <div class="card-body">
-                                <h2>Research Fellow</h2>
-                            </div>
-                            <div class="card-footer">
-                                <div class="card-text">Center for Astrophysics | Harvard & Smithsonian</div>
-                            </div>
-                        </div>
-                        <div class="back bg-primary">
-                            <div class="card-body">
-                                <div class="card-title text-center">
-                                    <h2>Research Fellow</h2>
-                                    <hr />
-                                </div>
-                                <div class="card-text p-2 bg-primary-darker rounded mb-2">
-                                    <h5>Responsibilities</h5>
-                                    <div class="work-details">Work on various research projects related to massive stars and gravitational wave progenitors.</div>
-                                    <h5>Accomplishments</h5>
-                                    <div class="work-details">Create Python package <a class="text-warning" target="_blank" href="https://legwork.readthedocs.io/en/latest/">LEGWORK</a> for working with LISA sources. Worked with COMPAS team to improve wind prescriptions in COMPAS and handling of low mass stars. Wrote first-author paper on the Galactic population of double compact objects that will be observable with LISA.</div>
-                                    <h5>Contact</h5>
-                                    <div class="work-details">Contact Professor Selma de Mink at <a class="text-warning" target="_blank" href="mailto:sedemink@mpa-garching.mpg.de">sedemink@mpa-garching.mpg.de</a></div>
-                                </div>
-                                <button class="btn btn-outline-light btn-block" data-mycard="#work_cfa">Close</button>
-                            </div>
-                        </div>
-                        <div class="overlay bg-dark">
-                            <div class="row h-100 align-items-center">
-                                <div class="col">
-                                    <div class="font-italic">Click to learn more</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
+        </div> -->
 
         <section class="content-section bg-white py-5" id="publications">
             <div class="content-section-heading text-center mb-4">
@@ -670,6 +524,174 @@
                         <div class="row h-100 align-items-center">
                             <div class="col">
                                 <img class="img-fluid" src="../img/nulslogo.png" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Work -->
+        <section class="content-section bg-white" id="work">
+            <div class="container-fluid">
+                <div class="content-section-heading text-center">
+                    <h2 class="text-">Work Experience</h2>
+                    <div class="text- mb-5 font-italic">Click each to toggle more info</div>
+                </div>
+                <div class="card-deck justify-content-center px-3">
+                    <div id="work_judaica" class="card slider text-white">
+                        <div class="front bg-primary-darker text-center d-flex flex-column">
+                            <div class="row align-items-center flex-grow-1 icon-holder">
+                                <div class="col">
+                                    <i class="fa fa-7x fa-university p-3 py-4"></i>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <h2>Senior Programmer</h2>
+                            </div>
+                            <div class="card-footer">
+                                <div class="card-text">Judaica Divison of Widener Library</div>
+                            </div>
+                        </div>
+                        <div class="back bg-primary-darker">
+                            <div class="card-body">
+                                <div class="card-title text-center">
+                                    <h2>Senior Programmer</h2>
+                                    <hr />
+                                </div>
+                                <div class="card-text p-2 bg-primary-darker rounded mb-2">
+                                    <h5>Responsibilities</h5>
+                                    <div class="work-details">Create automation tools that increase the efficiency of monotonous or repetitive tasks.</div>
+                                    <h5>Accomplishments</h5>
+                                    <div class="work-details">Designed Chrome Extension to automate Alma library system, which has been adopted by multiple libraries and is critical to the operation of the Judaica Division. You can find more details or install it <a class="text-warning" target="_blank" href="https://developers.exlibrisgroup.com/appcenter/hj-alma-booster/">here</a>.</div>
+                                    <h5>Contact</h5>
+                                    <div class="work-details">Reach out to Elizabeth Vernon at <a class="text-warning" target="_blank" href="mailto:juddiv@fas.harvard.edu">juddiv@fas.harvard.edu</a></div>
+                                </div>
+                                <button class="btn btn-outline-light btn-block" data-mycard="#work_judaica">Close</button>
+                            </div>
+                        </div>
+                        <div class="overlay bg-dark">
+                            <div class="row h-100 align-items-center">
+                                <div class="col">
+                                    <div class="font-italic">Click to learn more</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="work_cs" class="card slider text-white">
+                        <div class="front bg-primary-darker text-center">
+                            <div class="row align-items-center flex-grow-1 icon-holder">
+                                <div class="col">
+                                    <i class="fa fa-7x fa-laptop-code p-3 py-4"></i>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <h2>Teaching Fellow</h2>
+                            </div>
+                            <div class="card-footer">
+                                <div class="card-text">Harvard Department of Computer Science</div>
+                            </div>
+                        </div>
+                        <div class="back bg-primary-darker">
+                            <div class="card-body">
+                                <div class="card-title text-center">
+                                    <h2>Teaching Fellow</h2>
+                                    <hr />
+                                </div>
+                                <div class="card-text p-2 bg-primary-darker rounded mb-2">
+                                    <h5>Responsibilities</h5>
+                                    <div class="work-details">Teach a section, run office hours and grade problem sets for introductory computer systems class</div>
+                                    <h5>Accomplishments</h5>
+                                    <div class="work-details">Honed teaching abilities by leadings sections of roughly twenty students in consolidating lecture material. Helped students to improve through meetings in office hours or advice through remote Piazza posts.</div>
+                                    <h5>Contact</h5>
+                                    <div class="work-details">Contact Professor Eddie Kohler at <a class="text-warning" target="_blank" href="mailto:kohler@seas.harvard.edu">kohler@seas.harvard.edu</a></div>
+                                </div>
+                                <button class="btn btn-outline-light btn-block" data-mycard="#work_cs">Close</button>
+                            </div>
+                        </div>
+                        <div class="overlay bg-dark">
+                            <div class="row h-100 align-items-center">
+                                <div class="col">
+                                    <div class="font-italic">Click to learn more</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="work_hsa" class="card slider text-white">
+                        <div class="front text-center bg-primary-darker">
+                            <div class="row align-items-center flex-grow-1 icon-holder">
+                                <div class="col">
+                                    <i class="fa fa-7x fa-chalkboard-teacher p-3 py-4"></i>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <h2>Tutor</h2>
+                            </div>
+                            <div class="card-footer">
+                                <div class="card-text">Tutoring Division of Harvard Student Agencies</div>
+                            </div>
+                        </div>
+                        <div class="back bg-primary-darker">
+                            <div class="card-body">
+                                <div class="card-title text-center">
+                                    <h2>Tutor</h2>
+                                    <hr />
+                                </div>
+                                <div class="card-text p-2 bg-primary-darker rounded mb-2">
+                                    <h5>Responsibilities</h5>
+                                    <div class="work-details">Tutor local students in Physics, Maths and Computer Science</div>
+                                    <h5>Accomplishments</h5>
+                                    <div class="work-details">Consistently helped students to improve their understanding of confusing topics. Rewarded by HSA manager thanks to consistent positive reviews from students.</div>
+                                    <h5>Contact</h5>
+                                    <div class="work-details">E-mail <a class="text-warning" target="_blank" href="mailto:tutoring@hsa.net">tutoring@hsa.net</a></div>
+                                </div>
+                                <button class="btn btn-outline-light btn-block" data-mycard="#work_hsa">Close</button>
+                            </div>
+                        </div>
+                        <div class="overlay bg-dark">
+                            <div class="row h-100 align-items-center">
+                                <div class="col">
+                                    <div class="font-italic">Click to learn more</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="work_cfa" class="card slider text-white">
+                        <div class="front text-center bg-primary-darker">
+                            <div class="row align-items-center flex-grow-1 icon-holder">
+                                <div class="col">
+                                    <i class="fa fa-7x fa-satellite p-3 py-4"></i>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <h2>Research Fellow</h2>
+                            </div>
+                            <div class="card-footer">
+                                <div class="card-text">Center for Astrophysics | Harvard & Smithsonian</div>
+                            </div>
+                        </div>
+                        <div class="back bg-primary-darker">
+                            <div class="card-body">
+                                <div class="card-title text-center">
+                                    <h2>Research Fellow</h2>
+                                    <hr />
+                                </div>
+                                <div class="card-text p-2 bg-primary-darker rounded mb-2">
+                                    <h5>Responsibilities</h5>
+                                    <div class="work-details">Work on various research projects related to massive stars and gravitational wave progenitors.</div>
+                                    <h5>Accomplishments</h5>
+                                    <div class="work-details">Create Python package <a class="text-warning" target="_blank" href="https://legwork.readthedocs.io/en/latest/">LEGWORK</a> for working with LISA sources. Worked with COMPAS team to improve wind prescriptions in COMPAS and handling of low mass stars. Wrote first-author paper on the Galactic population of double compact objects that will be observable with LISA.</div>
+                                    <h5>Contact</h5>
+                                    <div class="work-details">Contact Professor Selma de Mink at <a class="text-warning" target="_blank" href="mailto:sedemink@mpa-garching.mpg.de">sedemink@mpa-garching.mpg.de</a></div>
+                                </div>
+                                <button class="btn btn-outline-light btn-block" data-mycard="#work_cfa">Close</button>
+                            </div>
+                        </div>
+                        <div class="overlay bg-dark">
+                            <div class="row h-100 align-items-center">
+                                <div class="col">
+                                    <div class="font-italic">Click to learn more</div>
+                                </div>
                             </div>
                         </div>
                     </div>

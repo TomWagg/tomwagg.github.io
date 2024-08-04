@@ -76,9 +76,14 @@ $(function () {
     }
     rawFile.send(null)
 
-    animateCSS('.masthead h1', 'fadeInUp')
+    animateCSS('.masthead .h-66', 'fadeInDown')
     setTimeout(function () {
-        animateCSS('.masthead .h-33', 'fadeInDown')
+        animateCSS('.masthead .h-33', 'fadeInUp')
+        setTimeout(function () {
+            if (document.querySelector('.masthead').getBoundingClientRect().top == 0) {
+                document.getElementById('findoutmore').click()
+            }
+        }, 1500)
     }, 100)
 
     $('#about .img-fluid').on('click', function (e) {

@@ -5,8 +5,8 @@
  */
 
 :root {
-    --primary: #4f9718;
-    --primary-darker: #487f1e;
+    --primary: #b8cfa6;
+    --primary-darker: #709654;
 }
 
 body,
@@ -112,11 +112,15 @@ h6 {
     height: 33%;
 }
 
-.masthead h1 {
+.masthead h1,
+.masthead h5 {
     font-size: 5.5rem;
     margin: 0;
     padding: 0;
     color: #fefdfa;
+}
+.masthead h5 {
+    font-size: 1.5rem;
 }
 
 .masthead .btn-more {
@@ -443,9 +447,12 @@ a.white-link:active {
 }
 
 .about-text {
-    background: var(--primary-darker);
     padding: 30px;
     border-radius: 15px;
+}
+
+.about-text b {
+    font-weight: 500;
 }
 
 .card.slider {
@@ -456,7 +463,7 @@ a.white-link:active {
     border: none;
     transition: 0.3s;
     margin-bottom: 30px;
-    background-color: var(--primary);
+    background-color: var(--primary-darker);
 }
 
 .card.slider:not(.active) {
