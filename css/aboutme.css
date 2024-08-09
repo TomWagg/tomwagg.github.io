@@ -7,6 +7,7 @@
 :root {
     --primary: #b8cfa6;
     --primary-darker: #709654;
+    --primary-even-darker: #476135;
 }
 
 body,
@@ -335,13 +336,13 @@ footer.footer .social-link:hover {
 }
 
 a {
-    color: var(--primary);
+    color: var(--primary-darker);
 }
 
 a:hover,
 a:focus,
 a:active {
-    color: var(--primary-darker);
+    color: var(--primary-even-darker);
 }
 
 a.white-link {
