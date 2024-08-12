@@ -51,11 +51,7 @@
             <div class="row mt-5">
                 <div class="col">
                     <h2>A brief introduction</h2>
-                    <p>
-                        This page is an interactive version of some of the plots from my paper <a href="https://ui.adsabs.harvard.edu/abs/2024A%26A...687A.222W/abstract"><span class="fst-italic">Wagg+2024</span></a
-                        >, which investigates the asteroseismic imprints of mass transfer on an accretor star. We used <a class="fw-bold" href="https://docs.mesastar.org/en/latest/"><code>MESA</code></a> and <a class="fw-bold" href="https://gyre.readthedocs.io/en/stable/"><code>GYRE</code></a> to simulate the asteroseismic signals from a $3.0 \, \rm M_\odot$ star that accretes $0.5 \, \rm M_\odot$ from a companion star.
-                    </p>
-                    <p>Below you can explore some of our main results interactively and learn about the evolution and asteroseismic signals from our accretor star model. If you'd like to reproduce any of the results or plots from our paper, our inlists, scripts and data are available on <a class="fw-bold" href="https://github.com/TomWagg/mass-gainer-seismology/">GitHub</a> and <a class="fw-bold" href="https://zenodo.org/uploads/10011675">Zenodo</a>.</p>
+                    <p>Words words words</p>
                 </div>
             </div>
             <div class="row mb-3">
@@ -63,7 +59,7 @@
                     <div id="histograms" style="aspect-ratio: 2"></div>
                 </div>
             </div>
-            <div class="row justify-content-center text-center mt-5">
+            <div class="row justify-content-center text-center mt-2">
                 <div class="col-12 col-8-md">
                     <div class="d-flex">
                         <div class="btn-group me-2" role="group">
@@ -72,8 +68,12 @@
                             <button class="btn btn-primary" id="profile-pause"><i class="fas fa-pause"></i></button>
                             <button class="btn btn-primary" id="profile-faster"><i class="fas fa-forward"></i></button>
                         </div>
-                        <input type="range" id="profile-slider" min="0" max="330" value="0" />
+                        <input type="range" id="profile-slider" min="0" max="200" value="0" />
                         <output id="profile-slider-bubble" class="bubble">0</output>
+                        <div class="btn-group ms-4" role="group">
+                            <button class="btn btn-primary" id="stack-mode">Stacked mode</button>
+                            <button class="btn btn-primary" id="separate-mode">Separate mode</button>
+                        </div>
                     </div>
                     <label for="profile-slider" class="form-label fs-3">Time = <span id="profile-age">0</span> Myr</label>
                 </div>
