@@ -43,7 +43,7 @@ const shapes = [
         [0, 1],
     ], // podium shape
 ]
-const shape_colours = ['70D6FF', 'FF70A6', 'FF9770', 'FFD670', 'E9FF70', 'F7F06D', '86A873']
+const shape_colours = ['70D6FF', 'FF70A6', '545CCC', 'FFD670', 'D14D4D', '8E44C9', '50D94E']
 
 // bool for whether a round is currently being played
 let round_going = false
@@ -82,7 +82,7 @@ grid_canvas.width = square
 grid_canvas.height = square
 
 // create a grid and set up individual box sizes
-const n_row_col = 15
+const n_row_col = 10
 const box_size = square / n_row_col
 
 // instantiate the board
@@ -135,7 +135,7 @@ function anything_right() {
         if (falling_row + subblock[0] >= n_row_col) {
             continue
         }
-        if (falling_col + subblock[1] >= n_row_col - 1 || board[falling_row + subblock[0]][falling_col + subblock[1] + 1] == 1) {
+        if (falling_col + subblock[1] >= n_row_col - 1 || board[falling_row + subblock[0]][falling_col + subblock[1] + 1] > 0) {
             return true
         }
     }
@@ -147,7 +147,7 @@ function anything_left() {
         if (falling_row + subblock[0] >= n_row_col) {
             continue
         }
-        if (falling_col + subblock[1] == 0 || board[falling_row + subblock[0]][falling_col + subblock[1] - 1] == 1) {
+        if (falling_col + subblock[1] == 0 || board[falling_row + subblock[0]][falling_col + subblock[1] - 1] > 0) {
             return true
         }
     }
@@ -159,7 +159,7 @@ function anything_below() {
         if (falling_row + subblock[0] >= n_row_col) {
             continue
         }
-        if (falling_row + subblock[0] == 0 || board[falling_row + subblock[0] - 1][falling_col + subblock[1]] == 1) {
+        if (falling_row + subblock[0] == 0 || board[falling_row + subblock[0] - 1][falling_col + subblock[1]] > 0) {
             return true
         }
     }
@@ -184,10 +184,11 @@ function clearFallingBlock() {
 }
 
 function drawBoxes() {
-    ctx.fillStyle = '#0095DD'
     for (let row = 0; row < board.length; row++) {
         for (let col = 0; col < board[row].length; col++) {
-            if (board[row][col] == 1) {
+            if (board[row][col] > 0) {
+                ctx.fillStyle = '#' + shape_colours[board[row][col] - 1]
+                console.log(ctx.fillStyle)
                 ctx.fillRect(col * box_size, (n_row_col - row - 1) * box_size, box_size, box_size)
             }
         }
@@ -266,7 +267,7 @@ window.addEventListener(
                 new_falling_block[i][0] = e.key == 'd' ? -y : y
                 new_falling_block[i][1] = e.key == 'd' ? x : -x
                 const board_val = board[falling_row + new_falling_block[i][0]][falling_col + new_falling_block[i][1]]
-                if (board_val == undefined || board_val == 1) {
+                if (board_val == undefined || board_val > 0) {
                     can_rotate = false
                 }
             }
@@ -313,7 +314,6 @@ function draw() {
     let full_rows = []
     for (let i = 0; i < n_row_col; i++) {
         let row_full = true
-        console.log(board[i], i)
         for (let j = 0; j < n_row_col; j++) {
             if (board[i][j] == 0) {
                 row_full = false
@@ -339,7 +339,11 @@ function draw() {
         falling_row = n_row_col - 2
 
         // pick a random shape
-        falling_shape_index = randint(0, shapes.length)
+        // falling_shape_index = randint(0, shapes.length)
+        falling_shape_index += 1
+        if (falling_shape_index >= shapes.length) {
+            falling_shape_index = 0
+        }
         falling_block = shapes[falling_shape_index]
         drop_new_block = false
 
@@ -352,7 +356,7 @@ function draw() {
             if (falling_row + subblock[0] >= n_row_col || falling_block + subblock[1] >= n_row_col) {
                 game_over()
             }
-            board[falling_row + subblock[0]][falling_col + subblock[1]] = 1
+            board[falling_row + subblock[0]][falling_col + subblock[1]] = falling_shape_index + 1
         }
     } else {
         // nothing hit the floor, move the block down a level
