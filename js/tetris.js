@@ -43,6 +43,7 @@ const shapes = [
         [0, 1],
     ], // podium shape
 ]
+const shape_colours = ['70D6FF', 'FF70A6', 'FF9770', 'FFD670', 'E9FF70', 'F7F06D', '86A873']
 
 // bool for whether a round is currently being played
 let round_going = false
@@ -169,15 +170,16 @@ function anything_below() {
 // -----------------
 
 function drawFallingBlock() {
-    ctx.fillStyle = 'purple'
+    ctx.fillStyle = '#' + shape_colours[falling_shape_index]
     for (let subblock of falling_block) {
         ctx.fillRect((falling_col + subblock[1]) * box_size, (n_row_col - falling_row - 1 - subblock[0]) * box_size, box_size, box_size)
     }
 }
 
 function clearFallingBlock() {
+    const wiggle = 0.02
     for (let subblock of falling_block) {
-        ctx.clearRect((falling_col + subblock[1]) * box_size, (n_row_col - falling_row - 1 - subblock[0]) * box_size, box_size, box_size)
+        ctx.clearRect((falling_col + subblock[1]) * box_size - wiggle * box_size, (n_row_col - falling_row - 1 - subblock[0]) * box_size - wiggle * box_size, box_size * (1 + wiggle * 2), box_size * (1 + wiggle * 2))
     }
 }
 
