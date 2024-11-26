@@ -54,7 +54,7 @@ let level = 1
 
 // track the current timestep size and how much to decrease it each level
 let timestep = 1000
-const speed_up_factor = 0.95
+const speed_up_factor = 0.8
 
 // whether to drop a new block this round
 let drop_new_block = true
@@ -80,6 +80,7 @@ let grid_canvas = document.getElementById('grid')
 grid_ctx = grid_canvas.getContext('2d')
 grid_canvas.width = square
 grid_canvas.height = square
+let draw_interval = null
 
 // create a grid and set up individual box sizes
 const n_row_col = 10
@@ -115,10 +116,14 @@ function animateCSS(element, animationName, callback) {
     }
     nodes.forEach(function (node) {
         node.classList.add('animated', animationName)
-        $(node).one('animationend', function () {
-            this.classList.remove('animated', animationName)
-            if (typeof callback === 'function') callback()
-        })
+        node.addEventListener(
+            'animationend',
+            function () {
+                this.classList.remove('animated', animationName)
+                if (typeof callback === 'function') callback()
+            },
+            { once: true }
+        )
     })
 }
 
@@ -188,7 +193,6 @@ function drawBoxes() {
         for (let col = 0; col < board[row].length; col++) {
             if (board[row][col] > 0) {
                 ctx.fillStyle = '#' + shape_colours[board[row][col] - 1]
-                console.log(ctx.fillStyle)
                 ctx.fillRect(col * box_size, (n_row_col - row - 1) * box_size, box_size, box_size)
             }
         }
@@ -281,7 +285,9 @@ window.addEventListener(
             // if the spacebar is pressed then start the game
             round_going = true
             draw_interval = setInterval(draw, timestep)
-            message.classList.add('hide')
+            animateCSS(message, 'rollOut', function () {
+                message.classList.add('hide')
+            })
         }
     },
     { passive: false }
@@ -353,8 +359,9 @@ function draw() {
         // something just hit the floor, update the board and save a new block
         drop_new_block = true
         for (let subblock of falling_block) {
-            if (falling_row + subblock[0] >= n_row_col || falling_block + subblock[1] >= n_row_col) {
+            if (falling_row + subblock[0] >= n_row_col - 1 || falling_block + subblock[1] >= n_row_col - 1) {
                 game_over()
+                return
             }
             board[falling_row + subblock[0]][falling_col + subblock[1]] = falling_shape_index + 1
         }
@@ -367,9 +374,29 @@ function draw() {
     drawBoxes()
 
     rows_cleared_text.innerText = rows_cleared
+    console.log(level, Math.floor(rows_cleared / 2))
+    while (level <= Math.floor(rows_cleared / 2)) {
+        level += 1
+        timestep *= speed_up_factor
+    }
+    clearInterval(draw_interval)
+    draw_interval = setInterval(draw, timestep)
+    level_text.innerText = level
 }
 
 function game_over() {
+    document.getElementById('game-over-rows').innerText = rows_cleared
+    document.getElementById('game-over-level').innerText = level
+    rows_cleared = 0
+    level = 1
+    rows_cleared_text.innerText = rows_cleared
+    level_text.innerText = level
+
+    document.getElementById('game-over').classList.remove('hide')
+    document.getElementById('welcome').classList.add('hide')
+
+    animateCSS(message, 'jackInTheBox')
+
     reset()
 }
 

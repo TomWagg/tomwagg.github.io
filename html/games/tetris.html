@@ -30,7 +30,7 @@
                             <p>Rows</p>
                         </div>
                         <div class="col">
-                            <p id="levels">0</p>
+                            <p id="level">1</p>
                             <p>Level</p>
                         </div>
                     </div>
@@ -44,17 +44,19 @@
                 <div class="col-2">
                     <h1>Controls</h1>
                     <p>Use <code>←</code>, <code>→</code> and <code>↓</code> and to move the blocks</p>
-                    <p>Use <code>a</code> and <code>d</code> to rotate the blocks</p>
+                    <p>Use <code>a</code> and <code>d</code> to rotate the blocks left and right</p>
                 </div>
             </div>
         </div>
     </div>
     <div id="message">
         <div class="container-fluid">
-            <div class="row">
-                <h1>Welcome to Tetris!</h1>
-                <p>Press space to start, or Esc to quit!</p>
+            <div id="game-over" class="row hide">
+                <h1>Game over!</h1>
+                <p>Good work! You cleared <span id="game-over-rows"></span> rows, which took you to level <span id="game-over-level"></span>! <br />Can you beat your score?</p>
             </div>
+            <h1 id="welcome">Welcome to Tetris!</h1>
+            <p>Press space to start, or Esc to quit!</p>
         </div>
     </div>
 
