@@ -76,7 +76,7 @@ canvas.width = square
 canvas.height = square
 
 // create a grid and set up individual box sizes
-const n_row_col = 10
+const n_row_col = 15
 const box_size = square / n_row_col
 
 // instantiate the board
@@ -95,6 +95,10 @@ const message = document.getElementById('message')
 // get the row and level message for reference
 const rows_cleared_text = document.getElementById('rows')
 const level_text = document.getElementById('level')
+drawGridLines()
+
+// general helper functions
+// ------------------------
 
 function animateCSS(element, animationName, callback) {
     let nodes = null
@@ -111,6 +115,96 @@ function animateCSS(element, animationName, callback) {
         })
     })
 }
+
+function randint(min_val, max_val) {
+    diff = max_val - 1 - min_val
+    return Math.round(Math.random() * diff) + min_val
+}
+
+// collision checkers
+// ------------------
+
+function anything_right() {
+    for (let subblock of falling_block) {
+        if (falling_row + subblock[0] >= n_row_col) {
+            continue
+        }
+        if (falling_col + subblock[1] >= n_row_col - 1 || board[falling_row + subblock[0]][falling_col + subblock[1] + 1] == 1) {
+            return true
+        }
+    }
+    return false
+}
+
+function anything_left() {
+    for (let subblock of falling_block) {
+        if (falling_row + subblock[0] >= n_row_col) {
+            continue
+        }
+        if (falling_col + subblock[1] == 0 || board[falling_row + subblock[0]][falling_col + subblock[1] - 1] == 1) {
+            return true
+        }
+    }
+    return false
+}
+
+function anything_below() {
+    for (let subblock of falling_block) {
+        if (falling_row + subblock[0] >= n_row_col) {
+            continue
+        }
+        if (falling_row + subblock[0] == 0 || board[falling_row + subblock[0] - 1][falling_col + subblock[1]] == 1) {
+            return true
+        }
+    }
+    return false
+}
+
+// drawing functions
+// -----------------
+
+function drawFallingBlock() {
+    ctx.fillStyle = 'purple'
+    for (let subblock of falling_block) {
+        ctx.fillRect((falling_col + subblock[1]) * box_size, (n_row_col - falling_row - 1 - subblock[0]) * box_size, box_size, box_size)
+    }
+}
+
+function clearFallingBlock() {
+    for (let subblock of falling_block) {
+        ctx.clearRect((falling_col + subblock[1]) * box_size, (n_row_col - falling_row - 1 - subblock[0]) * box_size, box_size, box_size)
+    }
+}
+
+function drawBoxes() {
+    ctx.fillStyle = '#0095DD'
+    for (let row = 0; row < board.length; row++) {
+        for (let col = 0; col < board[row].length; col++) {
+            if (board[row][col] == 1) {
+                ctx.fillRect(col * box_size, (n_row_col - row - 1) * box_size, box_size, box_size)
+            }
+        }
+    }
+}
+
+function drawGridLines() {
+    ctx.fillStyle = 'grey'
+    ctx.setLineDash([2, 5])
+    for (let i = 0; i < board.length; i++) {
+        ctx.beginPath()
+        ctx.moveTo(i * box_size, 0)
+        ctx.lineTo(i * box_size, canvas.height)
+        ctx.stroke()
+
+        ctx.beginPath()
+        ctx.moveTo(0, i * box_size)
+        ctx.lineTo(canvas.width, i * box_size)
+        ctx.stroke()
+    }
+}
+
+// EVENT LISTENERS
+// ---------------
 
 // prevent scrolling to avoid confusion
 window.addEventListener(
@@ -185,6 +279,9 @@ window.addEventListener(
     { passive: false }
 )
 
+// MAIN GAME FUNCTIONS
+// -------------------
+
 function reset() {
     for (let i = 0; i < n_row_col; i++) {
         for (let j = 0; j < n_row_col; j++) {
@@ -195,77 +292,15 @@ function reset() {
     // bring the message back
     message.classList.remove('hide')
 
+    // stop running the game
     clearInterval(draw_interval)
-}
-
-function drawFallingBlock() {
-    ctx.fillStyle = 'purple'
-    for (let subblock of falling_block) {
-        ctx.fillRect((falling_col + subblock[1]) * box_size, (n_row_col - falling_row - 1 - subblock[0]) * box_size, box_size, box_size)
-    }
-}
-
-function clearFallingBlock() {
-    for (let subblock of falling_block) {
-        ctx.clearRect((falling_col + subblock[1]) * box_size, (n_row_col - falling_row - 1 - subblock[0]) * box_size, box_size, box_size)
-    }
-}
-
-function drawBoxes() {
-    ctx.fillStyle = '#0095DD'
-    for (let row = 0; row < board.length; row++) {
-        for (let col = 0; col < board[row].length; col++) {
-            if (board[row][col] == 1) {
-                ctx.fillRect(col * box_size, (n_row_col - row - 1) * box_size, box_size, box_size)
-            }
-        }
-    }
-}
-
-function randint(min_val, max_val) {
-    diff = max_val - 1 - min_val
-    return Math.round(Math.random() * diff) + min_val
-}
-
-function anything_right() {
-    for (let subblock of falling_block) {
-        if (falling_row + subblock[0] >= n_row_col) {
-            continue
-        }
-        if (falling_col + subblock[1] >= n_row_col - 1 || board[falling_row + subblock[0]][falling_col + subblock[1] + 1] == 1) {
-            return true
-        }
-    }
-    return false
-}
-
-function anything_left() {
-    for (let subblock of falling_block) {
-        if (falling_row + subblock[0] >= n_row_col) {
-            continue
-        }
-        if (falling_col + subblock[1] == 0 || board[falling_row + subblock[0]][falling_col + subblock[1] - 1] == 1) {
-            return true
-        }
-    }
-    return false
-}
-
-function anything_below() {
-    for (let subblock of falling_block) {
-        if (falling_row + subblock[0] >= n_row_col) {
-            continue
-        }
-        if (falling_row + subblock[0] == 0 || board[falling_row + subblock[0] - 1][falling_col + subblock[1]] == 1) {
-            return true
-        }
-    }
-    return false
+    round_going = false
 }
 
 function draw() {
     // clear everything off
     ctx.clearRect(0, 0, canvas.width, canvas.height)
+    drawGridLines()
 
     // check which rows on the board are currently full
     let full_rows = []
