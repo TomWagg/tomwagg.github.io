@@ -55,8 +55,9 @@ canvas#grid.light-mode {
     width: 100%;
 }
 
-#tetris-score #rows,
-#level {
+#rows,
+#level,
+#score {
     font-size: 3rem;
     font-weight: bold;
     margin: 0;
@@ -72,7 +73,7 @@ canvas#grid.light-mode {
 
 #message {
     position: absolute;
-    top: 50%;
+    height: 100%;
     width: 100%;
     text-align: center;
     opacity: 1;

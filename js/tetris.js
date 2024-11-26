@@ -51,6 +51,7 @@ let round_going = false
 // track the rows cleared and what level they're on
 let rows_cleared = 0
 let level = 1
+let score = 0
 
 // track the current timestep size and how much to decrease it each level
 let timestep = 1000
@@ -102,6 +103,7 @@ const message = document.getElementById('message')
 // get the row and level message for reference
 const rows_cleared_text = document.getElementById('rows')
 const level_text = document.getElementById('level')
+const score_text = document.getElementById('score')
 drawGridLines()
 
 // general helper functions
@@ -253,6 +255,8 @@ window.addEventListener(
             } else if (e.key == 'ArrowDown' && !anything_below()) {
                 clearFallingBlock()
                 falling_row -= 1
+                score += 1
+                score_text.innerText = score
                 drawFallingBlock()
             }
         } else if (e.key == 'a' || (e.key == 'd' && round_going)) {
@@ -331,12 +335,15 @@ function draw() {
         }
     }
 
-    // clear the full rows and increase the score
+    // clear the full rows
     for (let i = 0; i < full_rows.length; i++) {
         board.splice(full_rows[i] - i, 1)
         board.push(Array(n_row_col).fill(0))
-        rows_cleared += 1
     }
+    rows_cleared += full_rows.length
+
+    const scoring = [0, 40, 100, 300, 1200]
+    score += level * scoring[full_rows.length]
 
     // if we're ready for a new block
     if (drop_new_block) {
@@ -374,14 +381,14 @@ function draw() {
     drawBoxes()
 
     rows_cleared_text.innerText = rows_cleared
-    console.log(level, Math.floor(rows_cleared / 2))
-    while (level <= Math.floor(rows_cleared / 2)) {
+    while (level <= Math.floor(rows_cleared / 10)) {
         level += 1
         timestep *= speed_up_factor
     }
     clearInterval(draw_interval)
     draw_interval = setInterval(draw, timestep)
     level_text.innerText = level
+    score_text.innerText = score
 }
 
 function game_over() {
