@@ -71,9 +71,14 @@ let falling_shape_index = 0
 // set up canvas and make it fill the screen
 let canvas = document.getElementById('tetris-game')
 let ctx = canvas.getContext('2d')
-const square = Math.min(canvas.clientHeight, canvas.clientWidth)
+const square = Math.min(window.innerHeight, window.innerWidth)
 canvas.width = square
 canvas.height = square
+
+let grid_canvas = document.getElementById('grid')
+grid_ctx = grid_canvas.getContext('2d')
+grid_canvas.width = square
+grid_canvas.height = square
 
 // create a grid and set up individual box sizes
 const n_row_col = 15
@@ -188,18 +193,18 @@ function drawBoxes() {
 }
 
 function drawGridLines() {
-    ctx.fillStyle = 'grey'
-    ctx.setLineDash([2, 5])
+    grid_ctx.fillStyle = 'grey'
+    grid_ctx.setLineDash([2, 5])
     for (let i = 0; i < board.length; i++) {
-        ctx.beginPath()
-        ctx.moveTo(i * box_size, 0)
-        ctx.lineTo(i * box_size, canvas.height)
-        ctx.stroke()
+        grid_ctx.beginPath()
+        grid_ctx.moveTo(i * box_size, 0)
+        grid_ctx.lineTo(i * box_size, canvas.height)
+        grid_ctx.stroke()
 
-        ctx.beginPath()
-        ctx.moveTo(0, i * box_size)
-        ctx.lineTo(canvas.width, i * box_size)
-        ctx.stroke()
+        grid_ctx.beginPath()
+        grid_ctx.moveTo(0, i * box_size)
+        grid_ctx.lineTo(canvas.width, i * box_size)
+        grid_ctx.stroke()
     }
 }
 
@@ -300,7 +305,7 @@ function reset() {
 function draw() {
     // clear everything off
     ctx.clearRect(0, 0, canvas.width, canvas.height)
-    drawGridLines()
+    // drawGridLines()
 
     // check which rows on the board are currently full
     let full_rows = []

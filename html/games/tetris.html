@@ -17,21 +17,43 @@
     </head>
 </html>
 <body>
+    <canvas id="grid"></canvas>
     <canvas id="tetris-game"></canvas>
     <div id="tetris-score">
-        <h1>SCORE</h1>
-        <div>Rows: <span id="rows">0</span></div>
-        <div>Level: <span id="level">1</span></div>
+        <div class="container-fluid">
+            <div class="row justify-content-start">
+                <div class="col-2 text-center">
+                    <h1>Score</h1>
+                    <div class="row">
+                        <div class="col">
+                            <p id="rows">0</p>
+                            <p>Rows</p>
+                        </div>
+                        <div class="col">
+                            <p id="levels">0</p>
+                            <p>Level</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="controls">
+        <div class="container-fluid">
+            <div class="row justify-content-end">
+                <div class="col-2">
+                    <h1>Controls</h1>
+                    <p>Use <code>←</code>, <code>→</code> and <code>↓</code> and to move the blocks</p>
+                    <p>Use <code>a</code> and <code>d</code> to rotate the blocks</p>
+                </div>
+            </div>
+        </div>
     </div>
     <div id="message">
         <div class="container-fluid">
             <div class="row">
                 <h1>Welcome to Tetris!</h1>
-                <div class="col-2">Use <code>s</code> and <code>w</code> to move</div>
-                <div class="col">
-                    <p>Press space to start, or Esc to quit!</p>
-                </div>
-                <div class="col-2">Use <code>↑</code> and <code>↓</code> and to move</div>
+                <p>Press space to start, or Esc to quit!</p>
             </div>
         </div>
     </div>
