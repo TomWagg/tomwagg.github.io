@@ -64,10 +64,11 @@ canvas#grid.light-mode {
 }
 
 #game-over-rows,
-#game-over-level {
+#game-over-level,
+#game-over-score {
     font-size: 1.5rem;
     font-weight: bold;
-    color: crimson;
+    color: rgb(78, 161, 221);
     margin: 0;
 }
 

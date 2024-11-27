@@ -1,49 +1,83 @@
 // tetris shapes that we will drop
-const shapes = [
-    [
-        [0, 0],
-        [0, 1],
-        [1, 0],
-        [1, 1],
-    ], // square from bottom-left
-    [
-        [0, 0],
-        [1, 0],
-        [2, 0],
-        [3, 0],
-    ], // line from top
-    [
-        [0, 0],
-        [1, 0],
-        [1, 1],
-        [-1, 0],
-    ], // L-shape right
-    [
-        [0, 0],
-        [1, 0],
-        [-1, 1],
-        [-1, 0],
-    ], // L-shape left
-    [
-        [0, 0],
-        [1, 0],
-        [1, -1],
-        [0, 1],
-    ], // Z shape
-    [
-        [0, 0],
-        [1, 0],
-        [1, 1],
-        [0, -1],
-    ], // S shape
-    [
-        [0, 0],
-        [1, 0],
-        [0, -1],
-        [0, 1],
-    ], // podium shape
+let shapes = [
+    {
+        name: 'square',
+        blocks: [
+            [0, 0],
+            [0, 1],
+            [1, 0],
+            [1, 1],
+        ],
+        origin: 'bottom-left',
+        colour: '70D6FF',
+    },
+    {
+        name: 'line',
+        blocks: [
+            [0, 0],
+            [1, 0],
+            [2, 0],
+            [3, 0],
+        ],
+        origin: 'top',
+        colour: 'FF70A6',
+    },
+    {
+        name: 'L-shape right',
+        blocks: [
+            [0, 0],
+            [1, 0],
+            [1, 1],
+            [-1, 0],
+        ],
+        origin: 'centre',
+        colour: '545CCC',
+    },
+    {
+        name: 'L-shape left',
+        blocks: [
+            [0, 0],
+            [1, 0],
+            [-1, 1],
+            [-1, 0],
+        ],
+        origin: 'centre',
+        colour: 'FFD670',
+    },
+    {
+        name: 'Z',
+        blocks: [
+            [0, 0],
+            [1, 0],
+            [1, -1],
+            [0, 1],
+        ],
+        origin: 'centre',
+        colour: 'D14D4D',
+    },
+    {
+        name: 'S',
+        blocks: [
+            [0, 0],
+            [1, 0],
+            [1, 1],
+            [0, -1],
+        ],
+        origin: 'centre',
+        colour: '8E44C9',
+    },
+    {
+        name: 'podium',
+        blocks: [
+            [0, 0],
+            [1, 0],
+            [0, -1],
+            [0, 1],
+        ],
+        origin: 'centre',
+        colour: '50D94E',
+    },
 ]
-const shape_colours = ['70D6FF', 'FF70A6', '545CCC', 'FFD670', 'D14D4D', '8E44C9', '50D94E']
 
 // bool for whether a round is currently being played
 let round_going = false
@@ -68,7 +102,7 @@ let falling_col = -1
 let falling_row = -1
 
 // what kind of shape it is
-let falling_shape_index = 0
+let falling_shape_index = -1
 
 // set up canvas and make it fill the screen
 let canvas = document.getElementById('tetris-game')
@@ -92,7 +126,7 @@ let board = []
 for (let i = 0; i < n_row_col; i++) {
     let row = []
     for (let j = 0; j < n_row_col; j++) {
-        row.push(0)
+        row.push('')
     }
     board.push(row)
 }
@@ -134,6 +168,19 @@ function randint(min_val, max_val) {
     return Math.round(Math.random() * diff) + min_val
 }
 
+function shuffle(a) {
+    // shuffle an array with a Fisher-Yates shuffle
+    let ind = a.length
+    while (ind > 0) {
+        let rand_ind = Math.floor(Math.random() * ind)
+        ind--
+        let swap_me = a[rand_ind]
+        a[rand_ind] = a[ind]
+        a[ind] = swap_me
+    }
+    return a
+}
+
 // collision checkers
 // ------------------
 
@@ -142,7 +189,7 @@ function anything_right() {
         if (falling_row + subblock[0] >= n_row_col) {
             continue
         }
-        if (falling_col + subblock[1] >= n_row_col - 1 || board[falling_row + subblock[0]][falling_col + subblock[1] + 1] > 0) {
+        if (falling_col + subblock[1] >= n_row_col - 1 || board[falling_row + subblock[0]][falling_col + subblock[1] + 1] != '') {
             return true
         }
     }
@@ -154,7 +201,7 @@ function anything_left() {
         if (falling_row + subblock[0] >= n_row_col) {
             continue
         }
-        if (falling_col + subblock[1] == 0 || board[falling_row + subblock[0]][falling_col + subblock[1] - 1] > 0) {
+        if (falling_col + subblock[1] == 0 || board[falling_row + subblock[0]][falling_col + subblock[1] - 1] != '') {
             return true
         }
     }
@@ -166,7 +213,7 @@ function anything_below() {
         if (falling_row + subblock[0] >= n_row_col) {
             continue
         }
-        if (falling_row + subblock[0] == 0 || board[falling_row + subblock[0] - 1][falling_col + subblock[1]] > 0) {
+        if (falling_row + subblock[0] == 0 || board[falling_row + subblock[0] - 1][falling_col + subblock[1]] != '') {
             return true
         }
     }
@@ -177,7 +224,7 @@ function anything_below() {
 // -----------------
 
 function drawFallingBlock() {
-    ctx.fillStyle = '#' + shape_colours[falling_shape_index]
+    ctx.fillStyle = '#' + shapes[falling_shape_index]['colour']
     for (let subblock of falling_block) {
         ctx.fillRect((falling_col + subblock[1]) * box_size, (n_row_col - falling_row - 1 - subblock[0]) * box_size, box_size, box_size)
     }
@@ -193,8 +240,8 @@ function clearFallingBlock() {
 function drawBoxes() {
     for (let row = 0; row < board.length; row++) {
         for (let col = 0; col < board[row].length; col++) {
-            if (board[row][col] > 0) {
-                ctx.fillStyle = '#' + shape_colours[board[row][col] - 1]
+            if (board[row][col] != '') {
+                ctx.fillStyle = '#' + board[row][col]
                 ctx.fillRect(col * box_size, (n_row_col - row - 1) * box_size, box_size, box_size)
             }
         }
@@ -275,7 +322,7 @@ window.addEventListener(
                 new_falling_block[i][0] = e.key == 'd' ? -y : y
                 new_falling_block[i][1] = e.key == 'd' ? x : -x
                 const board_val = board[falling_row + new_falling_block[i][0]][falling_col + new_falling_block[i][1]]
-                if (board_val == undefined || board_val > 0) {
+                if (board_val == undefined || board_val != '') {
                     can_rotate = false
                 }
             }
@@ -351,13 +398,13 @@ function draw() {
         falling_col = randint(2, n_row_col - 2)
         falling_row = n_row_col - 2
 
-        // pick a random shape
-        // falling_shape_index = randint(0, shapes.length)
+        // pick the next shape
         falling_shape_index += 1
         if (falling_shape_index >= shapes.length) {
+            shuffle(shapes)
             falling_shape_index = 0
         }
-        falling_block = shapes[falling_shape_index]
+        falling_block = shapes[falling_shape_index]['blocks']
         drop_new_block = false
 
         // drop it!
@@ -370,7 +417,7 @@ function draw() {
                 game_over()
                 return
             }
-            board[falling_row + subblock[0]][falling_col + subblock[1]] = falling_shape_index + 1
+            board[falling_row + subblock[0]][falling_col + subblock[1]] = shapes[falling_shape_index]['colour']
         }
     } else {
         // nothing hit the floor, move the block down a level
@@ -394,10 +441,13 @@ function draw() {
 function game_over() {
     document.getElementById('game-over-rows').innerText = rows_cleared
     document.getElementById('game-over-level').innerText = level
+    document.getElementById('game-over-score').innerText = score
     rows_cleared = 0
     level = 1
+    score = 0
     rows_cleared_text.innerText = rows_cleared
     level_text.innerText = level
+    score_text.innerText = score
 
     document.getElementById('game-over').classList.remove('hide')
     document.getElementById('welcome').classList.add('hide')
@@ -407,4 +457,5 @@ function game_over() {
     reset()
 }
 
+shuffle(shapes)
 reset()
