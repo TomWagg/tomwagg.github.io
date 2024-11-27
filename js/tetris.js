@@ -19,7 +19,7 @@ let shapes = [
             [2, 0],
             [3, 0],
         ],
-        origin: 'top',
+        origin: 'bottom',
         colour: 'FF70A6',
     },
     {
@@ -118,7 +118,8 @@ grid_canvas.height = square
 let draw_interval = null
 
 // create a grid and set up individual box sizes
-const n_row_col = 10
+const n_row_col = 12
+const max_retries = n_row_col * 3
 const box_size = square / n_row_col
 
 // instantiate the board
@@ -218,6 +219,15 @@ function anything_below() {
         }
     }
     return false
+}
+
+function is_clear() {
+    for (let subblock of falling_block) {
+        if (falling_row + subblock[0] < n_row_col && board[falling_row + subblock[0]][falling_col + subblock[1]] != '') {
+            return false
+        }
+    }
+    return true
 }
 
 // drawing functions
@@ -394,10 +404,6 @@ function draw() {
 
     // if we're ready for a new block
     if (drop_new_block) {
-        // pick a random column
-        falling_col = randint(2, n_row_col - 2)
-        falling_row = n_row_col - 2
-
         // pick the next shape
         falling_shape_index += 1
         if (falling_shape_index >= shapes.length) {
@@ -406,6 +412,23 @@ function draw() {
         }
         falling_block = shapes[falling_shape_index]['blocks']
         drop_new_block = false
+
+        // pick a random column (that's open!)
+        let retries = 0
+        falling_row = n_row_col - 1
+        while (retries < max_retries) {
+            falling_col = randint(2, n_row_col - 2)
+            if (is_clear()) {
+                break
+            } else {
+                retries += 1
+                console.log(retries, shapes[falling_shape_index]['name'])
+            }
+        }
+        if (retries == max_retries) {
+            game_over()
+            return
+        }
 
         // drop it!
         drawFallingBlock()
