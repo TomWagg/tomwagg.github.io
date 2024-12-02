@@ -439,6 +439,9 @@ function draw() {
         board.push(Array(n_row_col).fill(0))
     }
     rows_cleared += full_rows.length
+    for (let i = 0; i < tallest_blocks.length; i++) {
+        tallest_blocks[i] = Math.max(tallest_blocks[i] - full_rows.length, -1)
+    }
 
     const scoring = [0, 40, 100, 300, 1200]
     score += level * scoring[full_rows.length]
