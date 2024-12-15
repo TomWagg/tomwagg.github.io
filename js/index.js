@@ -191,10 +191,17 @@ const cheat_codes = [
         },
     },
     {
-        code: ['\\', 'b', 'a', 'l', 'l', 's'],
+        code: ['\\', 'p', 'o', 'n', 'g'],
         index: 0,
         callback: function () {
             window.location.href = 'html/games/balls.html'
+        },
+    },
+    {
+        code: ['\\', 't', 'e', 't', 'r', 'i', 's'],
+        index: 0,
+        callback: function () {
+            window.location.href = 'html/games/tetris.html'
         },
     },
     {
