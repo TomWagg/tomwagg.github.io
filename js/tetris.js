@@ -235,27 +235,6 @@ function is_clear() {
     return true
 }
 
-function find_row_below() {
-    // find the location at which it would land right now and draw an outline
-    let n_rows_below = 1
-    while (n_rows_below < falling_row) {
-        let offsets = []
-        for (let subblock of falling_block) {
-            if (falling_row - n_rows_below + subblock[0] >= n_row_col || falling_row - n_rows_below + subblock[0] < 0 || board[falling_row - n_rows_below + subblock[0]][falling_col + subblock[1]] != '') {
-                offsets.push(subblock[0])
-            }
-        }
-        if (offsets.length > 0) {
-            console.log(Math.min(offsets))
-            n_rows_below += Math.min(offsets)
-            break
-        }
-        n_rows_below += 1
-    }
-    console.log(falling_row, n_rows_below)
-    return n_rows_below
-}
-
 // drawing functions
 // -----------------
 
@@ -269,10 +248,10 @@ function drawFallingBlock() {
         base_row = Math.max(base_row, tallest_blocks[falling_col + subblock[1]] - subblock[0])
     }
 
-    console.log(base_row)
-
-    for (let subblock of falling_block) {
-        ctx.strokeRect((falling_col + subblock[1]) * box_size, (n_row_col - 1 - (base_row + 1) - subblock[0]) * box_size, box_size, box_size)
+    if (base_row < falling_row) {
+        for (let subblock of falling_block) {
+            ctx.strokeRect((falling_col + subblock[1]) * box_size, (n_row_col - 1 - (base_row + 1) - subblock[0]) * box_size, box_size, box_size)
+        }
     }
 }
 
