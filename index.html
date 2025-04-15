@@ -96,6 +96,19 @@
             <div class="row">
                 <div class="col">
                     <div class="research-projects text-center align-middle">
+                        <article class="project" data-details="ejections">
+                            <div class="row">
+                                <div class="col">
+                                    <img src="img/project_thumbnails/ejections.png" class="p-0" />
+                                    <div class="project-description">
+                                        <div class="project-description-text">
+                                            <h4>Stellar ejection velocities from the binary supernova scenario</h4>
+                                            <h6>a comparison across population synthesis codes</h6>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </article>
                         <article class="project" data-details="cogsworth">
                             <div class="row">
                                 <div class="col">
@@ -206,6 +219,63 @@
         </section>
 
         <section id="research_details" class="container px-5">
+            <div id="ejections" class="details hide">
+                <div class="row text-center">
+                    <div class="col">
+                        <h1>Stellar ejection velocities from the binary supernova scenario: A comparison across population synthesis codes</h1>
+                        <hr class="w-25 mx-auto" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col justify-content-center">
+                        <p class="text-center">
+                            <a href="https://github.com/TomWagg/ejection-velocities/blob/main/paper/paper.pdf" target="_blank" class="btn bg-transparent rounded project-link">
+                                <i class="fas fa-scroll fa-2x" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Paper"></i>
+                            </a>
+                            <a href="https://github.com/TomWagg/ejection-velocities" target="_blank" class="btn bg-transparent rounded project-link">
+                                <i class="fab fa-github fa-2x" data-bs-toggle="tooltip" data-bs-placement="bottom" title="GitHub Repo"></i>
+                            </a>
+                            <a href="https://doi.org/10.5281/zenodo.15225730" class="btn bg-transparent rounded project-link">
+                                <i class="fas fa-database fa-2x" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Data"></i>
+                            </a>
+                        </p>
+                        <div class="row justify-content-center">
+                            <div class="col-12 col-md-11">
+                                <p class="text-center fst-italic">We compare the ejection velocities of secondary stars after their companion disrupts the binary after core collapse in three different population synthesis codes.</p>
+                            </div>
+                            <div class="col-12 col-md-9">
+                                <p>This paper started with finding a bug 🐛</p>
+                                <p>
+                                    When using <code>COSMIC</code> to evolve a population of binaries, I found a peculiar system where its pre-supernova orbital velocity was 12km/s, but somehow the companion was being ejected at more than 60km/s. This was clearly unphysical and, after a long and arduous investigation (with the help of Katie Breivik), we eventually realised that the original paper by Kiel & Hurley 2009 had a mistake, such that all companion ejection velocities are wrong.
+                                    Motivated by this, we decided to investigate the ejection velocities of stars in the binary supernova scenario across three different population synthesis codes: <code>COMPAS</code>, <code>COSMIC</code> and <code>binary_c</code>.
+                                </p>
+                                <p>Surprisingly, we found that <b>all three</b> codes produced erroneous ejection velocities for disrupted binaries due to a variety of subtle bugs. Gladly, after fixing these bugs, we found that the ejection velocities of the secondary stars relative to their pre-supernova orbital velocities were very similar across all three codes. This nicely cross-validates three independent algorithms.</p>
+                                <p>My personal takeaway from this quick project is that comparison projections of this nature, and open science in general, is essential to catching these subtle bugs and improving our models!</p>
+                                <p class="text-center">
+                                    <a href="https://github.com/TomWagg/ejection-velocities/blob/main/paper/paper.pdf" class="btn btn-lg btn-primary me-2">Read the paper</a>
+                                </p>
+                                <div class="row justify-content-center align-items-center">
+                                    <div class="col-12">
+                                        <img class="w-100 rounded" src="img/ejections/fig2_preview.png" />
+                                    </div>
+                                    <div class="col-12">
+                                        <img class="w-100 rounded" src="img/ejections/fig3_preview.png" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <div class="text-center">
+                                    <button class="btn open-close" style="color: grey">
+                                        <i class="fa fa-chevron-up fa-2x"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <div id="cogsworth" class="details hide">
                 <div class="row text-center">
                     <div class="col">
