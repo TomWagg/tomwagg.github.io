@@ -96,6 +96,45 @@
             <div class="row">
                 <div class="col">
                     <div class="research-projects text-center align-middle">
+                        <article class="project" data-details="ejections">
+                            <div class="row">
+                                <div class="col">
+                                    <img src="img/project_thumbnails/ejections.png" class="p-0" />
+                                    <div class="project-description">
+                                        <div class="project-description-text">
+                                            <h4>Stellar ejection velocities</h4>
+                                            <h6>a comparison of stellar ejection velocities from the binary supernova scenario across population synthesis codes</h6>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </article>
+                        <article class="project" data-details="cogsworth">
+                            <div class="row">
+                                <div class="col">
+                                    <img src="img/project_thumbnails/cog.png" class="p-4" />
+                                    <div class="project-description">
+                                        <div class="project-description-text">
+                                            <h4><code>cogsworth</code></h4>
+                                            <h6>a Python package for seamlessly self-consistent population synthesis and galactic dynamics simulations</h6>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </article>
+                        <article class="project" data-details="scs">
+                            <div class="row">
+                                <div class="col">
+                                    <img src="img/project_thumbnails/software-citation-station.png" class="p-4" />
+                                    <div class="project-description">
+                                        <div class="project-description-text">
+                                            <h4>The Software Citation Station</h4>
+                                            <h6>a central location for streamlining and standardizing software citations</h6>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </article>
                         <article class="project" data-details="mass_gainer_asteroseismology">
                             <div class="row">
                                 <div class="col">
@@ -180,6 +219,167 @@
         </section>
 
         <section id="research_details" class="container px-5">
+            <div id="ejections" class="details hide">
+                <div class="row text-center">
+                    <div class="col">
+                        <h1>Stellar ejection velocities from the binary supernova scenario: A comparison across population synthesis codes</h1>
+                        <hr class="w-25 mx-auto" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col justify-content-center">
+                        <p class="text-center">
+                            <a href="https://github.com/TomWagg/ejection-velocities/blob/main/paper/paper.pdf" target="_blank" class="btn bg-transparent rounded project-link">
+                                <i class="fas fa-scroll fa-2x" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Paper"></i>
+                            </a>
+                            <a href="https://github.com/TomWagg/ejection-velocities" target="_blank" class="btn bg-transparent rounded project-link">
+                                <i class="fab fa-github fa-2x" data-bs-toggle="tooltip" data-bs-placement="bottom" title="GitHub Repo"></i>
+                            </a>
+                            <a href="https://doi.org/10.5281/zenodo.15225730" class="btn bg-transparent rounded project-link">
+                                <i class="fas fa-database fa-2x" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Data"></i>
+                            </a>
+                        </p>
+                        <div class="row justify-content-center">
+                            <div class="col-12 col-md-11">
+                                <p class="text-center fst-italic">We compare the ejection velocities of secondary stars after their companion disrupts the binary after core collapse in three different population synthesis codes.</p>
+                            </div>
+                            <div class="col-12 col-md-9">
+                                <p>This paper started with finding a bug 🐛</p>
+                                <p>
+                                    When using <code>COSMIC</code> to evolve a population of binaries, I found a peculiar system where its pre-supernova orbital velocity was 12km/s, but somehow the companion was being ejected at more than 60km/s. This was clearly unphysical and, after a long and arduous investigation (with the help of Katie Breivik), we eventually realised that the original paper by Kiel & Hurley 2009 had a mistake, such that all companion ejection velocities are wrong.
+                                    Motivated by this, we decided to investigate the ejection velocities of stars in the binary supernova scenario across three different population synthesis codes: <code>COMPAS</code>, <code>COSMIC</code> and <code>binary_c</code>.
+                                </p>
+                                <p>Surprisingly, we found that <b>all three</b> codes produced erroneous ejection velocities for disrupted binaries due to a variety of subtle bugs. Gladly, after fixing these bugs, we found that the ejection velocities of the secondary stars relative to their pre-supernova orbital velocities were very similar across all three codes. This nicely cross-validates three independent algorithms.</p>
+                                <p>My personal takeaway from this quick project is that comparison projections of this nature, and open science in general, is essential to catching these subtle bugs and improving our models!</p>
+                                <p class="text-center">
+                                    <a href="https://github.com/TomWagg/ejection-velocities/blob/main/paper/paper.pdf" class="btn btn-lg btn-primary me-2">Read the paper</a>
+                                </p>
+                                <div class="row justify-content-center align-items-center">
+                                    <div class="col-12">
+                                        <img class="w-100 rounded" src="img/ejections/fig2_preview.png" />
+                                    </div>
+                                    <div class="col-12">
+                                        <img class="w-100 rounded" src="img/ejections/fig3_preview.png" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <div class="text-center">
+                                    <button class="btn open-close" style="color: grey">
+                                        <i class="fa fa-chevron-up fa-2x"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="cogsworth" class="details hide">
+                <div class="row text-center">
+                    <div class="col">
+                        <h1>cogsworth: A Gala of COSMIC proportions combining binary stellar evolution and galactic dynamics</h1>
+                        <hr class="w-25 mx-auto" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col justify-content-center">
+                        <p class="text-center">
+                            <a href="https://ui.adsabs.harvard.edu/abs/2024arXiv240904543W/abstract" target="_blank" class="btn bg-transparent rounded project-link">
+                                <i class="fas fa-scroll fa-2x" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Paper"></i>
+                            </a>
+                            <a href="https://github.com/TomWagg/cogsworth" target="_blank" class="btn bg-transparent rounded project-link">
+                                <i class="fab fa-github fa-2x" data-bs-toggle="tooltip" data-bs-placement="bottom" title="GitHub Repo"></i>
+                            </a>
+                            <a href="https://cogsworth.readthedocs.io" class="btn bg-transparent rounded project-link">
+                                <i class="fas fa-laptop-code fa-2x" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Documentation"></i>
+                            </a>
+                        </p>
+                        <div class="row justify-content-center">
+                            <div class="col-12 col-md-11">
+                                <p class="text-center fst-italic">We present a new Python package that combines population synthesis and galactic dynamics simulations to allow users to make predictions for the positions and kinematics of stars and compact objects.</p>
+                            </div>
+                            <div class="col-12 col-md-9">
+                                <p>
+                                    I'm really excited to share cogsworth with the community! My co-authors and I first talked about making a tool like this back when a microlensed black hole was discovered (<a href="https://ui.adsabs.harvard.edu/abs/2022ApJ...933...83S/abstract">Sahu+2022</a>, <a href="https://ui.adsabs.harvard.edu/abs/2022ApJ...933L..23L/abstract">Lam+2022</a>) and we wondered if we could make predictions for the rates of these objects and use them to constrain binary
+                                    evolution. Soon after <a href="https://ui.adsabs.harvard.edu/abs/2022ApJ...930..159A/abstract">Andrews & Kalogera 2022</a> did exactly that in an excellent paper, so we wondered if we could instead cover an even larger scope and investigate a "Galaxy of Binaries".
+                                </p>
+                                <p>Fast forward a year or so and now we have cogsworth, a code that can make predictions for not just microlensed black holes, but also X-ray binaries, runaway stars, $r$-process enrichment sites, supernovae, LISA gravitational-wave sources and much more!</p>
+                                <p>With cogsworth you can define custom star formation histories, vary binary physics, use different galactic potentials, start a simulation from a post-processed hydrodynamical zoom-in and convert all of your results to observables. In the release paper we explain its full capabilities in detail and also demonstrate its usage in some example use cases. I hope cogsworth can be useful for you too!</p>
+                                <p class="text-center">
+                                    <a href="https://ui.adsabs.harvard.edu/abs/2024arXiv240904543W/abstract" class="btn btn-lg btn-primary me-2">Read the paper</a>
+                                    <a href="https://cogsworth.readthedocs.io" class="btn btn-lg btn-primary ms-2">Explore cogsworth</a>
+                                </p>
+                                <div class="row justify-content-center align-items-center">
+                                    <div class="col-12 col-md-6">
+                                        <img class="w-100 rounded" src="img/cogsworth/cogsworth_workflow_paper.png" />
+                                    </div>
+                                    <div class="col-12 col-md-6">
+                                        <img class="w-100" src="img/cogsworth/sigma_potential_compare.png" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <div class="text-center">
+                                    <button class="btn open-close" style="color: grey">
+                                        <i class="fa fa-chevron-up fa-2x"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="scs" class="details hide">
+                <div class="row text-center">
+                    <div class="col">
+                        <h1>The Software Citation Station</h1>
+                        <hr class="w-25 mx-auto" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col justify-content-center">
+                        <p class="text-center">
+                            <a href="https://ui.adsabs.harvard.edu/abs/2024arXiv240604405W/abstract" target="_blank" class="btn bg-transparent rounded project-link">
+                                <i class="fas fa-scroll fa-2x" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Paper"></i>
+                            </a>
+                            <a href="https://github.com/TomWagg/software-citation-station" target="_blank" class="btn bg-transparent rounded project-link">
+                                <i class="fab fa-github fa-2x" data-bs-toggle="tooltip" data-bs-placement="bottom" title="GitHub Repo"></i>
+                            </a>
+                            <a href="https://www.tomwagg.com/software-citation-station" class="btn bg-transparent rounded project-link">
+                                <i class="fas fa-laptop-code fa-2x" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Software Citation Station"></i>
+                            </a>
+                        </p>
+                        <div class="row justify-content-center">
+                            <div class="col-12 col-md-11">
+                                <p class="text-center fst-italic">A new website for streamlining and standardizing software citations in your papers</p>
+                            </div>
+                            <div class="col-12 col-md-9">
+                                <p>
+                                    Floor Broekgaarden and I have designed The Software Citation Station to help people accurately and easily cite the software used in their papers. We chatting over coffee at the Flatiron Institute about how there's no central location for finding software citations and it can be confusing to work out how to properly cite everything that you use. This motivated us to create the Software Citation Station over the next few weeks as a resource for the whole
+                                    community.
+                                </p>
+                                <p>The Software Citation Station allows users to simply (1) select the software they've used in their work (2) choose the versions of each package that they used (3) copy a dynamically generated LaTeX acknowledgement and associated BibTeX. There's also functionality to search and filter the package list, as well as a form for adding new software to the page. I hope you find it useful!</p>
+                                <p class="text-center">
+                                    <a href="https://www.tomwagg.com/software-citation-station" class="btn btn-lg btn-primary ms-2">Visit the site!</a>
+                                </p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <div class="text-center">
+                                    <button class="btn open-close" style="color: grey">
+                                        <i class="fa fa-chevron-up fa-2x"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <div id="mass_gainer_asteroseismology" class="details hide">
                 <div class="row text-center">
                     <div class="col">
@@ -605,8 +805,8 @@
                         <code class="cheat-item">\matrix</code>
                         <code class="cheat-item">\nyan</code>
                         <code class="cheat-item">\doodle</code>
-                        <code class="cheat-item">\balls</code>
-                        <code class="cheat-item">\articulate</code>
+                        <code class="cheat-item">\pong</code>
+                        <code class="cheat-item">\tetris</code>
                         <code class="cheat-item">\rats</code>
                         <code class="cheat-item fw-bold">\reset</code>
                         <p>Always looking for more ways to procrastinate, so if you think I should add something else <a href="https://github.com/TomWagg/tomwagg.github.io/issues/new">tell me</a></p>
