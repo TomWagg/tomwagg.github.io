@@ -19,7 +19,7 @@
         <link href="../../css/index.css" rel="stylesheet" />
         <link href="../../css/dark_mode.css" rel="stylesheet" />
         <link href="../../css/interact.css" rel="stylesheet" />
-        <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+        <script src="https://cdn.plot.ly/plotly-3.0.1.min.js" charset="utf-8"></script>
     </head>
     <body>
         <div class="back-button">
@@ -56,7 +56,7 @@
             </div>
             <div class="row mb-3">
                 <div class="col-12">
-                    <div id="histograms" style="aspect-ratio: 2"></div>
+                    <div id="histograms" style="max-height: 700px"></div>
                 </div>
             </div>
             <div class="row justify-content-center text-center mt-2">
@@ -70,12 +70,12 @@
                         </div>
                         <input type="range" id="profile-slider" min="0" max="200" value="0" />
                         <output id="profile-slider-bubble" class="bubble">0</output>
-                        <div class="btn-group ms-4" role="group">
-                            <button class="btn btn-primary" id="stack-mode">Stacked mode</button>
+                        <div class="btn-group toggle-group ms-4" role="group">
+                            <button class="btn btn-primary active" id="stack-mode">Stacked mode</button>
                             <button class="btn btn-primary" id="separate-mode">Separate mode</button>
                         </div>
                     </div>
-                    <label for="profile-slider" class="form-label fs-3">Time = <span id="profile-age">0</span> Myr</label>
+                    <label for="profile-slider" class="form-label fs-3">SN times < <span id="profile-age">4</span> Myr</label>
                 </div>
             </div>
         </div>
@@ -90,6 +90,6 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML" async></script>
         <script src="https://cdn.jsdelivr.net/npm/jsfive@0.3.10/dist/browser/hdf5.js"></script>
         <script src="../../js/dark_mode.js"></script>
-        <script src="../../js/supernova_feedback_interactive.js"></script>
+        <script src="../../js/interactive_feedback.js"></script>
     </body>
 </html>
