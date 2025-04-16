@@ -19,6 +19,8 @@
         <link href="../../css/index.css" rel="stylesheet" />
         <link href="../../css/dark_mode.css" rel="stylesheet" />
         <link href="../../css/interact.css" rel="stylesheet" />
+
+        <script async src="https://cdn.jsdelivr.net/npm/mathjax@2/MathJax.js?config=TeX-AMS_CHTML"></script>
         <script src="https://cdn.plot.ly/plotly-3.0.1.min.js" charset="utf-8"></script>
     </head>
     <body>
@@ -83,6 +85,23 @@
                     <label for="sn-dists-slider" class="form-label fs-3">SN times < <span id="sn-dists-age">4</span> Myr</label>
                 </div>
             </div>
+            <div class="row mt-5">
+                <div class="col">
+                    <h2>Percentiles variations</h2>
+                    <p class="text-danger">TODO</p>
+                    <div class="text-center">
+                        <div class="btn-group toggle-group text-center" role="group">
+                            <button class="btn btn-primary" id="percentiles-time">Times</button>
+                            <button class="btn btn-primary active" id="percentiles-dist">Distances</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-12">
+                    <div id="percentiles" style="min-height: 700px"></div>
+                </div>
+            </div>
         </div>
 
         <script type="text/x-mathjax-config">
@@ -92,7 +111,6 @@
                         SVG: { linebreaks: { automatic: true } }
                 });
         </script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML" async></script>
         <script src="https://cdn.jsdelivr.net/npm/jsfive@0.3.10/dist/browser/hdf5.js"></script>
         <script src="../../js/dark_mode.js"></script>
         <script src="../../js/interactive_feedback.js"></script>
