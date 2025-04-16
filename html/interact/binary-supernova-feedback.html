@@ -89,10 +89,23 @@
                 <div class="col">
                     <h2>Percentiles variations</h2>
                     <p class="text-danger">TODO</p>
-                    <div class="text-center">
-                        <div class="btn-group toggle-group text-center" role="group">
-                            <button class="btn btn-primary" id="percentiles-time">Times</button>
-                            <button class="btn btn-primary active" id="percentiles-dist">Distances</button>
+                    <div class="row text-center">
+                        <div class="col">
+                            <p>Which percentiles do you want to see?</p>
+                            <div class="btn-group toggle-group text-center" role="group">
+                                <button class="btn btn-primary" id="percentiles-time">Times</button>
+                                <button class="btn btn-primary active" id="percentiles-dist">Distances</button>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <p>Which subset of variations?</p>
+                            <div class="btn-group toggle-group text-center" role="group">
+                                <button class="btn btn-primary perc-subset-switcher active" id="percentiles-all" data-min="0" data-max="24">All variations</button>
+                                <button class="btn btn-primary perc-subset-switcher" id="percentiles-just-bin" data-min="0" data-max="11">Binary physics</button>
+                                <button class="btn btn-primary perc-subset-switcher" id="percentiles-just-ini" data-min="11" data-max="18">Initial conditions</button>
+                                <button class="btn btn-primary perc-subset-switcher" id="percentiles-just-z" data-min="18" data-max="22">Metallicity</button>
+                                <button class="btn btn-primary perc-subset-switcher" id="percentiles-just-gal" data-min="22" data-max="24">Galaxy parameters</button>
+                            </div>
                         </div>
                     </div>
                 </div>

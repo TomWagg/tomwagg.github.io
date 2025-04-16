@@ -549,6 +549,37 @@ function percentiles(f) {
             this.classList.add('active')
             document.getElementById('percentiles-time').classList.remove('active')
         })
+        document.querySelectorAll('.perc-subset-switcher').forEach((el) => {
+            el.addEventListener('click', function () {
+                const x_min = parseInt(this.getAttribute('data-min'))
+                const x_max = parseInt(this.getAttribute('data-max'))
+                Plotly.relayout('percentiles', {
+                    xaxis: {
+                        title: {
+                            text: 'Model',
+                            standoff: 10,
+                            font: {
+                                size: 1.2 * fs,
+                            },
+                        },
+                        tickmode: 'array',
+                        tickvals: x_vals,
+                        ticktext: model_labels,
+                        tickangle: 70,
+                        automargin: true,
+                        // make ticks centered on the bars, horizontal alignment
+                        ticklabelposition: 'inside top',
+                        range: [x_min - 0.5, x_max - 0.5],
+                    },
+                })
+                this.classList.add('active')
+                document.querySelectorAll('.perc-subset-switcher').forEach((e) => {
+                    if (e !== this) {
+                        e.classList.remove('active')
+                    }
+                })
+            })
+        })
     })
 }
 
