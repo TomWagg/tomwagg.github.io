@@ -140,6 +140,25 @@ input[type='range']::-moz-range-thumb {
     background-color: var(--primary-dark) !important;
 }
 
+.sn-dists-btn {
+    font-size: small;
+    margin-right: 0.25rem;
+    margin-bottom: 0.25rem;
+    transition: 50ms;
+}
+
+.sn-dists-btn.active {
+    font-weight: bold;
+    border: 5px solid black !important;
+}
+body.dark .sn-dists-btn.active {
+    border: 5px solid white !important;
+}
+.sn-dists-btn:hover {
+    /* make it darker */
+    filter: brightness(0.7);
+}
+
 button.group-sep {
     border-left: 3px solid white !important;
 }

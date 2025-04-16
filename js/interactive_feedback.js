@@ -8,7 +8,33 @@ let intervalID
 let direction = 1
 let interval_time = 70
 
-const models = ['fiducial', 'ce-0.1', 'ce-10.0', 'qcritB-0.0', 'qcritB-1000.0', 'beta-0.0']
+const models = ['fiducial', 'ce-0.1', 'ce-10.0', 'qcritB-0.0', 'qcritB-1000.0', 'beta-0.0', 'beta-0.5', 'beta-1.0', 'ccsn-20', 'ecsn-265', 'no-fallback', 'singles', 'imf-1.9', 'imf-2.7', 'porb-0', 'porb-minus1', 'q-plus1', 'q-minus1', 'Z-0.5', 'Z-0.2', 'Z-0.1', 'Z-0.05', 'v-disp-0.5', 'v-disp-5']
+const model_labels = [
+    'Fiducial',
+    '$\\alpha_{\\rm CE} = 0.1$',
+    '$\\alpha_{\\rm CE} = 10.0$',
+    'Case B Unstable',
+    'Case B Stable',
+    '$\\beta = 0.0$',
+    '$\\beta = 0.5$',
+    '$\\beta = 1.0$',
+    '$\\sigma_{\\rm CC} = 20 \\, {\\rm km/s}$',
+    '$\\sigma_{\\rm low} = 265 \\, {\\rm km/s}$',
+    'No fallback',
+    '$f_{\\rm bin} = 0.0$',
+    '$\\alpha_{\\rm IMF} = -1.9$',
+    '$\\alpha_{\\rm IMF} = -2.7$',
+    '$\\pi = 0$',
+    '$\\pi = -1$',
+    '$\\kappa = 1$',
+    '$\\kappa = -1$',
+    '$\\bar{Z} = 0.5 \\, \\bar{Z}_{\\rm m11h}$',
+    '$\\bar{Z} = 0.2 \\, \\bar{Z}_{\\rm m11h}$',
+    '$\\bar{Z} = 0.1 \\, \\bar{Z}_{\\rm m11h}$',
+    '$\\bar{Z} = 0.05 \\, \\bar{Z}_{\\rm m11h}$',
+    '$v_{\\rm disp} = 0.5 \\, {\\rm km/s}$',
+    '$v_{\\rm disp} = 5 \\, {\\rm km/s}$',
+]
 
 build_sn_dists_histogram('fiducial')
 
@@ -104,16 +130,24 @@ this.window.addEventListener('load', function () {
 
     models.forEach((model) => {
         let el = document.createElement('button')
-        el.classList.add('btn', 'btn-primary', 'sn-dists-button')
+        el.classList.add('btn', 'btn', 'sn-dists-btn')
+        const i = models.indexOf(model)
+        if (i < 11) {
+            el.style.backgroundColor = 'rgb(97, 201, 206)'
+        } else if (i < 22) {
+            el.style.backgroundColor = 'var(--primary-light)'
+        } else if (i < 25) {
+            el.style.backgroundColor = 'var(--primary)'
+        }
         el.setAttribute('id', 'sn-dists-' + model)
         el.addEventListener('click', function () {
             build_sn_dists_histogram(model)
-            document.querySelectorAll('.sn-dists-button').forEach((e) => {
+            document.querySelectorAll('.sn-dists-btn').forEach((e) => {
                 e.classList.remove('active')
             })
             this.classList.add('active')
         })
-        el.innerText = model
+        el.innerText = model_labels[i]
         if (model === 'fiducial') {
             el.classList.add('active')
         }
@@ -248,9 +282,7 @@ function histograms(f, model) {
         displaylogo: false,
     }
 
-    document.getElementById('histograms').innerHTML = ''
-
-    Plotly.newPlot('histograms', data, layout, config).then(() => {
+    function prep_hist_plot() {
         Plotly.addFrames('histograms', frames)
 
         document.getElementById('sn-dists-slider').removeEventListener('input', animate_hist)
@@ -263,41 +295,47 @@ function histograms(f, model) {
         }
 
         document.getElementById('sn-dists-slider').addEventListener('input', animate_hist)
+    }
 
-        document.getElementById('stack-mode').addEventListener('click', function () {
-            Plotly.relayout('histograms', {
-                barmode: 'stack',
-                yaxis: {
-                    range: [0, 15000],
-                },
+    // if the plot hasn't been created yet, create it
+    if (document.getElementById('histograms').innerHTML === '') {
+        Plotly.newPlot('histograms', data, layout, config).then(() => {
+            // do the regular prep
+            prep_hist_plot()
+
+            // also setup the stack and separate buttons
+            document.getElementById('stack-mode').addEventListener('click', function () {
+                Plotly.relayout('histograms', {
+                    barmode: 'stack',
+                })
+                Plotly.restyle('histograms', { opacity: [1, 1, 1, 1] })
+                this.classList.add('active')
+                document.getElementById('separate-mode').classList.remove('active')
             })
-            Plotly.restyle('histograms', { opacity: [1, 1, 1, 1] })
-            this.classList.add('active')
-            document.getElementById('separate-mode').classList.remove('active')
-        })
 
-        const sep_mode = document.getElementById('separate-mode')
-        sep_mode.addEventListener('click', function () {
-            Plotly.relayout('histograms', {
-                barmode: 'group',
-                yaxis: {
-                    range: [0, 8000],
-                },
+            document.getElementById('separate-mode').addEventListener('click', function () {
+                Plotly.relayout('histograms', {
+                    barmode: 'group',
+                })
+                Plotly.restyle('histograms', { opacity: [0.6, 0.6, 0.6, 0.6] })
+                this.classList.add('active')
+                document.getElementById('stack-mode').classList.remove('active')
             })
-            Plotly.restyle('histograms', { opacity: [0.6, 0.6, 0.6, 0.6] })
-            this.classList.add('active')
-            document.getElementById('stack-mode').classList.remove('active')
+            document.getElementById('sn-dists-slider').value = 200
+            document.getElementById('sn-dists-slider').dispatchEvent(new Event('input'))
+            setTimeout(() => {
+                document.getElementById('sn-dists-slider').dispatchEvent(new Event('input'))
+            }, 500)
         })
-
-        document.getElementById('sn-dists-play').click()
-        setTimeout(function () {
-            document.getElementById('sn-dists-pause').click()
-        }, 100)
-
-        if (sep_mode.classList.contains('active')) {
-            sep_mode.click()
-        }
-    })
+    } else {
+        // otherwise, just update the data and re-animate
+        prep_hist_plot()
+        Plotly.animate('histograms', frames[document.getElementById('sn-dists-slider').value], {
+            mode: 'immediate',
+            transition: { duration: 0 },
+            frame: { duration: 0, redraw: true },
+        })
+    }
 }
 
 function reshapeTo3D(flatArray, d1, d2, d3) {
