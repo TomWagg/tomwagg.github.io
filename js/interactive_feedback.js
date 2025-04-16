@@ -379,7 +379,16 @@ function percentiles(f) {
         }
         time_percs.push(subset)
     }
-    console.log(dist_percs)
+    const star_forming_mass = f.get('star_forming_mass').value
+    let totals_per_100msun = []
+    for (let i = 0; i < prefixes.length; i++) {
+        let totals = f.get(`total${prefixes[i]}`).value
+        let subset = []
+        for (let j = 0; j < totals.length; j++) {
+            subset.push((totals[j] / star_forming_mass[j]) * 100)
+        }
+        totals_per_100msun.push(subset)
+    }
 
     const full_bar_width = 0.8
     const bar_widths = [full_bar_width, full_bar_width / 3, full_bar_width / 3, full_bar_width / 3]
@@ -419,13 +428,31 @@ function percentiles(f) {
     for (let perc_ind = 0; perc_ind < perc_list.length; perc_ind++) {
         const percs = perc_list[perc_ind].vals
         for (let pid = 0; pid < prefixes.length; pid++) {
+            const line_col = darken_colour(subset_colours[pid], pid == 0 ? 1000 : 50)
+            traces.push({
+                x: [n_models / 2],
+                y: [0.001],
+                base: [percs[pid][2][0]],
+                width: n_models,
+                type: 'bar',
+                marker: {
+                    color: line_col,
+                    line: { width: 1, color: line_col },
+                },
+                legendgroup: subset_labels[pid],
+                hoverinfo: 'skip',
+                showlegend: false,
+                visible: perc_list[perc_ind].visible,
+            })
+        }
+        for (let pid = 0; pid < prefixes.length; pid++) {
             iqr = []
             for (let i = 0; i < n_models; i++) {
                 iqr.push(percs[pid][3][i] - percs[pid][1][i])
             }
             custom_data = []
             for (let i = 0; i < n_models; i++) {
-                custom_data.push([percs[pid][2][i], files[i]])
+                custom_data.push([percs[pid][2][i], files[i], totals_per_100msun[pid][i]])
             }
             subset_x_vals = x_vals.map((x) => x + bar_starts[pid])
             traces.push({
@@ -445,7 +472,7 @@ function percentiles(f) {
                 customdata: custom_data,
                 legendgroup: subset_labels[pid],
                 visible: perc_list[perc_ind].visible,
-                hovertemplate: `<b>%{customdata[1]}</b><br>Q25: %{base:.2f}` + perc_list[perc_ind].unit + `<br>Q50: %{customdata[0]:.2f}` + perc_list[perc_ind].unit + `<br>Q75: %{y:.2f}` + perc_list[perc_ind].unit + `<extra></extra>`,
+                hovertemplate: `<b>%{customdata[1]}</b><br>P25: %{base:.2f}` + perc_list[perc_ind].unit + `<br>P50: %{customdata[0]:.2f}` + perc_list[perc_ind].unit + `<br>P75: %{y:.2f}` + perc_list[perc_ind].unit + `<br>N_SN per 100 Msun: %{customdata[2]:.2f}<extra></extra>`,
             })
             traces.push(...getMedianLine(percs, pid, perc_list[perc_ind].visible))
         }
