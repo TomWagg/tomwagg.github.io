@@ -81,11 +81,11 @@ function percentiles(f) {
         return lines
     }
 
-    perc_list = [
+    let perc_list = [
         { vals: dist_percs, visible: true, unit: 'pc' },
         { vals: time_percs, visible: false, unit: 'Myr' },
     ]
-    traces = []
+    let traces = []
     for (let perc_ind = 0; perc_ind < perc_list.length; perc_ind++) {
         const percs = perc_list[perc_ind].vals
         for (let pid = 0; pid < prefixes.length; pid++) {
@@ -139,9 +139,7 @@ function percentiles(f) {
         }
     }
 
-    console.log(traces)
-
-    const layout = {
+    let layout = {
         barmode: 'overlay',
         xaxis: {
             title: {
@@ -267,6 +265,242 @@ function percentiles(f) {
             })
         })
     })
+
+    const stat_cs = ['#6b8e23', '#5f9ea0']
+
+    function create_fiducial_band(fid_val, colour, legendgroup, xaxis = 'x1', yaxis = 'y1') {
+        let band_traces = []
+        // add a vertical line at the fiducial value
+        repeat_fid_val = []
+        for (let i = 0; i < n_models; i++) {
+            repeat_fid_val.push(fid_val)
+        }
+        band_traces.push({
+            x: repeat_fid_val,
+            y: model_labels,
+            mode: 'lines',
+            type: 'scatter',
+            orientation: 'h',
+            line: {
+                shape: 'linear',
+                color: darken_colour(colour, 50),
+                width: 1,
+                dash: 'dot',
+            },
+            marker: {
+                size: 10,
+                color: colour,
+            },
+            legendgroup: legendgroup,
+            showlegend: false,
+            hoverinfo: 'skip',
+            xaxis: xaxis,
+            yaxis: yaxis,
+        })
+
+        // add a filled, semi-transparent area within 15% of the value of the first model
+        rgb_col = hexToRgb(colour)
+        transparent_col = 'rgba(' + rgb_col.r + ', ' + rgb_col.g + ', ' + rgb_col.b + ', 0.2)'
+        let lower_bound = []
+        let upper_bound = []
+        for (let i = 0; i < n_models; i++) {
+            lower_bound.push(repeat_fid_val[i] * 0.85)
+            upper_bound.push(repeat_fid_val[i] * 1.15)
+        }
+        band_traces.push({
+            x: lower_bound,
+            y: model_labels,
+            mode: 'lines',
+            type: 'scatter',
+            orientation: 'h',
+            line: {
+                shape: 'linear',
+                width: 0,
+            },
+            legendgroup: legendgroup,
+            showlegend: false,
+            hoverinfo: 'skip',
+            xaxis: xaxis,
+            yaxis: yaxis,
+        })
+        band_traces.push({
+            x: upper_bound,
+            y: model_labels,
+            mode: 'lines',
+            type: 'scatter',
+            orientation: 'h',
+            line: {
+                shape: 'linear',
+                width: 0,
+            },
+            fill: 'tonextx',
+            fillcolor: transparent_col,
+            legendgroup: legendgroup,
+            showlegend: false,
+            hoverinfo: 'skip',
+            xaxis: xaxis,
+            yaxis: yaxis,
+        })
+        return band_traces
+    }
+
+    // Let's do a vertical two-panel line plot for the medians
+    traces = [
+        ...create_fiducial_band(time_percs[0][2][1], stat_cs[0], ''),
+        {
+            x: time_percs[0][2],
+            y: model_labels,
+            mode: 'lines+markers',
+            type: 'scatter',
+            orientation: 'h',
+            line: {
+                shape: 'linear',
+                color: stat_cs[0],
+                width: 2,
+            },
+            marker: {
+                size: 10,
+                color: stat_cs[0],
+            },
+            customdata: models,
+            hovertemplate: `<b>%{customdata}</b><br>%{x:.2f}Myr<extra></extra>`,
+            xaxis: 'x1',
+            yaxis: 'y1',
+        },
+        ...create_fiducial_band(dist_percs[0][2][1], stat_cs[1], '', 'x2', 'y2'),
+        {
+            x: dist_percs[0][2],
+            y: model_labels,
+            mode: 'lines+markers',
+            type: 'scatter',
+            orientation: 'h',
+            line: {
+                shape: 'linear',
+                color: stat_cs[1],
+                width: 2,
+            },
+            marker: {
+                size: 10,
+                color: stat_cs[1],
+            },
+            customdata: models,
+            hovertemplate: `<b>%{customdata}</b><br>%{x:.2f}pc<extra></extra>`,
+            xaxis: 'x2',
+            yaxis: 'y2',
+        },
+    ]
+
+    layout = {
+        grid: { rows: 1, columns: 2, pattern: 'independent' },
+        xaxis: {
+            title: {
+                text: 'Median Time\n[Myr]',
+                standoff: 10,
+                font: {
+                    size: fs,
+                },
+            },
+            tickfont: {
+                size: fs,
+            },
+        },
+        yaxis: {
+            title: '',
+            type: 'category',
+            autorange: 'reversed',
+            automargin: true,
+        },
+        xaxis2: {
+            title: {
+                text: 'Median Distance\n[pc]',
+                standoff: 10,
+                font: {
+                    size: fs,
+                },
+            },
+            tickfont: {
+                size: fs,
+            },
+        },
+        yaxis2: {
+            title: '',
+            type: 'category',
+            autorange: 'reversed',
+            automargin: true,
+            showticklabels: false,
+        },
+        showlegend: false,
+        paper_bgcolor: bg,
+        plot_bgcolor: bg,
+        font: {
+            color: anti_bg,
+        },
+    }
+
+    Plotly.newPlot('medians', traces, layout, config)
+
+    // Now for a vertical line plot of the totals
+    traces = []
+    for (let pid = 0; pid < prefixes.length; pid++) {
+        traces.push(...create_fiducial_band(totals_per_100msun[pid][0], subset_colours[pid], subset_labels[pid]))
+        traces.push({
+            x: totals_per_100msun[pid],
+            y: model_labels,
+            mode: 'lines+markers',
+            type: 'scatter',
+            orientation: 'h',
+            line: {
+                shape: 'linear',
+                color: subset_colours[pid],
+                width: 2,
+            },
+            marker: {
+                size: 10,
+                color: subset_colours[pid],
+            },
+            name: subset_labels[pid],
+            legendgroup: subset_labels[pid],
+            customdata: models,
+            hovertemplate: `<b>%{customdata}</b><br>%{x:.2f}<extra></extra>`,
+            xaxis: 'x1',
+            yaxis: 'y1',
+        })
+    }
+
+    layout = {
+        xaxis: {
+            title: {
+                text: '$\\Large \\mathrm{N_{SN}\\ per\\ 100\\ {\\rm M_\\odot}}$',
+                standoff: 10,
+                font: {
+                    size: 1.2 * fs,
+                },
+            },
+            tickfont: {
+                size: fs,
+            },
+        },
+        yaxis: {
+            title: '',
+            type: 'category',
+            autorange: 'reversed',
+            automargin: true,
+        },
+        legend: {
+            x: 0.5,
+            y: 1.1,
+            xanchor: 'center',
+            yanchor: 'top',
+            orientation: 'h',
+        },
+        paper_bgcolor: bg,
+        plot_bgcolor: bg,
+        font: {
+            color: anti_bg,
+        },
+    }
+
+    Plotly.newPlot('totals', traces, layout, config)
 }
 
 // HELPER FUNCTIONS
