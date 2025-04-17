@@ -87,7 +87,7 @@ input[type='range']::-moz-range-thumb {
     height: 36px;
     width: 36px;
     border-radius: 9px;
-    background: #529de1;
+    background: var(--primary);
     cursor: pointer;
 }
 
@@ -125,7 +125,8 @@ input[type='range']::-moz-range-thumb {
 }
 
 .accordion-button.cat1 {
-    background-color: #2081a8;
+    /* background-color: #2081a8; */
+    background-color: var(--primary-dark);
 }
 
 .accordion-button.cat2 {
@@ -133,7 +134,8 @@ input[type='range']::-moz-range-thumb {
 }
 
 .accordion-button.cat3 {
-    background-color: #7eafc1;
+    /* background-color: #7eafc1; */
+    background-color: var(--primary-light);
 }
 
 .accordion-button::after {

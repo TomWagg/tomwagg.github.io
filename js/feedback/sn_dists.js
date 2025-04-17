@@ -85,11 +85,11 @@ this.window.addEventListener('load', function () {
         el.classList.add('btn', 'btn', 'sn-dists-btn')
         const i = models.indexOf(model)
         if (i < 11) {
-            el.style.backgroundColor = 'rgb(97, 201, 206)'
-        } else if (i < 22) {
             el.style.backgroundColor = 'var(--primary-light)'
-        } else if (i < 25) {
+        } else if (i < 22) {
             el.style.backgroundColor = 'var(--primary)'
+        } else if (i < 25) {
+            el.style.backgroundColor = 'var(--primary-dark)'
         }
         el.setAttribute('id', 'sn-dists-' + model)
         el.addEventListener('click', function () {
