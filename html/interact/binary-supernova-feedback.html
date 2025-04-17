@@ -22,6 +22,13 @@
 
         <script async src="https://cdn.jsdelivr.net/npm/mathjax@2/MathJax.js?config=TeX-AMS_CHTML"></script>
         <script src="https://cdn.plot.ly/plotly-3.0.1.min.js" charset="utf-8"></script>
+        <style>
+            :root {
+                --primary: #50a3c4;
+                --primary-light: #6cc7eaa3;
+                --primary-dark: #186280;
+            }
+        </style>
     </head>
     <body>
         <div class="back-button">
@@ -44,11 +51,17 @@
             </svg>
         </label>
         <div class="container-fluid" style="padding: 2rem">
-            <div class="row mt-3 text-center">
+            <div class="row mt-3 text-center align-items-center">
+                <div class="col-2">
+                    <img class="img-fluid" src="../../img/project_thumbnails/feedback.png" />
+                </div>
                 <div class="col">
-                    <p class="fs-1 mb-1">Delayed and Displaced</p>
-                    <p class="fs-5 mb-0">The Impact of Binary Interactions on Core-collapse SN Feedback</p>
+                    <p class="fs-1 mb-1 fw-bolder">Delayed and Displaced</p>
+                    <p class="fs-5 mb-0 fw-bold">The Impact of Binary Interactions on Core-collapse SN Feedback</p>
                     <p class="fs-5 fst-italic">Wagg et al. 2025</p>
+                </div>
+                <div class="col-2">
+                    <img class="img-fluid" src="../../img/project_thumbnails/feedback.png" />
                 </div>
             </div>
             <div class="row mt-5">
@@ -67,8 +80,14 @@
                     <p><b>Why does this matter?</b> Supernovae produce feedback in galaxies, which can inhibit further star formation. We find that feedback should extend over longer times and be spatially distributed to a greater extent than current feedback models. This may affect the evolution of galaxies, particularly those at high redshift since they are lower metallicity environments and much smaller.</p>
                     <p><b>How can I use this page?</b> We have made several of the plots from our paper interactive to allow you to explore the full range of models that we explored. Each section below will explain the plot and how you can interact with it - enjoy!</p>
                 </div>
+                <div class="text-center">
+                    <a class="btn btn-primary btn-lg" href="#fig1">Time-dependent spatial distributions</a>
+                    <a class="btn btn-primary btn-lg" href="#fig5-8">Variations</a>
+                    <a class="btn btn-primary btn-lg" href="#fig13-15">Summary plots</a>
+                    <a class="btn btn-primary btn-lg" href="#fig10-11">Analytic model</a>
+                </div>
             </div>
-            <div class="row mt-5">
+            <div id="fig1" class="row mt-5">
                 <div class="col">
                     <hr />
                     <h2>Time-dependent spatial distribution of core-collapse supernovae</h2>
@@ -105,7 +124,7 @@
                 </div>
             </div>
             <div class="row justify-content-center">
-                <div class="accordion col-12 col-lg-6" id="sn-dists-questions">
+                <div class="accordion col-12 col-lg-6 mt-2" id="sn-dists-questions">
                     <h3>Fiducial model trends</h3>
                     <p>So let's first consider just the fiducial model and try to understand some of the variations that we see. Click each of the following dropdowns to find out the answers - the first couple focus on distances and the later ones bring in the time dependence too.</p>
                     <div class="accordion-item">
@@ -161,9 +180,50 @@
                             </div>
                         </div>
                     </div>
+                    <p class="mt-2">For more details about all of this, check out Section 3 of the paper :)</p>
+                </div>
+                <div class="accordion col-12 col-lg-6 mt-2" id="variations-questions">
+                    <h3>Differences across model variations</h3>
+                    <p>Now try playing around with some of the buttons for different models and see if you can understand some of the trends. Below I include just a couple of interesting ones from each category to keep things short but we explored the trends in <i>every</i> model in the paper.</p>
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed cat1" type="button" data-bs-toggle="collapse" data-bs-target="#variations-q1">Fully nonconservative mass transfer (beta = 0) reduces the number of merger products, and makes secondary star supernovae more distant - why?</button>
+                        </h2>
+                        <div id="variations-q1" class="accordion-collapse collapse" data-bs-parent="#variations-questions">
+                            <div class="accordion-body">
+                                <p>
+                                    <b>More mass and angular momentum is lost from the system!</b> Fully nonconservative mass transfer means that all mass donated by a primary star is immediately lost from the system rather than accreted by the secondary. As a result, secondaries are often not as massive as the fiducial model and as such, don't expand and cause a reverse mass transfer event, which would lead to a merger. This reduced expansion of many secondaries reduces the number of merger
+                                    products.
+                                </p>
+                                <p>The mass lost from the system also carries away angular momentum. The loss of angular momentum causes many binaries to tighten, increasing the orbital velocity of the system. Therefore, ejected secondaries are typically faster, thereby increasing the distance that they travel before reaching core collapse.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed cat2" type="button" data-bs-toggle="collapse" data-bs-target="#variations-q2">At low metallicity, why do supernovae occur later and at larger distances?</button>
+                        </h2>
+                        <div id="variations-q2" class="accordion-collapse collapse" data-bs-parent="#variations-questions">
+                            <div class="accordion-body">
+                                <p><b>Stars need less mass to explode and expand less during their lives!</b> At lower metallicity, the minimum mass required for a star to reach core collapse in the underlying stellar models is reduced. This lower limit allows less massive (i.e., more slowly evolving) stars to reach core collapse. These lower mass stars extend the tail of late supernovae.</p>
+                                <p>Moreover, the lower radial extent of low metallicity stars means that they can detach from Roche lobe overflow at much smaller separations. Therefore, binaries are often tighter at the moment of a primary star's core collapse, increasing the ejection velocities of secondaries.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed cat3" type="button" data-bs-toggle="collapse" data-bs-target="#variations-q3">Why are secondary stars insensitive to reductions in the initial cluster velocity dispersion?</button>
+                        </h2>
+                        <div id="variations-q3" class="accordion-collapse collapse" data-bs-parent="#variations-questions">
+                            <div class="accordion-body">
+                                <p><b>Their velocities are controlled by binary interactions!</b> Secondary stars are mostly ejected from their binaries by companions, and as such their velocities are set by binary interactions, not the initial cluster velocity dispersion. As such, the distances that they travel are mostly independent of this parameter.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="mt-2">For more details about all of this and more, check out Section 4 of the paper :)</p>
                 </div>
             </div>
-            <div class="row mt-5">
+            <div id="fig5-8" class="row mt-5">
                 <div class="col">
                     <hr />
                     <h2>Variations of binary physics, initial conditions and galaxy parameters</h2>
@@ -195,7 +255,7 @@
                     <div id="percentiles" style="min-height: 700px"></div>
                 </div>
             </div>
-            <div class="row mt-5">
+            <div id="fig13-15" class="row mt-5">
                 <div class="col">
                     <hr />
                     <h2>Summary plots</h2>
@@ -220,7 +280,7 @@
             <div class="text-center">
                 <button class="btn btn-primary" id="summary-reset">Reset summary axes</button>
             </div>
-            <div class="row mt-5">
+            <div id="fig10-11" class="row mt-5">
                 <div class="col">
                     <hr />
                     <h2>Analytic model</h2>

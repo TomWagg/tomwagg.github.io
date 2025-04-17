@@ -195,7 +195,7 @@ function histograms(f, model) {
                     size: 1.2 * fs,
                 },
             },
-            range: [0, 15000],
+            range: [0, 17000],
             tickfont: {
                 size: fs,
             },
