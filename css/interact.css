@@ -1,3 +1,18 @@
+body {
+    font-size: 20px;
+}
+
+h1,
+h2,
+h3 {
+    font-weight: bolder;
+}
+
+.explainer {
+    color: var(--primary);
+    text-decoration: underline;
+}
+
 .back-button {
     position: absolute;
     z-index: 10;
