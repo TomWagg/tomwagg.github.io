@@ -363,7 +363,7 @@ function percentiles(f) {
                 color: stat_cs[0],
             },
             customdata: models,
-            hovertemplate: `<b>%{customdata}</b><br>%{x:.2f}Myr<extra></extra>`,
+            hovertemplate: `<b>%{customdata}</b><br>%{x:.2f} Myr<extra></extra>`,
             xaxis: 'x1',
             yaxis: 'y1',
         },
@@ -384,14 +384,14 @@ function percentiles(f) {
                 color: stat_cs[1],
             },
             customdata: models,
-            hovertemplate: `<b>%{customdata}</b><br>%{x:.2f}pc<extra></extra>`,
+            hovertemplate: `<b>%{customdata}</b><br>%{x:.2f} pc<extra></extra>`,
             xaxis: 'x2',
             yaxis: 'y2',
         },
     ]
 
     layout = {
-        grid: { rows: 1, columns: 2, pattern: 'independent' },
+        grid: { rows: 1, columns: 2, pattern: 'independent', shared_yaxes: true },
         xaxis: {
             title: {
                 text: 'Median Time\n[Myr]',
@@ -429,6 +429,7 @@ function percentiles(f) {
             autorange: 'reversed',
             automargin: true,
             showticklabels: false,
+            matches: 'y',
         },
         showlegend: false,
         paper_bgcolor: bg,
@@ -572,6 +573,48 @@ function percentiles(f) {
     }
 
     Plotly.newPlot('totals', traces, layout, config)
+
+    const plots = ['medians', 'tails', 'totals']
+
+    function syncYAxes(sourceId, eventData) {
+        if (!eventData['yaxis.range[0]'] || !eventData['yaxis.range[1]']) return
+
+        const update = {
+            'yaxis.range': [eventData['yaxis.range[0]'], eventData['yaxis.range[1]']],
+        }
+
+        plots.forEach((id) => {
+            if (id !== sourceId) {
+                Plotly.relayout(id, update)
+            }
+        })
+    }
+
+    plots.forEach((plotId) => {
+        const plotDiv = document.getElementById(plotId)
+        plotDiv.on('plotly_relayout', (eventData) => {
+            syncYAxes(plotId, eventData)
+        })
+    })
+
+    document.getElementById('summary-reset').addEventListener('click', function () {
+        plots.forEach((id) => {
+            Plotly.relayout(
+                id,
+                id == 'medians'
+                    ? {
+                          'xaxis.autorange': true,
+                          'yaxis.autorange': true,
+                          'xaxis2.autorange': true,
+                          'yaxis2.autorange': true,
+                      }
+                    : {
+                          'xaxis.autorange': true,
+                          'yaxis.autorange': true,
+                      }
+            )
+        })
+    })
 }
 
 // HELPER FUNCTIONS

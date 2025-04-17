@@ -35,7 +35,7 @@ const model_labels = [
 
 this.window.addEventListener('load', function () {
     document.getElementById('dark-mode-checkbox').addEventListener('change', function () {
-        const plots = ['histograms', 'percentiles', 'model']
+        const plots = ['histograms', 'percentiles', 'model', 'medians', 'tails', 'totals']
         plots.forEach((plot) => {
             Plotly.relayout(plot, {
                 paper_bgcolor: this.checked ? '#333' : 'white',
