@@ -266,7 +266,7 @@ function percentiles(f) {
         })
     })
 
-    const stat_cs = ['#6b8e23', '#5f9ea0']
+    const stat_cs = ['#6b8e23', '#5f9ea0', '#708090']
 
     function create_fiducial_band(fid_val, colour, legendgroup, xaxis = 'x1', yaxis = 'y1') {
         let band_traces = []
@@ -346,7 +346,7 @@ function percentiles(f) {
 
     // Let's do a vertical two-panel line plot for the medians
     traces = [
-        ...create_fiducial_band(time_percs[0][2][1], stat_cs[0], ''),
+        ...create_fiducial_band(time_percs[0][2][0], stat_cs[0], ''),
         {
             x: time_percs[0][2],
             y: model_labels,
@@ -367,7 +367,7 @@ function percentiles(f) {
             xaxis: 'x1',
             yaxis: 'y1',
         },
-        ...create_fiducial_band(dist_percs[0][2][1], stat_cs[1], '', 'x2', 'y2'),
+        ...create_fiducial_band(dist_percs[0][2][0], stat_cs[1], '', 'x2', 'y2'),
         {
             x: dist_percs[0][2],
             y: model_labels,
@@ -421,6 +421,7 @@ function percentiles(f) {
             tickfont: {
                 size: fs,
             },
+            range: [10, 60],
         },
         yaxis2: {
             title: '',
@@ -438,6 +439,76 @@ function percentiles(f) {
     }
 
     Plotly.newPlot('medians', traces, layout, config)
+
+    // now another one for the tails
+    let f_late = f.get('f_late').value
+    let f_far = f.get('f_far').value
+    let f_distant = f.get('f_distant').value
+    let tails = [f_late, f_far, f_distant]
+    let tail_labels = ['$f_{t > {\\rm 44 Myr}}$', '$f_{D > {\\rm 100 pc}}$', '$f_{D > {\\rm 500 pc}}$']
+
+    traces = []
+    for (let tid = 0; tid < tails.length; tid++) {
+        traces.push(...create_fiducial_band(tails[tid][0], stat_cs[tid], tail_labels[tid]))
+        traces.push({
+            x: tails[tid],
+            y: model_labels,
+            mode: 'lines+markers',
+            type: 'scatter',
+            orientation: 'h',
+            line: {
+                shape: 'linear',
+                color: stat_cs[tid],
+                width: 2,
+            },
+            marker: {
+                size: 10,
+                color: stat_cs[tid],
+            },
+            name: tail_labels[tid],
+            legendgroup: tail_labels[tid],
+            customdata: models,
+            hovertemplate: `<b>%{customdata}</b><br>%{x:.2f}<extra></extra>`,
+            xaxis: 'x1',
+            yaxis: 'y1',
+        })
+    }
+
+    layout = {
+        xaxis: {
+            title: {
+                text: 'Fraction of supernovae',
+                standoff: 10,
+                font: {
+                    size: 1.2 * fs,
+                },
+            },
+            tickfont: {
+                size: fs,
+            },
+            range: [-0.05, 0.36],
+        },
+        yaxis: {
+            title: '',
+            type: 'category',
+            autorange: 'reversed',
+            automargin: true,
+        },
+        legend: {
+            x: 0.5,
+            y: 1.1,
+            xanchor: 'center',
+            yanchor: 'top',
+            orientation: 'h',
+        },
+        paper_bgcolor: bg,
+        plot_bgcolor: bg,
+        font: {
+            color: anti_bg,
+        },
+    }
+
+    Plotly.newPlot('tails', traces, layout, config)
 
     // Now for a vertical line plot of the totals
     traces = []
