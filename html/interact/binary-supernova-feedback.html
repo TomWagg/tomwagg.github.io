@@ -53,20 +53,25 @@
             </div>
             <div class="row mt-5">
                 <div class="col">
-                    <h2>A brief introduction</h2>
+                    <h2>A brief overview</h2>
                     <p>Welcome! You've found the page for the interactive plots for our paper about how binary interactions can delay and displace core-collapse supernova feedback.</p>
                     <p>
-                        <b>What did we do?</b> In this study, we used <code>cogsworth</code> to postprocess the <code>FIRE</code> m11h hydrodynamical zoom-in simulation and perform self-consistent population synthesis and galactic dynamics simulations. This allows us to evolve a large population of binaries through a galactic potential and track the precise times and locations are which the stars reached core collapse. We repeated these simulations for a range of different assumptions regarding
-                        binary physics, initial conditions and galaxy parameters.
+                        <b>What did we do?</b> In this study, we used <code data-bs-toggle="tooltip" title="A code I developed that combines COSMIC and Gala to evolve binaries and integrate their positions through galactic potentials in a self-consistent manner">cogsworth</code> to postprocess the <code data-bs-toggle="tooltip" title="The FIRE (Feedback In Real Environment) team develop realistic hydrodynamical zoom-in simulations of galaxy formation">FIRE</code> m11h hydrodynamical zoom-in
+                        simulation and perform self-consistent population synthesis and galactic dynamics simulations. This allows us to evolve a large population of binaries through a galactic potential and track the precise times and locations are which the stars reached core collapse. We repeated these simulations for a range of different assumptions regarding binary physics, initial conditions and galaxy parameters.
                     </p>
-                    <p><b>What are our main results?</b> We find that ~25% of supernovae occur more than <span class="explainer" data-bs-toggle="tooltip" title="The current limit assumed in FIRE-3 feedback models, based on single star evolution">44 Myr</span> after a star formation event. We also find that ~13</p>
-                    <p><b>Why does this matter?</b></p>
-                    <p><b>How can I use this page?</b></p>
+                    <p>
+                        <b>What are our main results?</b> We find that ~25% of supernovae occur more than <span class="explainer" data-bs-toggle="tooltip" title="The current limit assumed in FIRE-3 feedback models, based on single star evolution">44 Myr</span> after a star formation event. We also find that ~13% of supernovae explode more than 0.1kpc from their parent star clusters. These effects are both exacerbated in lower
+                        <span class="explainer" data-bs-toggle="tooltip" title="Metallicity describes the fraction of 'metals' (i.e. not hydrogen or helium) in a star or in gas. Lower metallicity stars expand less and require a lower core mass to reach supernova">metallicity</span> environments. We find that our results are mostly robust to uncertainties in binary physics and the other variations we considered, as you can explore below. We also created an analytic model for supernova feedback
+                        that can used in future models.
+                    </p>
+                    <p><b>Why does this matter?</b> Supernovae produce feedback in galaxies, which can inhibit further star formation. We find that feedback should extend over longer times and be spatially distributed to a greater extent than current feedback models. This may affect the evolution of galaxies, particularly those at high redshift since they are lower metallicity environments and much smaller.</p>
+                    <p><b>How can I use this page?</b> We have made several of the plots from our paper interactive to allow you to explore the full range of models that we explored. Each section below will explain the plot and how you can interact with it - enjoy!</p>
                 </div>
             </div>
             <div class="row mt-5">
                 <div class="col">
                     <h2>Time-dependent spatial distribution of core-collapse supernovae</h2>
+                    <h4 class="fst-italic">Figure 1</h4>
                     <p class="text-danger">TODO</p>
                 </div>
             </div>
@@ -100,7 +105,8 @@
             </div>
             <div class="row mt-5">
                 <div class="col">
-                    <h2>Percentiles variations</h2>
+                    <h2>Variations of binary physics, initial conditions and galaxy parameters</h2>
+                    <h4 class="fst-italic">Figures 5-8</h4>
                     <p class="text-danger">TODO</p>
                     <div class="row text-center">
                         <div class="col">
@@ -131,6 +137,7 @@
             <div class="row mt-5">
                 <div class="col">
                     <h2>Summary plots</h2>
+                    <h4 class="fst-italic">Figures 13-15</h4>
                     <p class="text-danger">TODO</p>
                 </div>
             </div>
@@ -154,6 +161,7 @@
             <div class="row mt-5">
                 <div class="col">
                     <h2>Analytic model</h2>
+                    <h4 class="fst-italic">Figures 10 & 11</h4>
                     <p class="text-danger">TODO</p>
                 </div>
             </div>
@@ -183,8 +191,8 @@
         <script src="https://cdn.jsdelivr.net/npm/jsfive@0.3.10/dist/browser/hdf5.js"></script>
         <script src="../../js/dark_mode.js"></script>
         <script src="../../js/feedback/general.js"></script>
-        <script src="../../js/feedback/sn_dists.js"></script>
+        <!-- <script src="../../js/feedback/sn_dists.js"></script>
         <script src="../../js/feedback/percentiles.js"></script>
-        <script src="../../js/feedback/model.js"></script>
+        <script src="../../js/feedback/model.js"></script> -->
     </body>
 </html>

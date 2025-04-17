@@ -13,7 +13,6 @@ function percentiles(f) {
     const dark_mode = document.getElementById('dark-mode-checkbox').checked
     let bg = dark_mode ? '#333' : 'white'
     let anti_bg = dark_mode ? 'white' : '#333'
-    let grey = dark_mode ? '#595656' : '#eee'
 
     // logs the keys in the HDF5 file
     console.log(f.keys)
@@ -85,12 +84,12 @@ function percentiles(f) {
         { vals: dist_percs, visible: true, unit: 'pc' },
         { vals: time_percs, visible: false, unit: 'Myr' },
     ]
-    let traces = []
+    let perc_traces = []
     for (let perc_ind = 0; perc_ind < perc_list.length; perc_ind++) {
         const percs = perc_list[perc_ind].vals
         for (let pid = 0; pid < prefixes.length; pid++) {
             const line_col = darken_colour(subset_colours[pid], pid == 0 ? 1000 : 50)
-            traces.push({
+            perc_traces.push({
                 x: [n_models / 2],
                 y: [0.001],
                 base: [percs[pid][2][0]],
@@ -116,7 +115,7 @@ function percentiles(f) {
                 custom_data.push([percs[pid][2][i], files[i], totals_per_100msun[pid][i]])
             }
             subset_x_vals = x_vals.map((x) => x + bar_starts[pid])
-            traces.push({
+            perc_traces.push({
                 x: subset_x_vals,
                 y: iqr,
                 base: percs[pid][1],
@@ -135,7 +134,7 @@ function percentiles(f) {
                 visible: perc_list[perc_ind].visible,
                 hovertemplate: `<b>%{customdata[1]}</b><br>P25: %{base:.2f}` + perc_list[perc_ind].unit + `<br>P50: %{customdata[0]:.2f}` + perc_list[perc_ind].unit + `<br>P75: %{y:.2f}` + perc_list[perc_ind].unit + `<br>N_SN per 100 Msun: %{customdata[2]:.2f}<extra></extra>`,
             })
-            traces.push(...getMedianLine(percs, pid, perc_list[perc_ind].visible))
+            perc_traces.push(...getMedianLine(percs, pid, perc_list[perc_ind].visible))
         }
     }
 
@@ -194,7 +193,7 @@ function percentiles(f) {
         displaylogo: false,
     }
 
-    Plotly.newPlot('percentiles', traces, layout, config).then(() => {
+    Plotly.newPlot('percentiles', perc_traces, layout, config).then(() => {
         document.getElementById('percentiles-time').addEventListener('click', function () {
             Plotly.relayout('percentiles', {
                 yaxis: {
@@ -210,7 +209,7 @@ function percentiles(f) {
                     automargin: true,
                 },
             })
-            Plotly.restyle('percentiles', { visible: traces.map((_, i) => i >= traces.length / 2) })
+            Plotly.restyle('percentiles', { visible: perc_traces.map((_, i) => i >= perc_traces.length / 2) })
             this.classList.add('active')
             document.getElementById('percentiles-dist').classList.remove('active')
         })
@@ -229,7 +228,7 @@ function percentiles(f) {
                     automargin: true,
                 },
             })
-            Plotly.restyle('percentiles', { visible: traces.map((_, i) => i < traces.length / 2) })
+            Plotly.restyle('percentiles', { visible: perc_traces.map((_, i) => i < perc_traces.length / 2) })
             this.classList.add('active')
             document.getElementById('percentiles-time').classList.remove('active')
         })
@@ -265,6 +264,8 @@ function percentiles(f) {
             })
         })
     })
+
+    let traces = []
 
     const stat_cs = ['#6b8e23', '#5f9ea0', '#708090']
 
@@ -403,12 +404,14 @@ function percentiles(f) {
             tickfont: {
                 size: fs,
             },
+            zeroline: false,
         },
         yaxis: {
             title: '',
             type: 'category',
             autorange: 'reversed',
             automargin: true,
+            zeroline: false,
         },
         xaxis2: {
             title: {
@@ -422,6 +425,7 @@ function percentiles(f) {
                 size: fs,
             },
             range: [10, 60],
+            zeroline: false,
         },
         yaxis2: {
             title: '',
@@ -430,6 +434,7 @@ function percentiles(f) {
             automargin: true,
             showticklabels: false,
             matches: 'y',
+            zeroline: false,
         },
         showlegend: false,
         paper_bgcolor: bg,
@@ -488,12 +493,14 @@ function percentiles(f) {
                 size: fs,
             },
             range: [-0.05, 0.36],
+            zeroline: false,
         },
         yaxis: {
             title: '',
             type: 'category',
             autorange: 'reversed',
             automargin: true,
+            zeroline: false,
         },
         legend: {
             x: 0.5,
@@ -551,12 +558,14 @@ function percentiles(f) {
             tickfont: {
                 size: fs,
             },
+            zeroline: false,
         },
         yaxis: {
             title: '',
             type: 'category',
             autorange: 'reversed',
             automargin: true,
+            zeroline: false,
         },
         legend: {
             x: 0.5,
