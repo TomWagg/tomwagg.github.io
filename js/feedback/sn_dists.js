@@ -75,7 +75,7 @@ this.window.addEventListener('load', function () {
     })
 
     document.getElementById('sn-dists-faster').addEventListener('click', function () {
-        interval_time = Math.round(Math.max(15, interval_time / 2))
+        interval_time = Math.round(Math.max(20, interval_time / 2))
         pause.click()
         play.click()
     })
@@ -177,7 +177,7 @@ function histograms(f, model) {
         xaxis: {
             title: {
                 // label with latex as log10(distance)
-                text: '$\\Large \\mathrm{Distance\\ from\\ parent\\ cluster, } \\log_{10}(d / {\\rm pc})$',
+                text: '$\\Large {\\rm Distance\\ from\\ parent\\ cluster}  \\log_{10}(d / {\\rm pc})$',
                 standoff: 10,
                 font: {
                     size: 50,

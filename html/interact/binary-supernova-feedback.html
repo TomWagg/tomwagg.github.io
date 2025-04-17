@@ -70,9 +70,11 @@
             </div>
             <div class="row mt-5">
                 <div class="col">
+                    <hr />
                     <h2>Time-dependent spatial distribution of core-collapse supernovae</h2>
                     <h4 class="fst-italic">Figure 1</h4>
-                    <p class="text-danger">TODO</p>
+                    <p>This section is an interactive version of the top right panel of Figure 1 from our paper. At first, this plot just shows the same fiducial population that you see in the paper (except you can zoom, pan and hover to get more information).</p>
+                    <p>To start changing things, try switching between stacked and separate histograms to better understand how the different progenitor channels vary. You can also use the sliders and play/pause buttons to start imposing an upper limit on the timing of the supernovae. Finally, there's a list of all of the models that we ran that you can switch between to see how the distribution varies.</p>
                 </div>
             </div>
             <div class="row mb-3">
@@ -80,11 +82,10 @@
                     <div id="histograms" style="max-height: 500px"></div>
                 </div>
                 <div class="col-12 col-lg-3 align-self-center text-center">
-                    <!-- <div id="sn-dists-switcher" class="btn-group-vertical toggle-group" role="group"></div> -->
                     <div id="sn-dists-switcher" class="toggle-group"></div>
                 </div>
             </div>
-            <div class="row justify-content-center text-center mt-2">
+            <div class="row justify-content-center text-center">
                 <div class="col-12 col-8-md">
                     <div class="d-flex">
                         <div class="btn-group me-2" role="group">
@@ -103,8 +104,68 @@
                     <label for="sn-dists-slider" class="form-label fs-3">SN times < <span id="sn-dists-age">4</span> Myr</label>
                 </div>
             </div>
+            <div class="row justify-content-center">
+                <div class="accordion col-12 col-lg-6" id="sn-dists-questions">
+                    <h3>Fiducial model trends</h3>
+                    <p>So let's first consider just the fiducial model and try to understand some of the variations that we see. Click each of the following dropdowns to find out the answers - the first couple focus on distances and the later ones bring in the time dependence too.</p>
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed cat1" type="button" data-bs-toggle="collapse" data-bs-target="#sn-dists-q1">Why do merger products travel further than primary stars?</button>
+                        </h2>
+                        <div id="sn-dists-q1" class="accordion-collapse collapse" data-bs-parent="#sn-dists-questions">
+                            <div class="accordion-body">
+                                <p><b>They live longer!</b> The distances travelled by merger products and primary stars are both driven by the initial cluster velocity dispersion (which is $v_{\rm disp} \approx 1.7 \, {\rm km/s}$ in our fiducial model).</p>
+                                <p>However, merger products tend to live much longer than primary stars so they have longer to disperse from the cluster.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed cat1" type="button" data-bs-toggle="collapse" data-bs-target="#sn-dists-q2">What causes secondary stars to reach the largest distances?</button>
+                        </h2>
+                        <div id="sn-dists-q2" class="accordion-collapse collapse" data-bs-parent="#sn-dists-questions">
+                            <div class="accordion-body">
+                                <p><b>Many are ejected by their companions!</b> In many cases, after a primary star reaches core collapse, the binary is disrupted. At this point the secondary is ejected with its pre-supernova orbital velocity, potentially travelling vast distances before exploding.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed cat2" type="button" data-bs-toggle="collapse" data-bs-target="#sn-dists-q3">We don't predict any primary or secondary supernovae after ~60 Myr, why?</button>
+                        </h2>
+                        <div id="sn-dists-q3" class="accordion-collapse collapse" data-bs-parent="#sn-dists-questions">
+                            <div class="accordion-body">
+                                <p><b>Single stars can't live that long and still reach core collapse!</b> At the average metallicity of our fiducial model, a star needs around $7 \, {\rm M_\odot}$ to reach core collapse, which corresponds to a lifetime of around $44 \, {\rm Myr}$. Stars with lower masses live longer...but they don't produce supernovae!</p>
+                                <p>There are still a few primary/secondary supernovae that occur after this time, but these have experienced mass transfer with a companion and so have slightly altered their nuclear timescales.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed cat2" type="button" data-bs-toggle="collapse" data-bs-target="#sn-dists-q4">So, how do merger products still explode at later times?</button>
+                        </h2>
+                        <div id="sn-dists-q4" class="accordion-collapse collapse" data-bs-parent="#sn-dists-questions">
+                            <div class="accordion-body">
+                                <p><b>Mergers from lower mass stars take more time!</b> Take, for example, two 5 solar mass stars. Neither will reach core collapse on their own, and each has a much lengthier main sequence lifetime than a more massive star. But if they are close enough in orbit, once one expands sufficiently they can merge, and produce a star massive enough to explode.</p>
+                                <p>Since the main sequence lifetime of these stars is so much longer, the merger (and therefore, supernova) may not occur for many tens of Myr after the final primary/secondary star supernova.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed cat2" type="button" data-bs-toggle="collapse" data-bs-target="#sn-dists-q5">As the slider moves to the right, the distances increase. Why does more time cause most of the distribution to shift to larger distances?</button>
+                        </h2>
+                        <div id="sn-dists-q5" class="accordion-collapse collapse" data-bs-parent="#sn-dists-questions">
+                            <div class="accordion-body">
+                                <p><b>Most distances are driven by initial velocity dispersions!</b> Although a fraction of secondaries are ejected by their companions, most stars travel distances based on their initial velocities. This means that stars that live longer simply have more time to disperse from their cluster and increase the distance.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <div class="row mt-5">
                 <div class="col">
+                    <hr />
                     <h2>Variations of binary physics, initial conditions and galaxy parameters</h2>
                     <h4 class="fst-italic">Figures 5-8</h4>
                     <p class="text-danger">TODO</p>
@@ -136,6 +197,7 @@
             </div>
             <div class="row mt-5">
                 <div class="col">
+                    <hr />
                     <h2>Summary plots</h2>
                     <h4 class="fst-italic">Figures 13-15</h4>
                     <p class="text-danger">TODO</p>
@@ -160,6 +222,7 @@
             </div>
             <div class="row mt-5">
                 <div class="col">
+                    <hr />
                     <h2>Analytic model</h2>
                     <h4 class="fst-italic">Figures 10 & 11</h4>
                     <p class="text-danger">TODO</p>
@@ -191,8 +254,8 @@
         <script src="https://cdn.jsdelivr.net/npm/jsfive@0.3.10/dist/browser/hdf5.js"></script>
         <script src="../../js/dark_mode.js"></script>
         <script src="../../js/feedback/general.js"></script>
-        <!-- <script src="../../js/feedback/sn_dists.js"></script>
-        <script src="../../js/feedback/percentiles.js"></script>
+        <script src="../../js/feedback/sn_dists.js"></script>
+        <!-- <script src="../../js/feedback/percentiles.js"></script>
         <script src="../../js/feedback/model.js"></script> -->
     </body>
 </html>
