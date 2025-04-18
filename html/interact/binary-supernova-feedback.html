@@ -260,13 +260,14 @@
                     <hr />
                     <h2>Summary plots</h2>
                     <h4 class="fst-italic">Figures 13-15</h4>
-                    <p class="text-danger">TODO</p>
+                    <p>This section contains the summary plots for the main trends across our model, which we discuss in Section 6 of the paper. These plots all have linked y-axes, so any zooming or panning will apply to all plots at the same time. Feel free to zoom in on the variations that you care most about! You can use the button below all three to reset their axes after zooming (or use the home button on each individual plot).</p>
                 </div>
             </div>
             <div class="row mb-3 text-center justify-content-center">
                 <div class="col-12 col-lg-6 col-xl-4">
                     <h3>Medians</h3>
                     <div id="medians" style="min-height: 700px"></div>
+                    <!-- <p>The median time mainly varies with changes in mass transfer, the initial mass function, and metallicity. The median distance stays very close to the fiducial value, only significantly changing for metallicity and initial velocity dispersion variations.</p> -->
                 </div>
                 <div class="col-12 col-lg-6 col-xl-4">
                     <h3>Tails</h3>
@@ -285,7 +286,71 @@
                     <hr />
                     <h2>Analytic model</h2>
                     <h4 class="fst-italic">Figures 10 & 11</h4>
-                    <p class="text-danger">TODO</p>
+                    <p>This section lets you interact with the analytic model that we designed to fit the timing and progenitor velocity distributions of supernovae. You can alter the metallicity using the slider below and see how things change.</p>
+                    <p>If you're curious about the general definition of the model, you can unfold the dropdowns below to get some info (and check out the paper for the full defintions!).</p>
+                    <div class="row">
+                        <div class="accordion col-12 col-xl-6" id="model-details">
+                            <div class="accordion-item">
+                                <h2 class="accordion-header">
+                                    <button class="accordion-button collapsed cat1" type="button" data-bs-toggle="collapse" data-bs-target="#time-model-details">Supernova time model</button>
+                                </h2>
+                                <div id="time-model-details" class="accordion-collapse collapse" data-bs-parent="#model-details">
+                                    <div class="accordion-body">
+                                        <p>The rate of core-collapse supernovae over time is a simple broken power law that has physically-motivated metallicity-dependent transition points.</p>
+                                        <p>
+                                            <script type="math/tex; mode=display">
+                                                \frac{\mathcal{R}_{\rm CSSN}(t / { \, \rm Myr})}{{ \, \rm Gyr}{\rm \, M_\odot}} \equiv \begin{cases} 0 & t \lt t_1, t \gt t_6,\\ a_{i} (t / t_{i})^{\psi_{i}} & t_{i} \le t \lt t_{i + 1}, i \lt 5,\\ a_6 e^{-t / t_5} & t_5 \le t \lt t_6 \end{cases}
+                                            </script>
+                                        </p>
+                                        <p>where $a_i$, $t_i$ and $\psi_i$ are metallicity-dependent parameters defined in the paper</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="accordion-item">
+                                <h2 class="accordion-header">
+                                    <button class="accordion-button collapsed cat2" type="button" data-bs-toggle="collapse" data-bs-target="#vel-model-details">Progenitor velocities model</button>
+                                </h2>
+                                <div id="vel-model-details" class="accordion-collapse collapse" data-bs-parent="#model-details">
+                                    <div class="accordion-body">
+                                        <p>The velocities of progenitors is set by a variety of factors, based on whether they were ejected by their companion, and then whether they experienced mass transfer and what type. Unejected progenitors simply follow the initial cluster velocity dispersion:</p>
+                                        <p>
+                                            <script type="math/tex; mode=display">
+                                                p_{\rm unejected}(v) = \frac{1}{\sigma^3} \sqrt{\frac{2}{\pi}} v^2 e^{-v^2 / (2\sigma^2)},
+                                            </script>
+                                        </p>
+                                        <p>For ejected systems, it's more complicated and the branching ratio between different mass transfer types varies with metallicity (see Eq. 8-11 in the paper). The distribution for each type of ejection is as follows though</p>
+                                        <div class="row">
+                                            <div class="col-6 col-xl-12">
+                                                <p>
+                                                    <script type="math/tex; mode=display">
+                                                        p_{\rm no MT}(v | Z) = \begin{cases} A v^{-1.8 + 0.5 \sqrt{|{\rm [Fe/H]}|}} & v_{\rm min} \le v \le v_{\rm max} \\ 0 & {\rm else} \end{cases}
+                                                    </script>
+                                                </p>
+                                                <p>
+                                                    <script type="math/tex; mode=display">
+                                                        p_{\rm MT,A}(v|Z) = \mathcal{N}(22 - 8{\rm [Fe/H]}, 6 - 3{\rm [Fe/H]})
+                                                    </script>
+                                                </p>
+                                            </div>
+                                            <div class="col-6 col-xl-12">
+                                                <p>
+                                                    <script type="math/tex; mode=display">
+                                                        p_{\rm MT, B/C}(v|Z) \propto \beta\left(\frac{v - v_{\rm min}}{v_{\rm max}}, 1.5 - 1.5 {\rm [Fe/H]}, 18 + 5 {\rm [Fe/H]}\right)
+                                                    </script>
+                                                </p>
+                                                <p>
+                                                    <script type="math/tex; mode=display">
+                                                        p_{\rm MT, CE}(v|Z) \propto \beta\left(\frac{v - v_{\rm min}}{v_{\rm max}}, 5 - 4 {\rm [Fe/H]}, 10\right)
+                                                    </script>
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <p>where $A$ is a normalization constant, $v_{\rm min} = 5 \, {\rm km/s}$, $v_{\rm max} = 100 \, {\rm km/s}$, $\mathcal{N}$ is a normal distribution, and $\beta$ is the beta function.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="row mb-3">
@@ -314,8 +379,8 @@
         <script src="https://cdn.jsdelivr.net/npm/jsfive@0.3.10/dist/browser/hdf5.js"></script>
         <script src="../../js/dark_mode.js"></script>
         <script src="../../js/feedback/general.js"></script>
-        <script src="../../js/feedback/sn_dists.js"></script>
-        <script src="../../js/feedback/percentiles.js"></script>
-        <script src="../../js/feedback/model.js"></script>
+        <!-- <script src="../../js/feedback/sn_dists.js"></script> -->
+        <!-- <script src="../../js/feedback/percentiles.js"></script> -->
+        <!-- <script src="../../js/feedback/model.js"></script> -->
     </body>
 </html>
