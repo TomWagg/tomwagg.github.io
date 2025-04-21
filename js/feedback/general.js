@@ -5,7 +5,7 @@ let tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
 
 const fs = 20
 
-const models = ['fiducial', 'ce-0.1', 'ce-10.0', 'qcritB-0.0', 'qcritB-1000.0', 'beta-0.0', 'beta-0.5', 'beta-1.0', 'ccsn-20', 'ecsn-265', 'no-fallback', 'singles', 'imf-1.9', 'imf-2.7', 'porb-0', 'porb-minus1', 'q-plus1', 'q-minus1', 'Z-0.5', 'Z-0.2', 'Z-0.1', 'Z-0.05', 'v-disp-0.5', 'v-disp-5']
+const models = ['fiducial', 'ce-0.1', 'ce-10.0', 'qcritB-0.0', 'qcritB-1000.0', 'beta-0.0', 'beta-0.5', 'beta-1.0', 'ccsn-20', 'ecsn-265', 'no-fallback', 'singles', 'imf-1.9', 'imf-2.7', 'porb-0', 'porb-minus1', 'porb-max-3', 'q-plus1', 'q-minus1', 'Z-0.5', 'Z-0.2', 'Z-0.1', 'Z-0.05', 'v-disp-0.5', 'v-disp-5', 'r442-Zx2']
 const model_labels = [
     '$\\rm Fiducial$',
     '$\\alpha_{\\rm CE} = 0.1$',
@@ -23,6 +23,7 @@ const model_labels = [
     '$\\alpha_{\\rm IMF} = -2.7$',
     '$\\pi = 0$',
     '$\\pi = -1$',
+    '$P_{\\rm 0, max} = 10^{3} \\, {\\rm days}$',
     '$\\kappa = 1$',
     '$\\kappa = -1$',
     '$\\bar{Z} = 0.5 \\, \\bar{Z}_{\\rm m11h}$',
@@ -31,6 +32,7 @@ const model_labels = [
     '$\\bar{Z} = 0.05 \\, \\bar{Z}_{\\rm m11h}$',
     '$v_{\\rm disp} = 0.5 \\, {\\rm km/s}$',
     '$v_{\\rm disp} = 5 \\, {\\rm km/s}$',
+    '$\\rm ChaNGa \\, galaxy \\, (r442)$',
 ]
 
 this.window.addEventListener('load', function () {

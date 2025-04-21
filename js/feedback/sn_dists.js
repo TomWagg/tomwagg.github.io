@@ -86,9 +86,9 @@ this.window.addEventListener('load', function () {
         const i = models.indexOf(model)
         if (i < 11) {
             el.style.backgroundColor = 'var(--primary-light)'
-        } else if (i < 22) {
+        } else if (i < 23) {
             el.style.backgroundColor = 'var(--primary)'
-        } else if (i < 25) {
+        } else if (i < 27) {
             el.style.backgroundColor = 'var(--primary-dark)'
         }
         el.setAttribute('id', 'sn-dists-' + model)
