@@ -269,9 +269,11 @@ function histograms(f, model) {
         // otherwise, just update the data and re-animate
         prep_hist_plot()
         Plotly.animate('histograms', frames[document.getElementById('sn-dists-slider').value], {
-            mode: 'immediate',
-            transition: { duration: 0 },
-            frame: { duration: 0, redraw: true },
+            transition: {
+                duration: 500,
+                easing: 'cubic-in-out',
+            },
+            frame: { duration: 500, redraw: true },
         })
     }
 }
