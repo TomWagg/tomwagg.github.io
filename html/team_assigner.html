@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <title>The Hockey Team Dream Machine</title>
+        <link rel="icon" href="../../img/hockey.ico" />
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="https://kit.fontawesome.com/328d20ce71.js" crossorigin="anonymous"></script>
+        <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;700;900&display=swap" rel="stylesheet" />
+        <link href="../../css/index.css" rel="stylesheet" />
+        <link href="../../css/dark_mode.css" rel="stylesheet" />
+        <link href="../../css/team_assigner.css" rel="stylesheet" />
+        <script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/gsap.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/Flip.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/Draggable.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/sortablejs@latest/Sortable.min.js"></script>
+    </head>
+    <body>
+        <label for="dark-mode-checkbox" class="dark-mode-label top-right">
+            <input type="checkbox" id="dark-mode-checkbox" />
+            <span class="dark-mode-ball"></span>
+            <svg viewBox="0 0 512 512" class="sun-svg">
+                <path d="M256 160c...z"></path>
+            </svg>
+            <svg viewBox="0 0 512 512" class="moon-svg">
+                <path d="M283.211 512c...z"></path>
+            </svg>
+        </label>
+
+        <div class="container py-4">
+            <h1 class="text-center mb-2 display-4 fw-bold">The Hockey Team Dream Machine</h1>
+            <p class="text-center mb-5 fs-5">Use the inputs below to add your player database, select the players available tonight and the number of teams you want - then put your feet up!</p>
+            <div class="row mt-5 mb-3">
+                <h1>Load your players</h1>
+                <p>Upload a CSV file of your player database and pick who is available tonight.</p>
+                <div class="col">
+                    <div class="mb-3">
+                        <input class="form-control" type="file" id="csvUpload" accept=".csv" />
+                    </div>
+                </div>
+            </div>
+            <div id="unassignedPlayers" class="team-box text-center mb-3">
+                <h3>Player pool</h3>
+                <div id="playerPool" class="d-flex flex-wrap justify-content-center"></div>
+            </div>
+            <div class="text-center">
+                <button class="btn btn-primary me-1" id="all-unavailable">Mark all unavailable</button>
+                <button class="btn btn-primary ms-1" id="all-available">Mark all available</button>
+            </div>
+            <h1 class="mt-5">Assign teams</h1>
+            <p>Choose the number of teams you want and start assigning! Feel free to drag and drop people afterwards to clean things up.</p>
+            <div class="text-center mb-3">
+                <div class="row justify-content-center mb-1">
+                    <div class="col col-lg-6">
+                        <div class="input-group">
+                            <select class="form-select" id="numTeams">
+                                <option value="2">2 Teams</option>
+                                <option value="4" selected>4 Teams</option>
+                            </select>
+                            <button class="btn btn-primary" id="assignTeamsBtn">Assign Teams</button>
+                        </div>
+                    </div>
+                </div>
+                <a class="btn btn-primary" data-bs-toggle="collapse" href="#advanced" role="button">Show advanced options</a>
+            </div>
+            <div class="collapse mb-3" id="advanced">
+                <div class="card card-body">
+                    <h3>Advanced options</h3>
+                    <p>Adjust the heuristic weights of the algorithm with these sliders</p>
+                    <div id="weight-controls" class="row g-3"></div>
+                </div>
+            </div>
+
+            <div class="row justify-content-center" id="teamContainer">
+                <div class="col-12 col-md-6 col-lg-3" id="team1Container">
+                    <div class="team-box" id="team1">
+                        <div class="team-stats">
+                            <h3>Team 1</h3>
+                            <div class="row g-0">
+                                <div class="stat-col col-3 col-lg-6 col-xl-3"><i class="fas fa-lg fa-star fa-fw" data-bs-toggle="tooltip" title="Total skill"></i> <span class="stat total-skill">-</span></div>
+                                <div class="stat-col col-3 col-lg-6 col-xl-3"><i class="fas fa-lg fa-running fa-fw" data-bs-toggle="tooltip" title="Total fitness"></i> <span class="stat total-fitness">-</span></div>
+                                <div class="stat-col col-3 col-lg-6 col-xl-3"><i class="fas fa-lg fa-ruler-vertical fa-fw" data-bs-toggle="tooltip" title="Team size"></i> <span class="stat size">-</span></div>
+                                <div class="stat-col col-3 col-lg-6 col-xl-3"><i class="fas fa-lg fa-venus-mars fa-fw" data-bs-toggle="tooltip" title="Gender balance (F/M)"></i> <span class="stat gender-balance">-/-</span></div>
+                            </div>
+                            <hr />
+                        </div>
+                        <div class="player-list"></div>
+                    </div>
+                </div>
+                <div class="col-12 col-md-6 col-lg-3" id="team2Container">
+                    <div class="team-box" id="team2">
+                        <div class="team-stats">
+                            <h3>Team 2</h3>
+                            <div class="row g-0">
+                                <div class="stat-col col-3 col-lg-6 col-xl-3"><i class="fas fa-lg fa-star fa-fw" data-bs-toggle="tooltip" title="Total skill"></i> <span class="stat total-skill">-</span></div>
+                                <div class="stat-col col-3 col-lg-6 col-xl-3"><i class="fas fa-lg fa-running fa-fw" data-bs-toggle="tooltip" title="Total fitness"></i> <span class="stat total-fitness">-</span></div>
+                                <div class="stat-col col-3 col-lg-6 col-xl-3"><i class="fas fa-lg fa-ruler-vertical fa-fw" data-bs-toggle="tooltip" title="Team size"></i> <span class="stat size">-</span></div>
+                                <div class="stat-col col-3 col-lg-6 col-xl-3"><i class="fas fa-lg fa-venus-mars fa-fw" data-bs-toggle="tooltip" title="Gender balance (F/M)"></i> <span class="stat gender-balance">-/-</span></div>
+                            </div>
+                            <hr />
+                        </div>
+                        <div class="player-list"></div>
+                    </div>
+                </div>
+                <div class="col-12 col-md-6 col-lg-3" id="team3Container">
+                    <div class="team-box" id="team3">
+                        <div class="team-stats">
+                            <h3>Team 3</h3>
+                            <div class="row g-0">
+                                <div class="stat-col col-3 col-lg-6 col-xl-3"><i class="fas fa-lg fa-star fa-fw" data-bs-toggle="tooltip" title="Total skill"></i> <span class="stat total-skill">-</span></div>
+                                <div class="stat-col col-3 col-lg-6 col-xl-3"><i class="fas fa-lg fa-running fa-fw" data-bs-toggle="tooltip" title="Total fitness"></i> <span class="stat total-fitness">-</span></div>
+                                <div class="stat-col col-3 col-lg-6 col-xl-3"><i class="fas fa-lg fa-ruler-vertical fa-fw" data-bs-toggle="tooltip" title="Team size"></i> <span class="stat size">-</span></div>
+                                <div class="stat-col col-3 col-lg-6 col-xl-3"><i class="fas fa-lg fa-venus-mars fa-fw" data-bs-toggle="tooltip" title="Gender balance (F/M)"></i> <span class="stat gender-balance">-/-</span></div>
+                            </div>
+                            <hr />
+                        </div>
+                        <div class="player-list"></div>
+                    </div>
+                </div>
+                <div class="col-12 col-md-6 col-lg-3" id="team4Container">
+                    <div class="team-box" id="team4">
+                        <div class="team-stats">
+                            <h3>Team 4</h3>
+                            <div class="row g-0">
+                                <div class="stat-col col-3 col-lg-6 col-xl-3"><i class="fas fa-lg fa-star fa-fw" data-bs-toggle="tooltip" title="Total skill"></i> <span class="stat total-skill">-</span></div>
+                                <div class="stat-col col-3 col-lg-6 col-xl-3"><i class="fas fa-lg fa-running fa-fw" data-bs-toggle="tooltip" title="Total fitness"></i> <span class="stat total-fitness">-</span></div>
+                                <div class="stat-col col-3 col-lg-6 col-xl-3"><i class="fas fa-lg fa-ruler-vertical fa-fw" data-bs-toggle="tooltip" title="Team size"></i> <span class="stat size">-</span></div>
+                                <div class="stat-col col-3 col-lg-6 col-xl-3"><i class="fas fa-lg fa-venus-mars fa-fw" data-bs-toggle="tooltip" title="Gender balance (F/M)"></i> <span class="stat gender-balance">-/-</span></div>
+                            </div>
+                            <hr />
+                        </div>
+                        <div class="player-list"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script src="../../js/dark_mode.js"></script>
+        <script src="../../js/team_assigner.js"></script>
+    </body>
+</html>
