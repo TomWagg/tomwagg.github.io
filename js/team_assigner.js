@@ -383,3 +383,55 @@ function enableDragAndDrop() {
         })
     })
 }
+
+function generateMockCSV(numLines = 28, filename = 'mock_players.csv') {
+    const headers = ['name', 'gender', 'skill', 'fitness', 'defense', 'midfield', 'forward']
+
+    // Predefined list of common English words
+    const wordList = ['apple', 'banana', 'cherry', 'delta', 'echo', 'falcon', 'giraffe', 'golf', 'hotel', 'india', 'juliet', 'kilo', 'lima', 'mango', 'november', 'oscar', 'papa', 'quebec', 'romeo', 'sierra', 'tango', 'uniform', 'victor', 'whiskey', 'xray', 'yankee', 'zulu', 'alpha', 'bravo', 'charlie', 'foxtrot']
+
+    // Ensure we have enough unique names
+    if (numLines > wordList.length) {
+        console.error('Not enough unique words to generate the requested number of lines.')
+        return
+    }
+
+    // Shuffle the word list and select the required number of unique names
+    const shuffledWords = wordList.sort(() => 0.5 - Math.random())
+    const selectedNames = shuffledWords.slice(0, numLines).map((word) => {
+        // Capitalize the first letter and make the rest lowercase
+        return word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()
+    })
+
+    const rows = [headers.join(',')]
+
+    selectedNames.forEach((name) => {
+        const gender = Math.random() < 0.5 ? 'F' : 'M'
+        const skill = Math.floor(Math.random() * 5) + 1
+        const fitness = Math.floor(Math.random() * 5) + 1
+
+        const positions = [0, 0, 0]
+        const mainPos = Math.floor(Math.random() * 3)
+        positions[mainPos] = 2
+
+        // Optionally assign 1 to other positions randomly
+        for (let i = 0; i < 3; i++) {
+            if (i !== mainPos && Math.random() < 0.3) {
+                positions[i] = 1
+            }
+        }
+
+        rows.push([name, gender, skill, fitness, ...positions].join(','))
+    })
+
+    const csvContent = rows.join('\n')
+    const blob = new Blob([csvContent], { type: 'text/csv' })
+    const link = document.createElement('a')
+    link.href = URL.createObjectURL(blob)
+    link.download = filename
+    link.click()
+}
+
+document.getElementById('mockCSV').addEventListener('click', () => {
+    generateMockCSV(28)
+})
