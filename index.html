@@ -96,7 +96,7 @@
             <div class="row">
                 <div class="col">
                     <div class="research-projects text-center align-middle">
-                        <!-- <article class="project" data-details="feedback">
+                        <article class="project" data-details="feedback">
                             <div class="row">
                                 <div class="col">
                                     <img src="img/project_thumbnails/feedback.png" class="p-0" />
@@ -108,7 +108,7 @@
                                     </div>
                                 </div>
                             </div>
-                        </article> -->
+                        </article>
                         <article class="project" data-details="ejections">
                             <div class="row">
                                 <div class="col">
@@ -242,31 +242,35 @@
                 <div class="row">
                     <div class="col justify-content-center">
                         <p class="text-center">
-                            <!-- <a href="https://github.com/TomWagg/ejection-velocities/blob/main/paper/paper.pdf" target="_blank" class="btn bg-transparent rounded project-link">
+                            <a href="https://ui.adsabs.harvard.edu/abs/2025arXiv250417903W/abstract" target="_blank" class="btn bg-transparent rounded project-link">
                                 <i class="fas fa-scroll fa-2x" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Paper"></i>
                             </a>
-                            <a href="https://github.com/TomWagg/ejection-velocities" target="_blank" class="btn bg-transparent rounded project-link">
+                            <a href="https://github.com/TomWagg/supernova-feedback" target="_blank" class="btn bg-transparent rounded project-link">
                                 <i class="fab fa-github fa-2x" data-bs-toggle="tooltip" data-bs-placement="bottom" title="GitHub Repo"></i>
                             </a>
-                            <a href="https://doi.org/10.5281/zenodo.15225730" class="btn bg-transparent rounded project-link">
-                                <i class="fas fa-database fa-2x" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Data"></i>
-                            </a> -->
+                            <a href="html/interact/binary-supernova-feedback.html" class="btn bg-transparent rounded project-link">
+                                <i class="fas fa-chart-area fa-2x" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Interactive Plots"></i>
+                            </a>
                         </p>
                         <div class="row justify-content-center">
                             <div class="col-12 col-md-11">
-                                <p class="text-center fst-italic">TODO</p>
+                                <p class="text-center fst-italic">We simulate the impact of binary interactions on the timing and spatial distribution of core-collapse supernovae and consider how these change may affect galaxy evolution.</p>
                             </div>
                             <div class="col-12 col-md-9">
-                                <p>TODO</p>
+                                <p>This paper is my first use of <code>cogsworth</code> for a full-scale project and I'm very excited to share it with you! I started this project while working as a pre-doctoral fellow at the CCA and learnt a lot during the project from my wonderful co-authors - particularly those working on galaxy evolution.</p>
+                                <p>The goal of this paper was to assess just how reasonable it is for subgrid models of supernova feedback to assume that all stars undergo single star evolution in hydrodynamical galaxy simulations. We find that the timing and spatial distribution of supernovae is significantly altered by binary interactions, and that these changes exist even for extreme variations in binary physics, initial conditions and galaxy settings.</p>
+                                <p>Given the robustness of our findings, we created an analytic model for supernova feedback that accounts for metallicity-dependent, binary-driven supernovae. This model reproduces our simulations closely and can be used directly in future galaxy simulations. The code to use this model is available in the GitHub repo that I link up above.</p>
+                                <p>Overall, I'm hopeful that galaxy simulators will use our results to account for binaries in their feedback models and then we can find out how this changes the evolution of galaxies. I think this might be particularly interesting in high-redshift, low-metallicity simulations where galaxies are smaller and the spatial displacement of supernovae is increased.</p>
                                 <p class="text-center">
+                                    <a href="https://ui.adsabs.harvard.edu/abs/2025arXiv250417903W/abstract" class="btn btn-lg btn-primary me-2">Read the paper</a>
                                     <a href="html/interact/binary-supernova-feedback.html" class="btn btn-lg btn-primary">Explore interactive plots!</a>
                                 </p>
                                 <div class="row justify-content-center align-items-center">
-                                    <div class="col-12">
-                                        <img class="w-100 rounded" src="img/ejections/fig2_preview.png" />
+                                    <div class="col-12 col-md-6">
+                                        <img class="w-100 rounded" src="img/feedback/sn_times_fiducial.png" />
                                     </div>
-                                    <div class="col-12">
-                                        <img class="w-100 rounded" src="img/ejections/fig3_preview.png" />
+                                    <div class="col-12 col-md-6">
+                                        <img class="w-100 rounded" src="img/feedback/sn_dists_fiducial.png" />
                                     </div>
                                 </div>
                             </div>
