@@ -50,6 +50,17 @@
                 border-top-left-radius: 25px;
                 border-top-right-radius: 25px;
             }
+            .img-credit {
+                transition: 300ms;
+                position: absolute;
+                top: 10px;
+                right: 10px;
+                padding: 0.5rem;
+                border-radius: 25px;
+            }
+            .img-credit:hover {
+                background-color: white;
+            }
             .card {
                 border-radius: 2rem;
                 border: 5px solid var(--primary);
@@ -95,7 +106,21 @@
                 <div class="carousel-inner">
                     <div class="carousel-item active">
                         <div class="card">
-                            <div style="background: url('../../img/asteroseismology_paper/mass-transfer.jpg')" class="post-header-img"></div>
+                            <div style="background: url('../../img/feedback/eso2401a.jpg')" class="post-header-img">
+                                <span class="img-credit">Credit: ESO/L. Calçada</span>
+                            </div>
+                            <div class="card-body">
+                                <h3 class="card-title">Delayed & Displaced</h3>
+                                <h6>the impact of binary interactions on core-collapse supernova feedback</h6>
+                            </div>
+                            <a href="../interact/binary-supernova-feedback.html" style="display: none"></a>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <div class="card">
+                            <div style="background: url('../../img/asteroseismology_paper/mass-transfer.jpg')" class="post-header-img">
+                                <span class="img-credit" style="color: grey">Credit: UCL / J. daSilva</span>
+                            </div>
                             <div class="card-body">
                                 <h3 class="card-title">The Asteroseismic Imprints of Mass Transfer</h3>
                                 <h6>an investigation into how accreting mass can impact a star's asteroseismic signals</h6>
