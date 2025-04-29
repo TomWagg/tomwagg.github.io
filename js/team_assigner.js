@@ -125,6 +125,18 @@ function assignTeams(players, numTeams = null) {
         }
     }
 
+    // sort the players in each team by their preferred position, then by their name
+    teams.forEach((team) => {
+        team.players.sort((a, b) => {
+            const posA = a.preferredPosition
+            const posB = b.preferredPosition
+            if (posA === posB) {
+                return a.name.localeCompare(b.name)
+            }
+            return posA.localeCompare(posB)
+        })
+    })
+
     return teams
 }
 
@@ -171,6 +183,10 @@ document.getElementById('csvUpload').addEventListener('change', (e) => {
     const reader = new FileReader()
     reader.onload = (event) => {
         playerDatabase = parseCSV(event.target.result)
+        // save the player's preferred position
+        playerDatabase.forEach((player) => {
+            player.preferredPosition = player.defense == 2 ? 'A' : player.midfield == 2 ? 'B' : 'C'
+        })
         currentPlayers = playerDatabase.map((p) => p)
         renderPlayerPool(currentPlayers)
         console.log('Loaded database:', playerDatabase)
@@ -296,6 +312,7 @@ function renderTeams(teams, containerId) {
 function animatePlayersToTeams(teams) {
     const poolCards = document.querySelectorAll('.player-card')
     const state = Flip.getState(poolCards)
+    const positions = ['defense', 'midfield', 'forward']
 
     teams.forEach((team, i) => {
         const teamContainer = document.querySelector(`#team${i + 1} .player-list`)
@@ -304,7 +321,16 @@ function animatePlayersToTeams(teams) {
             if (card) {
                 card.classList.remove('blue-team', 'pink-team', 'purple-team', 'white-team')
                 card.classList.add(`${team.colour}-team`)
+                card.classList.add(player.defense === 2 ? 'defense' : player.midfield === 2 ? 'midfield' : 'forward')
                 teamContainer.appendChild(card)
+            }
+        })
+
+        // add the first-in-position class to the first player in each position
+        positions.forEach((pos) => {
+            const firstInPosition = teamContainer.querySelector(`.${pos}`)
+            if (firstInPosition) {
+                firstInPosition.classList.add('first-in-position')
             }
         })
     })
