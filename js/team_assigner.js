@@ -7,13 +7,16 @@ const heuristics = [
     { name: 'fitness', label: 'Fitness Balance', default: 2, min: 0, max: 5 },
     { name: 'size', label: 'Team Size Equality', default: 0.5, min: 0, max: 5 },
 ]
+const positions = ['defense', 'midfield', 'forward']
 
-// Handles CSV upload and player list matching
+// global variables
 let playerDatabase = []
 let currentPlayers = []
 let weights = heuristics.reduce((obj, h) => ({ ...obj, [h.name]: h.default }), {})
 let numTeams = null
+let teams = null
 
+// add slider controls for each heuristic
 heuristics.forEach(({ name, label, default: def, min, max }) => {
     const idNum = `weight-number-${name}`
     const idRange = `weight-range-${name}`
@@ -46,11 +49,76 @@ heuristics.forEach(({ name, label, default: def, min, max }) => {
     })
 })
 
+// activate all tooltips
 var tooltipTriggerList = [].slice.call(document.querySelectorAll('i[data-bs-toggle="tooltip"]'))
 var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
     return new bootstrap.Tooltip(tooltipTriggerEl)
 })
 
+function parseCSV(text) {
+    const rows = text.trim().split('\n')
+    const headers = rows[0].split(',')
+    return rows.slice(1).map((row) => {
+        const values = row.split(',')
+        return Object.fromEntries(headers.map((h, i) => [h.trim(), i < 2 ? values[i].trim() : parseInt(values[i].trim())]))
+    })
+}
+
+document.getElementById('csvUpload').addEventListener('change', (e) => {
+    const file = e.target.files[0]
+    if (!file) return
+    const reader = new FileReader()
+    reader.onload = (event) => {
+        playerDatabase = parseCSV(event.target.result)
+        // save the player's preferred position
+        playerDatabase.forEach((player) => {
+            player.preferredPosition = player.defense == 2 ? 'A' : player.midfield == 2 ? 'B' : 'C'
+        })
+        currentPlayers = playerDatabase.map((p) => p)
+        renderPlayerPool(currentPlayers)
+    }
+    reader.readAsText(file)
+})
+
+function renderPlayerPool(players) {
+    const container = document.getElementById('playerPool')
+    container.innerHTML = ''
+    players.forEach((player) => {
+        const div = document.createElement('div')
+        div.className = 'player-card me-2 mb-2 available'
+        div.textContent = player.name
+        div.dataset.name = player.name
+        div.addEventListener('click', (e) => {
+            const name = e.currentTarget.dataset.name
+            const player = playerDatabase.find((p) => p.name === name)
+            const el = e.currentTarget
+
+            if (el.classList.contains('available')) {
+                el.classList.remove('available', 'blue-team', 'pink-team', 'purple-team', 'white-team')
+                currentPlayers = currentPlayers.filter((p) => p.name !== name)
+            } else {
+                el.classList.add('available')
+                const parent = el.parentElement
+                if (parent.classList.contains('player-list')) {
+                    for (let i = 0; i < parent.children.length; i++) {
+                        if (parent.children[i] != el) {
+                            // copy just the team colour class (e.g. blue-team) to this element
+                            const teamClass = parent.children[i].className.split(' ').find((c) => c.includes('-team'))
+                            if (teamClass) {
+                                el.classList.add(teamClass)
+                            }
+                            break
+                        }
+                    }
+                }
+                currentPlayers.push(player)
+            }
+        })
+        container.appendChild(div)
+    })
+}
+
+// make buttons mark all players as available or unavailable
 document.getElementById('all-available').addEventListener('click', function () {
     const playerCards = document.querySelectorAll('.player-card')
     playerCards.forEach((card) => {
@@ -66,6 +134,21 @@ document.getElementById('all-unavailable').addEventListener('click', function ()
     currentPlayers = []
 })
 
+function sortTeams() {
+    // sort the players in each team by their preferred position, then by their name
+    teams.forEach((team) => {
+        team.players.sort((a, b) => {
+            const posA = a.preferredPosition
+            const posB = b.preferredPosition
+            if (posA === posB) {
+                return a.name.localeCompare(b.name)
+            }
+            return posA.localeCompare(posB)
+        })
+    })
+}
+
+// assign players to teams based on heuristics
 function assignTeams(players, numTeams = null) {
     const totalPlayers = players.length
     if (!numTeams) {
@@ -82,7 +165,7 @@ function assignTeams(players, numTeams = null) {
     // Sort players by skill then fitness
     players.sort((a, b) => b.skill - a.skill || b.fitness - a.fitness)
 
-    const teams = Array.from({ length: numTeams }, () => ({
+    teams = Array.from({ length: numTeams }, () => ({
         players: [],
         genders: {},
         positions: { defense: 0, midfield: 0, forward: 0 },
@@ -95,7 +178,6 @@ function assignTeams(players, numTeams = null) {
 
     for (const player of players) {
         const bestTeamIndex = bestTeamForPlayer(player, teams, targetTotalSkill, targetTotalFitness)
-        // console.log(bestTeamIndex)
         const team = teams[bestTeamIndex]
 
         team.players.push(player)
@@ -125,21 +207,12 @@ function assignTeams(players, numTeams = null) {
         }
     }
 
-    // sort the players in each team by their preferred position, then by their name
-    teams.forEach((team) => {
-        team.players.sort((a, b) => {
-            const posA = a.preferredPosition
-            const posB = b.preferredPosition
-            if (posA === posB) {
-                return a.name.localeCompare(b.name)
-            }
-            return posA.localeCompare(posB)
-        })
-    })
+    sortTeams()
 
     return teams
 }
 
+// work out the best Team for a player to be put on (greedy algorithm)
 function bestTeamForPlayer(player, teams, targetTotalSkill, targetTotalFitness) {
     const minMembersBeforePositionScore = 3
     const scores = teams.map((team, idx) => {
@@ -168,37 +241,9 @@ function bestTeamForPlayer(player, teams, targetTotalSkill, targetTotalFitness) 
     return bestIndices[Math.floor(Math.random() * bestIndices.length)]
 }
 
-function parseCSV(text) {
-    const rows = text.trim().split('\n')
-    const headers = rows[0].split(',')
-    return rows.slice(1).map((row) => {
-        const values = row.split(',')
-        return Object.fromEntries(headers.map((h, i) => [h.trim(), i < 2 ? values[i].trim() : parseInt(values[i].trim())]))
-    })
-}
-
-document.getElementById('csvUpload').addEventListener('change', (e) => {
-    const file = e.target.files[0]
-    if (!file) return
-    const reader = new FileReader()
-    reader.onload = (event) => {
-        playerDatabase = parseCSV(event.target.result)
-        // save the player's preferred position
-        playerDatabase.forEach((player) => {
-            player.preferredPosition = player.defense == 2 ? 'A' : player.midfield == 2 ? 'B' : 'C'
-        })
-        currentPlayers = playerDatabase.map((p) => p)
-        renderPlayerPool(currentPlayers)
-        console.log('Loaded database:', playerDatabase)
-    }
-    reader.readAsText(file)
-})
-
 document.getElementById('assignTeamsBtn').addEventListener('click', () => {
-    console.log(currentPlayers)
-    const teams = assignTeams(currentPlayers, numTeams)
-    console.log(teams)
-    animatePlayersToTeams(teams)
+    teams = assignTeams(currentPlayers, numTeams)
+    animatePlayersToTeams()
     enableDragAndDrop()
 })
 
@@ -247,72 +292,32 @@ document.getElementById('numTeams').addEventListener('change', (e) => {
         ease: 'power2.inOut',
         absolute: true,
     }).then(() => {
-        const teams = assignTeams(currentPlayers, numTeams)
-        animatePlayersToTeams(teams)
+        teams = assignTeams(currentPlayers, numTeams)
+        animatePlayersToTeams()
     })
 })
 
-function renderPlayerPool(players) {
-    const container = document.getElementById('playerPool')
-    container.innerHTML = ''
-    players.forEach((player) => {
-        const div = document.createElement('div')
-        div.className = 'player-card me-2 mb-2 available'
-        div.textContent = player.name
-        div.dataset.name = player.name
-        div.addEventListener('click', (e) => {
-            const name = e.currentTarget.dataset.name
-            const player = playerDatabase.find((p) => p.name === name)
-            const el = e.currentTarget
-
-            if (el.classList.contains('available')) {
-                el.classList.remove('available', 'blue-team', 'pink-team', 'purple-team', 'white-team')
-                currentPlayers = currentPlayers.filter((p) => p.name !== name)
-            } else {
-                el.classList.add('available')
-                currentPlayers.push(player)
+// reset team position gaps
+function resetTeamPositionGaps() {
+    const teamContainers = document.querySelectorAll('.team-box .player-list')
+    teamContainers.forEach((teamContainer) => {
+        const players = teamContainer.querySelectorAll('.player-card')
+        players.forEach((player) => {
+            player.classList.remove('first-in-position')
+        })
+        positions.forEach((pos) => {
+            const firstInPosition = teamContainer.querySelector(`.${pos}`)
+            if (firstInPosition) {
+                firstInPosition.classList.add('first-in-position')
             }
         })
-        container.appendChild(div)
     })
 }
 
-function renderTeams(teams, containerId) {
-    const container = document.getElementById(containerId)
-    container.innerHTML = ''
-    teams.forEach((team, i) => {
-        const teamDiv = document.createElement('div')
-        teamDiv.className = 'team-card'
-        teamDiv.innerHTML = `
-        <h4>Team ${i + 1}</h4>
-        <p>Size: ${team.players.length}</p>
-        <p>Total Skill: ${team.totalSkill.toFixed(0)}</p>
-        <p>Total Fitness: ${team.totalFitness.toFixed(0)}</p>
-        <div class="player-list"></div>
-      `
-        container.appendChild(teamDiv)
-
-        const playerList = teamDiv.querySelector('.player-list')
-        team.players.forEach((player, j) => {
-            const playerEl = document.createElement('div')
-            playerEl.className = 'player-card'
-            playerEl.textContent = player.name
-            playerEl.style.opacity = 0
-            playerList.appendChild(playerEl)
-            setTimeout(() => {
-                playerEl.style.transition = 'all 0.4s ease'
-                playerEl.style.transform = 'translateY(0px)'
-                playerEl.style.opacity = 1
-            }, 100 * j)
-        })
-    })
-}
-
-// Animate players moving from the pool to their teams
-function animatePlayersToTeams(teams) {
+// animate players moving from the pool to their teams
+function animatePlayersToTeams(extra_animation = null) {
     const poolCards = document.querySelectorAll('.player-card')
     const state = Flip.getState(poolCards)
-    const positions = ['defense', 'midfield', 'forward']
 
     teams.forEach((team, i) => {
         const teamContainer = document.querySelector(`#team${i + 1} .player-list`)
@@ -321,42 +326,51 @@ function animatePlayersToTeams(teams) {
             if (card) {
                 card.classList.remove('blue-team', 'pink-team', 'purple-team', 'white-team')
                 card.classList.add(`${team.colour}-team`)
-                card.classList.add(player.defense === 2 ? 'defense' : player.midfield === 2 ? 'midfield' : 'forward')
+                card.classList.add(
+                    {
+                        A: 'defense',
+                        B: 'midfield',
+                        C: 'forward',
+                    }[player.preferredPosition]
+                )
                 teamContainer.appendChild(card)
-            }
-        })
-
-        // add the first-in-position class to the first player in each position
-        positions.forEach((pos) => {
-            const firstInPosition = teamContainer.querySelector(`.${pos}`)
-            if (firstInPosition) {
-                firstInPosition.classList.add('first-in-position')
             }
         })
     })
 
+    // move players to the pool if they are unavailable
     const playerPool = document.getElementById('playerPool')
-
     poolCards.forEach((card) => {
         if (!card.classList.contains('available')) {
+            card.classList.remove('blue-team', 'pink-team', 'purple-team', 'white-team', 'first-in-position')
             card.remove()
             playerPool.appendChild(card)
         }
     })
 
+    // fix the height during animation
     document.querySelectorAll('#teamContainer .team-box').forEach((teamBox) => {
         teamBox.style.height = teamBox.offsetHeight + 'px'
     })
 
+    // recompute the stats with the new teams
     document.querySelectorAll('.team-stats').forEach((el) => {
         computeStats(el.parentElement)
     })
 
+    if (extra_animation !== null) {
+        extra_animation()
+    }
+
+    resetTeamPositionGaps()
+
+    // perform the animation
     Flip.from(state, {
         duration: 0.6,
         ease: 'power2.inOut',
         absolute: true,
     }).then(() => {
+        // remove the height fix
         document.querySelectorAll('#teamContainer .team-box').forEach((teamBox) => {
             teamBox.style.height = 'auto'
         })
@@ -405,6 +419,35 @@ function enableDragAndDrop() {
                     }
                 }
                 evt.item.className = newClassName
+
+                // find the player's old team
+                const playerName = evt.item.getAttribute('data-name')
+                const player = playerDatabase.find((p) => p.name === playerName)
+                const oldTeam = teams.find((team) => team.players.some((p) => p.name === playerName))
+
+                // work out what their new team should be
+                const newTeamContainer = evt.to.closest('.team-box')
+                const newTeam = teams[parseInt(newTeamContainer.querySelector('h3').innerText.split(' ')[1]) - 1]
+
+                // if the team has changed, update the teams array
+                if (oldTeam !== newTeam) {
+                    oldTeam.players = oldTeam.players.filter((p) => p.name !== playerName)
+                    newTeam.players.push(player)
+                }
+
+                // re-sort the teams
+                sortTeams()
+
+                // animation the players, with some extra movement to account for re-sorting
+                animatePlayersToTeams(() => {
+                    // find index of player in the new team
+                    const playerIndex = newTeam.players.findIndex((p) => p.name === playerName)
+
+                    // move it into the right position
+                    evt.item.remove()
+                    const playerList = newTeamContainer.querySelector('.player-list')
+                    playerList.insertBefore(evt.item, playerList.children[playerIndex])
+                })
             },
         })
     })

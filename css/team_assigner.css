@@ -118,3 +118,8 @@ body.dark .team-box {
     text-decoration: none;
     color: var(--primary-dark);
 }
+
+:not(#playerPool) .midfield.first-in-position,
+:not(#playerPool) .forward.first-in-position {
+    margin-top: 1.5rem;
+}
