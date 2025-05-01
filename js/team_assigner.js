@@ -74,6 +74,8 @@ document.getElementById('csvUpload').addEventListener('change', (e) => {
         playerDatabase.forEach((player) => {
             player.preferredPosition = player.defense == 2 ? 'A' : player.midfield == 2 ? 'B' : 'C'
         })
+        // sort player database by name
+        playerDatabase.sort((a, b) => a.name.localeCompare(b.name))
         currentPlayers = playerDatabase.map((p) => p)
         renderPlayerPool(currentPlayers)
     }
@@ -338,14 +340,14 @@ function animatePlayersToTeams(extra_animation = null) {
         })
     })
 
-    // move players to the pool if they are unavailable
+    // move players to the pool if they are unavailable in alphabetical order
     const playerPool = document.getElementById('playerPool')
-    poolCards.forEach((card) => {
-        if (!card.classList.contains('available')) {
-            card.classList.remove('blue-team', 'pink-team', 'purple-team', 'white-team', 'first-in-position')
-            card.remove()
-            playerPool.appendChild(card)
-        }
+    let unavailableCards = Array.from(poolCards).filter((card) => !card.classList.contains('available'))
+    unavailableCards.sort((a, b) => a.textContent.localeCompare(b.textContent))
+    unavailableCards.forEach((card) => {
+        card.classList.remove('blue-team', 'pink-team', 'purple-team', 'white-team', 'first-in-position')
+        card.remove()
+        playerPool.appendChild(card)
     })
 
     // fix the height during animation
