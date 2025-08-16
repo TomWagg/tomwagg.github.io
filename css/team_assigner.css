@@ -123,3 +123,8 @@ body.dark .team-box {
 :not(#playerPool) .forward.first-in-position {
     margin-top: 1.5rem;
 }
+
+.player-card.hold {
+    border: 2px solid black;
+    font-weight: bold;
+}

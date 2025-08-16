@@ -116,6 +116,15 @@ function renderPlayerPool(players) {
                 currentPlayers.push(player)
             }
         })
+        // add a right click event to hold the player
+        div.addEventListener('contextmenu', (e) => {
+            e.preventDefault()
+            if (div.classList.contains('hold')) {
+                div.classList.remove('hold')
+            } else {
+                div.classList.add('hold')
+            }
+        })
         container.appendChild(div)
     })
 }
@@ -150,6 +159,19 @@ function sortTeams() {
     })
 }
 
+function assignPlayerToTeam(player, team) {
+    team.players.push(player)
+    team.genders[player.gender] = (team.genders[player.gender] || 0) + 1
+    ;['defense', 'midfield', 'forward'].forEach((pos) => {
+        if (player[pos] > 0) {
+            team.positions[pos] += 1
+        }
+    })
+    team.totalSkill += player.skill
+    team.totalFitness += player.fitness
+    return team
+}
+
 // assign players to teams based on heuristics
 function assignTeams(players, numTeams = null) {
     const totalPlayers = players.length
@@ -178,19 +200,28 @@ function assignTeams(players, numTeams = null) {
     const targetTotalSkill = (totalPlayers / numTeams) * 3
     const targetTotalFitness = (totalPlayers / numTeams) * 3
 
-    for (const player of players) {
-        const bestTeamIndex = bestTeamForPlayer(player, teams, targetTotalSkill, targetTotalFitness)
-        const team = teams[bestTeamIndex]
+    const player_cards = document.querySelectorAll('.player-card')
 
-        team.players.push(player)
-        team.genders[player.gender] = (team.genders[player.gender] || 0) + 1
-        ;['defense', 'midfield', 'forward'].forEach((pos) => {
-            if (player[pos] > 0) {
-                team.positions[pos] += 1
+    // separate out player items that have a player card with a "hold" class (and vice versa)
+    const hold_players = players.filter((player) => {
+        return Array.from(player_cards).some((card) => card.textContent === player.name && card.classList.contains('hold'))
+    })
+    const flex_players = players.filter((player) => {
+        return !Array.from(player_cards).some((card) => card.textContent === player.name && card.classList.contains('hold'))
+    })
+
+    for (const player of hold_players) {
+        for (const card of player_cards) {
+            if (card.textContent === player.name && card.classList.contains('hold')) {
+                bestTeamIndex = parseInt(card.parentElement.parentElement.id[4]) - 1
             }
-        })
-        team.totalSkill += player.skill
-        team.totalFitness += player.fitness
+        }
+        assignPlayerToTeam(player, teams[bestTeamIndex])
+    }
+
+    for (const player of flex_players) {
+        let bestTeamIndex = bestTeamForPlayer(player, teams, targetTotalSkill, targetTotalFitness)
+        assignPlayerToTeam(player, teams[bestTeamIndex])
     }
 
     colours = numTeams == 4 ? ['blue', 'purple', 'pink', 'white'] : ['blue', 'pink']
