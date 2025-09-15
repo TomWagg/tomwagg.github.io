@@ -735,6 +735,21 @@ a.white-link:active {
     background-color: #afe8ff;
 }
 
+.presentation.recorded-presentation {
+    background-color: #0b3e50;
+    color: white;
+    display: block;
+}
+
+.presentation.recorded-presentation a {
+    font-weight: bolder;
+    text-decoration: underline;
+}
+
+.presentation.recorded-presentation a:hover {
+    filter: brightness(0.9);
+}
+
 .presentation .title {
     display: none;
 }
