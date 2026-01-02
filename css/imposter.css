@@ -1,0 +1,84 @@
+html, body {
+    width:100%;
+}
+
+body {
+    background-color: #333;
+    font-family: "Lato", sans-serif;
+    color: lightgrey;
+}
+
+.hide {
+    display: none !important;
+}
+
+.role-card {
+    height: 500px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.role-card-front, .role-card-back {
+    position: absolute;
+    width: calc(100% - 40px);
+    height: 470px;
+    backface-visibility: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid white;
+    padding: 40px;
+    background-color: #555;
+    color: white;
+    border-radius: 10px;
+    transition: 300ms;
+}
+
+.role-card-front {
+    background: repeating-linear-gradient(
+        45deg,
+        #606dbc,
+        #606dbc 15px,
+        #465298 15px,
+        #465298 30px
+    );
+}
+.role-card-front .player-name {
+    font-size: 5rem;
+    font-weight: 900;
+}
+
+.role-card-back {
+    transform: rotateY(180deg);
+}
+
+.role-card.flipped .role-card-front {
+    transform: rotateY(180deg);
+}
+
+.role-card.flipped .role-card-back {
+    transform: rotateY(0deg);
+}
+
+.role-icon {
+    max-width: 200px;
+    padding: 20px;
+}
+
+.word-info {
+    color: #338a49;
+}
+
+.imposter .word-info {
+    color: #d43737;
+}
+
+.highlighted-word, #first-player-name {
+    font-size: 20px;
+    font-weight: 900;
+    text-decoration: underline;
+    color: white;
+}
