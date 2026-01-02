@@ -23,22 +23,44 @@
         <!-- Setup section announces the game rules and instructions -->
         <!-- Game host will setup player names and number of spys -->
         <div class="container">
-            <div class="row mt-5 mb-3">
+            <div class="row mt-5 mb-5">
                 <div class="col text-center">
                     <h1 class="display-1">Imposter</h1>
-                    <p class="lead">Find the imposter among the citizens!</p>
+                    <p class="lead">Who can you really trust?</p>
+                    <a href="#setup" class="btn btn-primary" data-bs-toggle="collapse" data-bs-target="#rules" aria-expanded="false" aria-controls="rules">Show Rules & Setup Instructions</a>
                 </div>
             </div>
-            <div class="row mb-3">
+            <div class="collapse row mb-3" id="rules">
                 <div class="col">
-                    <h3>Instructions</h3>
+                    <h3>Basic Rules</h3>
                     <ul>
-                        <li>One or more players are secretly assigned the role of "Imposter". The rest are "Citizens".</li>
-                        <li>Citizens are told a group word that they must use to identify each other.</li>
-                        <li>Each player takes it in turns to describe the word without revealing it directly.</li>
-                        <li>After all players have given their clues, everyone votes on who they think the Imposter is.</li>
-                        <li>If the Imposter is caught, the Citizens win! If not, the Imposter wins!</li>
+                        <li>One or more players are secretly assigned the role of "Imposter". The rest are "Citizens", one of whom is also the "Mayor".</li>
+                        <li>Citizens are told a group word that they must use to identify each other. The Mayor describes the word first and is known not to be the Imposter.</li>
+                        <li>Proceeding clockwise, each player takes it in turns to describe the word: be sure to balance proving your innocence without giving it away to the imposter!</li>
                     </ul>
+                    <h3>How to Win</h3>
+                    <ul>
+                        <li>If you're a Citizen</li>
+                        <ul>
+                            <li>Vote out the Imposter(s)!</li>
+                            <li>Votes occur after every full round of clues, or can be called at any time by any player.</li>
+                        </ul>
+                        <li>If you're an Imposter</li>
+                        <ul>
+                            <li>Either (a) be one of the last two players remaining, or (b) correctly guess the word!</li>
+                            <li>You can guess at any time except <b>not during a discussion/vote</b></li>
+                        <li><a href='#advanced-rules'data-bs-toggle="collapse" data-bs-target="#advanced-rules" aria-expanded="false" aria-controls="advanced-rules">Show advanced rules</a></li>
+                        </ul>
+                    </ul>
+                    <div class="collapse" id="advanced-rules">
+                        <h3>Advanced Rules</h3>
+                        <p>Once you've got the hang of the basic rules, try these advanced options to mix things up!</p>
+                        <ul>
+                            <li>If "Cooperative Imposters" is enabled, all Imposters are informed of each other's identities at the start of the game.</li>
+                            <li>You can provide your own list of words for the game, just choose custom from the dropdown menu.</li>
+                            <li>Why not be devious? Turn off "Cooperative Imposters", set all but one person to be imposters, and watch the chaos unfold 😈</li>
+                        </ul>
+                    </div>
                 </div>
             </div>
             <div class="row mb-3">
@@ -100,13 +122,14 @@
             </div>
             <div class="row mb-3 justify-content-center">
                 <div class="col-9 text-center">
-                    <p class="lead">All players have now seen their roles, the first player to describe the word is:<br><span id="first-player-name"></span></p>
+                    <p class="lead">The Mayor is:<br><span id="first-player-name"></span><br>and they will now describe the word first. Good luck!</p>
                     <button id="restart-btn" class="btn btn-danger mt-5">Restart Game</button>
                 </div>
             </div>
         </div>
     </div>
     <div id="javascriptbox">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
         <script src="../../js/imposter.js"></script>
     </div>
 </body>

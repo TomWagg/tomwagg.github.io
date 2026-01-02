@@ -77,7 +77,7 @@ body {
 }
 
 .highlighted-word, #first-player-name {
-    font-size: 20px;
+    font-size: 3rem;
     font-weight: 900;
     text-decoration: underline;
     color: white;
