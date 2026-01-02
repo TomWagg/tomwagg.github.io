@@ -103,7 +103,7 @@ window.addEventListener("DOMContentLoaded", (event) => {
         for (let i = 0; i < playerNames.length; i++) {
             const player = playerNames[i];
             const isImposter = imposters.includes(player);
-            let roleWord = isImposter ? "You are an Imposter!" : `The word is: <span class="highlighted-word">${chosenWord}</span>`;
+            let roleWord = isImposter ? "You are an Imposter!" : `<span class="highlighted-word">${chosenWord}</span><br>is the word.`;
             if (isImposter && revealImposters && imposters.length > 1) {
                 roleWord += `<br>Fellow Imposters: ${imposters.filter(p => p !== player).join(", ")}`;
             }

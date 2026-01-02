@@ -39,13 +39,7 @@ body {
 }
 
 .role-card-front {
-    background: repeating-linear-gradient(
-        45deg,
-        #606dbc,
-        #606dbc 15px,
-        #465298 15px,
-        #465298 30px
-    );
+    background: repeating-linear-gradient( 45deg, #454753, #454753 15px, #984646 15px, #984646 30px);
 }
 .role-card-front .player-name {
     font-size: 5rem;
