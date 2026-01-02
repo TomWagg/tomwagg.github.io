@@ -70,7 +70,7 @@
             </div>
         </div>
     </div>
-    <div id="cards">
+    <div id="cards" class="hide w-100">
         <!-- A series of stacked cards that show each players role, players will take it in turns to view their card (with a flip animation) -->
          <div class="container">
             <div class="row mt-5 mb-3">
@@ -81,19 +81,27 @@
             </div>
             <div class="row mb-3">
                 <div class="col text-center">
-                    <div id="card-container" class="d-flex justify-content-center align-items-center">
-                        <div id="card-template" class="hide player-card">
-                            <div class="card-front">
+                    <div id="role-card-container" class="w-100">
+                        <div id="role-card-template" class="hide role-card w-100">
+                            <div class="role-card-front">
                                 <h3 class="player-name"></h3>
                                 <p class="instruction">Tap to reveal your role</p>
                             </div>
-                            <div class="card-back">
+                            <div class="role-card-back">
+                                <img src="../../img/citizen.png" class="role-icon" />
                                 <h3 class="role"></h3>
                                 <p class="word-info"></p>
+                                <button class="btn btn-secondary mt-3 end-turn-btn">Next person</button>
                             </div>
                         </div>
                         <!-- Cards will be dynamically added here -->
                     </div>
+                </div>
+            </div>
+            <div class="row mb-3 justify-content-center">
+                <div class="col-9 text-center">
+                    <p class="lead">All players have now seen their roles, the first player to describe the word is:<br><span id="first-player-name"></span></p>
+                    <button id="restart-btn" class="btn btn-danger mt-5">Restart Game</button>
                 </div>
             </div>
         </div>
