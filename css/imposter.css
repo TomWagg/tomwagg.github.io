@@ -5,7 +5,7 @@ html, body {
 
 body {
     background-color: #333;
-    font-family: "Lato", sans-serif;
+    font-family: "New Tegomin", serif;
     color: lightgrey;
 }
 
@@ -82,4 +82,9 @@ body {
     font-weight: 900;
     text-decoration: underline;
     color: white;
+}
+
+.form-check-input:checked {
+  background-color: #fd0d2f;
+  border-color: #fd0d67;
 }
