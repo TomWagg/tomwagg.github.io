@@ -133,7 +133,7 @@ window.addEventListener("DOMContentLoaded", (event) => {
                 new_card.classList.remove("flipped");
 
                 // animate the card out
-                animateCSS(new_card, "fadeOutDown", function () {
+                animateCSS(new_card, "fadeOutDownBig", function () {
                     new_card.remove();
                 });
             });
