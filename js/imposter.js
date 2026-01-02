@@ -53,14 +53,23 @@ window.addEventListener("DOMContentLoaded", (event) => {
     const gameSetupForm = document.getElementById("setup-form");
     gameSetupForm.addEventListener("submit", (event) => {
         event.preventDefault();
+        document.getElementById("setup-error").classList.add("hide");
 
         const playerNameStr = document.getElementById("player-names").value
         const playerNames = playerNameStr.split(",").map(name => name.trim()).filter(name => name.length > 0);
+
+        if (playerNames.length < 3) {
+            document.getElementById("setup-error").classList.remove("hide");
+            document.getElementById("setup-error").textContent = "Please enter at least 3 player names.";
+            return;
+        }
+
         const numImposters = parseInt(document.getElementById("num-imposters").value);
 
         // ensure number of imposters is valid
         if (numImposters < 1 || numImposters >= playerNames.length) {
-            alert("Number of imposters must be at least 1 and less than the number of players.");
+            document.getElementById("setup-error").classList.remove("hide");
+            document.getElementById("setup-error").textContent = "Number of imposters must be at least 1 and less than the number of players.";
             return;
         }
 
@@ -76,15 +85,10 @@ window.addEventListener("DOMContentLoaded", (event) => {
         }
 
         if (wordList.length === 0) {
-            alert("Please provide a valid word list.");
+            document.getElementById("setup-error").classList.remove("hide");
+            document.getElementById("setup-error").textContent = "Please provide a valid word list.";
             return;
         }
-
-        console.log("Starting game with settings:");
-        console.log("Player Names:", playerNames);
-        console.log("Number of Imposters:", numImposters);
-        console.log("Reveal Imposters:", revealImposters);
-        console.log("Word List:", wordList);
 
         // choose the imposters randomly
         const shuffledPlayers = playerNames.slice().sort(() => 0.5 - Math.random());
@@ -92,8 +96,6 @@ window.addEventListener("DOMContentLoaded", (event) => {
 
         // choose a random word from the word list
         const chosenWord = wordList[Math.floor(Math.random() * wordList.length)];
-        console.log("Imposters are:", imposters);
-        console.log("Chosen Word is:", chosenWord);
 
         const template = document.getElementById("role-card-template");
         const roleCardsContainer = document.getElementById("role-card-container");
