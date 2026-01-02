@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="Personal Website for Tom Wagg" />
+        <meta name="author" content="Tom Wagg" />
+
+        <title>Imposter</title>
+        <link href="../../img/icon.png" rel="icon" />
+
+        <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+            rel="stylesheet" />
+
+        <!-- random css -->
+        <link href="../../css/animate.css" rel="stylesheet" />
+        <link href="../../css/imposter.css" rel="stylesheet" />
+    </head>
+</html>
+<body data-bs-theme="dark">
+    <div id="setup">
+        <!-- Setup section announces the game rules and instructions -->
+        <!-- Game host will setup player names and number of spys -->
+        <div class="container">
+            <div class="row mt-5 mb-3">
+                <div class="col text-center">
+                    <h1 class="display-1">Imposter</h1>
+                    <p class="lead">Find the imposter among the citizens!</p>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col">
+                    <h3>Instructions</h3>
+                    <ul>
+                        <li>One or more players are secretly assigned the role of "Imposter". The rest are "Citizens".</li>
+                        <li>Citizens are told a group word that they must use to identify each other.</li>
+                        <li>Each player takes it in turns to describe the word without revealing it directly.</li>
+                        <li>After all players have given their clues, everyone votes on who they think the Imposter is.</li>
+                        <li>If the Imposter is caught, the Citizens win! If not, the Imposter wins!</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col">
+                    <h3>Setup</h3>
+                    <form id="setup-form">
+                        <div class="mb-3">
+                            <label for="player-names" class="form-label">Player Names (comma separated)</label>
+                            <input type="text" class="form-control" id="player-names" placeholder="e.g. Alice, Bob, Charlie" required />
+                        </div>
+                        <div class="mb-3">
+                            <label for="num-imposters" class="form-label">Number of Imposters</label>
+                            <input type="number" class="form-control" id="num-imposters" min="1" value="1" required />
+                        </div>
+                        <div class="mb-3">
+                            <label for="word" class="form-label">Word list</label>
+                            <select class="form-select" id="word-list-select">
+                                <option value="fruits" selected>Fruits</option>
+                                <option value="animals">Animals</option>
+                                <option value="countries">Countries</option>
+                                <option value="custom">Custom</option>
+                            </select>
+                            <input type="text" class="form-control hide" id="custom-word-list" placeholder="Or enter a custom word list (comma separated)" />
+                        </div>
+                        <button type="submit" class="btn btn-primary w-100">Start Game</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="game">
+
+    </div>
+    <div id="javascriptbox">
+        <script src="../../js/balls.js"></script>
+    </div>
+</body>
