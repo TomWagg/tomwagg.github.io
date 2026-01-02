@@ -54,12 +54,13 @@
                             <input type="number" class="form-control" id="num-imposters" min="1" value="1" required />
                         </div>
                         <div class="mb-3">
+                            <!-- whether to reveal imposters to each other, checkbox -->
+                            <label for="reveal-imposters" class="form-label">Cooperative Imposters</label>
+                            <input type="checkbox" class="form-check-input" id="reveal-imposters" />
+                        </div>
+                        <div class="mb-3">
                             <label for="word" class="form-label">Word list</label>
                             <select class="form-select" id="word-list-select">
-                                <option value="fruits" selected>Fruits</option>
-                                <option value="animals">Animals</option>
-                                <option value="countries">Countries</option>
-                                <option value="custom">Custom</option>
                             </select>
                             <input type="text" class="form-control hide" id="custom-word-list" placeholder="Or enter a custom word list (comma separated)" />
                         </div>
@@ -69,10 +70,35 @@
             </div>
         </div>
     </div>
-    <div id="game">
-
+    <div id="cards">
+        <!-- A series of stacked cards that show each players role, players will take it in turns to view their card (with a flip animation) -->
+         <div class="container">
+            <div class="row mt-5 mb-3">
+                <div class="col text-center">
+                    <h2 class="display-4">Player Roles</h2>
+                    <p class="lead">Pass the device to each player to view their role.</p>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col text-center">
+                    <div id="card-container" class="d-flex justify-content-center align-items-center">
+                        <div id="card-template" class="hide player-card">
+                            <div class="card-front">
+                                <h3 class="player-name"></h3>
+                                <p class="instruction">Tap to reveal your role</p>
+                            </div>
+                            <div class="card-back">
+                                <h3 class="role"></h3>
+                                <p class="word-info"></p>
+                            </div>
+                        </div>
+                        <!-- Cards will be dynamically added here -->
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
     <div id="javascriptbox">
-        <script src="../../js/balls.js"></script>
+        <script src="../../js/imposter.js"></script>
     </div>
 </body>
