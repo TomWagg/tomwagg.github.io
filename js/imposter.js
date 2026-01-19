@@ -158,7 +158,7 @@ window.addEventListener("DOMContentLoaded", (event) => {
 
         // set up the restart button
         document.getElementById("restart-btn").addEventListener("click", function () {
-            window.location.reload();
+            reset_game();
         });
 
         // hide the setup form and show the role cards
@@ -166,3 +166,17 @@ window.addEventListener("DOMContentLoaded", (event) => {
         document.getElementById("cards").classList.remove("hide");
     });
 });
+
+function reset_game() {
+    // reset elements without reloading the page to keep the same list of names and inputs
+    document.getElementById("setup").classList.remove("hide");
+    document.getElementById("cards").classList.add("hide");
+
+    // delete all of the role cards that are not the template
+    const roleCards = document.querySelectorAll("#role-card-container .role-card");
+    roleCards.forEach(card => {
+        if (card.id !== "role-card-template" && !card.classList.contains("hide")) {
+            card.remove();
+        }
+    });
+}
