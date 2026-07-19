@@ -227,6 +227,39 @@ body.dark .questions-accordion .accordion-body {
     border-radius: 2px;
     display: inline-block;
 }
+.legend-cross {
+    display: inline-block;
+    width: 14px;
+    text-align: center;
+    font-weight: 900;
+    line-height: 1;
+}
+
+/* scale bar overlaid on the 3D viewport (size of the view in solar radii) */
+#viz-scalebar {
+    position: absolute;
+    right: 12px;
+    bottom: 10px;
+    z-index: 3;
+    pointer-events: none;
+    text-align: center;
+    color: #e9edf5;
+}
+#viz-scalebar .sb-text {
+    font-size: 0.75rem;
+    font-weight: 700;
+    margin-bottom: 3px;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.9);
+    letter-spacing: 0.02em;
+}
+#viz-scalebar .sb-bar {
+    height: 7px;
+    margin-left: auto;
+    border: 2px solid rgba(233, 237, 245, 0.9);
+    border-top: none;
+    box-sizing: border-box;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.6);
+}
 
 /* ---- Results ---------------------------------------------------------- */
 #status-badge.bound {

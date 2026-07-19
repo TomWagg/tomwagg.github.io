@@ -106,12 +106,54 @@ function makePlane() {
   })
   return new THREE.Mesh(geo, mat)
 }
+// A small 3-axis cross marking the centre of mass (the origin). depthTest is
+// off so it stays visible from any angle.
+function makeCoMCross() {
+  const s = 0.14
+  const geo = new THREE.BufferGeometry()
+  geo.setAttribute(
+    "position",
+    new THREE.BufferAttribute(
+      new Float32Array([
+        -s,
+        0,
+        0,
+        s,
+        0,
+        0,
+        0,
+        -s,
+        0,
+        0,
+        s,
+        0,
+        0,
+        0,
+        -s,
+        0,
+        0,
+        s
+      ]),
+      3
+    )
+  )
+  const mat = new THREE.LineBasicMaterial({
+    color: 0xe6ecf7,
+    transparent: true,
+    opacity: 0.85,
+    depthTest: false
+  })
+  const cross = new THREE.LineSegments(geo, mat)
+  cross.renderOrder = 10
+  return cross
+}
 function addEnvironment(scn) {
   const p2 = new THREE.PointLight(0xbecbff, 15, 0, 1.5)
   p2.position.set(8, 10, 8)
   scn.add(p2)
   scn.add(makeStarfield())
   scn.add(makePlane())
+  scn.add(makeCoMCross())
 }
 addEnvironment(sceneBefore)
 addEnvironment(sceneAfter)
@@ -387,7 +429,7 @@ function velScaleFor(res) {
     res.vCompMag || 0,
     30
   )
-  velScale = 2.2 / vref
+  velScale = 2 / vref
   return velScale
 }
 
@@ -592,14 +634,31 @@ function contentBox() {
   b.expandByPoint(preCompanionPos)
   return b
 }
-const _sphere = new THREE.Sphere()
 function fitToContent(resetDir) {
   camera.aspect = panelAspect()
   const box = contentBox()
   if (box.isEmpty()) return
-  box.getBoundingSphere(_sphere)
-  const center = _sphere.center
-  const R = Math.max(_sphere.radius, 0.4)
+
+  // Always frame around the centre of mass (the origin), so the view stays
+  // centred on the CoM rather than drifting to the content's bounding-box centre.
+  const center = new THREE.Vector3(0, 0, 0)
+  const c = box
+  const corners = [
+    [c.min.x, c.min.y, c.min.z],
+    [c.min.x, c.min.y, c.max.z],
+    [c.min.x, c.max.y, c.min.z],
+    [c.min.x, c.max.y, c.max.z],
+    [c.max.x, c.min.y, c.min.z],
+    [c.max.x, c.min.y, c.max.z],
+    [c.max.x, c.max.y, c.min.z],
+    [c.max.x, c.max.y, c.max.z]
+  ]
+  // radius = farthest content point from the origin
+  let R = 0.4
+  for (const p of corners) {
+    R = Math.max(R, Math.hypot(p[0], p[1], p[2]))
+  }
+
   const dir = resetDir
     ? CAM_DIR.clone()
     : camera.position.clone().sub(controls.target).normalize()
@@ -615,23 +674,13 @@ function fitToContent(resetDir) {
   }
   let dist = (R / Math.sin(limitingHalfAngle())) * 1.1
   place(dist)
-  const c = box
-  const corners = [
-    [c.min.x, c.min.y, c.min.z],
-    [c.min.x, c.min.y, c.max.z],
-    [c.min.x, c.max.y, c.min.z],
-    [c.min.x, c.max.y, c.max.z],
-    [c.max.x, c.min.y, c.min.z],
-    [c.max.x, c.min.y, c.max.z],
-    [c.max.x, c.max.y, c.min.z],
-    [c.max.x, c.max.y, c.max.z]
-  ]
+  // refine using the projected extent so content fills the frame (still centred on CoM)
   let maxAbs = 0
   for (const p of corners) {
     const v = new THREE.Vector3(p[0], p[1], p[2]).project(camera)
     maxAbs = Math.max(maxAbs, Math.abs(v.x), Math.abs(v.y))
   }
-  if (maxAbs > 0.01) place(dist * (maxAbs / 0.85))
+  if (maxAbs > 0.01) place(dist * (maxAbs / 0.5))
   controls.update()
 }
 
@@ -868,6 +917,7 @@ document.querySelectorAll(".view-mode-group [data-mode]").forEach(btn => {
   const items = [
     ["swatch", COLORS.companion, "Companion"],
     ["swatch", COLORS.star, "Collapsing star / remnant"],
+    ["cross", 0xe6ecf7, "Centre of mass"],
     ["line", COLORS.preOrbit, "Pre-SN orbit"],
     ["line", COLORS.postOrbit, "Post-SN orbit / escape"],
     ["arrow", COLORS.kick, "Natal kick"],
@@ -880,11 +930,53 @@ document.querySelectorAll(".view-mode-group [data-mode]").forEach(btn => {
       const mark =
         type === "swatch"
           ? `<span class="legend-swatch" style="background:${hex}"></span>`
-          : `<span class="legend-line" style="background:${hex}"></span>`
+          : type === "cross"
+            ? `<span class="legend-cross" style="color:${hex}">+</span>`
+            : `<span class="legend-line" style="background:${hex}"></span>`
       return `<span class="legend-item">${mark}${label}</span>`
     })
     .join("")
 })()
+
+// ===========================================================================
+//  Scale bar — shows the physical size of the view in solar radii
+// ===========================================================================
+const scaleBar = document.createElement("div")
+scaleBar.id = "viz-scalebar"
+scaleBar.innerHTML = '<div class="sb-text"></div><div class="sb-bar"></div>'
+canvas.parentElement.appendChild(scaleBar)
+const scaleBarBar = scaleBar.querySelector(".sb-bar")
+const scaleBarText = scaleBar.querySelector(".sb-text")
+
+function niceLength(x) {
+  if (!(x > 0)) return 1
+  const pow = Math.pow(10, Math.floor(Math.log10(x)))
+  const m = x / pow
+  const nice = m < 1.5 ? 1 : m < 3.5 ? 2 : m < 7.5 ? 5 : 10
+  return nice * pow
+}
+function fmtScaleNum(n) {
+  return n >= 1 ? String(Math.round(n)) : String(Number(n.toPrecision(1)))
+}
+let lastScaleTxt = ""
+function updateScaleBar() {
+  if (!isFinite(sceneScale) || sceneScale <= 0) return
+  const h = canvas.clientHeight
+  if (!h) return
+  // vertical world extent visible at the CoM plane, per panel
+  const panelH = viewMode === "split" && splitVertical ? h / 2 : h
+  const d = camera.position.distanceTo(controls.target)
+  const worldHeight = 2 * d * Math.tan(THREE.MathUtils.degToRad(camera.fov) / 2)
+  const rsunPerPx = worldHeight / panelH / sceneScale
+  if (!isFinite(rsunPerPx) || rsunPerPx <= 0) return
+  const nice = niceLength(100 * rsunPerPx) // aim for a ~100px bar
+  scaleBarBar.style.width = (nice / rsunPerPx).toFixed(1) + "px"
+  const txt = fmtScaleNum(nice) + " R☉"
+  if (txt !== lastScaleTxt) {
+    scaleBarText.textContent = txt
+    lastScaleTxt = txt
+  }
+}
 
 // ===========================================================================
 //  Render / animation loop
@@ -927,6 +1019,7 @@ function renderFrame() {
 }
 function loop() {
   controls.update()
+  updateScaleBar()
   renderFrame()
   requestAnimationFrame(loop)
 }
