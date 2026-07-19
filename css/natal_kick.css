@@ -1,0 +1,323 @@
+/* ---------------------------------------------------------------------------
+ * natal_kick.css — page-specific styling for the natal-kick visualizer.
+ * Relies on the site-wide index.css / interact.css / dark_mode.css for the
+ * shared look (Lato, --primary variables, sliders, accordions, dark mode).
+ * ------------------------------------------------------------------------- */
+
+/* ---- Buttons recoloured to the page --primary ------------------------- */
+.btn-primary {
+    --bs-btn-bg: var(--primary);
+    --bs-btn-border-color: var(--primary);
+    --bs-btn-hover-bg: var(--primary-dark);
+    --bs-btn-hover-border-color: var(--primary-dark);
+    --bs-btn-active-bg: var(--primary-dark);
+    --bs-btn-active-border-color: var(--primary-dark);
+    --bs-btn-disabled-bg: var(--primary);
+    --bs-btn-disabled-border-color: var(--primary);
+}
+
+/* ---- Cards ------------------------------------------------------------ */
+.control-card {
+    border: none;
+    border-radius: 14px;
+    box-shadow: 0 4px 18px rgba(0, 0, 0, 0.08);
+    background-color: #ffffff;
+}
+body.dark .control-card {
+    background-color: #3c3c3c;
+    box-shadow: 0 4px 18px rgba(0, 0, 0, 0.35);
+}
+.card-title {
+    color: var(--primary-dark);
+    font-weight: 900;
+}
+body.dark .card-title {
+    color: var(--primary-light);
+}
+
+/* ---- Sliders ---------------------------------------------------------- */
+.slider-row {
+    margin-bottom: 0.6rem;
+}
+.slider-row > label {
+    display: block;
+    font-weight: 700;
+    margin-bottom: -0.4rem;
+}
+.slider-row .unit {
+    font-weight: 400;
+    color: #888;
+    font-size: 0.85em;
+}
+.slider-line {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+}
+.slider-line input[type='range'] {
+    flex: 1 1 auto;
+}
+.num-input {
+    flex: 0 0 5rem;
+    width: 5rem;
+    border-radius: 8px;
+    border: 2px solid var(--primary-light);
+    background: transparent;
+    color: inherit;
+    text-align: center;
+    padding: 2px 4px;
+    font-weight: 700;
+}
+.num-input:focus {
+    outline: none;
+    border-color: var(--primary);
+}
+
+/* remnant type badge */
+#remnant-type {
+    background-color: var(--primary);
+    color: white;
+    font-size: 0.7em;
+    vertical-align: middle;
+}
+
+/* ---- Model sub-parameters (shown/hidden per model) -------------------- */
+.model-param {
+    display: none;
+}
+.model-param.show {
+    display: block;
+}
+
+/* ---- Educational content (intro + questions accordions) -------------- */
+.intro-accordion .accordion-item,
+.questions-accordion .accordion-item {
+    margin-bottom: 0.5rem;
+}
+.intro-accordion .accordion-button,
+.questions-accordion .accordion-button {
+    border-radius: 10px;
+    font-size: 1.05rem;
+}
+.intro-accordion .accordion-button.collapsed,
+.questions-accordion .accordion-button.collapsed {
+    border-radius: 10px;
+}
+.intro-accordion .accordion-body,
+.questions-accordion .accordion-body {
+    background: rgba(0, 0, 0, 0.03);
+    border-radius: 0 0 10px 10px;
+    margin-top: -6px;
+    padding-top: 1rem;
+}
+body.dark .intro-accordion .accordion-body,
+body.dark .questions-accordion .accordion-body {
+    background: rgba(255, 255, 255, 0.04);
+}
+/* give MathJax display equations room to breathe */
+.intro-accordion .accordion-body .MathJax_Display,
+.questions-accordion .accordion-body .MathJax_Display {
+    margin: 0.8rem 0 !important;
+}
+.reference-list li {
+    margin-bottom: 0.3rem;
+}
+
+/* ---- View-mode selector ---------------------------------------------- */
+.view-mode-group {
+    width: 100%;
+}
+.view-mode-group .btn {
+    flex: 1 1 0;
+}
+
+/* ---- 3D viewport ------------------------------------------------------ */
+#viz-wrapper {
+    position: relative;
+    width: 100%;
+}
+
+/* phase labels + split divider overlaid on the canvas */
+.viz-phase-label {
+    position: absolute;
+    top: 10px;
+    background: rgba(0, 0, 0, 0.5);
+    color: #fff;
+    padding: 2px 12px;
+    border-radius: 8px;
+    font-weight: 700;
+    font-size: 0.85rem;
+    letter-spacing: 0.02em;
+    pointer-events: none;
+    z-index: 3;
+    white-space: nowrap;
+}
+.viz-divider {
+    position: absolute;
+    background: rgba(255, 255, 255, 0.22);
+    z-index: 3;
+    pointer-events: none;
+    display: none;
+}
+#viz-canvas {
+    width: 100%;
+    aspect-ratio: 1.4;
+    min-height: 320px;
+    border-radius: 12px;
+    overflow: hidden;
+    background: radial-gradient(ellipse at center, #10131c 0%, #05060a 100%);
+    cursor: grab;
+    touch-action: none;
+}
+#viz-canvas:active {
+    cursor: grabbing;
+}
+#viz-canvas canvas {
+    display: block;
+}
+#viz-controls {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    display: flex;
+    gap: 6px;
+}
+#viz-controls .btn {
+    background: rgba(255, 255, 255, 0.85);
+}
+#blaauw-switch {
+    position: absolute;
+    left: 14px;
+    bottom: 10px;
+    color: #e6e6e6;
+    background: rgba(0, 0, 0, 0.35);
+    padding: 2px 10px 2px 34px;
+    border-radius: 8px;
+}
+#blaauw-switch .form-check-input {
+    background-color: rgba(255, 255, 255, 0.3);
+    border-color: rgba(255, 255, 255, 0.5);
+}
+#blaauw-switch .form-check-input:checked {
+    background-color: var(--primary);
+    border-color: var(--primary);
+}
+
+/* legend under the viewport */
+#viz-legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem 1rem;
+    justify-content: center;
+}
+.legend-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+}
+.legend-swatch {
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    display: inline-block;
+}
+.legend-line {
+    width: 18px;
+    height: 3px;
+    border-radius: 2px;
+    display: inline-block;
+}
+
+/* ---- Results ---------------------------------------------------------- */
+#status-badge.bound {
+    background-color: #2e7d5b;
+    color: white;
+}
+#status-badge.disrupted {
+    background-color: var(--primary-dark);
+    color: white;
+}
+.result-tile {
+    background: rgba(0, 0, 0, 0.04);
+    border-radius: 10px;
+    padding: 0.5rem 0.25rem;
+    height: 100%;
+}
+body.dark .result-tile {
+    background: rgba(255, 255, 255, 0.06);
+}
+.result-value {
+    font-size: 1.25rem;
+    font-weight: 900;
+    color: var(--primary-dark);
+    line-height: 1.15;
+}
+body.dark .result-value {
+    color: var(--primary-light);
+}
+.result-label {
+    font-size: 0.78rem;
+    color: #888;
+}
+.result-tile-wide {
+    background: rgba(0, 0, 0, 0.04);
+    border-radius: 10px;
+    padding: 0.7rem 0.9rem;
+}
+body.dark .result-tile-wide {
+    background: rgba(255, 255, 255, 0.06);
+}
+
+/* systemic velocity decomposition */
+.decomp-row {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.9rem;
+    padding: 1px 0;
+}
+.decomp-bar {
+    display: flex;
+    height: 12px;
+    border-radius: 6px;
+    overflow: hidden;
+    margin: 4px 0;
+    background: rgba(0, 0, 0, 0.08);
+}
+.bar {
+    height: 100%;
+    transition: width 250ms ease;
+}
+.bar-blaauw {
+    background: #4c8fc0;
+}
+.bar-kick {
+    background: var(--primary);
+}
+.swatch {
+    display: inline-block;
+    width: 11px;
+    height: 11px;
+    border-radius: 3px;
+    margin-right: 5px;
+    vertical-align: baseline;
+}
+.swatch-blaauw {
+    background: #4c8fc0;
+}
+.swatch-kick {
+    background: var(--primary);
+}
+.swatch-remnant {
+    background: #7fb4ff;
+    border-radius: 50%;
+}
+.swatch-companion {
+    background: #ffd25a;
+    border-radius: 50%;
+}
+
+@media (max-width: 1199.98px) {
+    #viz-canvas {
+        aspect-ratio: 1.6;
+    }
+}
