@@ -292,10 +292,16 @@ let spinning = false
 let viewMode = "split" // 'combined' | 'before' | 'after' | 'split'
 let splitVertical = false
 let current = null
-let sceneScale = 1
+// Independent scene scales for the before / after panels (Rsun -> scene units).
+// They differ in split mode so each panel frames its own content; in combined
+// mode they are forced equal so the overlaid orbits stay comparable.
+let curScaleBefore = 1
+let curScaleAfter = 1
 let velScale = 1
-let preRemnantPos = new THREE.Vector3()
-let preCompanionPos = new THREE.Vector3()
+let preRemnantPosBefore = new THREE.Vector3()
+let preCompanionPosBefore = new THREE.Vector3()
+let preRemnantPosAfter = new THREE.Vector3()
+let preCompanionPosAfter = new THREE.Vector3()
 
 // ===========================================================================
 //  Input handling
@@ -369,33 +375,40 @@ function computeScene() {
   const res = Phys.kickPfahl(p)
   current = res
 
-  // Scale so the larger of the pre-/post-SN orbits fits the framing target
+  // --- Independent scales for the before / after panels ---
+  // Normalise each scene so its own orbit fills the framing target, so a
+  // near-disruption system (huge post-SN orbit) doesn't shrink the pre-SN panel.
+  // In combined mode both scenes MUST share one scale so the overlaid orbits are
+  // directly comparable.
   const mtotPre = p.m1 + p.m2
-  let maxExtent = p.sep * (1 + p.ecc) * (Math.max(p.m1, p.m2) / mtotPre)
+  let preExtent = p.sep * (1 + p.ecc) * (Math.max(p.m1, p.m2) / mtotPre)
+  if (!(preExtent > 0)) preExtent = p.sep || 1
+  let postExtent = preExtent
   if (!res.disrupt && isFinite(res.sepNew) && res.eccNew < 1) {
     const mtotNew = p.m1n + p.m2
-    const postExt =
-      res.sepNew * (1 + res.eccNew) * (Math.max(p.m1n, p.m2) / mtotNew)
-    if (isFinite(postExt)) maxExtent = Math.max(maxExtent, postExt)
+    const pe = res.sepNew * (1 + res.eccNew) * (Math.max(p.m1n, p.m2) / mtotNew)
+    if (isFinite(pe) && pe > 0) postExtent = pe
   }
-  if (!(maxExtent > 0)) maxExtent = p.sep
-  sceneScale = REL_A / maxExtent
+  const scaleBefore = REL_A / preExtent
+  const scaleAfter = REL_A / postExtent
+  const shared = REL_A / Math.max(preExtent, postExtent)
+  const combined = viewMode === "combined"
+  curScaleBefore = combined ? shared : scaleBefore
+  curScaleAfter = combined ? shared : scaleAfter
 
-  // pre-SN star positions from the exact separation vector at this phase
+  // pre-SN star positions (snapshot at this phase), rendered in each scene's scale
   if (res.sepVec) {
-    preRemnantPos = toScene(
-      V.scale(res.sepVec, p.m2 / mtotPre / Phys.RSUN_KM),
-      sceneScale
-    )
-    preCompanionPos = toScene(
-      V.scale(res.sepVec, -p.m1 / mtotPre / Phys.RSUN_KM),
-      sceneScale
-    )
+    const relRemnant = V.scale(res.sepVec, p.m2 / mtotPre / Phys.RSUN_KM)
+    const relCompanion = V.scale(res.sepVec, -p.m1 / mtotPre / Phys.RSUN_KM)
+    preRemnantPosBefore = toScene(relRemnant, curScaleBefore)
+    preCompanionPosBefore = toScene(relCompanion, curScaleBefore)
+    preRemnantPosAfter = toScene(relRemnant, curScaleAfter)
+    preCompanionPosAfter = toScene(relCompanion, curScaleAfter)
   }
-  collapsingStar.position.copy(preRemnantPos)
-  companionBefore.position.copy(preCompanionPos)
-  remnant.position.copy(preRemnantPos)
-  companionAfter.position.copy(preCompanionPos)
+  collapsingStar.position.copy(preRemnantPosBefore)
+  companionBefore.position.copy(preCompanionPosBefore)
+  remnant.position.copy(preRemnantPosAfter)
+  companionAfter.position.copy(preCompanionPosAfter)
 
   // scale spheres by mass
   collapsingStar.scale.setScalar(radiusForMass(p.m1) / STAR_R)
@@ -404,10 +417,10 @@ function computeScene() {
   companionAfter.scale.setScalar(compScale)
 
   clearArrows()
-  drawPreSN(p, res)
+  drawPreSN(p, res, curScaleBefore)
 
   if (liveMode || applied) {
-    drawPostSN(p, res)
+    drawPostSN(p, res, curScaleAfter)
     updateResults(p, res)
     applied = true
   } else {
@@ -433,34 +446,16 @@ function velScaleFor(res) {
   return velScale
 }
 
-function drawPreSN(p, res) {
+function drawPreSN(p, res, scale) {
   clearGroup(preGroup)
   const nHat = res.hPrev ? V.hat(res.hPrev) : [0, 0, 1]
   const pHat = p.ecc > 1e-6 && res.LRLprev ? V.hat(res.LRLprev) : [1, 0, 0]
   const mtotPrev = p.m1 + p.m2
   preGroup.add(
-    orbitLine(
-      p.sep,
-      p.ecc,
-      nHat,
-      pHat,
-      p.m2 / mtotPrev,
-      sceneScale,
-      COLORS.preOrbit,
-      false
-    )
+    orbitLine(p.sep, p.ecc, nHat, pHat, p.m2 / mtotPrev, scale, COLORS.preOrbit, false)
   )
   preGroup.add(
-    orbitLine(
-      p.sep,
-      p.ecc,
-      nHat,
-      pHat,
-      -p.m1 / mtotPrev,
-      sceneScale,
-      COLORS.preOrbit,
-      false
-    )
+    orbitLine(p.sep, p.ecc, nHat, pHat, -p.m1 / mtotPrev, scale, COLORS.preOrbit, false)
   )
 
   if (res.natalKick) {
@@ -473,7 +468,7 @@ function drawPreSN(p, res) {
       sceneBefore,
       arrowsBefore,
       kdir,
-      preRemnantPos,
+      preRemnantPosBefore,
       kdir.length() * velScaleFor(res),
       COLORS.kick,
       1.0
@@ -481,7 +476,7 @@ function drawPreSN(p, res) {
   }
 }
 
-function drawPostSN(p, res) {
+function drawPostSN(p, res, scale) {
   clearGroup(postGroup)
   clearGroup(blaauwGroup)
   velScaleFor(res)
@@ -491,13 +486,13 @@ function drawPostSN(p, res) {
     if (res.vSn && res.vComp) {
       const vsn = new THREE.Vector3(res.vSn[0], res.vSn[1], res.vSn[2])
       const vcomp = new THREE.Vector3(res.vComp[0], res.vComp[1], res.vComp[2])
-      addTrajectory(preRemnantPos, vsn, res.flyScale, COLORS.postOrbit)
-      addTrajectory(preCompanionPos, vcomp, res.flyScale, COLORS.postOrbit)
+      addTrajectory(preRemnantPosAfter, vsn, res.flyScale, COLORS.postOrbit)
+      addTrajectory(preCompanionPosAfter, vcomp, res.flyScale, COLORS.postOrbit)
       addArrow(
         sceneAfter,
         arrowsAfter,
         vsn,
-        preRemnantPos,
+        preRemnantPosAfter,
         vsn.length() * velScale,
         COLORS.vsn,
         0.9
@@ -506,7 +501,7 @@ function drawPostSN(p, res) {
         sceneAfter,
         arrowsAfter,
         vcomp,
-        preCompanionPos,
+        preCompanionPosAfter,
         vcomp.length() * velScale,
         COLORS.vcomp,
         0.9
@@ -523,7 +518,7 @@ function drawPostSN(p, res) {
         nHat,
         pHat,
         p.m2 / mtot,
-        sceneScale,
+        scale,
         COLORS.postOrbit,
         false
       )
@@ -535,7 +530,7 @@ function drawPostSN(p, res) {
         nHat,
         pHat,
         -p.m1n / mtot,
-        sceneScale,
+        scale,
         COLORS.postOrbit,
         false
       )
@@ -567,7 +562,7 @@ function drawPostSN(p, res) {
           nHat,
           pHat,
           p.m2 / mtot,
-          sceneScale,
+          scale,
           COLORS.blaauw,
           true
         )
@@ -579,7 +574,7 @@ function drawPostSN(p, res) {
           nHat,
           pHat,
           -p.m1n / mtot,
-          sceneScale,
+          scale,
           COLORS.blaauw,
           true
         )
@@ -624,14 +619,16 @@ function contentBox() {
   if (wantBefore) {
     if (preGroup.children.length) b.expandByObject(preGroup)
     arrowsBefore.forEach(a => b.expandByPoint(a.userData.tip || a.position))
+    b.expandByPoint(preRemnantPosBefore)
+    b.expandByPoint(preCompanionPosBefore)
   }
   if (wantAfter) {
     if (postGroup.children.length) b.expandByObject(postGroup)
     if (blaauwGroup.children.length) b.expandByObject(blaauwGroup)
     arrowsAfter.forEach(a => b.expandByPoint(a.userData.tip || a.position))
+    b.expandByPoint(preRemnantPosAfter)
+    b.expandByPoint(preCompanionPosAfter)
   }
-  b.expandByPoint(preRemnantPos)
-  b.expandByPoint(preCompanionPos)
   return b
 }
 function fitToContent(resetDir) {
@@ -825,6 +822,7 @@ function setViewMode(mode) {
     .forEach(b => b.classList.toggle("active", b.dataset.mode === mode))
   applyModeVisibility()
   updateSplitLayout()
+  computeScene() // redraw with the scales appropriate to this mode (shared vs independent)
   fitToContent(false) // reframe to the newly visible content, keep orientation
 }
 
@@ -863,6 +861,37 @@ function updateSplitLayout() {
     lb.style.left = la.style.left = "12px"
     lb.style.display = viewMode === "before" ? "block" : "none"
     la.style.display = viewMode === "after" ? "block" : "none"
+  }
+
+  // position / show the per-panel scale bars
+  const sbB = scaleBarBefore.el
+  const sbA = scaleBarAfter.el
+  if (viewMode === "split") {
+    sbB.style.display = sbA.style.display = "block"
+    if (splitVertical) {
+      // before = top panel (bar above the divider), after = bottom panel
+      sbB.style.right = "12px"
+      sbB.style.top = "auto"
+      sbB.style.bottom = h / 2 + 8 + "px"
+      sbA.style.right = "12px"
+      sbA.style.top = "auto"
+      sbA.style.bottom = "10px"
+    } else {
+      // before = left panel; put it top-right (the bottom-left holds the Blaauw
+      // toggle), after = right panel bottom-right
+      sbB.style.right = w / 2 + 12 + "px"
+      sbB.style.bottom = "auto"
+      sbB.style.top = "10px"
+      sbA.style.right = "12px"
+      sbA.style.top = "auto"
+      sbA.style.bottom = "10px"
+    }
+  } else {
+    sbA.style.display = "none"
+    sbB.style.display = "block"
+    sbB.style.right = "12px"
+    sbB.style.top = "auto"
+    sbB.style.bottom = "10px"
   }
 }
 
@@ -941,12 +970,21 @@ document.querySelectorAll(".view-mode-group [data-mode]").forEach(btn => {
 // ===========================================================================
 //  Scale bar — shows the physical size of the view in solar radii
 // ===========================================================================
-const scaleBar = document.createElement("div")
-scaleBar.id = "viz-scalebar"
-scaleBar.innerHTML = '<div class="sb-text"></div><div class="sb-bar"></div>'
-canvas.parentElement.appendChild(scaleBar)
-const scaleBarBar = scaleBar.querySelector(".sb-bar")
-const scaleBarText = scaleBar.querySelector(".sb-text")
+// One scale bar per panel (they can show different scales in split mode).
+function makeScaleBar() {
+  const el = document.createElement("div")
+  el.className = "viz-scalebar"
+  el.innerHTML = '<div class="sb-text"></div><div class="sb-bar"></div>'
+  canvas.parentElement.appendChild(el)
+  return {
+    el,
+    bar: el.querySelector(".sb-bar"),
+    text: el.querySelector(".sb-text"),
+    last: ""
+  }
+}
+const scaleBarBefore = makeScaleBar()
+const scaleBarAfter = makeScaleBar()
 
 function niceLength(x) {
   if (!(x > 0)) return 1
@@ -958,23 +996,34 @@ function niceLength(x) {
 function fmtScaleNum(n) {
   return n >= 1 ? String(Math.round(n)) : String(Number(n.toPrecision(1)))
 }
-let lastScaleTxt = ""
-function updateScaleBar() {
-  if (!isFinite(sceneScale) || sceneScale <= 0) return
-  const h = canvas.clientHeight
-  if (!h) return
-  // vertical world extent visible at the CoM plane, per panel
-  const panelH = viewMode === "split" && splitVertical ? h / 2 : h
+function setScaleBar(sb, sceneScaleVal, panelH) {
+  if (!isFinite(sceneScaleVal) || sceneScaleVal <= 0) return
   const d = camera.position.distanceTo(controls.target)
   const worldHeight = 2 * d * Math.tan(THREE.MathUtils.degToRad(camera.fov) / 2)
-  const rsunPerPx = worldHeight / panelH / sceneScale
+  const rsunPerPx = worldHeight / panelH / sceneScaleVal // Rsun per screen pixel
   if (!isFinite(rsunPerPx) || rsunPerPx <= 0) return
   const nice = niceLength(100 * rsunPerPx) // aim for a ~100px bar
-  scaleBarBar.style.width = (nice / rsunPerPx).toFixed(1) + "px"
+  sb.bar.style.width = (nice / rsunPerPx).toFixed(1) + "px"
   const txt = fmtScaleNum(nice) + " R☉"
-  if (txt !== lastScaleTxt) {
-    scaleBarText.textContent = txt
-    lastScaleTxt = txt
+  if (txt !== sb.last) {
+    sb.text.textContent = txt
+    sb.last = txt
+  }
+}
+function updateScaleBars() {
+  const h = canvas.clientHeight
+  if (!h) return
+  if (viewMode === "split") {
+    const panelH = splitVertical ? h / 2 : h
+    setScaleBar(scaleBarBefore, curScaleBefore, panelH)
+    setScaleBar(scaleBarAfter, curScaleAfter, panelH)
+  } else {
+    // single panel: use whichever scene is shown (before/after), or shared (combined)
+    setScaleBar(
+      scaleBarBefore,
+      viewMode === "after" ? curScaleAfter : curScaleBefore,
+      h
+    )
   }
 }
 
@@ -1019,7 +1068,7 @@ function renderFrame() {
 }
 function loop() {
   controls.update()
-  updateScaleBar()
+  updateScaleBars()
   renderFrame()
   requestAnimationFrame(loop)
 }

@@ -235,8 +235,8 @@ body.dark .questions-accordion .accordion-body {
     line-height: 1;
 }
 
-/* scale bar overlaid on the 3D viewport (size of the view in solar radii) */
-#viz-scalebar {
+/* scale bar(s) overlaid on the 3D viewport (size of each panel in solar radii) */
+.viz-scalebar {
     position: absolute;
     right: 12px;
     bottom: 10px;
@@ -245,14 +245,14 @@ body.dark .questions-accordion .accordion-body {
     text-align: center;
     color: #e9edf5;
 }
-#viz-scalebar .sb-text {
+.viz-scalebar .sb-text {
     font-size: 0.75rem;
     font-weight: 700;
     margin-bottom: 3px;
     text-shadow: 0 1px 3px rgba(0, 0, 0, 0.9);
     letter-spacing: 0.02em;
 }
-#viz-scalebar .sb-bar {
+.viz-scalebar .sb-bar {
     height: 7px;
     margin-left: auto;
     border: 2px solid rgba(233, 237, 245, 0.9);
