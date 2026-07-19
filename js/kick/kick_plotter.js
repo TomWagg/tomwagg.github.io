@@ -1,19 +1,3 @@
-/*
- * natal_kick_visualizer.js
- * ---------------------------------------------------------------------------
- * three.js scene + UI wiring for the natal-kick binary visualizer.
- * The physics lives in natal_kick_physics.js (loaded as window.NatalKickPhysics).
- *
- * Two scenes share ONE camera + OrbitControls:
- *   sceneBefore : the pre-supernova binary (fixed snapshot at the mean anomaly)
- *   sceneAfter  : the post-supernova outcome (new orbit or escape trajectories)
- * View modes:
- *   "before" / "after" render one scene across the whole canvas;
- *   "split"  renders both side-by-side (or stacked on narrow screens) using
- *            scissor viewports. Because a single camera drives both panels,
- *            rotating / zooming one is automatically mirrored in the other.
- * ---------------------------------------------------------------------------
- */
 import * as THREE from "three"
 import { OrbitControls } from "three/addons/controls/OrbitControls.js"
 

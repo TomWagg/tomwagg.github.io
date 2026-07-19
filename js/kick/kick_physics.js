@@ -418,7 +418,6 @@
     maxwellianSpeed,
     gaussian,
     MODELS,
-    // vector helpers exposed for the visualizer
     vec: { add, sub, scale, dot, cross, mag, hat },
   };
 });

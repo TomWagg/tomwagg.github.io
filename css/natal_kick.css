@@ -1,9 +1,3 @@
-/* ---------------------------------------------------------------------------
- * natal_kick.css — page-specific styling for the natal-kick visualizer.
- * Relies on the site-wide index.css / interact.css / dark_mode.css for the
- * shared look (Lato, --primary variables, sliders, accordions, dark mode).
- * ------------------------------------------------------------------------- */
-
 /* ---- Buttons recoloured to the page --primary ------------------------- */
 .btn-primary {
     --bs-btn-bg: var(--primary);
