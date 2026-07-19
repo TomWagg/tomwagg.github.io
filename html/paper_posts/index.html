@@ -76,6 +76,26 @@
     </head>
 
     <body style="position: relative" data-bs-spy="scroll" data-bs-target="#nav" data-bs-offset="0" tabindex="0">
+        <script>
+            // theme applied before first paint (no flash, no flip); full logic in js/dark_mode.js / index.js
+            (function () {
+                var el = document.documentElement;
+                try {
+                    el.classList.add('theme-preload'); // suppress transitions during initial load
+                    var v = localStorage.getItem('theme');
+                    var dark = v === 'dark' || v === 'light' ? v === 'dark' : window.matchMedia('(prefers-color-scheme: dark)').matches;
+                    el.setAttribute('data-bs-theme', dark ? 'dark' : 'light');
+                    el.style.colorScheme = dark ? 'dark' : 'light';
+                    document.body.classList.toggle('dark', dark);
+                } catch (e) {}
+                // re-enable transitions after the first paint, so only user toggles animate
+                requestAnimationFrame(function () {
+                    requestAnimationFrame(function () {
+                        el.classList.remove('theme-preload');
+                    });
+                });
+            })();
+        </script>
         <div class="back-button">
             <button id="home" class="btn btn-outline-main rounded-circle">
                 <i class="fa fa-home"></i>
@@ -96,15 +116,25 @@
             </svg>
         </label>
         <div class="container text-center" style="padding-top: 3rem">
-            <div class="row justify-content-center">
+            <div class="row justify-content-center mb-4">
                 <div class="col col-lg-6">
                     <h1>Research Summary Posts</h1>
-                    <p>Hey there! This is where I index all of the blog-style posts I write about my research, click the options below to learn about each of my projects!</p>
+                    <p>Hey there! This is where I index all of the blog-style (often interactive) posts I write about my research, click the options below to learn about each of my projects!</p>
                 </div>
             </div>
-            <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel" data-bs-interval="5000">
+            <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel" data-bs-interval="500000">
                 <div class="carousel-inner">
                     <div class="carousel-item active">
+                        <div class="card">
+                            <div style="background: url('../../img/ejections/kick_tool.png')" class="post-header-img"></div>
+                            <div class="card-body">
+                                <h3 class="card-title">Understanding supernova kicks</h3>
+                                <h6>Why they happen and how they can reshape a binary</h6>
+                            </div>
+                            <a href="../interact/supernova-kicks.html" style="display: none"></a>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
                         <div class="card">
                             <div style="background: url('../../img/feedback/eso2401a.jpg')" class="post-header-img">
                                 <span class="img-credit">Credit: ESO/L. Calçada</span>

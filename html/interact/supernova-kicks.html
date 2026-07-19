@@ -1,0 +1,690 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="Interactive visualizer for how supernova natal kicks reshape binary star systems" />
+        <meta name="author" content="Tom Wagg" />
+
+        <title>Understanding supernova kicks</title>
+        <link href="../../img/icon.png" rel="icon" />
+        <!-- Bootstrap -->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous" />
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+
+        <script src="https://kit.fontawesome.com/328d20ce71.js" crossorigin="anonymous"></script>
+        <link rel="preconnect" href="https://fonts.gstatic.com" />
+        <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;700;900&display=swap" rel="stylesheet" />
+
+        <link href="../../css/index.css" rel="stylesheet" />
+        <link href="../../css/dark_mode.css?v=2" rel="stylesheet" />
+        <link href="../../css/interact.css" rel="stylesheet" />
+        <link href="../../css/natal_kick.css" rel="stylesheet" />
+
+        <script async src="https://cdn.jsdelivr.net/npm/mathjax@2/MathJax.js?config=TeX-AMS_CHTML"></script>
+
+        <!-- three.js for the 3D scene -->
+        <script type="importmap">
+            {
+                "imports": {
+                    "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
+                    "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"
+                }
+            }
+        </script>
+
+        <style>
+            :root {
+                --primary: #e0662e;
+                --primary-light: #f4b183;
+                --primary-dark: #a8410f;
+                --primary-mid: #d97c5a;
+            }
+        </style>
+    </head>
+    <body>
+        <script>
+            // theme applied before first paint (no flash, no flip); full logic in js/dark_mode.js / index.js
+            (function () {
+                var el = document.documentElement;
+                try {
+                    el.classList.add('theme-preload'); // suppress transitions during initial load
+                    var v = localStorage.getItem('theme');
+                    var dark = v === 'dark' || v === 'light' ? v === 'dark' : window.matchMedia('(prefers-color-scheme: dark)').matches;
+                    el.setAttribute('data-bs-theme', dark ? 'dark' : 'light');
+                    el.style.colorScheme = dark ? 'dark' : 'light';
+                    document.body.classList.toggle('dark', dark);
+                } catch (e) {}
+                // re-enable transitions after the first paint, so only user toggles animate
+                requestAnimationFrame(function () {
+                    requestAnimationFrame(function () {
+                        el.classList.remove('theme-preload');
+                    });
+                });
+            })();
+        </script>
+        <div class="back-button">
+            <button id="home" class="btn btn-outline-main rounded-circle" onclick="window.location.href='../../index.html'">
+                <i class="fa fa-home"></i>
+            </button>
+        </div>
+        <!-- dark mode toggle (from https://animate.style/) -->
+        <label for="dark-mode-checkbox" class="dark-mode-label top-right">
+            <input type="checkbox" id="dark-mode-checkbox" />
+            <span class="dark-mode-ball"></span>
+            <svg viewBox="0 0 512 512" class="sun-svg">
+                <path
+                    id="sun-svg"
+                    d="M256 160c-52.9 0-96 43.1-96 96s43.1 96 96 96 96-43.1 96-96-43.1-96-96-96zm246.4 80.5l-94.7-47.3 33.5-100.4c4.5-13.6-8.4-26.5-21.9-21.9l-100.4 33.5-47.4-94.8c-6.4-12.8-24.6-12.8-31 0l-47.3 94.7L92.7 70.8c-13.6-4.5-26.5 8.4-21.9 21.9l33.5 100.4-94.7 47.4c-12.8 6.4-12.8 24.6 0 31l94.7 47.3-33.5 100.5c-4.5 13.6 8.4 26.5 21.9 21.9l100.4-33.5 47.3 94.7c6.4 12.8 24.6 12.8 31 0l47.3-94.7 100.4 33.5c13.6 4.5 26.5-8.4 21.9-21.9l-33.5-100.4 94.7-47.3c13-6.5 13-24.7.2-31.1zm-155.9 106c-49.9 49.9-131.1 49.9-181 0-49.9-49.9-49.9-131.1 0-181 49.9-49.9 131.1-49.9 181 0 49.9 49.9 49.9 131.1 0 181z"
+                ></path>
+            </svg>
+            <svg viewBox="0 0 512 512" class="moon-svg">
+                <path id="moon-svg" d="M283.211 512c78.962 0 151.079-35.925 198.857-94.792 7.068-8.708-.639-21.43-11.562-19.35-124.203 23.654-238.262-71.576-238.262-196.954 0-72.222 38.662-138.635 101.498-174.394 9.686-5.512 7.25-20.197-3.756-22.23A258.156 258.156 0 0 0 283.211 0c-141.309 0-256 114.511-256 256 0 141.309 114.511 256 256 256z"></path>
+            </svg>
+        </label>
+
+        <div class="container-fluid" style="padding: 2rem">
+            <!-- ============================ Title ============================ -->
+            <div class="row mt-3 text-center">
+                <div class="col">
+                    <p class="display-1 mb-1 fw-bolder">Understanding supernova kicks</p>
+                    <p class="fs-3 mb-0 fw-bold text-muted">Why they happen and how they can reshape a binary</p>
+                    <p class="fs-5 text-muted">by <a href="https://tomwagg.com">Tom Wagg</a></p>
+                </div>
+            </div>
+
+            <!-- ============================ Lead ============================ -->
+            <div class="row mt-4 justify-content-center">
+                <div class="col-12 col-lg-10">
+                    <p class="fs-5">
+                        Supernova kicks have played rather a large role in my recent research. These kicks produce a variety of phenomena, from runaway stars to offset short gamma-ray bursts. In the past few years I've built up <a href="https://cogsworth.readthedocs.io/en/latest/">cogsworth</a>, a Python package for self-consistent binary population synthesis and galactic dynamics simulations, with the aim of using the impact of supernova kicks on kinematics to better understand binary evolution. I thought it could be fun to interactively explore what the core collapse of a massive star does to its binary.
+                    </p>
+                    <p class="fs-5">
+                        Specifically, this page walks you through the underlying physics and background of supernova kicks, provides an interactive interface to explore how kicks can change binary parameters, and guides you through some questions to better understand these kicks. You can either read through the background using the panels below, or <a href="#tool">skip straight to the interactive tool <i class="fas fa-arrow-down fa-xs"></i></a>, enjoy!
+                    </p>
+                </div>
+            </div>
+    
+            <div class="row" id="background">
+                <div class="col text-center">
+                    <hr class="mt-3 mb-5" />
+                    <h2 class="fw-bolder">Background</h2>
+                    <p class="text-muted">Take some time to explore the physics behind supernova kicks and their impact on binary systems.</p>
+                </div>
+            </div>
+
+            <!-- ==================== Background physics (collapsible) ==================== -->
+            <div class="row justify-content-center">
+                <div class="col-12 col-lg-10">
+                    <div class="accordion intro-accordion mt-2" id="intro-accordion">
+
+                        <!-- 1. two kinds of kick -->
+                        <div class="accordion-item">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed cat1" type="button" data-bs-toggle="collapse" data-bs-target="#intro-overview">
+                                    <i class="fas fa-bolt me-2"></i>Two kinds of kick, all happening in one instant
+                                </button>
+                            </h2>
+                            <div id="intro-overview" class="accordion-collapse collapse">
+                                <div class="accordion-body">
+                                    <p>A core-collapse supernova plays out on the order of seconds, while the binary's orbital period is often days to years. The explosion is therefore effectively <b>instantaneous</b>: the two stars have no time to move significantly, so we can approximate their separation as frozen, such that only the <i>masses</i> and <i>velocities</i> change. We usually treat the supernova as a single impulse and calculate the new orbit immediately afterwards.</p>
+                                    <p>Two distinct effects contribute to the kick applied by the supernova:</p>
+                                    <ul>
+                                        <li><b>Mass loss</b> &mdash; the remnant (a neutron star or black hole) is potentially far lighter than the star
+                                            that collapsed, such that a large amount of mass can leave the system. This symmetric mass loss alone recoils the binary, and even has the potential to cause a disruption. We refer to this as the <b>Blaauw kick</b>.</li>
+                                        <li><b>An asymmetric explosion</b> &mdash; the core collapse is rarely perfectly symmetric, with ejecta expelled preferentially in one direction, imparting a net momentum to the remnant. This is known as the <b>natal kick</b>.</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 2. Blaauw kick -->
+                        <div class="accordion-item">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed cat2" type="button" data-bs-toggle="collapse" data-bs-target="#intro-blaauw">
+                                    <i class="fas fa-weight-hanging me-2"></i>The Blaauw kick &mdash; recoil from sudden, symmetric mass loss
+                                </button>
+                            </h2>
+                            <div id="intro-blaauw" class="accordion-collapse collapse">
+                                <div class="accordion-body">
+                                    <p>Even a perfectly symmetric explosion changes the orbit, because it removes mass so quickly that the
+                                        orbit cannot adjust (<a href="https://ui.adsabs.harvard.edu/abs/1961BAN....15..265B/abstract" target="_blank">Blaauw 1961</a>, <a href="https://ui.adsabs.harvard.edu/abs/1961BAN....15..291B/abstract" target="_blank">Boersma 1961</a>).
+                                        The surviving stars keep the velocities they had, but the system is now less massive and therefore less
+                                        tightly bound, so the orbit widens. The centre of mass also recoils: the ejecta is thrown off
+                                        isotropically <i>in the exploding star's frame</i>, but that star was itself moving, so in the binary
+                                        frame the ejecta carries away net momentum and the remaining binary must recoil to compensate.</p>
+                                    <p>For an initially circular orbit the new semi-major axis is simply</p>
+                                    $$a_{\rm postSN} = a\,\frac{M_{\rm tot,postSN}}{2\,M_{\rm tot, postSN} - M_{\rm tot,preSN}},$$
+                                    <p>and the binary is unbound if more than <b>half of the total mass</b> is lost in the instant of explosion,</p>
+                                    $$\Delta M = M_1 - M_{1,\rm rem} > \tfrac{1}{2}\,M_{\rm tot,preSN}.$$
+                                    <p>It's typically the case that this effect is subdominant compared to the natal kick. But in cases in which the mass loss is large and the natal kick is suppressed, the Blaauw kick can become significant.</p>
+                                    <p class="mb-0">In the tool, set the kick to zero (or toggle <i>&ldquo;Show Blaauw-only orbit&rdquo;</i>) to
+                                        isolate this effect, and watch the orbit widen (or unbind!) as you lower the remnant mass.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 3. natal kick -->
+                        <div class="accordion-item">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed cat2" type="button" data-bs-toggle="collapse" data-bs-target="#intro-natal">
+                                    <i class="fas fa-meteor me-2"></i>Natal kicks &mdash; the explosion is lopsided
+                                </button>
+                            </h2>
+                            <div id="intro-natal" class="accordion-collapse collapse">
+                                <div class="accordion-body">
+                                    <p>Many effects break spherical symmetry in a supernova. Hydrodynamic instabilities during collapse (large-scale convection and the standing accretion-shock instability), together with anisotropic neutrino emission, launch the ejecta preferentially in one direction. By conservation of momentum the newborn compact object recoils in the opposite direction: leading to a <b>natal kick</b> that can be hundreds of km/s.</p>
+                                    <p>In the pre-supernova orbital frame, with the orbit in the \(x\)&ndash;\(y\) plane and its angular momentum along \(z\), the kick is written</p> $$\vec{v}_{\rm kick} = v_k\,\bigl(\cos\phi\cos\theta,\ \cos\phi\sin\theta,\ \sin\phi\bigr),$$
+                                    <p>where \(\phi\) is the angle out of the orbital plane and \(\theta\) is the azimthal angle. The kick is
+                                        imparted to the collapsing star only, so it adds to the <i>relative</i> velocity of the two stars, while
+                                        the centre of mass takes only a share of it (weighted by the remnant mass). Its direction can be just as important as its magnitude in many cases: the same kick can widen, shrink, tilt, or unbind the orbit depending on where it points.</p>
+                                    <p class="mb-0">Kick directions are usually assumed isotropic; the tool also lets you restrict them toward the
+                                        poles with the <i>kick opening angle</i>.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 4. fallback -->
+                        <div class="accordion-item">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed cat2" type="button" data-bs-toggle="collapse" data-bs-target="#intro-fallback">
+                                    <i class="fas fa-compress-arrows-alt me-2"></i>Fallback &mdash; why black-hole kicks are damped
+                                </button>
+                            </h2>
+                            <div id="intro-fallback" class="accordion-collapse collapse">
+                                <div class="accordion-body">
+                                    <p>Not all of the ejected material escapes. For more massive progenitors, a substantial fraction (up to 100%!) of the
+                                        exploding envelope stays bound and falls back onto the collapsing core
+                                        (e.g., <a href="https://ui.adsabs.harvard.edu/abs/2012ApJ...749...91F/abstract" target="_blank">Fryer et al. 2012</a>).
+                                        The fallback mass damps the natal kick for two reasons: the same explosion asymmetry now has to move a heavier
+                                        remnant (so momentum conservation gives a smaller velocity), and the fallback material itself carries
+                                        essentially no net momentum, diluting whatever kick was imparted. You'll note that in the case of complete fallback, the natal kick is completely suppressed.</p>
+                                    <p>There are two common prescriptions to capture this effect (you can try out both below):</p>
+                                    <ul>
+                                        <li><b>Fallback-scaled:</b> \(v_{\rm kick, scaled} \to (1 - f_{\rm fb})\,v_{\rm kick}\), where \(f_{\rm fb}\) is the
+                                            fraction of ejecta that falls back. Direct-collapse black holes have \(f_{\rm fb}\to 1\) and receive
+                                            essentially <b>no kick</b>.</li>
+                                        <li><b>Momentum-conserving:</b> \(v_{\rm BH} = v_{\rm NS}\,\dfrac{M_{\rm NS}}{M_{\rm BH}}\), so a heavier
+                                            black hole is kicked more gently for the same underlying impulse.</li>
+                                    </ul>
+                                    <p class="mb-0">This is why population-synthesis codes generally predict that black holes are born with much
+                                        smaller velocities than neutron stars. Observationally, it's less clear whether black holes have significant kicks (e.g., <a href="https://ui.adsabs.harvard.edu/abs/2025PASP..137c4203N/abstract" target="_blank">Nagarajan+2025</a>).</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 6. the maths -->
+                        <div class="accordion-item">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed catmid" type="button" data-bs-toggle="collapse" data-bs-target="#intro-maths">
+                                    <i class="fas fa-square-root-alt me-2"></i>The maths &mdash; how kicks alter a binary's orbit (Pfahl et al. 2002)
+                                </button>
+                            </h2>
+                            <div id="intro-maths" class="accordion-collapse collapse">
+                                <div class="accordion-body">
+                                    <p>
+                                        Okay you've made it this far and not been scared off, so let's get properly stuck in with the equations. The tool below is computing the standard impulsive-kick equations that have been discussed in <i>maaaannny</i> papers
+                                        (e.g., <a href="https://ui.adsabs.harvard.edu/abs/1983ApJ...267..322H/abstract" target="_blank">Hills 1983</a>;
+                                        <a href="https://ui.adsabs.harvard.edu/abs/1996ApJ...471..352K/abstract" target="_blank">Kalogera 1996</a>, check out the introduction of <a href="https://ui.adsabs.harvard.edu/abs/2025OJAp....8E..85W/abstract" target="_blank">Wagg et al. 2025</a> for a more complete list). But I'm just going to re-explain them here in the vector form presented in
+                                        <a href="https://ui.adsabs.harvard.edu/abs/2002ApJ...573..283P/abstract" target="_blank">Pfahl et al. 2002</a> because that's the version that personally makes the most sense to me. If my explanation is unclear, check out their paper for a more rigorous derivation!
+                                    </p>
+                                    <p>
+                                        Let's start by defining the system. We have a binary with masses \(M_1\) and \(M_2\), semi-major axis \(a\), eccentricity \(e\), and eccentric anomaly \(E\) (the eccentric anomaly defines the orbital phase at which the core collapse occurs). The total mass is \(M_{\rm tot} = M_1 + M_2\), and the separation is
+                                        \(r = a\,(1 - e\,\cos E)\). The orbital angular momentum points perpendicular to the orbital plane and is \(\vec h = \vec r \times \vec v_{\rm rel}\), where \(\vec v_{\rm rel}\) is the relative velocity of the two stars. The eccentricity vector points in the direction of the periastron of the collapsing star and is \(\vec e = \frac{\vec v_{\rm rel} \times \vec h}{G\,M_{\rm tot}} - \frac{\vec r}{r}\).
+                                    </p>
+                                    <p>Suddenly: an explosion! And I mean suddenly here, such that we treat the explosion as an impulse: meaning that the separation \(\vec r\) is unchanged. The collapsing star's mass drops
+                                        \(M_1 \to M_{1,\rm rem}\), and its velocity gains the natal kick, so the relative velocity and total mass become</p>
+                                    $$\vec v_{\,\rm rel, postSN} = \vec v_{\rm rel} + \vec v_{\rm kick}, \qquad M_{\rm tot,postSN} = M_{1,\rm rem} + M_2.$$
+                                    <p>First, we need to check whether the binary is disrupted by the supernova. We can calculate the post-SN vectors as follows and  split (or should I say, disrupt?) into two cases</p>
+                                    $$ \vec h_{\rm postSN} = \vec r \times \vec v_{\,\rm rel, postSN}, \qquad
+                                       \vec e_{\rm postSN} = \frac{\vec v_{\,\rm rel, postSN} \times \vec h_{\rm postSN}}{G\,M_{\rm tot,postSN}} - \frac{\vec r}{r}.$$
+                                    <p><b style="border-bottom: 1px solid">\(e_{\rm postSN} < 1\): the orbit is bound and the system recoils</b></p>
+                                    <p class="ms-4">
+                                        Their relationship went through a rough patch, but this couple has clung together against the odds (based on a true story, 85% of binaries disrupt after the first supernova, e.g., <a href="https://ui.adsabs.harvard.edu/abs/2019A%26A...624A..66R/abstract" target="_blank">Renzo et al. 2019</a>). The post-supernova semi-major axis is now given by
+                                        $$ a_{\rm postSN} = \frac{h_{\rm postSN}^{\,2}}{G\,M_{\rm tot,postSN}\,(1 - e_{\rm postSN}^{\,2})}. $$
+                                    </p>
+                                    <p class="ms-4">
+                                        The centre-of-mass (systemic) velocity of the binary recoils to compensate for the mass loss and the natal kick, and is given by
+                                    $$\vec v_{\rm CM, postSN} = \underbrace{-\frac{M_2\,(M_1 - M_{1,\rm rem})}{M_{\rm tot,preSN}\,M_{\rm tot,postSN}}\,\vec v_{\rm rel}}_{\text{Blaauw kick}}
+                                       \;+\; \underbrace{\frac{M_{1,\rm rem}}{M_{\rm tot,postSN}}\,\vec v_{\rm kick}}_{\text{Natal kick}}.$$
+                                       Note here that if you set $M_{1,\rm rem} = M_1$ (no mass loss) then the Blaauw kick term vanishes, and if you set $\vec v_{\rm kick} = 0$ then the natal kick term vanishes.
+                                    </p>
+                                    <p><b style="border-bottom: 1px solid">\(e_{\rm postSN} \geq 1\): the binary is disrupted and the companions are ejected</b></p>
+                                    <p class="ms-4">Alas, this stellar love story cannot handle the stress and ends in disaster, with the two companions going their separate ways.</p>
+                                    <p class="ms-4">In this case there is of course no $a_{\rm post SN}$ to speak of, the binary disrupts and the two stars separate with a relative velocity at infinity of
+                                    $$ \vec v_\infty = v_\infty\ \left[- \frac{1}{e_{\rm postSN}} \hat{e_{\rm postSN}} + \left(1 - \frac{1}{e_{\rm postSN}^2} \right)^{1/2} \hat{h}_{\rm postSN} \times \hat{e}_{\rm postSN} \right], \qquad
+                                       v_\infty = \sqrt{\frac{G\,M_{\rm tot,postSN}}{a_{\rm postSN}}}\,\sqrt{e_{\rm postSN}^{\,2} - 1},$$
+                                    which is shared between them based on their mass ratio (the typically lighter remnant carries most of it):</p>
+                                    $$\vec v_{\rm remnant} = \frac{M_2}{M_{\rm tot,postSN}}\,\vec v_\infty + \vec v_{\rm CM, postSN}, \qquad
+                                      \vec v_{\rm companion} = -\frac{M_{1,\rm rem}}{M_{\rm tot,postSN}}\,\vec v_\infty + \vec v_{\rm CM, postSN}.$$
+                                    <p class="mb-0"></p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 5. measuring kicks -->
+                        <div class="accordion-item">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed cat3" type="button" data-bs-toggle="collapse" data-bs-target="#intro-measure">
+                                    <i class="fas fa-satellite-dish me-2"></i>The observational evidence &mdash; inferring natal kicks from pulsars
+                                </button>
+                            </h2>
+                            <div id="intro-measure" class="accordion-collapse collapse">
+                                <div class="accordion-body">
+                                    <p>So far I've only discussed this from a theoretical perspective (spot the simulator...🙃), but there is good observational evidence that compact remnants receive large kicks. Radio pulsars have precisely measured <b>proper motions</b>, and their distances (from parallax or dispersion measure) convert these into transverse velocities. Crucially, <b>young</b> pulsars (ages \(\lesssim\) a few Myr) have not yet been deflected much by the Galactic potential, so their velocities still reflect their birth kicks.</p>
+                                    <p>Many different studies have attempted to characterise the distribution of these velocities, here are just a few of these:</p>
+                                    <ul>
+                                        <li><b><a href="https://ui.adsabs.harvard.edu/abs/2005MNRAS.360..974H/abstract" target="_blank">Hobbs et al. 2005</a></b>
+                                            &mdash; Fit 233 pulsar proper motions, fit by a single <b>Maxwellian with \(\sigma = 265\,\)km/s</b>
+                                            (mean speed \(\approx 400\,\)km/s). This has been the default assumption for many years, but recently has been shown to not be statistically representative of the sample.</li>
+                                        <li><b><a href="https://ui.adsabs.harvard.edu/abs/2017A%26A...608A..57V/abstract" target="_blank">Verbunt, Igoshev &amp; Cator 2017</a></b>
+                                            and <b><a href="https://ui.adsabs.harvard.edu/abs/2020MNRAS.494.3663I/abstract" target="_blank">Igoshev 2020</a></b>
+                                            &mdash; with improved parallaxes, they found a single Maxwellian is disfavoured. A <b>bimodal</b> (two-Maxwellian)
+                                            distribution fits better: a low-velocity mode (\(\sigma_1 \approx 130\,\)km/s, \(\sim\)40% of pulsars)
+                                            and a high-velocity mode (\(\sigma_2 \approx 300\,\)km/s). The slow mode may come from
+                                            electron-capture or low-mass iron-core supernovae with little fallback and small kicks.</li>
+                                        <li><b><a href="https://ui.adsabs.harvard.edu/abs/2025ApJ...989L...8D/abstract" target="_blank">Disberg &amp; Mandel 2025</a></b>
+                                            &mdash; treating the velocity inference carefully (in particular including the Jacobian of the
+                                            de-projection from 2D to 3D) shows that the young-pulsar speeds are actually well described by a
+                                            <b>log-normal</b> distribution, \(\ln(v_k/\mathrm{km\,s^{-1}}) \sim \mathcal{N}(\mu = 5.60,\ \sigma = 0.68)\),
+                                            peaking near 150&ndash;200 km/s.</li>
+                                    </ul>
+                                    <p>You'll note that these measurements probe the kicks of neutron stars. For black holes, the situation is more complex and less well-constrained (e.g., <a href="https://ui.adsabs.harvard.edu/abs/2025PASP..137c4203N/abstract" target="_blank">Nagarajan+2025</a>).</p>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <!-- ============================ Tool heading ============================ -->
+            <div class="row" id="tool">
+                <div class="col text-center">
+                    <hr class="mt-5 mb-5" />
+                    <h2 class="fw-bolder">Explore what kicks can do to a binary</h2>
+                    <p class="text-muted">
+                        Use the sliders to adjust the pre-supernova binary and the natal kick, and watch how the orbit changes. You can also click and drag the 3D view to rotate the orbit, or use the buttons to zoom and reset the view.
+                    </p>
+                </div>
+            </div>
+
+            <!-- ============================ Main app ============================ -->
+            <div class="row mt-3">
+                <!-- ---------------- Controls column ---------------- -->
+                <div class="col-12 col-xl-5">
+                    <!-- Pre-SN binary -->
+                    <div class="card control-card mb-3">
+                        <div class="card-body">
+                            <h4 class="card-title"><i class="fas fa-star me-2"></i>Pre-supernova binary</h4>
+                            <div class="row">
+                                <div class="col-12 col-md-6">
+                                    <div class="slider-row">
+                                        <label for="m1">Collapsing star mass <span class="unit">M<sub>&odot;</sub></span></label>
+                                        <div class="slider-line">
+                                            <input type="range" id="m1" min="3" max="100" step="0.1" value="20" />
+                                            <input type="number" id="m1-num" class="num-input" min="3" max="100" step="0.1" value="20" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-md-6">
+                                    <div class="slider-row">
+                                        <label for="m2">Companion mass <span class="unit">M<sub>&odot;</sub></span></label>
+                                        <div class="slider-line">
+                                            <input type="range" id="m2" min="1" max="100" step="0.1" value="25" />
+                                            <input type="number" id="m2-num" class="num-input" min="1" max="100" step="0.1" value="25" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-12 col-md-6">
+                                    <div class="slider-row">
+                                        <label for="m1n">
+                                            Remnant mass <span class="unit">M<sub>&odot;</sub></span>
+                                            <span id="remnant-type" class="badge rounded-pill">NS</span>
+                                            <span class="text-muted small">&nbsp;(ejects <span id="mass-lost">13.6</span> M<sub>&odot;</sub>)</span>
+                                        </label>
+                                        <div class="slider-line">
+                                            <input type="range" id="m1n" min="1" max="45" step="0.1" value="1.4" />
+                                            <input type="number" id="m1n-num" class="num-input" min="1" max="45" step="0.1" value="10" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-md-6">
+                                    <div class="slider-row">
+                                        <label for="sep">
+                                            Separation <span class="unit">R<sub>&odot;</sub></span>
+                                            <span class="text-muted small">&nbsp;(P<sub>orb</sub> = <span id="period-display">&mdash;</span>)</span>
+                                        </label>
+                                        <div class="slider-line">
+                                            <input type="range" id="sep" min="10" max="2000" step="1" value="300" />
+                                            <input type="number" id="sep-num" class="num-input" min="1" max="10000" step="1" value="300" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-12 col-md-6">
+                                    <div class="slider-row">
+                                        <label for="ecc">Eccentricity</label>
+                                        <div class="slider-line">
+                                            <input type="range" id="ecc" min="0" max="0.95" step="0.01" value="0.1" />
+                                            <input type="number" id="ecc-num" class="num-input" min="0" max="0.95" step="0.01" value="0.1" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-md-6">
+                                    <div class="slider-row">
+                                        <label for="meanAnom">Orbital phase <span class="unit">deg (mean anomaly)</span></label>
+                                        <div class="slider-line">
+                                            <input type="range" id="meanAnom" min="0" max="360" step="1" value="0" />
+                                            <input type="number" id="meanAnom-num" class="num-input" min="0" max="360" step="1" value="0" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="mt-1">
+                                <label class="form-label small text-muted mb-1 text-center w-100">Orbital velocity at core collapse</label>
+                                <div class="row text-center g-2">
+                                    <div class="col-6">
+                                        <div class="result-tile">
+                                            <div class="result-value" id="res-vorb1">&mdash;</div>
+                                            <div class="result-label"><span class="swatch swatch-star"></span>collapsing star</div>
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="result-tile">
+                                            <div class="result-value" id="res-vorb2">&mdash;</div>
+                                            <div class="result-label"><span class="swatch swatch-companion"></span>companion</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Natal kick -->
+                    <div class="card control-card mb-3">
+                        <div class="card-body">
+                            <h4 class="card-title"><i class="fas fa-meteor me-2"></i>Natal kick</h4>
+                            <div class="slider-row">
+                                <label for="vk">Kick magnitude <span class="unit">km/s</span></label>
+                                <div class="slider-line">
+                                    <input type="range" id="vk" min="0" max="2000" step="1" value="100" />
+                                    <input type="number" id="vk-num" class="num-input" min="0" max="2000" step="1" value="100" />
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-12 col-md-6">
+                                    <div class="slider-row">
+                                        <label for="phi">Polar angle &phi; <span class="unit">deg (from orbital plane)</span></label>
+                                        <div class="slider-line">
+                                            <input type="range" id="phi" min="-90" max="90" step="1" value="-42" />
+                                            <input type="number" id="phi-num" class="num-input" min="-90" max="90" step="1" value="-42" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-md-6">
+
+                                    <div class="slider-row">
+                                        <label for="theta">Azimuthal angle &theta; <span class="unit">deg (in orbital plane)</span></label>
+                                        <div class="slider-line">
+                                            <input type="range" id="theta" min="0" max="360" step="1" value="250" />
+                                            <input type="number" id="theta-num" class="num-input" min="0" max="360" step="1" value="250" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Results -->
+                    <div class="card control-card">
+                        <div class="card-body">
+                            <div class="d-flex align-items-center mb-3">
+                                <h4 class="card-title mb-0 me-3">Outcome</h4>
+                                <span id="status-badge" class="badge fs-6">&mdash;</span>
+                            </div>
+
+                            <div class="row text-center g-2 mb-2">
+                                <div class="col-4">
+                                    <div class="result-tile">
+                                        <div class="result-value" id="res-a">&mdash;</div>
+                                        <div class="result-label">semi-major axis</div>
+                                    </div>
+                                </div>
+                                <div class="col-4">
+                                    <div class="result-tile">
+                                        <div class="result-value" id="res-e">&mdash;</div>
+                                        <div class="result-label">eccentricity</div>
+                                    </div>
+                                </div>
+                                <div class="col-4">
+                                    <div class="result-tile">
+                                        <div class="result-value" id="res-period">&mdash;</div>
+                                        <div class="result-label">period</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Bound: systemic velocity + decomposition -->
+                            <div id="bound-block">
+                                <div class="result-tile-wide mb-2">
+                                    <div class="d-flex justify-content-between">
+                                        <span class="fw-bold">Systemic recoil velocity</span>
+                                        <span class="fw-bold" id="res-systemic">&mdash;</span>
+                                    </div>
+                                    <div class="decomp mt-2">
+                                        <div class="decomp-row">
+                                            <span><span class="swatch swatch-blaauw"></span>Blaauw (mass loss)</span>
+                                            <span id="res-blaauw">&mdash;</span>
+                                        </div>
+                                        <div class="decomp-bar"><div id="bar-blaauw" class="bar bar-blaauw"></div><div id="bar-kick" class="bar bar-kick"></div></div>
+                                        <div class="decomp-row">
+                                            <span><span class="swatch swatch-kick"></span>Natal kick</span>
+                                            <span id="res-kick">&mdash;</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Disrupted: individual velocities -->
+                            <div id="disrupt-block" style="display: none">
+                                <p class="mb-2 text-muted small">The binary is unbound &mdash; each star flies off independently:</p>
+                                <div class="row text-center g-2">
+                                    <div class="col-6">
+                                        <div class="result-tile">
+                                            <div class="result-value" id="res-vsn">&mdash;</div>
+                                            <div class="result-label"><span class="swatch swatch-remnant"></span>remnant speed</div>
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="result-tile">
+                                            <div class="result-value" id="res-vcomp">&mdash;</div>
+                                            <div class="result-label"><span class="swatch swatch-companion"></span>companion speed</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <p class="small mt-2 mb-0 text-muted">Relative velocity at infinity: <span id="res-vinf">&mdash;</span></p>
+                                <p id="res-collide" class="small mb-0 fw-bold" style="display: none; color: var(--primary-dark)">
+                                    <i class="fas fa-exclamation-triangle me-1"></i>The remnant collides with the companion!
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ---------------- Visualization + results column ---------------- -->
+                <div class="col-12 col-xl-7">
+                    <div class="card control-card mb-3">
+                        <div class="card-body p-2">
+                            <div class="btn-group toggle-group view-mode-group mb-2" role="group" aria-label="View mode">
+                                <button type="button" class="btn btn-primary" data-mode="combined">
+                                    <i class="fas fa-layer-group me-1"></i>Combined
+                                </button>
+                                <button type="button" class="btn btn-primary" data-mode="before">
+                                    <i class="fas fa-star me-1"></i>Before kick
+                                </button>
+                                <button type="button" class="btn btn-primary" data-mode="after">
+                                    <i class="fas fa-certificate me-1"></i>After kick
+                                </button>
+                                <button type="button" class="btn btn-primary active" data-mode="split">
+                                    <i class="fas fa-columns me-1"></i>Side by side
+                                </button>
+                            </div>
+                            <div id="viz-wrapper">
+                                <div id="viz-canvas"></div>
+                                <div class="viz-phase-label" id="label-before">Before kick</div>
+                                <div class="viz-phase-label" id="label-after">After kick</div>
+                                <div class="viz-divider" id="viz-divider"></div>
+                                <div id="viz-controls">
+                                    <button id="reset-view" class="btn btn-sm btn-outline-main" title="Reset the camera">
+                                        <i class="fas fa-video me-1"></i>Reset view
+                                    </button>
+                                    <button id="toggle-spin" class="btn btn-sm btn-outline-main hide" title="Auto-rotate">
+                                        <i class="fas fa-sync-alt me-1"></i>Spin
+                                    </button>
+                                    <button id="toggle-blaauw" class="btn btn-sm btn-outline-main" title="Show Blaauw-only orbit">
+                                        <i class="fas fa-weight-hanging me-1"></i>Show Blaauw-only orbit
+                                    </button>
+                                </div>
+                                <div class="form-check form-switch hide" id="blaauw-switch">
+                                    <input class="form-check-input" type="checkbox" id="show-blaauw" />
+                                    <label class="form-check-label small" for="show-blaauw">Show Blaauw-only orbit (no natal kick)</label>
+                                </div>
+                            </div>
+                            <div id="viz-legend" class="small mt-2"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row mt-5 justify-content-center" id="questions">
+                <div class="col-12 col-lg-10">
+                    <hr />
+                    <h2 class="text-center fw-bolder">Questions</h2>
+                    <p class="text-center text-muted">The background above answers most of these questions, but you can also test your intuition with the tool, whatever floats your boat :D</p>
+                    <div class="accordion questions-accordion mt-3" id="questions-accordion">
+
+                        <div class="accordion-item">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed cat1" type="button" data-bs-toggle="collapse" data-bs-target="#qz-1">
+                                    Are wider or tighter binaries easier to disrupt? How about binaries with more massive companions?
+                                </button>
+                            </h2>
+                            <div id="qz-1" class="accordion-collapse collapse">
+                                <div class="accordion-body">
+                                    <p><b>Wider binaries, with less massive companions, are easier to disrupt.</b> The binding energy of a binary is
+                                        $$ E_{\rm bind} = -\frac{G\,M_1\,M_2}{2\,a},$$
+                                        so the wider the separation \(a\) and the smaller the masses, the less energy is required from a kick to unbind it.
+                                    </p>
+                                    <p class="mb-0">
+                                        <i>Try it:</i> fix the kick and slide the separation up, or the companion mass down (or both!) and watch the binary fly apart.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="accordion-item">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed cat2" type="button" data-bs-toggle="collapse" data-bs-target="#qz-2">
+                                    How do natal kicks change a binary's separation and eccentricity? Does the direction matter?
+                                </button>
+                            </h2>
+                            <div id="qz-2" class="accordion-collapse collapse">
+                                <div class="accordion-body">
+                                    <p>A kick <b>almost always raises the eccentricity</b>: it changes the speed at one point of the orbit, which
+                                        can no longer trace a circle. The <b>separation can go either way</b>, and it's exactly because of the direction. A kick roughly along the direction of orbital motion widens the orbit (or unbinds it); a kick opposing the motion often removes
+                                        energy and tightens it. The polar angle can matter too, a kick out of the plane tilts the orbit and can more often cause a disruption.
+                                    </p>
+                                    <p class="mb-0"><i>Try it:</i> First look at how the eccentricity changes with different kick strengths. Then you can also start to explore the effects of directions; try adjusting the polar angle and azimuthal angle relative to the orbital velocity (shown by arrows on the orbits).</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="accordion-item">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed catmid" type="button" data-bs-toggle="collapse" data-bs-target="#qz-3">
+                                    For a large natal kick, what determines how fast the secondary is ejected?
+                                </button>
+                            </h2>
+                            <div id="qz-3" class="accordion-collapse collapse">
+                                <div class="accordion-body">
+                                    <p>This one is a classic misconception: it's important to remember that the kick is applied to the remnant, <b>not the companion</b>.</p>
+                                    <p>
+                                        When a large kick disrupts the binary, the companion is essentially just released from its orbit and so it flies off with the velocity it already had. This velocity is its pre-supernova orbital velocity $$ v_{\rm orb}= \sqrt{\frac{G M_{\rm tot,preSN}}{a}}, $$ with only a small difference. Indeed, once the kick is large enough to cause a disruption, the faster the remnant leaves the system, the <i>closer</i> the companion's ejection velocity is to its pre-supernova orbital velocity. I discuss this in more detail in <a href="https://ui.adsabs.harvard.edu/abs/2025OJAp....8E..85W/abstract" target="_blank">Wagg et al. 2025</a> if you're curious.
+                                    </p>
+                                    <p class="mb-0">
+                                        <i>Try it:</i> set up a disruption with a large kick (go for maybe 500 km/s), compare the companion's ejection velocity to its pre-supernova orbital velocity, then increase the kick and see how the companion's speed changes. You could also try changing the pre-supernova separation and compare how much more of a difference that makes.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="accordion-item">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed cat3" type="button" data-bs-toggle="collapse" data-bs-target="#qz-4">
+                                    How much mass loss do you need for a Blaauw kick alone to unbind a circular binary?
+                                </button>
+                            </h2>
+                            <div id="qz-4" class="accordion-collapse collapse">
+                                <div class="accordion-body">
+                                    <p>
+                                        For a circular orbit and no natal kick, the binary disrupts once <b>more than half of
+                                        the total mass</b> is lost in the instant of explosion:
+                                    </p>
+                                    $$\Delta M = M_1 - M_{1,\rm postSN} > \tfrac{1}{2}\,M_{\rm tot,preSN}.$$
+                                    <p>
+                                        As usual, if you lose less than half, the orbit simply widens. But once you cross the half-mass line, it flies apart.
+                                        Eccentric orbits complicate this threshold, since it starts to matter at what point during the orbit the mass loss occurs.
+                                    </p>
+                                    <p class="mb-0">
+                                        <i>Try it:</i> Set the kick to zero on a circular orbit, then lower the remnant mass until the ejected
+                                        mass passes half of the total (you may need a larger collapsing star mass to get this difference large enough).
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="accordion-item">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed cat1" type="button" data-bs-toggle="collapse" data-bs-target="#qz-5">
+                                    How does the companion's mass affect the systemic velocity of the binary after a kick?
+                                </button>
+                            </h2>
+                            <div id="qz-5" class="accordion-collapse collapse">
+                                <div class="accordion-body">
+                                    <p>
+                                        The larger the companion mass, the smaller the systemic velocity. The kick is given only to the
+                                        remnant, but the whole bound system shares the momentum, so a heavier companion means the same kick produces a smaller systemic velocity.
+                                    </p>
+                                    <p class="mb-0">
+                                        <i>Try it:</i> hold the kick fixed for a system that remains bound, increase the companion mass, and watch the systemic velocity drop.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <!-- ==================== References ==================== -->
+                    <hr class="mt-5 mb-5" />
+                    <p class="text-center text-muted small">
+                        And that's all I've got on kicks, I hope you enjoyed it and learn a little about how supernovae can shape the lives of binaries. If you have any questions, comments, or suggestions, please reach out! 
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <script type="text/x-mathjax-config">
+            MathJax.Hub.Config({ tex2jax: { inlineMath: [['$', '$'], ['\\(', '\\)']] } });
+        </script>
+        <script src="../../js/dark_mode.js?v=2"></script>
+        <script src="../../js/kick/kick_physics.js"></script>
+        <script type="module" src="../../js/kick/kick_plotter.js"></script>
+    </body>
+</html>

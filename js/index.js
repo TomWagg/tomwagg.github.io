@@ -123,8 +123,14 @@ function animateCSS(element, animationName, callback) {
 
 document.querySelector('#dark-mode-checkbox').addEventListener('change', function () {
     if (this.checked) {
+        try {
+            localStorage.setItem('theme', 'dark')
+        } catch (e) {}
         dark_mode('52')
     } else {
+        try {
+            localStorage.setItem('theme', 'light')
+        } catch (e) {}
         light_mode()
     }
 })
@@ -396,10 +402,37 @@ function dark_mode(blackRGB = '0') {
     document.getElementById('cheats').style.backgroundColor = '#525252'
 }
 
-const now = new Date()
-if ((now.getHours() >= 18) | (now.getHours() < 6)) {
-    document.querySelector('#dark-mode-checkbox').click()
-}
+// Apply the saved theme, or fall back to the visitor's OS colour preference.
+// (No time-of-day toggling, and no `.click()`, so refreshing never flips it.)
+;(function () {
+    function storedTheme() {
+        try {
+            const v = localStorage.getItem('theme')
+            return v === 'dark' || v === 'light' ? v : null
+        } catch (e) {
+            return null
+        }
+    }
+    const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+    const dark = (storedTheme() || (prefersDark ? 'dark' : 'light')) === 'dark'
+    document.querySelector('#dark-mode-checkbox').checked = dark
+    if (dark) dark_mode('52')
+    else light_mode()
+
+    // Keep following the OS preference live, unless the visitor has chosen a theme.
+    if (window.matchMedia) {
+        const mq = window.matchMedia('(prefers-color-scheme: dark)')
+        const onSystemChange = (e) => {
+            if (!storedTheme()) {
+                document.querySelector('#dark-mode-checkbox').checked = e.matches
+                if (e.matches) dark_mode('52')
+                else light_mode()
+            }
+        }
+        if (mq.addEventListener) mq.addEventListener('change', onSystemChange)
+        else if (mq.addListener) mq.addListener(onSystemChange)
+    }
+})()
 
 function reset_cheats() {
     document.body.classList.remove('rainbow')
