@@ -850,7 +850,6 @@ function updateSplitLayout() {
 // ===========================================================================
 function onInputChange() {
   if (!liveMode) applied = false
-  refreshModelUI()
   computeScene()
 }
 

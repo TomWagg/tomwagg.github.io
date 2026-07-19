@@ -322,8 +322,8 @@
                                     <div class="slider-row">
                                         <label for="m1">Collapsing star mass <span class="unit">M<sub>&odot;</sub></span></label>
                                         <div class="slider-line">
-                                            <input type="range" id="m1" min="3" max="60" step="0.1" value="15" />
-                                            <input type="number" id="m1-num" class="num-input" min="3" max="60" step="0.1" value="15" />
+                                            <input type="range" id="m1" min="3" max="100" step="0.1" value="20" />
+                                            <input type="number" id="m1-num" class="num-input" min="3" max="100" step="0.1" value="20" />
                                         </div>
                                     </div>
                                 </div>
@@ -331,8 +331,8 @@
                                     <div class="slider-row">
                                         <label for="m2">Companion mass <span class="unit">M<sub>&odot;</sub></span></label>
                                         <div class="slider-line">
-                                            <input type="range" id="m2" min="1" max="60" step="0.1" value="12" />
-                                            <input type="number" id="m2-num" class="num-input" min="1" max="60" step="0.1" value="12" />
+                                            <input type="range" id="m2" min="1" max="100" step="0.1" value="25" />
+                                            <input type="number" id="m2-num" class="num-input" min="1" max="100" step="0.1" value="25" />
                                         </div>
                                     </div>
                                 </div>
@@ -346,8 +346,8 @@
                                             <span class="text-muted small">&nbsp;(ejects <span id="mass-lost">13.6</span> M<sub>&odot;</sub>)</span>
                                         </label>
                                         <div class="slider-line">
-                                            <input type="range" id="m1n" min="1" max="40" step="0.1" value="1.4" />
-                                            <input type="number" id="m1n-num" class="num-input" min="0" max="40" step="0.1" value="1.4" />
+                                            <input type="range" id="m1n" min="1" max="45" step="0.1" value="1.4" />
+                                            <input type="number" id="m1n-num" class="num-input" min="0" max="45" step="0.1" value="10" />
                                         </div>
                                     </div>
                                 </div>
@@ -379,8 +379,8 @@
                                     <div class="slider-row">
                                         <label for="meanAnom">Orbital phase <span class="unit">deg (mean anomaly)</span></label>
                                         <div class="slider-line">
-                                            <input type="range" id="meanAnom" min="0" max="360" step="1" value="90" />
-                                            <input type="number" id="meanAnom-num" class="num-input" min="0" max="360" step="1" value="90" />
+                                            <input type="range" id="meanAnom" min="0" max="360" step="1" value="0" />
+                                            <input type="number" id="meanAnom-num" class="num-input" min="0" max="360" step="1" value="0" />
                                         </div>
                                     </div>
                                 </div>
@@ -395,8 +395,8 @@
                             <div class="slider-row">
                                 <label for="vk">Kick magnitude <span class="unit">km/s</span></label>
                                 <div class="slider-line">
-                                    <input type="range" id="vk" min="0" max="1500" step="1" value="100" />
-                                    <input type="number" id="vk-num" class="num-input" min="0" max="5000" step="1" value="100" />
+                                    <input type="range" id="vk" min="0" max="2000" step="1" value="100" />
+                                    <input type="number" id="vk-num" class="num-input" min="0" max="2000" step="1" value="100" />
                                 </div>
                             </div>
 
@@ -405,8 +405,8 @@
                                     <div class="slider-row">
                                         <label for="phi">Polar angle &phi; <span class="unit">deg (from orbital plane)</span></label>
                                         <div class="slider-line">
-                                            <input type="range" id="phi" min="-90" max="90" step="1" value="20" />
-                                            <input type="number" id="phi-num" class="num-input" min="-90" max="90" step="1" value="20" />
+                                            <input type="range" id="phi" min="-90" max="90" step="1" value="-42" />
+                                            <input type="number" id="phi-num" class="num-input" min="-90" max="90" step="1" value="-42" />
                                         </div>
                                     </div>
                                 </div>
@@ -415,53 +415,12 @@
                                     <div class="slider-row">
                                         <label for="theta">Azimuthal angle &theta; <span class="unit">deg (in orbital plane)</span></label>
                                         <div class="slider-line">
-                                            <input type="range" id="theta" min="0" max="360" step="1" value="45" />
-                                            <input type="number" id="theta-num" class="num-input" min="0" max="360" step="1" value="45" />
+                                            <input type="range" id="theta" min="0" max="360" step="1" value="250" />
+                                            <input type="number" id="theta-num" class="num-input" min="0" max="360" step="1" value="250" />
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- ---------------- Visualization + results column ---------------- -->
-                <div class="col-12 col-xl-7">
-                    <div class="card control-card mb-3">
-                        <div class="card-body p-2">
-                            <div class="btn-group toggle-group view-mode-group mb-2" role="group" aria-label="View mode">
-                                <button type="button" class="btn btn-primary" data-mode="combined">
-                                    <i class="fas fa-layer-group me-1"></i>Combined
-                                </button>
-                                <button type="button" class="btn btn-primary" data-mode="before">
-                                    <i class="fas fa-star me-1"></i>Before kick
-                                </button>
-                                <button type="button" class="btn btn-primary" data-mode="after">
-                                    <i class="fas fa-certificate me-1"></i>After kick
-                                </button>
-                                <button type="button" class="btn btn-primary active" data-mode="split">
-                                    <i class="fas fa-columns me-1"></i>Side by side
-                                </button>
-                            </div>
-                            <div id="viz-wrapper">
-                                <div id="viz-canvas"></div>
-                                <div class="viz-phase-label" id="label-before">Before kick</div>
-                                <div class="viz-phase-label" id="label-after">After kick</div>
-                                <div class="viz-divider" id="viz-divider"></div>
-                                <div id="viz-controls">
-                                    <button id="reset-view" class="btn btn-sm btn-outline-main" title="Reset the camera">
-                                        <i class="fas fa-video me-1"></i>Reset view
-                                    </button>
-                                    <button id="toggle-spin" class="btn btn-sm btn-outline-main" title="Auto-rotate">
-                                        <i class="fas fa-sync-alt me-1"></i>Spin
-                                    </button>
-                                </div>
-                                <div class="form-check form-switch" id="blaauw-switch">
-                                    <input class="form-check-input" type="checkbox" id="show-blaauw" />
-                                    <label class="form-check-label small" for="show-blaauw">Show Blaauw-only orbit (no natal kick)</label>
-                                </div>
-                            </div>
-                            <div id="viz-legend" class="small mt-2"></div>
                         </div>
                     </div>
 
@@ -537,6 +496,47 @@
                                     <i class="fas fa-exclamation-triangle me-1"></i>The remnant collides with the companion!
                                 </p>
                             </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ---------------- Visualization + results column ---------------- -->
+                <div class="col-12 col-xl-7">
+                    <div class="card control-card mb-3">
+                        <div class="card-body p-2">
+                            <div class="btn-group toggle-group view-mode-group mb-2" role="group" aria-label="View mode">
+                                <button type="button" class="btn btn-primary" data-mode="combined">
+                                    <i class="fas fa-layer-group me-1"></i>Combined
+                                </button>
+                                <button type="button" class="btn btn-primary" data-mode="before">
+                                    <i class="fas fa-star me-1"></i>Before kick
+                                </button>
+                                <button type="button" class="btn btn-primary" data-mode="after">
+                                    <i class="fas fa-certificate me-1"></i>After kick
+                                </button>
+                                <button type="button" class="btn btn-primary active" data-mode="split">
+                                    <i class="fas fa-columns me-1"></i>Side by side
+                                </button>
+                            </div>
+                            <div id="viz-wrapper">
+                                <div id="viz-canvas"></div>
+                                <div class="viz-phase-label" id="label-before">Before kick</div>
+                                <div class="viz-phase-label" id="label-after">After kick</div>
+                                <div class="viz-divider" id="viz-divider"></div>
+                                <div id="viz-controls">
+                                    <button id="reset-view" class="btn btn-sm btn-outline-main" title="Reset the camera">
+                                        <i class="fas fa-video me-1"></i>Reset view
+                                    </button>
+                                    <button id="toggle-spin" class="btn btn-sm btn-outline-main" title="Auto-rotate">
+                                        <i class="fas fa-sync-alt me-1"></i>Spin
+                                    </button>
+                                </div>
+                                <div class="form-check form-switch" id="blaauw-switch">
+                                    <input class="form-check-input" type="checkbox" id="show-blaauw" />
+                                    <label class="form-check-label small" for="show-blaauw">Show Blaauw-only orbit (no natal kick)</label>
+                                </div>
+                            </div>
+                            <div id="viz-legend" class="small mt-2"></div>
                         </div>
                     </div>
                 </div>
