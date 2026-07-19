@@ -317,59 +317,72 @@
                     <div class="card control-card mb-3">
                         <div class="card-body">
                             <h4 class="card-title"><i class="fas fa-star me-2"></i>Pre-supernova binary</h4>
-
-                            <div class="slider-row">
-                                <label for="m1">Collapsing star mass <span class="unit">M<sub>&odot;</sub></span> <span class="text-muted small">&nbsp;(star undergoing core collapse)</span></label>
-                                <div class="slider-line">
-                                    <input type="range" id="m1" min="3" max="60" step="0.1" value="15" />
-                                    <input type="number" id="m1-num" class="num-input" min="3" max="60" step="0.1" value="15" />
+                            <div class="row">
+                                <div class="col-12 col-md-6">
+                                    <div class="slider-row">
+                                        <label for="m1">Collapsing star mass <span class="unit">M<sub>&odot;</sub></span></label>
+                                        <div class="slider-line">
+                                            <input type="range" id="m1" min="3" max="60" step="0.1" value="15" />
+                                            <input type="number" id="m1-num" class="num-input" min="3" max="60" step="0.1" value="15" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-md-6">
+                                    <div class="slider-row">
+                                        <label for="m2">Companion mass <span class="unit">M<sub>&odot;</sub></span></label>
+                                        <div class="slider-line">
+                                            <input type="range" id="m2" min="1" max="60" step="0.1" value="12" />
+                                            <input type="number" id="m2-num" class="num-input" min="1" max="60" step="0.1" value="12" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-12 col-md-6">
+                                    <div class="slider-row">
+                                        <label for="m1n">
+                                            Remnant mass <span class="unit">M<sub>&odot;</sub></span>
+                                            <span id="remnant-type" class="badge rounded-pill">NS</span>
+                                            <span class="text-muted small">&nbsp;(ejects <span id="mass-lost">13.6</span> M<sub>&odot;</sub>)</span>
+                                        </label>
+                                        <div class="slider-line">
+                                            <input type="range" id="m1n" min="1" max="40" step="0.1" value="1.4" />
+                                            <input type="number" id="m1n-num" class="num-input" min="0" max="40" step="0.1" value="1.4" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-md-6">
+                                    <div class="slider-row">
+                                        <label for="sep">
+                                            Separation <span class="unit">R<sub>&odot;</sub></span>
+                                            <span class="text-muted small">&nbsp;(P<sub>orb</sub> = <span id="period-display">&mdash;</span>)</span>
+                                        </label>
+                                        <div class="slider-line">
+                                            <input type="range" id="sep" min="10" max="2000" step="1" value="300" />
+                                            <input type="number" id="sep-num" class="num-input" min="1" max="10000" step="1" value="300" />
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
 
-                            <div class="slider-row">
-                                <label for="m1n">
-                                    Remnant mass <span class="unit">M<sub>&odot;</sub></span>
-                                    <span id="remnant-type" class="badge rounded-pill">NS</span>
-                                    <span class="text-muted small">&nbsp;(ejects <span id="mass-lost">13.6</span> M<sub>&odot;</sub>)</span>
-                                </label>
-                                <div class="slider-line">
-                                    <input type="range" id="m1n" min="1" max="40" step="0.1" value="1.4" />
-                                    <input type="number" id="m1n-num" class="num-input" min="0" max="40" step="0.1" value="1.4" />
+                            <div class="row">
+                                <div class="col-12 col-md-6">
+                                    <div class="slider-row">
+                                        <label for="ecc">Eccentricity</label>
+                                        <div class="slider-line">
+                                            <input type="range" id="ecc" min="0" max="0.95" step="0.01" value="0.1" />
+                                            <input type="number" id="ecc-num" class="num-input" min="0" max="0.95" step="0.01" value="0.1" />
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-
-                            <div class="slider-row">
-                                <label for="m2">Companion mass <span class="unit">M<sub>&odot;</sub></span></label>
-                                <div class="slider-line">
-                                    <input type="range" id="m2" min="1" max="60" step="0.1" value="12" />
-                                    <input type="number" id="m2-num" class="num-input" min="1" max="60" step="0.1" value="12" />
-                                </div>
-                            </div>
-
-                            <div class="slider-row">
-                                <label for="sep">
-                                    Separation <span class="unit">R<sub>&odot;</sub></span>
-                                    <span class="text-muted small">&nbsp;(P<sub>orb</sub> = <span id="period-display">&mdash;</span>)</span>
-                                </label>
-                                <div class="slider-line">
-                                    <input type="range" id="sep" min="10" max="2000" step="1" value="300" />
-                                    <input type="number" id="sep-num" class="num-input" min="1" max="10000" step="1" value="300" />
-                                </div>
-                            </div>
-
-                            <div class="slider-row">
-                                <label for="ecc">Eccentricity</label>
-                                <div class="slider-line">
-                                    <input type="range" id="ecc" min="0" max="0.95" step="0.01" value="0.1" />
-                                    <input type="number" id="ecc-num" class="num-input" min="0" max="0.95" step="0.01" value="0.1" />
-                                </div>
-                            </div>
-
-                            <div class="slider-row">
-                                <label for="meanAnom">Orbital phase <span class="unit">deg (mean anomaly)</span></label>
-                                <div class="slider-line">
-                                    <input type="range" id="meanAnom" min="0" max="360" step="1" value="90" />
-                                    <input type="number" id="meanAnom-num" class="num-input" min="0" max="360" step="1" value="90" />
+                                <div class="col-12 col-md-6">
+                                    <div class="slider-row">
+                                        <label for="meanAnom">Orbital phase <span class="unit">deg (mean anomaly)</span></label>
+                                        <div class="slider-line">
+                                            <input type="range" id="meanAnom" min="0" max="360" step="1" value="90" />
+                                            <input type="number" id="meanAnom-num" class="num-input" min="0" max="360" step="1" value="90" />
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -379,7 +392,6 @@
                     <div class="card control-card mb-3">
                         <div class="card-body">
                             <h4 class="card-title"><i class="fas fa-meteor me-2"></i>Natal kick</h4>
-
                             <div class="slider-row">
                                 <label for="vk">Kick magnitude <span class="unit">km/s</span></label>
                                 <div class="slider-line">
@@ -388,84 +400,27 @@
                                 </div>
                             </div>
 
-                            <div class="slider-row">
-                                <label for="phi">Polar angle &phi; <span class="unit">deg (from orbital plane)</span></label>
-                                <div class="slider-line">
-                                    <input type="range" id="phi" min="-90" max="90" step="1" value="20" />
-                                    <input type="number" id="phi-num" class="num-input" min="-90" max="90" step="1" value="20" />
+                            <div class="row">
+                                <div class="col-12 col-md-6">
+                                    <div class="slider-row">
+                                        <label for="phi">Polar angle &phi; <span class="unit">deg (from orbital plane)</span></label>
+                                        <div class="slider-line">
+                                            <input type="range" id="phi" min="-90" max="90" step="1" value="20" />
+                                            <input type="number" id="phi-num" class="num-input" min="-90" max="90" step="1" value="20" />
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
+                                <div class="col-12 col-md-6">
 
-                            <div class="slider-row">
-                                <label for="theta">Azimuthal angle &theta; <span class="unit">deg (in orbital plane)</span></label>
-                                <div class="slider-line">
-                                    <input type="range" id="theta" min="0" max="360" step="1" value="45" />
-                                    <input type="number" id="theta-num" class="num-input" min="0" max="360" step="1" value="45" />
-                                </div>
-                            </div>
-
-                            <hr />
-                            <h6 class="fw-bold mb-2">Or draw a random kick from a COSMIC model</h6>
-                            <div class="mb-2">
-                                <select id="kick-model" class="form-select">
-                                    <option value="disberg2025">Disberg &amp; Mandel 2025 (log-normal)</option>
-                                    <option value="hobbs2005">Hobbs et al. 2005 (Maxwellian)</option>
-                                    <option value="giacobbo_mapelli_1">Giacobbo &amp; Mapelli 2020 (Eq. 1)</option>
-                                    <option value="giacobbo_mapelli_2">Giacobbo &amp; Mapelli 2020 (Eq. 2)</option>
-                                    <option value="bray_eldridge">Bray &amp; Eldridge 2016</option>
-                                    <option value="mandel_muller">Mandel &amp; Müller 2020</option>
-                                </select>
-                                <div class="small mt-1">
-                                    <span id="model-note" class="text-muted"></span>
-                                    <a id="model-paper" href="#" target="_blank">paper&nbsp;<i class="fas fa-external-link-alt fa-xs"></i></a>
-                                </div>
-                            </div>
-
-                            <!-- contextual sub-params -->
-                            <div id="param-sigma" class="slider-row model-param">
-                                <label for="sigma">Maxwellian dispersion <span class="unit">km/s</span></label>
-                                <div class="slider-line">
-                                    <input type="range" id="sigma" min="10" max="500" step="1" value="265" />
-                                    <input type="number" id="sigma-num" class="num-input" min="0" max="1000" step="1" value="265" />
-                                </div>
-                            </div>
-
-                            <div id="param-m1c" class="slider-row model-param">
-                                <label for="m1c">CO core mass <span class="unit">M<sub>&odot;</sub></span></label>
-                                <div class="slider-line">
-                                    <input type="range" id="m1c" min="1" max="20" step="0.1" value="4" />
-                                    <input type="number" id="m1c-num" class="num-input" min="0" max="40" step="0.1" value="4" />
-                                </div>
-                            </div>
-
-                            <div id="param-polar" class="slider-row model-param">
-                                <label for="polar-angle">Kick opening angle <span class="unit">deg (90 = isotropic)</span></label>
-                                <div class="slider-line">
-                                    <input type="range" id="polar-angle" min="0" max="90" step="1" value="90" />
-                                    <input type="number" id="polar-angle-num" class="num-input" min="0" max="90" step="1" value="90" />
-                                </div>
-                            </div>
-
-                            <div id="param-bh" class="model-param">
-                                <label class="mb-1">Black-hole kick reduction</label>
-                                <select id="bh-reduction" class="form-select form-select-sm mb-2">
-                                    <option value="fallback">Reduced by fallback (default)</option>
-                                    <option value="momentum">Momentum-conserving</option>
-                                    <option value="none">Full kick (no reduction)</option>
-                                    <option value="zero">No black-hole kicks</option>
-                                </select>
-                                <div id="param-fallback" class="slider-row">
-                                    <label for="fallback">Fallback fraction</label>
-                                    <div class="slider-line">
-                                        <input type="range" id="fallback" min="0" max="1" step="0.01" value="0.9" />
-                                        <input type="number" id="fallback-num" class="num-input" min="0" max="1" step="0.01" value="0.9" />
+                                    <div class="slider-row">
+                                        <label for="theta">Azimuthal angle &theta; <span class="unit">deg (in orbital plane)</span></label>
+                                        <div class="slider-line">
+                                            <input type="range" id="theta" min="0" max="360" step="1" value="45" />
+                                            <input type="number" id="theta-num" class="num-input" min="0" max="360" step="1" value="45" />
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-
-                            <button id="draw-kick" class="btn btn-primary w-100 mt-2">
-                                <i class="fas fa-dice me-1"></i> Draw random kick
-                            </button>
                         </div>
                     </div>
                 </div>

@@ -754,56 +754,6 @@ function updateResults(p, res) {
 }
 
 // ===========================================================================
-//  Model selector + random draw
-// ===========================================================================
-function refreshModelUI() {
-  const model = document.getElementById("kick-model").value
-  const info = Phys.MODELS[model] || {}
-  document.getElementById("model-note").textContent = info.note
-    ? info.note + " — "
-    : ""
-  document.getElementById("model-paper").href = info.url || "#"
-
-  const isBH = num("m1n") > MXNS
-  const vis = {
-    "param-sigma": [
-      "hobbs2005",
-      "giacobbo_mapelli_1",
-      "giacobbo_mapelli_2"
-    ].includes(model),
-    "param-m1c": model === "mandel_muller",
-    "param-polar": true,
-    "param-bh": isBH && ["hobbs2005", "disberg2025"].includes(model)
-  }
-  Object.keys(vis).forEach(id =>
-    document.getElementById(id).classList.toggle("show", vis[id])
-  )
-  const fbMode = document.getElementById("bh-reduction").value
-  document.getElementById("param-fallback").style.display =
-    fbMode === "fallback" ? "" : "none"
-}
-
-function drawRandomKick() {
-  const model = document.getElementById("kick-model").value
-  const k = Phys.drawKick(model, {
-    m1: num("m1"),
-    m1n: num("m1n"),
-    m1c: num("m1c"),
-    isBH: num("m1n") > MXNS,
-    sigma: num("sigma"),
-    fallback: num("fallback"),
-    bhReduction: document.getElementById("bh-reduction").value,
-    mxns: MXNS,
-    polarKickAngle: num("polar-angle")
-  })
-  setPair("vk", Math.min(k.vk, 5000), 0)
-  setPair("phi", k.phiDeg, 0)
-  setPair("theta", (k.thetaDeg + 360) % 360, 0)
-  applied = true
-  computeScene()
-}
-
-// ===========================================================================
 //  View mode + split layout
 // ===========================================================================
 // In combined mode the before-scene's own star meshes are hidden so the single
@@ -920,11 +870,6 @@ function onInputChange() {
   "fallback"
 ].forEach(linkPair)
 
-document.getElementById("kick-model").addEventListener("change", refreshModelUI)
-document
-  .getElementById("bh-reduction")
-  .addEventListener("change", refreshModelUI)
-document.getElementById("draw-kick").addEventListener("click", drawRandomKick)
 document.getElementById("show-blaauw").addEventListener("change", computeScene)
 document.getElementById("reset-view").addEventListener("click", () => {
   userAdjusted = false
@@ -1090,7 +1035,6 @@ new ResizeObserver(resize).observe(canvas)
 //  Go
 // ===========================================================================
 resize()
-refreshModelUI()
 applyModeVisibility()
 updateSplitLayout()
 applied = true
