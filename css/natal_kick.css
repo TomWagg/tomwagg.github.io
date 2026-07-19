@@ -348,6 +348,10 @@ body.dark .result-tile-wide {
     background: #ffd25a;
     border-radius: 50%;
 }
+.swatch-star {
+    background: #ffb066;
+    border-radius: 50%;
+}
 
 @media (max-width: 1199.98px) {
     #viz-canvas {

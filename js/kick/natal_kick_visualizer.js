@@ -33,8 +33,10 @@ const COLORS = {
   systemic: 0x3fd07f, // systemic velocity arrow (green)
   vsn: 0x9fd0ff, // remnant velocity
   vcomp: 0xffd25a, // companion velocity
-  plane: 0x2a3550 // orbital plane disc
+  plane: 0x2a3550, // orbital plane disc
+  orbitDir: 0xcdd6e6 // orbital-motion direction markers
 }
+const UP = new THREE.Vector3(0, 1, 0)
 const MXNS = 2.5 // NS/BH boundary (Msun) for labels + momentum scaling
 const REL_A = 2.0 // scene units for the largest orbit apoapsis (framing target)
 const STAR_R = 0.26 // star sphere radius (scene units)
@@ -363,6 +365,24 @@ function updateDerivedLabels(p) {
   )
 }
 
+// Pre-SN orbital speed of each star about the centre of mass, at the current
+// phase. The companion keeps this speed if the binary is disrupted, so it sets
+// its ejection velocity.
+function updateOrbitalVelocities(p, res) {
+  const el1 = document.getElementById("res-vorb1")
+  const el2 = document.getElementById("res-vorb2")
+  if (!el1 || !el2) return
+  if (res.vRelPrev) {
+    const vrel = V.mag(res.vRelPrev)
+    const mtot = p.m1 + p.m2
+    el1.innerHTML = ((p.m2 / mtot) * vrel).toFixed(1) + " <small>km/s</small>"
+    el2.innerHTML = ((p.m1 / mtot) * vrel).toFixed(1) + " <small>km/s</small>"
+  } else {
+    el1.innerHTML = "&mdash;"
+    el2.innerHTML = "&mdash;"
+  }
+}
+
 function computeScene() {
   const p = readParams()
   // a remnant can never be more massive than the star that collapsed to form it
@@ -374,6 +394,7 @@ function computeScene() {
 
   const res = Phys.kickPfahl(p)
   current = res
+  updateOrbitalVelocities(p, res)
 
   // --- Independent scales for the before / after panels ---
   // Normalise each scene so its own orbit fills the framing target, so a
@@ -446,6 +467,29 @@ function velScaleFor(res) {
   return velScale
 }
 
+// Small cone on an orbit line, tangent to the direction of motion — a subtle
+// indicator of which way the stars are orbiting the centre of mass.
+function addOrbitDirection(aRsun, ecc, nHat, pHat, massFrac, scale) {
+  const qHat = V.hat(V.cross(nHat, pHat))
+  for (const f of [Math.PI * 0.5, Math.PI * 1.5]) {
+    const r = (aRsun * (1 - ecc * ecc)) / (1 + ecc * Math.cos(f))
+    const rel = V.add(V.scale(pHat, r * Math.cos(f)), V.scale(qHat, r * Math.sin(f)))
+    const pos = toScene(V.scale(rel, massFrac), scale)
+    // tangent (direction of increasing true anomaly = direction of motion)
+    let tan = V.hat(
+      V.add(V.scale(pHat, -Math.sin(f)), V.scale(qHat, ecc + Math.cos(f)))
+    )
+    if (massFrac < 0) tan = V.scale(tan, -1) // the companion orbits the other way
+    const cone = new THREE.Mesh(
+      new THREE.ConeGeometry(0.05, 0.15, 12),
+      new THREE.MeshBasicMaterial({ color: COLORS.orbitDir })
+    )
+    cone.position.set(pos.x, pos.y, pos.z)
+    cone.quaternion.setFromUnitVectors(UP, new THREE.Vector3(tan[0], tan[1], tan[2]))
+    preGroup.add(cone)
+  }
+}
+
 function drawPreSN(p, res, scale) {
   clearGroup(preGroup)
   const nHat = res.hPrev ? V.hat(res.hPrev) : [0, 0, 1]
@@ -457,6 +501,9 @@ function drawPreSN(p, res, scale) {
   preGroup.add(
     orbitLine(p.sep, p.ecc, nHat, pHat, -p.m1 / mtotPrev, scale, COLORS.preOrbit, false)
   )
+  // show which way each star orbits the centre of mass
+  addOrbitDirection(p.sep, p.ecc, nHat, pHat, p.m2 / mtotPrev, scale)
+  addOrbitDirection(p.sep, p.ecc, nHat, pHat, -p.m1 / mtotPrev, scale)
 
   if (res.natalKick) {
     const kdir = new THREE.Vector3(
@@ -895,10 +942,10 @@ document.querySelectorAll(".view-mode-group [data-mode]").forEach(btn => {
 ;(function buildLegend() {
   const items = [
     ["swatch", COLORS.companion, "Companion"],
-    ["swatch", COLORS.star, "Collapsing star / remnant"],
+    ["swatch", COLORS.star, "Collapsing star"],
     ["cross", 0xe6ecf7, "Centre of mass"],
     ["line", COLORS.preOrbit, "Pre-SN orbit"],
-    ["line", COLORS.postOrbit, "Post-SN orbit / escape"],
+    ["line", COLORS.postOrbit, "Post-SN orbit"],
     ["arrow", COLORS.kick, "Natal kick"],
     ["arrow", COLORS.systemic, "Systemic recoil"],
     ["line", COLORS.blaauw, "Blaauw-only orbit"]
