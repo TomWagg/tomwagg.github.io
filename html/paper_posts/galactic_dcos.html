@@ -37,6 +37,26 @@
     </head>
 
     <body style="position: relative" data-bs-spy="scroll" data-bs-target="#nav" data-bs-offset="0" tabindex="0">
+        <script>
+            // theme applied before first paint (no flash, no flip); full logic in js/dark_mode.js / index.js
+            (function () {
+                var el = document.documentElement;
+                try {
+                    el.classList.add('theme-preload'); // suppress transitions during initial load
+                    var v = localStorage.getItem('theme');
+                    var dark = v === 'dark' || v === 'light' ? v === 'dark' : window.matchMedia('(prefers-color-scheme: dark)').matches;
+                    el.setAttribute('data-bs-theme', dark ? 'dark' : 'light');
+                    el.style.colorScheme = dark ? 'dark' : 'light';
+                    document.body.classList.toggle('dark', dark);
+                } catch (e) {}
+                // re-enable transitions after the first paint, so only user toggles animate
+                requestAnimationFrame(function () {
+                    requestAnimationFrame(function () {
+                        el.classList.remove('theme-preload');
+                    });
+                });
+            })();
+        </script>
         <div class="back-button">
             <button id="home" class="btn btn-outline-main rounded-circle">
                 <i class="fa fa-arrow-left"></i>

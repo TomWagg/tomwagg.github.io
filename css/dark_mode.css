@@ -1,3 +1,15 @@
+/* While the saved / OS-preferred theme is applied on page load, suppress all
+   transitions so the page opens straight in the correct colours instead of
+   animating from the default (e.g. the 500ms body transition). The class is
+   removed after the first paint by the inline snippet in each page's <body>,
+   so only user toggles of the switch animate. */
+html.theme-preload,
+html.theme-preload *,
+html.theme-preload *::before,
+html.theme-preload *::after {
+    transition: none !important;
+}
+
 /* Dark mode: I copied/modified this from https://animate.style/ */
 .dark-mode-label #dark-mode-checkbox {
     position: absolute;
