@@ -46,7 +46,7 @@ const SPLIT_VERTICAL_BELOW = 560 // px wrapper width below which split stacks
 // ===========================================================================
 const canvas = document.getElementById("viz-canvas")
 const camera = new THREE.PerspectiveCamera(45, 1.4, 0.01, 5000)
-const CAM_HOME = new THREE.Vector3(5.2, 3.8, 8.4)
+const CAM_HOME = new THREE.Vector3(0, -10, 10)
 const CAM_DIR = CAM_HOME.clone().normalize()
 camera.position.copy(CAM_HOME)
 
@@ -677,7 +677,7 @@ function fitToContent(resetDir) {
     const v = new THREE.Vector3(p[0], p[1], p[2]).project(camera)
     maxAbs = Math.max(maxAbs, Math.abs(v.x), Math.abs(v.y))
   }
-  if (maxAbs > 0.01) place(dist * (maxAbs / 0.5))
+  if (maxAbs > 0.01) place(dist * (maxAbs / 0.7))
   controls.update()
 }
 
@@ -830,8 +830,8 @@ function updateSplitLayout() {
       // before = left panel; put it top-right (the bottom-left holds the Blaauw
       // toggle), after = right panel bottom-right
       sbB.style.right = w / 2 + 12 + "px"
-      sbB.style.bottom = "auto"
-      sbB.style.top = "10px"
+      sbB.style.top = "auto"
+      sbB.style.bottom = "10px"
       sbA.style.right = "12px"
       sbA.style.top = "auto"
       sbA.style.bottom = "10px"
@@ -869,6 +869,12 @@ function onInputChange() {
   "fallback"
 ].forEach(linkPair)
 
+document.getElementById("toggle-blaauw").addEventListener("click", e => {
+  const cb = document.getElementById("show-blaauw")
+  cb.checked = !cb.checked
+  e.currentTarget.classList.toggle("active", cb.checked)
+  computeScene()
+})
 document.getElementById("show-blaauw").addEventListener("change", computeScene)
 document.getElementById("reset-view").addEventListener("click", () => {
   userAdjusted = false
