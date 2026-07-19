@@ -347,7 +347,7 @@
                                         </label>
                                         <div class="slider-line">
                                             <input type="range" id="m1n" min="1" max="45" step="0.1" value="1.4" />
-                                            <input type="number" id="m1n-num" class="num-input" min="0" max="45" step="0.1" value="10" />
+                                            <input type="number" id="m1n-num" class="num-input" min="1" max="45" step="0.1" value="10" />
                                         </div>
                                     </div>
                                 </div>
@@ -573,19 +573,18 @@
                         <div class="accordion-item">
                             <h2 class="accordion-header">
                                 <button class="accordion-button collapsed cat1" type="button" data-bs-toggle="collapse" data-bs-target="#qz-1">
-                                    <i class="far fa-question-circle me-2"></i>Are wider or tighter binaries easier to disrupt?
+                                    Are wider or tighter binaries easier to disrupt? How about binaries with more massive companions?
                                 </button>
                             </h2>
                             <div id="qz-1" class="accordion-collapse collapse">
                                 <div class="accordion-body">
-                                    <p><b>Wider binaries are far easier to disrupt.</b> In a wide orbit the stars move slowly
-                                        (\(v_{\rm orb} \propto 1/\sqrt{a}\)) and the system is only weakly bound, so a kick of a given size is a
-                                        larger fraction of the orbital velocity and more readily unbinds it. Tight binaries orbit fast and cling
-                                        together.</p>
-                                    <p class="mb-0">(For a purely symmetric explosion the circular-orbit threshold &mdash; losing half the mass
-                                        &mdash; is independent of separation, but as soon as a natal kick is involved, wide binaries are much more
-                                        fragile.) <i>Try it:</i> fix the kick and slide the separation up &mdash; you will see the system flip from
-                                        bound to disrupted.</p>
+                                    <p><b>Wider binaries, with less massive companions, are easier to disrupt.</b> The binding energy of a binary is
+                                        $$ E_{\rm bind} = -\frac{G\,M_1\,M_2}{2\,a},$$
+                                        so the wider the separation \(a\) and the smaller the masses, the less energy is required from a kick to unbind it.
+                                    </p>
+                                    <p class="mb-0">
+                                        <i>Try it:</i> fix the kick and slide the separation up, or the companion mass down (or both!) and watch the binary fly apart.
+                                    </p>
                                 </div>
                             </div>
                         </div>
@@ -593,17 +592,16 @@
                         <div class="accordion-item">
                             <h2 class="accordion-header">
                                 <button class="accordion-button collapsed cat2" type="button" data-bs-toggle="collapse" data-bs-target="#qz-2">
-                                    <i class="far fa-question-circle me-2"></i>How do natal kicks change a binary's separation and eccentricity &mdash; and does direction matter?
+                                    How do natal kicks change a binary's separation and eccentricity? Does the direction matter?
                                 </button>
                             </h2>
                             <div id="qz-2" class="accordion-collapse collapse">
                                 <div class="accordion-body">
                                     <p>A kick <b>almost always raises the eccentricity</b>: it changes the speed at one point of the orbit, which
-                                        can no longer trace a circle. The <b>separation can go either way</b>. A kick roughly along the direction of
-                                        orbital motion adds orbital energy and widens the orbit (or unbinds it); a kick opposing the motion removes
-                                        energy and tightens it; a kick out of the plane tilts the orbit and raises \(e\) with little change in \(a\).</p>
-                                    <p class="mb-0"><b>Direction matters enormously.</b> <i>Try it:</i> hold the kick magnitude fixed and sweep
-                                        \(\theta\) and \(\phi\) &mdash; watch \(a\) and \(e\) in the outcome panel swing as only the direction changes.</p>
+                                        can no longer trace a circle. The <b>separation can go either way</b>, and it's exactly because of the direction. A kick roughly along the direction of orbital motion widens the orbit (or unbinds it); a kick opposing the motion often removes
+                                        energy and tightens it. The polar angle can matter too, a kick out of the plane tilts the orbit and can more often cause a disruption.
+                                    </p>
+                                    <p class="mb-0"><i>Try it:</i> First look at how the eccentricity changes with different kick strengths. Then you can also start to explore the effects of directions; try adjusting the polar angle and azimuthal angle relative to the orbital velocity (shown by arrows on the orbits).</p>
                                 </div>
                             </div>
                         </div>
@@ -611,19 +609,18 @@
                         <div class="accordion-item">
                             <h2 class="accordion-header">
                                 <button class="accordion-button collapsed catmid" type="button" data-bs-toggle="collapse" data-bs-target="#qz-3">
-                                    <i class="far fa-question-circle me-2"></i>For a large natal kick, what determines how fast the secondary is ejected?
+                                    For a large natal kick, what determines how fast the secondary is ejected?
                                 </button>
                             </h2>
                             <div id="qz-3" class="accordion-collapse collapse">
                                 <div class="accordion-body">
-                                    <p>When a large kick disrupts the binary, the companion is essentially <b>released from its orbit</b> and departs
-                                        with the velocity it already had &mdash; its pre-supernova orbital velocity about the centre of mass (plus a
-                                        small systemic shift). The enormous kick is delivered to the <i>remnant</i>, which carries away most of the
-                                        relative velocity at infinity; the companion barely feels the kick directly.</p>
-                                    <p class="mb-0">So the secondary's ejection speed is set mainly by the pre-SN orbital velocity,
-                                        \(v_{\rm orb}=\sqrt{GM_{\rm tot,preSN}/a}\) &mdash; meaning <b>tighter binaries eject companions faster</b>.
-                                        <i>Try it:</i> disrupt the system with a big kick, then vary the separation and watch the companion speed
-                                        track the orbital velocity, not the kick.</p>
+                                    <p>This one is a classic misconception: it's important to remember that the kick is applied to the remnant, <b>not the companion</b>.</p>
+                                    <p>
+                                        When a large kick disrupts the binary, the companion is essentially just released from its orbit and so it flies off with the velocity it already had. This velocity is its pre-supernova orbital velocity $$ v_{\rm orb}= \sqrt{\frac{G M_{\rm tot,preSN}}{a}}, $$ with only a small difference. Indeed, once the kick is large enough to cause a disruption, the faster the remnant leaves the system, the <i>closer</i> the companion's ejection velocity is to its pre-supernova orbital velocity. I discuss this in more detail in <a href="https://ui.adsabs.harvard.edu/abs/2025OJAp....8E..85W/abstract" target="_blank">Wagg et al. 2025</a> if you're curious.
+                                    </p>
+                                    <p class="mb-0">
+                                        <i>Try it:</i> set up a disruption with a large kick (go for maybe 500 km/s), compare the companion's ejection velocity to its pre-supernova orbital velocity, then increase the kick and see how the companion's speed changes. You could also try changing the pre-supernova separation and compare how much more of a difference that makes.
+                                    </p>
                                 </div>
                             </div>
                         </div>
@@ -631,18 +628,24 @@
                         <div class="accordion-item">
                             <h2 class="accordion-header">
                                 <button class="accordion-button collapsed cat3" type="button" data-bs-toggle="collapse" data-bs-target="#qz-4">
-                                    <i class="far fa-question-circle me-2"></i>How much mass loss do you need for a Blaauw kick to unbind a binary?
+                                    How much mass loss do you need for a Blaauw kick alone to unbind a circular binary?
                                 </button>
                             </h2>
                             <div id="qz-4" class="accordion-collapse collapse">
                                 <div class="accordion-body">
-                                    <p>For a circular orbit and a symmetric explosion (no natal kick), the binary unbinds once <b>more than half of
-                                        the total mass</b> is lost in the instant of explosion:</p>
-                                    $$\Delta M = M_1 - M_{1,\rm new} > \tfrac{1}{2}\,M_{\rm tot,preSN}.$$
-                                    <p class="mb-0">Lose less than half and the orbit simply widens; cross the half-mass line and it flies apart.
-                                        Eccentric orbits blur this threshold, since mass loss near apoapsis (where the stars move slowly) unbinds more
-                                        easily. <i>Try it:</i> set the kick to zero on a circular orbit, then lower the remnant mass until the ejected
-                                        mass passes half of the total.</p>
+                                    <p>
+                                        For a circular orbit and no natal kick, the binary disrupts once <b>more than half of
+                                        the total mass</b> is lost in the instant of explosion:
+                                    </p>
+                                    $$\Delta M = M_1 - M_{1,\rm postSN} > \tfrac{1}{2}\,M_{\rm tot,preSN}.$$
+                                    <p>
+                                        As usual, if you lose less than half, the orbit simply widens. But once you cross the half-mass line, it flies apart.
+                                        Eccentric orbits complicate this threshold, since it starts to matter at what point during the orbit the mass loss occurs.
+                                    </p>
+                                    <p class="mb-0">
+                                        <i>Try it:</i> Set the kick to zero on a circular orbit, then lower the remnant mass until the ejected
+                                        mass passes half of the total (you may need a larger collapsing star mass to get this difference large enough).
+                                    </p>
                                 </div>
                             </div>
                         </div>
@@ -650,20 +653,18 @@
                         <div class="accordion-item">
                             <h2 class="accordion-header">
                                 <button class="accordion-button collapsed cat1" type="button" data-bs-toggle="collapse" data-bs-target="#qz-5">
-                                    <i class="far fa-question-circle me-2"></i>When a binary stays bound, how does the systemic velocity compare to the kick &mdash; and does it depend on the companion mass?
+                                    How does the companion's mass affect the systemic velocity of the binary after a kick?
                                 </button>
                             </h2>
                             <div id="qz-5" class="accordion-collapse collapse">
                                 <div class="accordion-body">
-                                    <p>The systemic velocity is usually <b>much smaller</b> than the natal kick. The kick is given only to the
-                                        remnant, but the whole bound system shares the momentum, so the centre of mass gains roughly</p>
-                                    $$v_{\rm sys} \sim \frac{M_{1,\rm new}}{M_{\rm tot,postSN}}\,v_{\rm kick}$$
-                                    <p>(plus the Blaauw term). Because a \(\sim\!1.4\,M_\odot\) neutron star is often a small fraction of the total
-                                        mass, only a small fraction of the kick appears as systemic motion.</p>
-                                    <p class="mb-0"><b>Yes, it depends on the companion:</b> a heavier companion makes the remnant an even smaller
-                                        fraction of the total, so the systemic velocity is <i>smaller</i> for the same kick &mdash; the momentum is
-                                        spread over more mass. <i>Try it:</i> hold the kick fixed and increase the companion mass; the systemic recoil
-                                        in the outcome panel drops.</p>
+                                    <p>
+                                        The larger the companion mass, the smaller the systemic velocity. The kick is given only to the
+                                        remnant, but the whole bound system shares the momentum, so a heavier companion means the same kick produces a smaller systemic velocity.
+                                    </p>
+                                    <p class="mb-0">
+                                        <i>Try it:</i> hold the kick fixed for a system that remains bound, increase the companion mass, and watch the systemic velocity drop.
+                                    </p>
                                 </div>
                             </div>
                         </div>
@@ -683,7 +684,7 @@
             MathJax.Hub.Config({ tex2jax: { inlineMath: [['$', '$'], ['\\(', '\\)']] } });
         </script>
         <script src="../../js/dark_mode.js?v=2"></script>
-        <script src="../../js/kick/natal_kick_physics.js"></script>
-        <script type="module" src="../../js/kick/natal_kick_visualizer.js"></script>
+        <script src="../../js/kick/kick_physics.js"></script>
+        <script type="module" src="../../js/kick/kick_plotter.js"></script>
     </body>
 </html>
