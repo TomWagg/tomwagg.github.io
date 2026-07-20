@@ -116,6 +116,19 @@
             <div class="row">
                 <div class="col">
                     <div class="research-projects text-center align-middle">
+                        <article class="project" data-details="underworld">
+                            <div class="row">
+                                <div class="col">
+                                    <img src="img/project_thumbnails/underworld_bhs.png" class="p-0" />
+                                    <div class="project-description">
+                                        <div class="project-description-text">
+                                            <h4>Charting the Galactic Underworld</h4>
+                                            <h6>the kinematics, rates, and demographics of Milky Way black holes</h6>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </article>
                         <article class="project" data-details="feedback">
                             <div class="row">
                                 <div class="col">
@@ -252,6 +265,53 @@
         </section>
 
         <section id="research_details" class="container px-5">
+            <div id="underworld" class="details hide">
+                <div class="row text-center">
+                    <div class="col">
+                        <h1>Charting the Galactic Underworld: The kinematics, rates, and demographics of Milky Way black holes</h1>
+                        <hr class="w-25 mx-auto" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col justify-content-center">
+                        <p class="text-center">
+                            <!-- TODO: update the paper link once the paper is public (ADS/arXiv) -->
+                            <a href="https://github.com/TomWagg/underworld" target="_blank" class="btn bg-transparent rounded project-link">
+                                <i class="fas fa-scroll fa-2x" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Paper"></i>
+                            </a>
+                            <a href="https://github.com/TomWagg/underworld" target="_blank" class="btn bg-transparent rounded project-link">
+                                <i class="fab fa-github fa-2x" data-bs-toggle="tooltip" data-bs-placement="bottom" title="GitHub Repo"></i>
+                            </a>
+                            <a href="html/interact/galactic-underworld.html" class="btn bg-transparent rounded project-link">
+                                <i class="fas fa-chart-area fa-2x" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Interactive Plots"></i>
+                            </a>
+                        </p>
+                        <div class="row justify-content-center">
+                            <div class="col-12 col-md-11">
+                                <p class="text-center fst-italic">We simulate the entire intrinsic population of Milky Way black holes with <code>cogsworth</code>, self-consistently accounting for their binary evolution and their trajectories through the Galactic potential.</p>
+                            </div>
+                            <div class="col-12 col-md-9">
+                                <p>With upcoming data from Roman, Gaia DR4, and spectroscopic surveys, we will soon have an unprecedented dataset of Milky Way black holes (BHs) to constrain their formation and evolution &mdash; complementary to gravitational-wave observations. To prepare, we simulated the intrinsic population of Milky Way BHs, reporting their rate, demographics, and kinematics, and their sensitivity to ~30 variations in binary evolution, supernova physics, and Galactic potentials.</p>
+                                <p>In our fiducial model, ~1.7&times;10<sup>8</sup> BHs have formed in the Milky Way (though this total spans an order of magnitude across our variations), where the vast majority (~91%) are currently isolated and ~3% have escaped the Galaxy. BHs are distributed more diffusely than visible stars, with a scale height around ~2.5&times; larger, and their masses correlate with present-day location: the most massive BHs are preferentially close to the Galactic plane.</p>
+                                <p>The BH mass distribution and kinematics are highly sensitive to the remnant mass prescription and natal kick model, so observations could constrain explodability criteria and BH kicks. Use the interactive plot to explore the full black hole mass distribution across all of our model variations!</p>
+                                <p class="text-center">
+                                    <a href="https://github.com/TomWagg/underworld" class="btn btn-lg btn-primary me-2">Read the paper</a>
+                                    <a href="html/interact/galactic-underworld.html" class="btn btn-lg btn-primary">Explore interactive plots!</a>
+                                </p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <div class="text-center">
+                                    <button class="btn open-close" style="color: grey">
+                                        <i class="fa fa-chevron-up fa-2x"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <div id="feedback" class="details hide">
                 <div class="row text-center">
                     <div class="col">
