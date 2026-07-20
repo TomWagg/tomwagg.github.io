@@ -42,9 +42,62 @@
                 flex-wrap: wrap;
                 justify-content: center;
             }
-            /* the two |z| sliders sit in a positioned container for the bubbles */
-            .bh-slider-wrap {
+            /* dual-handle |z| range slider: two range inputs overlaid on one track */
+            .bh-range {
                 position: relative;
+                height: 36px;
+                margin: 12px 0 2.4rem;
+            }
+            .bh-range-track {
+                position: absolute;
+                top: 3px;
+                left: 0;
+                right: 0;
+                height: 30px;
+                background: #4c4c5c;
+                border-radius: 6px;
+            }
+            .bh-range-fill {
+                position: absolute;
+                top: 3px;
+                height: 30px;
+                background: var(--primary);
+                opacity: 0.55;
+                border-radius: 6px;
+            }
+            /* the inputs themselves are transparent and pass clicks through, so
+               the shared track/fill show and only the thumbs stay grabbable */
+            .bh-range input[type='range'] {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 36px;
+                margin: 0;
+                background: none;
+                pointer-events: none;
+            }
+            .bh-range input[type='range']::-webkit-slider-runnable-track {
+                background: none;
+            }
+            .bh-range input[type='range']::-moz-range-track {
+                background: none;
+            }
+            .bh-range input[type='range']::-webkit-slider-thumb {
+                pointer-events: auto;
+                position: relative;
+                z-index: 2;
+            }
+            .bh-range input[type='range']::-moz-range-thumb {
+                pointer-events: auto;
+            }
+            /* value bubbles sit below the bar and appear while interacting */
+            .bh-range .bubble {
+                top: 40px;
+                transform: translateX(-50%);
+            }
+            .bh-range:hover .bubble {
+                opacity: 1;
             }
         </style>
     </head>
@@ -103,21 +156,22 @@
             <div class="row mt-5">
                 <div class="col">
                     <h2>A brief overview</h2>
-                    <p>Welcome! You've found the interactive plot for our paper charting the "Galactic Underworld" &mdash; the hidden population of black holes (BHs) scattered throughout the Milky Way.</p>
+                    <p>Welcome! You've found the spot for exploring some of the results from our paper charting the "Galactic Underworld" of black holes (BHs) scattered throughout the Milky Way.</p>
                     <p>
-                        <b>What did we do?</b> We used <code data-bs-toggle="tooltip" title="A code I developed that combines COSMIC and Gala to evolve binaries and integrate their positions through galactic potentials in a self-consistent manner">cogsworth</code> to simulate the entire population of Milky Way black holes, self-consistently
-                        accounting for their <span class="explainer" data-bs-toggle="tooltip" title="Most massive stars are born in binaries. The evolution of a binary (mass transfer, mergers, disruption by supernova kicks) strongly shapes the black holes that form.">binary evolution</span> and their trajectories through the Galactic potential. We repeated the simulation for ~30 variations of the binary physics, supernova physics, and Galactic potential.
+                        <b>What did we do?</b> We used <code data-bs-toggle="tooltip" title="A code I developed that combines COSMIC and Gala to evolve binaries and integrate their positions through galactic potentials in a self-consistent manner">cogsworth</code> to simulate the entire population of Milky Way black holes, self-consistently accounting for their binary evolution and their trajectories through the Galactic potential. We repeated the simulation for ~30 variations of the binary physics, supernova physics, and Galactic potential.
                     </p>
                     <p>
-                        <b>What are our main results?</b> We predict that ~1.7&times;10<sup>8</sup> BHs have formed in the Milky Way, the vast majority of which are now isolated. Their masses correlate with where they live: the most massive BHs sit close to the Galactic plane, while low-mass BHs receive stronger natal kicks and are flung to large heights (or even
-                        <span class="explainer" data-bs-toggle="tooltip" title="A small fraction of BHs receive kicks strong enough to become unbound from the Milky Way entirely.">escape the Galaxy</span>).
+                        <b>What did we find?</b> For our fiducial model, we predict that ~$1.7\times 10^8$ BHs have formed in the Milky Way, the vast majority of which are now isolated and ~3% have escaped the Galaxy. Most of the ~$10^7$ BHs in binaries have another BH or a white dwarf companion, but ~$10^5$ retain a luminous stellar companion. BHs are distributed more diffusely than visible stars, with a scale height around ~2.5x larger. BH masses correlate with present-day location: the most massive BHs are preferentially close to the Galactic plane. This correlation is especially strong for BH-star binaries, which separate into tight, low-mass post-common-envelope systems and wide, high-mass non-interacting ones. The BH mass distribution and kinematics are highly sensitive to the remnant mass prescription and natal kick model, so observations could constrain explodability criteria and BH kicks. Accounting for the time-evolution of the Galactic potential more than doubles the escape fraction and increases the bound population's scale height by ~20%, whilst neglecting binary interactions overestimates it by 30%.
                     </p>
-                    <p><b>How can I use this page?</b> The plot below is an interactive version of Figure 1 (and Figure 8) from the paper. Switch between the ~30 model variations, split the distribution by how each BH became isolated, filter by distance from the Galactic plane, and toggle between escaped and bound black holes. The controls are all explained beneath the plot &mdash; enjoy!</p>
+                    <p>
+                        <b>Why is this important?</b> With upcoming data from Roman, Gaia DR4, and spectroscopic surveys, we will soon have an unprecedented dataset of Milky Way black holes (BHs) to constrain their formation and evolution in a complementary manner to gravitational-wave observations. Our work builds a foundation for interpreting these observations and connecting them to the underlying physics of stellar evolution, supernovae, and binary interactions.
+                    </p>
+                    <p><b>How can I use this page?</b> TODO</p>
                 </div>
             </div>
 
-            <!-- ================= THE PLOT ================= -->
             <div class="row mb-3 mt-4">
+                <h2 class="text-center">The Milky Way BH mass distribution</h2>
                 <div class="col-12 col-lg-9">
                     <div id="bh-mass" style="aspect-ratio: 2.5; max-height: 560px"></div>
                 </div>
@@ -150,16 +204,14 @@
                     </div>
                     <div>
                         <label class="fw-bold">Distance from the Galactic plane:<br><span id="bh-z-range-label"></span></label>
-                        <div class="bh-slider-wrap">
-                            <label for="bh-z-lo" class="form-label mb-0">Lower limit</label>
-                            <input type="range" id="bh-z-lo" />
+                        <div class="bh-range" id="bh-z-range">
+                            <div class="bh-range-track"></div>
+                            <div class="bh-range-fill" id="bh-z-fill"></div>
+                            <input type="range" id="bh-z-lo" aria-label="Lower limit on |z|" />
+                            <input type="range" id="bh-z-hi" aria-label="Upper limit on |z|" />
                             <output id="bh-z-lo-bubble" class="bubble">0</output>
+                            <output id="bh-z-hi-bubble" class="bubble">&infin;</output>
                         </div>
-                    </div>
-                    <div class="bh-slider-wrap mt-2">
-                        <label for="bh-z-hi" class="form-label mb-0">Upper limit</label>
-                        <input type="range" id="bh-z-hi" />
-                        <output id="bh-z-hi-bubble" class="bubble">&infin;</output>
                     </div>
                 </div>
             </div>

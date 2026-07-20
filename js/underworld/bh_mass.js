@@ -365,14 +365,23 @@ function updateZLabels() {
     document.getElementById('bh-z-range-label').innerHTML = `${fmtZ(lo)} &le; |z| &lt; ${fmtZ(hi)} kpc`
 }
 
-function positionBubble(range, bubble, text) {
-    bubble.innerText = text
-    const min = Number(range.min) || 0
-    const max = Number(range.max) || 1
-    const fraction = (Number(range.value) - min) / (max - min)
-    const width = range.getBoundingClientRect().width - 36
-    const left = range.getBoundingClientRect().left + fraction * width + 6
-    bubble.style.left = `${left}px`
+// Position the fill and the two value bubbles for the dual-handle slider.
+// Handle centres travel across (100% - thumbWidth) + half a thumb, so we use a
+// calc() offset (thumb = 36px) that stays correct at any container width.
+function updateZUI() {
+    const loFrac = state.loEdge / D.nZ
+    const hiFrac = state.hiEdge / D.nZ
+    const pos = (frac) => `calc(${frac} * (100% - 36px) + 18px)`
+    const fill = document.getElementById('bh-z-fill')
+    fill.style.left = pos(loFrac)
+    fill.style.width = `calc(${hiFrac - loFrac} * (100% - 36px))`
+    const loB = document.getElementById('bh-z-lo-bubble')
+    const hiB = document.getElementById('bh-z-hi-bubble')
+    loB.style.left = pos(loFrac)
+    hiB.style.left = pos(hiFrac)
+    loB.innerText = fmtZ(D.zEdges[state.loEdge])
+    hiB.innerText = fmtZ(D.zEdges[state.hiEdge])
+    updateZLabels()
 }
 
 function wireControls() {
@@ -465,52 +474,41 @@ function wireControls() {
         render(false)
     })
 
-    // |z| range sliders
+    // |z| dual-handle range slider (two inputs sharing one 0..nZ edge scale)
     const loSlider = document.getElementById('bh-z-lo')
     const hiSlider = document.getElementById('bh-z-hi')
-    const loBubble = document.getElementById('bh-z-lo-bubble')
-    const hiBubble = document.getElementById('bh-z-hi-bubble')
     loSlider.min = 0
-    loSlider.max = D.nZ - 1
+    loSlider.max = D.nZ
     loSlider.value = 0
-    hiSlider.min = 1
+    hiSlider.min = 0
     hiSlider.max = D.nZ
     hiSlider.value = D.nZ
 
     function onLo() {
         let lo = parseInt(loSlider.value)
-        if (lo >= parseInt(hiSlider.value)) {
-            lo = parseInt(hiSlider.value) - 1
+        const hi = parseInt(hiSlider.value)
+        if (lo >= hi) {
+            lo = hi - 1 // keep at least one bin; don't cross the upper handle
             loSlider.value = lo
         }
         state.loEdge = lo
-        positionBubble(loSlider, loBubble, fmtZ(D.zEdges[lo]))
-        updateZLabels()
+        updateZUI()
         recomputeYRange()
         render(false)
     }
     function onHi() {
         let hi = parseInt(hiSlider.value)
-        if (hi <= parseInt(loSlider.value)) {
-            hi = parseInt(loSlider.value) + 1
+        const lo = parseInt(loSlider.value)
+        if (hi <= lo) {
+            hi = lo + 1
             hiSlider.value = hi
         }
         state.hiEdge = hi
-        positionBubble(hiSlider, hiBubble, fmtZ(D.zEdges[hi]))
-        updateZLabels()
+        updateZUI()
         recomputeYRange()
         render(false)
     }
     loSlider.addEventListener('input', onLo)
     hiSlider.addEventListener('input', onHi)
-    ;[
-        [loSlider, loBubble],
-        [hiSlider, hiBubble],
-    ].forEach(([s, b]) => {
-        s.addEventListener('mouseover', () => (b.style.opacity = 1))
-        s.addEventListener('mouseout', () => (b.style.opacity = 0))
-    })
-    updateZLabels()
-    positionBubble(loSlider, loBubble, fmtZ(D.zEdges[0]))
-    positionBubble(hiSlider, hiBubble, fmtZ(D.zEdges[D.nZ]))
+    updateZUI()
 }
