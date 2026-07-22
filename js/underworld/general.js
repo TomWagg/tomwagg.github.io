@@ -11,19 +11,22 @@ const fs = 20
 
 this.window.addEventListener('load', function () {
     document.getElementById('dark-mode-checkbox').addEventListener('change', function () {
-        Plotly.relayout('bh-mass', {
-            paper_bgcolor: this.checked ? '#333' : 'white',
-            plot_bgcolor: this.checked ? '#333' : 'white',
-            'font.color': this.checked ? 'white' : '#333',
-            'xaxis.zerolinecolor': this.checked ? '#595656' : '#eee',
-            'xaxis.gridcolor': this.checked ? '#595656' : '#eee',
-            'yaxis.zerolinecolor': this.checked ? '#595656' : '#eee',
-            'yaxis.gridcolor': this.checked ? '#595656' : '#eee',
+        const dark = this.checked
+        ;['bh-mass', 'bh-z-cdf'].forEach((id) => {
+            if (!document.getElementById(id) || !document.getElementById(id).data) return
+            Plotly.relayout(id, {
+                paper_bgcolor: dark ? '#333' : 'white',
+                plot_bgcolor: dark ? '#333' : 'white',
+                'font.color': dark ? 'white' : '#333',
+                'xaxis.zerolinecolor': dark ? '#595656' : '#eee',
+                'xaxis.gridcolor': dark ? '#595656' : '#eee',
+                'yaxis.zerolinecolor': dark ? '#595656' : '#eee',
+                'yaxis.gridcolor': dark ? '#595656' : '#eee',
+            })
         })
-        // the "Total" bar colour is theme-dependent, so re-render its data too
-        if (window.rerenderBHMass) {
-            window.rerenderBHMass()
-        }
+        // curve colours (the "All BHs" line, and the 1-1/e guides) are theme-dependent
+        if (window.rerenderBHMass) window.rerenderBHMass()
+        if (window.rerenderBHCDF) window.rerenderBHCDF()
     })
 
     document.getElementById('home').addEventListener('click', function () {

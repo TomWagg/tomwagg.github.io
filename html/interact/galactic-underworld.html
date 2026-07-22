@@ -225,85 +225,199 @@
                 </div>
             </div>
 
-            <!-- ================= |z| RANGE SLIDERS ================= -->
-            <div class="row justify-content-center text-center mt-4">
-                <div class="col-12 col-lg-8">
-                </div>
-            </div>
-
             <!-- ================= EXPLAINERS ================= -->
             <div class="row justify-content-center mt-5">
                 <div class="accordion col-12 col-lg-6 mt-2" id="bh-questions">
-                    <h3>Understanding the plot</h3>
-                    <p>Start with the fiducial model in "Total" view, then click "Split by channel" to see how each black hole ended up isolated (or in a binary). Click the dropdowns for a guided tour.</p>
+                    <h3>Understanding the fiducial model</h3>
+                    <p>Let's first consider the fiducial model and explore some of the trends that we see in the mass distribution. The controls to the right of the plot should help you with answering these questions. And for more details on any of the answers you should take a look at Section 3 of the paper.</p>
                     <div class="accordion-item">
                         <h2 class="accordion-header">
-                            <button class="accordion-button collapsed cat1" type="button" data-bs-toggle="collapse" data-bs-target="#bh-q1">What are the three "channels"?</button>
+                            <button class="accordion-button collapsed cat1" type="button" data-bs-toggle="collapse" data-bs-target="#bh-q0">What drives the shape of the mass distribution? Why does it peak at 3 M$_\odot$?</button>
+                        </h2>
+                        <div id="bh-q0" class="accordion-collapse collapse" data-bs-parent="#bh-questions">
+                            <div class="accordion-body">
+                                <p>
+                                    The mass distribution is driven by a combination of the initial mass function (IMF) and the remnant mass prescription. The peak at 3 M$_\odot$ is peak lower-mass stars are more common in the IMF, and the minimum BH mass in our simulation is 3 M$_\odot$. The remnant mass prescription maps carbon-oxygen core masses to BH masses.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed cat2" type="button" data-bs-toggle="collapse" data-bs-target="#bh-q1">Why are most BHs isolated rather than in a binary?</button>
                         </h2>
                         <div id="bh-q1" class="accordion-collapse collapse" data-bs-parent="#bh-questions">
                             <div class="accordion-body">
-                                <p>Every black hole is born in a binary in our simulations, but ends up in one of three states by present day:</p>
+                                <p>Although every black hole is born in a binary in our simulations, these pairings can often end in disaster for the binary. We have three categories in the plot:</p>
                                 <p><b style="color: #8a6fd4">Isolated (disruption)</b> &mdash; the supernova natal kick disrupted the binary, ejecting the BH. This is the most common outcome.</p>
                                 <p><b style="color: #edae49">Isolated (merger)</b> &mdash; the two stars merged before either reached core collapse, leaving a single object that later formed a BH.</p>
                                 <p><b style="color: #d1495b">Binary at present day</b> &mdash; the BH is still bound to a companion (another compact object or a star).</p>
+                                <p>
+                                    So the reason that 91% of BHs are isolated is a combination of two things: supernova kicks often disrupt a binary, and many binaries merge before there's even a chance to have a disruption.
+                                </p>
                             </div>
                         </div>
                     </div>
                     <div class="accordion-item">
                         <h2 class="accordion-header">
-                            <button class="accordion-button collapsed cat2" type="button" data-bs-toggle="collapse" data-bs-target="#bh-q2">Why do binaries dominate at high masses?</button>
+                            <button class="accordion-button collapsed cat2" type="button" data-bs-toggle="collapse" data-bs-target="#bh-q2">In contrast, why do BHs in binaries dominate at high masses?</button>
                         </h2>
                         <div id="bh-q2" class="accordion-collapse collapse" data-bs-parent="#bh-questions">
                             <div class="accordion-body">
-                                <p><b>Massive black holes get weaker kicks!</b> In the fiducial model we scale natal kicks by the fraction of ejecta that falls back onto the collapsing core. High-mass BHs have more fallback, so their kicks are weak and they rarely disrupt their binaries. Switch to "Log" scale and "Split by channel" to see the high-mass tail become dominated by binaries and merger products.</p>
+                                <p><b>Massive black holes get weaker kicks!</b> In the fiducial model we scale natal kicks by the fraction of ejecta that falls back onto the collapsing core following Fryer+2012. High-mass BHs have more fallback, so their kicks are weak and they rarely disrupt their binaries. You can see the scaling between BH mass and natal kicks in the plot below that's from the paper.</p>
+                                <figure>
+                                    <img class="img-fluid" src="../../img/underworld/bh-kicks-vs-mass.png" />
+                                </figure>
+                                <p>You can drag the interactive histogram to zoom in on the area above 30 M$_\odot$ and see how much more prevalent BHs in binaries become.</p>
                             </div>
                         </div>
                     </div>
                     <div class="accordion-item">
                         <h2 class="accordion-header">
-                            <button class="accordion-button collapsed cat2" type="button" data-bs-toggle="collapse" data-bs-target="#bh-q3">What does the |z| slider do?</button>
+                            <button class="accordion-button collapsed cat3" type="button" data-bs-toggle="collapse" data-bs-target="#bh-q3">How does the median mass of BHs change as you move away from the Galactic plane?</button>
                         </h2>
                         <div id="bh-q3" class="accordion-collapse collapse" data-bs-parent="#bh-questions">
                             <div class="accordion-body">
-                                <p><b>It selects black holes by their distance from the Galactic plane.</b> Set a tight upper limit (say |z| &lt; 1 kpc) and you'll see the distribution shift to higher masses &mdash; massive BHs stay near the plane. Open it up to large |z| and the low-mass, strongly-kicked BHs reappear.</p>
+                                <p>
+                                    The further from the plane you look, the lower mass the BHs are on average. This trend is also driven by the mass-dependent natal kicks, which lead to low-mass BHs being kicked far from the plane, and high-mass BHs retaining similar orbits to their formation.
+                                </p>
+                                <p>
+                                    You can test this out with the slider bar, move the left switch to increasingly higher $|z|$ values to see how the mass distribution shifts!
+                                </p>
                             </div>
                         </div>
                     </div>
                     <div class="accordion-item">
                         <h2 class="accordion-header">
-                            <button class="accordion-button collapsed cat3" type="button" data-bs-toggle="collapse" data-bs-target="#bh-q4">Escaped vs bound black holes?</button>
+                            <button class="accordion-button collapsed cat3" type="button" data-bs-toggle="collapse" data-bs-target="#bh-q4">What about escaped BHs - how massive are they? Are they common?</button>
                         </h2>
                         <div id="bh-q4" class="accordion-collapse collapse" data-bs-parent="#bh-questions">
                             <div class="accordion-body">
-                                <p><b>A small fraction of BHs escape the Milky Way entirely.</b> These are almost all low-mass BHs that received the strongest natal kicks. Switch to "Escaped" to see just this free-floating population &mdash; note how it skews to low masses compared to the bound population.</p>
+                                <p>
+                                    Only a small fraction (~3% in the fiducial model) of BHs manage to escape the Milky Way's Galactic potential. They tend to be very low-mass BHs, since the natal kick required to escape must be high, which disfavours the BH having any sizeable fallback fraction.
+                                </p>
+                                <p>
+                                    You can try this out by toggling between the "Bound to MW" or "Escaped" BH populations and seeing how the $y$-axis scale and mass distribution shift.
+                                </p>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="accordion col-12 col-lg-6 mt-2" id="bh-model-questions">
                     <h3>Exploring the model variations</h3>
-                    <p>The buttons beside the plot switch between ~30 variations of the physics, grouped by category. A few highlights:</p>
+                    <p>Now let's leverage the advantage of population synthesis and consider how the results are sensitive to a range of variations. You can use the ~30 buttons below the plot to switch between different models. The colours correspond to variations in the same category.</p>
                     <div class="accordion-item">
                         <h2 class="accordion-header">
-                            <button class="accordion-button collapsed cat1" type="button" data-bs-toggle="collapse" data-bs-target="#bh-mq1">Remnant mass prescriptions change everything</button>
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#bh-mass-var-q1" style="background-color: #6ec42d">
+                                How natal kicks affect how many BHs are in binaries vs. isolated? Why?
+                            </button>
                         </h2>
-                        <div id="bh-mq1" class="accordion-collapse collapse" data-bs-parent="#bh-model-questions">
+                        <div id="bh-mass-var-q1" class="accordion-collapse collapse" data-bs-parent="#bh-model-questions">
                             <div class="accordion-body">
-                                <p>The mapping from a star's core to its final black hole mass is highly uncertain. Compare the fiducial (delayed) prescription with "Maltsev+2025" or "Fryer+2012 Rapid" &mdash; both the shape of the distribution and the total number of BHs change dramatically.</p>
+                                <p>
+                                    When BH natal kicks are assumed to follow the same distribution as neutron stars (i.e. no fallback scaling), the rate of BHs in binaries plummets. Conversely, if you assume that BHs do not receive natal kicks, the rate of BHs in binaries increases dramatically.
+                                </p>
+                                <p>
+                                    These changes are driven simply because a stronger natal kick is more likely to unbind a binary. You can learn more about this on <a href="../supernova-kicks.html">another of my interactive pages</a>
+                                </p>
                             </div>
                         </div>
                     </div>
                     <div class="accordion-item">
                         <h2 class="accordion-header">
-                            <button class="accordion-button collapsed cat2" type="button" data-bs-toggle="collapse" data-bs-target="#bh-mq2">Natal kicks set the scale height</button>
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#bh-mass-var-q2" style="background-color: #6ec42d">
+                                Do natal kick variations affect the mass distribution of BHs far from the plane? (Or escaped BHs?)
+                            </button>
                         </h2>
-                        <div id="bh-mq2" class="accordion-collapse collapse" data-bs-parent="#bh-model-questions">
+                        <div id="bh-mass-var-q2" class="accordion-collapse collapse" data-bs-parent="#bh-model-questions">
                             <div class="accordion-body">
-                                <p>Try "No BH kicks" (BHs stay near the plane, almost none escape) versus "No fallback rescaling" (every BH gets a full kick, the escape fraction soars). Combine with the |z| slider and the escaped filter to see the effect directly.</p>
+                                <p>
+                                    Yes! In the fiducial model, the further that you are from the plane, the lower the average mass of BHs. However, when you remove fallback scaling from BH natal kicks, you also remove the mass dependence, and so the distribution doesn't really change shape as you move further from the plane.
+                                </p>
+                                <p>
+                                    On the other hand, if you disable BH natal kicks, then the mass-dependent shift in the distribution also vanishes. However, there are also many fewer BHs at large heights because none of them receive sufficient kicks to reach those heights.
+                                </p>
+                                <p>
+                                    Overall, this means that if observations find a correlation between BH mass and distance from the plane, we may be able to constrain how much BH natal kick models.
+                                </p>
                             </div>
                         </div>
                     </div>
-                    <p class="mt-2">For the full story, check out Sections 3 &amp; 4 of the paper :)</p>
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#bh-mass-var-q3" style="background-color: #d1495b">How sensitive is the BH mass distribution to the remnant mass prescription?</button>
+                        </h2>
+                        <div id="bh-mass-var-q3" class="accordion-collapse collapse" data-bs-parent="#bh-model-questions">
+                            <div class="accordion-body">
+                                <p>
+                                    <b>Extremely!!</b> Switching between the fiducial model and the other red buttons, you'll see that the shape of the distribution changes significantly, in terms of average masses, extra features, and the total number of BHs itself. These prescriptions make strong predictions for the expected BH mass distribution.
+                                </p>
+                                <p>
+                                    With the upcoming datasets of BHs (e.g. from Roman or Gaia), we will hopefully be able to rule out some of these models with the most extreme predictions. For example, the Maltsev prescription predicts that almost no BHs in the Milky Way have masses between 10 and 18 solar masses.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#bh-mass-var-q4" style="background-color: #f68e1e">What effect does a time-evolving potential have on the escaped BHs? Why?</button>
+                        </h2>
+                        <div id="bh-mass-var-q4" class="accordion-collapse collapse" data-bs-parent="#bh-model-questions">
+                            <div class="accordion-body">
+                                <p>
+                                    Our model for a time-evolving potential predicts that 2.5x more BHs will escape the Milky Way. Moreover, those BHs are slightly more massive on average.
+                                </p>
+                                <p>
+                                    The model we implement accounts for the expected mass growth of the Milky Way and as such has a shallower Galactic potential at early times. This weaker potential allows BHs to more easily escape early in the Galaxy's history.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#bh-mass-var-q5" style="background-color: #5b86cb">How impactful are initial distributions on the shape of the BH mass distribution? Do any change the rate significantly?</button>
+                        </h2>
+                        <div id="bh-mass-var-q5" class="accordion-collapse collapse" data-bs-parent="#bh-model-questions">
+                            <div class="accordion-body">
+                                <p>
+                                    Most changes to the initial distributions have only a very small effect on the overall shape of the total distribution. You may note that the relative rate of different channels varies with some choices (for example, making initial orbital periods tighter leads to a larger fraction of BHs from mergers), but the total remains fairly consistent.
+                                </p>
+                                <p>
+                                    The rates are mostly unchanged, except for the variation that changes the stellar initial mass function (IMF). As one may expect, a top-heavy IMF produces more massive stars, and thus more BHs.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#bh-mass-var-q6" style="background-color: #00bcd4">Do any of the mass transfer variations change the BH mass distribution? What about the relative rates of each channel?</button>
+                        </h2>
+                        <div id="bh-mass-var-q6" class="accordion-collapse collapse" data-bs-parent="#bh-model-questions">
+                            <div class="accordion-body">
+                                <p>
+                                    The BH mass distribution is robust to fairly large variations in binary mass transfer physics! The relative rates of each channel are also fairly steady, except for the variations in which we force case B mass transfer to all be stable or unstable, which significantly changes the merger rates.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ================= |z| CDF (companion plot) ================= -->
+            <div class="row mb-3 mt-2 justify-content-center">
+                <div class="col-12 col-lg-9">
+                    <p class="fw-bold mb-1 text-center">How far from the Galactic plane do these black holes sit?</p>
+                    <p class="text-center mb-2" style="font-size: 0.9rem">
+                        The cumulative distribution of Galactocentric height $|z|$ for the model and population selected below. The shaded band marks the $|z|$ range chosen with the slider above, and the dotted line at $1 - 1/e$ marks the effective scale height where it crosses the curve.
+                    </p>
+                    <div id="bh-z-cdf" style="aspect-ratio: 2.5; max-height: 420px"></div>
+                </div>
+                <div class="col-12 col-lg-3 text-center align-self-center">
+                    <p class="mb-1 fw-bold">Show the CDF as</p>
+                    <div class="btn-group toggle-group" role="group">
+                        <button class="btn btn-primary active" id="bh-cdf-all">Combined</button>
+                        <button class="btn btn-primary" id="bh-cdf-split">By channel</button>
+                    </div>
                 </div>
             </div>
 

@@ -25,11 +25,14 @@ const state = {
     loEdge: 0, // lower |z| edge index
     hiEdge: null, // upper |z| edge index (set to nZ once data loads)
     yRange: [0, 1], // current y-axis range (kept fixed across model switches)
+    cdfSplit: false, // |z| CDF: false = combined curve, true = split by channel
 }
 
 // last y-axis range pushed to the plot, and the in-flight animation frame id.
 let lastYRange = null
 let rafId = null
+let cdfPlotCreated = false
+let cdfRaf = null
 
 // ---- data (filled once loaded) -------------------------------------------
 const D = {
@@ -57,6 +60,7 @@ fetch('../../data/underworld/bh-mass.h5')
         wireControls()
         recomputeYRange()
         render(false)
+        renderCDF(false)
     })
     .catch((err) => {
         console.error('Failed to load bh-mass.h5', err)
@@ -299,6 +303,196 @@ window.rerenderBHMass = function () {
     if (plotCreated) render(false)
 }
 
+// ==========================================================================
+// |z| CUMULATIVE DISTRIBUTION (Figure 4) -- companion plot below the histogram
+// Reuses the same counts[pop, esc, mass, z] array: marginalise over mass to get
+// the |z| distribution per channel, then form the cumulative fraction. Shares
+// the model + escapee selection with the histogram above.
+// ==========================================================================
+
+function escList() {
+    return state.escMode === 'both' ? [0, 1] : state.escMode === 'bound' ? [0] : [1]
+}
+
+// Per-channel |z| histograms (summed over the escapee filter and all masses).
+function zHistByPop(modelName) {
+    const flat = D.counts[modelName]
+    const { nMass, nZ } = D
+    const escArr = escList()
+    const byPop = [new Array(nZ).fill(0), new Array(nZ).fill(0), new Array(nZ).fill(0)]
+    for (let p = 0; p < 3; p++) {
+        const arr = byPop[p]
+        for (const e of escArr) {
+            for (let m = 0; m < nMass; m++) {
+                const base = ((p * 2 + e) * nMass + m) * nZ
+                for (let z = 0; z < nZ; z++) arr[z] += flat[base + z]
+            }
+        }
+    }
+    return byPop
+}
+
+// Cumulative fraction aligned with zEdges[1..nZ] (drop the leading 0 edge so the
+// curve starts at the first positive |z| for the log x-axis).
+function toCDF(zHist) {
+    const total = zHist.reduce((a, b) => a + b, 0)
+    const y = new Array(D.nZ)
+    let c = 0
+    for (let z = 0; z < D.nZ; z++) {
+        c += zHist[z]
+        y[z] = total > 0 ? c / total : null
+    }
+    return y
+}
+
+// Effective scale height: the |z| at which the combined CDF reaches 1 - 1/e,
+// interpolated in log-space (matches the paper's h_z,eff definition).
+function combinedScaleHeight() {
+    const byPop = zHistByPop(state.model)
+    const tot = byPop[0].map((_, z) => byPop[0][z] + byPop[1][z] + byPop[2][z])
+    const cdf = toCDF(tot)
+    const target = 1 - 1 / Math.E
+    const x = D.zEdges.slice(1)
+    for (let k = 1; k < cdf.length; k++) {
+        if (cdf[k - 1] != null && cdf[k] != null && cdf[k - 1] < target && cdf[k] >= target) {
+            const lx0 = Math.log10(x[k - 1]),
+                lx1 = Math.log10(x[k])
+            const f = (target - cdf[k - 1]) / (cdf[k] - cdf[k - 1])
+            return Math.pow(10, lx0 + f * (lx1 - lx0))
+        }
+    }
+    return null
+}
+
+// Always three traces (like the histogram) so transitions tween cleanly. Every
+// trace carries real (numeric) y so there is never a null->number interpolation:
+//  - combined: trace 0 = summed CDF (dark line); traces 1 & 2 hidden.
+//  - split:    trace 0 = binary CDF; traces 1 & 2 = merger / disruption, shown.
+function computeCDFTraces() {
+    const x = D.zEdges.slice(1)
+    const byPop = zHistByPop(state.model)
+    const tot = byPop[0].map((_, z) => byPop[0][z] + byPop[1][z] + byPop[2][z])
+    const split = state.cdfSplit
+    const line = (y, color, name, show, vis) => ({
+        x: x,
+        y: y,
+        type: 'scatter',
+        mode: 'lines',
+        line: { color: color, width: 3 },
+        name: name,
+        showlegend: show,
+        visible: vis,
+        hovertemplate: name + ': %{y:.1%} within |z|<%{x:.2f} kpc<extra></extra>',
+    })
+    return [
+        line(toCDF(split ? byPop[0] : tot), split ? POP_COLOURS[0] : darkMode() ? '#e6e6e6' : '#333', split ? POP_LABELS[0] : 'All BHs', split, true),
+        line(toCDF(byPop[1]), POP_COLOURS[1], POP_LABELS[1], split, split),
+        line(toCDF(byPop[2]), POP_COLOURS[2], POP_LABELS[2], split, split),
+    ]
+}
+
+function renderCDF(smooth) {
+    const dark = darkMode()
+    const traces = computeCDFTraces()
+    const hz = combinedScaleHeight()
+    const bandX0 = Math.max(D.zEdges[state.loEdge], D.zEdges[1] * 0.8)
+    const bandX1 = Math.min(D.zEdges[state.hiEdge], 300)
+
+    if (!cdfPlotCreated) {
+        const config = {
+            responsive: true,
+            modeBarButtonsToRemove: ['zoomIn2d', 'zoomOut2d', 'select2d', 'lasso2d', 'autoScale2d'],
+            displaylogo: false,
+        }
+        Plotly.newPlot('bh-z-cdf', traces, cdfLayout(dark, hz, bandX0, bandX1), config).then(() => {
+            cdfPlotCreated = true
+        })
+        return
+    }
+
+    // instant, non-tweenable props (visibility / colour / legend)
+    Plotly.restyle('bh-z-cdf', {
+        visible: traces.map((t) => t.visible),
+        'line.color': traces.map((t) => t.line.color),
+        name: traces.map((t) => t.name),
+        showlegend: traces.map((t) => t.showlegend),
+    })
+    Plotly.relayout('bh-z-cdf', {
+        'shapes[1].x0': bandX0,
+        'shapes[1].x1': bandX1,
+        'annotations[0].text': hz ? `Scale height ≈ ${fmtZ(hz)} kpc` : '',
+        'annotations[0].x': hz ? Math.log10(hz) : 0,
+        showlegend: state.cdfSplit,
+    })
+
+    // Hand-rolled tween of the curve y-values (Plotly.animate doesn't reliably
+    // commit line data here; Plotly.restyle per frame does, same as the histogram).
+    const gd = document.getElementById('bh-z-cdf')
+    const fromY = gd.data.map((t) => Array.from(t.y))
+    const toY = traces.map((t) => t.y)
+    if (cdfRaf) cancelAnimationFrame(cdfRaf)
+    const dur = smooth ? 500 : 0
+    if (dur <= 0) {
+        Plotly.restyle('bh-z-cdf', { y: toY }, [0, 1, 2])
+        return
+    }
+    const start = performance.now()
+    const ease = (t) => (t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2)
+    function step(now) {
+        const e = ease(Math.min(1, (now - start) / dur))
+        const y = toY.map((arr, ti) => arr.map((v, i) => (typeof v === 'number' && typeof fromY[ti][i] === 'number' ? fromY[ti][i] + (v - fromY[ti][i]) * e : v)))
+        Plotly.restyle('bh-z-cdf', { y: y }, [0, 1, 2])
+        cdfRaf = (now - start) / dur < 1 ? requestAnimationFrame(step) : null
+    }
+    cdfRaf = requestAnimationFrame(step)
+}
+
+function cdfLayout(dark, hz, bandX0, bandX1) {
+    const grey = dark ? '#666' : '#bbb'
+    const anti = dark ? 'white' : '#333'
+    const target = 1 - 1 / Math.E
+    return {
+        margin: { t: 20, r: 20, b: 60, l: 70 },
+        xaxis: {
+            title: { text: '$|z| \\; [{\\rm kpc}]$', standoff: 10, font: { size: fs } },
+            type: 'log',
+            range: [Math.log10(0.01), Math.log10(200)],
+            tickfont: { size: 0.8 * fs },
+        },
+        yaxis: {
+            title: { text: 'Cumulative fraction of BHs', standoff: 10, font: { size: 0.9 * fs } },
+            range: [0, 1.03],
+            tickfont: { size: 0.8 * fs },
+        },
+        shapes: [
+            { type: 'line', xref: 'paper', x0: 0, x1: 1, yref: 'y', y0: target, y1: target, line: { color: grey, width: 1.5, dash: 'dot' } },
+            { type: 'rect', xref: 'x', x0: bandX0, x1: bandX1, yref: 'paper', y0: 0, y1: 1, fillcolor: 'var(--primary)', opacity: 0.12, line: { width: 0 } },
+        ],
+        annotations: [
+            { x: hz ? Math.log10(hz) : 0, y: 0.06, xref: 'x', yref: 'paper', text: hz ? `Scale height ≈ ${fmtZ(hz)} kpc` : '', showarrow: false, font: { size: 0.8 * fs, color: anti }, bgcolor: dark ? 'rgba(51,51,51,0.7)' : 'rgba(255,255,255,0.7)' },
+            { xref: 'paper', yref: 'y', x: 0.01, y: target, yanchor: 'bottom', text: '$1 - 1/e$', showarrow: false, font: { size: 0.7 * fs, color: grey } },
+        ],
+        legend: { x: 0.98, y: 0.02, xanchor: 'right', yanchor: 'bottom' },
+        showlegend: state.cdfSplit,
+        paper_bgcolor: dark ? '#333' : 'white',
+        plot_bgcolor: dark ? '#333' : 'white',
+        font: { color: anti },
+    }
+}
+
+// Update just the shaded |z| band when the histogram's range slider moves.
+function updateCdfBand() {
+    if (!cdfPlotCreated) return
+    Plotly.relayout('bh-z-cdf', {
+        'shapes[1].x0': Math.max(D.zEdges[state.loEdge], D.zEdges[1] * 0.8),
+        'shapes[1].x1': Math.min(D.zEdges[state.hiEdge], 300),
+    })
+}
+
+window.rerenderBHCDF = function () {
+    if (cdfPlotCreated) renderCDF(false)
+}
+
 // ---- model switcher (grouped by category) --------------------------------
 function buildSwitcher() {
     const container = document.getElementById('bh-model-switcher').querySelector('.row')
@@ -330,6 +524,7 @@ function buildSwitcher() {
             this.classList.add('active')
             recomputeYRange() // counts: refit this model; normalised: unchanged (fixed)
             render(true) // smooth transition between models
+            renderCDF(true)
         })
         row.appendChild(btn)
     })
@@ -409,8 +604,27 @@ function wireControls() {
             this.classList.add('active')
             recomputeYRange()
             render(true)
+            renderCDF(true)
         })
     })
+
+    // |z| CDF: combined curve vs split by channel
+    const cdfAllBtn = document.getElementById('bh-cdf-all')
+    const cdfSplitBtn = document.getElementById('bh-cdf-split')
+    if (cdfAllBtn && cdfSplitBtn) {
+        cdfAllBtn.addEventListener('click', function () {
+            state.cdfSplit = false
+            cdfAllBtn.classList.add('active')
+            cdfSplitBtn.classList.remove('active')
+            renderCDF(true)
+        })
+        cdfSplitBtn.addEventListener('click', function () {
+            state.cdfSplit = true
+            cdfSplitBtn.classList.add('active')
+            cdfAllBtn.classList.remove('active')
+            renderCDF(true)
+        })
+    }
 
     // y-scale (linear / log)
     const linBtn = document.getElementById('bh-linear')
@@ -493,6 +707,7 @@ function wireControls() {
         }
         state.loEdge = lo
         updateZUI()
+        updateCdfBand()
         recomputeYRange()
         render(false)
     }
@@ -505,6 +720,7 @@ function wireControls() {
         }
         state.hiEdge = hi
         updateZUI()
+        updateCdfBand()
         recomputeYRange()
         render(false)
     }
