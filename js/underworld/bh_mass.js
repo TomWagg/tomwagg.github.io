@@ -20,7 +20,9 @@ const MEDIAN_COMBINED = '#5b6ee1'
 
 // ---- state ---------------------------------------------------------------
 const state = {
-    model: 'fiducial',
+    model: 'fiducial', // model shown in the histogram + pies
+    cdfModel: 'fiducial', // model shown in the |z| CDF (may differ when unlinked)
+    linkModels: false, // keep the two model selectors in sync?
     escMode: 'both', // 'both' | 'bound' | 'escaped'
     stacked: true,
     logY: false,
@@ -100,6 +102,7 @@ function loadData(f) {
     })
 
     state.model = D.modelNames[0]
+    state.cdfModel = D.modelNames[0]
     state.hiEdge = D.nZ
     state.loEdge = 0
 }
@@ -250,35 +253,21 @@ function medianTargets() {
         x: x,
         visible: state.stacked ? [true, true, true] : [true, false, false],
         colour: state.stacked ? MEDIAN_SPLIT : [MEDIAN_COMBINED, MEDIAN_SPLIT[1], MEDIAN_SPLIT[2]],
+        // fixed label heights (paper): disruption top, merger middle, binary bottom
+        // (index 0 = binary, 1 = merger, 2 = disruption). In Total mode only the
+        // single combined line shows, placed at the top.
+        ay: state.stacked ? [0.74, 0.85, 0.96] : [0.96, 0.85, 0.74],
     }
 }
 
-function medianShape(x, colour, visible) {
-    return { type: 'line', xref: 'x', x0: x, x1: x, yref: 'paper', y0: 0, y1: 1, line: { color: colour, width: 3, dash: '-' }, visible: visible, layer: 'above' }
+// A vertical line at x, rising only to yTop (paper) so it meets its label.
+function medianShape(x, colour, visible, yTop) {
+    return { type: 'line', xref: 'x', x0: x, x1: x, yref: 'paper', y0: 0, y1: yTop, line: { color: colour, width: 3, dash: '-' }, visible: visible, layer: 'above' }
 }
 
 // Median value label, e.g. "7.1 M⊙".
 function medLabel(x) {
     return `${x.toFixed(1)} M<sub>☉</sub>`
-}
-
-// Stagger the label y-heights (paper coords) so medians that sit close together
-// in mass don't overlap: sort the visible ones by x and step downward within a
-// cluster of nearby values.
-function annotationYLevels(xs, visible) {
-    const top = 0.96
-    const step = 0.09
-    const thr = 4 // M⊙ within which two labels are treated as overlapping
-    const ay = [top, top, top]
-    const order = [0, 1, 2].filter((i) => visible[i] && xs[i] != null).sort((a, b) => xs[a] - xs[b])
-    let level = 0
-    let prevX = -Infinity
-    for (const i of order) {
-        level = xs[i] - prevX < thr ? level + 1 : 0
-        ay[i] = top - level * step
-        prevX = xs[i]
-    }
-    return ay
 }
 
 function medianAnnotation(x, colour, visible, ay, text) {
@@ -329,11 +318,10 @@ function render(smooth) {
                 rangemode: 'tozero',
             },
             legend: { x: 0.98, y: 0.02, xanchor: 'right', yanchor: 'bottom', orientation: 'v', bgcolor: dark ? 'rgba(51,51,51,0.6)' : 'rgba(255,255,255,0.6)' },
-            shapes: [0, 1, 2].map((i) => medianShape(med.x[i] == null ? D.massCentres[0] : med.x[i], med.colour[i], med.visible[i])),
+            shapes: [0, 1, 2].map((i) => medianShape(med.x[i] == null ? D.massCentres[0] : med.x[i], med.colour[i], med.visible[i], med.ay[i])),
             annotations: (() => {
                 const mx0 = med.x.map((m) => (m == null ? D.massCentres[0] : m))
-                const ay0 = annotationYLevels(mx0, med.visible)
-                return [0, 1, 2].map((i) => medianAnnotation(mx0[i], med.colour[i], med.visible[i], ay0[i], medLabel(mx0[i])))
+                return [0, 1, 2].map((i) => medianAnnotation(mx0[i], med.colour[i], med.visible[i], med.ay[i], medLabel(mx0[i])))
             })(),
             paper_bgcolor: dark ? '#333' : 'white',
             plot_bgcolor: dark ? '#333' : 'white',
@@ -370,15 +358,13 @@ function render(smooth) {
     const prevX = (gd.layout.shapes || []).map((s) => s.x0)
     const toMed = med.x.map((m, i) => (m == null ? (prevX[i] != null ? prevX[i] : D.massCentres[0]) : m))
     const fromMed = [0, 1, 2].map((i) => (prevX[i] != null ? prevX[i] : toMed[i]))
-    const ay = annotationYLevels(toMed, med.visible)
-    const dark = darkMode()
-    const abg = dark ? 'rgba(51,51,51,0.72)' : 'rgba(255,255,255,0.72)'
     const styleUpdate = {}
     for (let i = 0; i < 3; i++) {
         styleUpdate[`shapes[${i}].visible`] = med.visible[i]
         styleUpdate[`shapes[${i}].line.color`] = med.colour[i]
+        styleUpdate[`shapes[${i}].y1`] = med.ay[i] // line rises only to its label
         styleUpdate[`annotations[${i}].visible`] = med.visible[i]
-        styleUpdate[`annotations[${i}].y`] = ay[i]
+        styleUpdate[`annotations[${i}].y`] = med.ay[i]
         styleUpdate[`annotations[${i}].font.color`] = 'white'
         styleUpdate[`annotations[${i}].bordercolor`] = med.colour[i]
         styleUpdate[`annotations[${i}].bgcolor`] = med.colour[i]
@@ -475,7 +461,7 @@ function toCDF(zHist) {
 // Effective scale height: the |z| at which the combined CDF reaches 1 - 1/e,
 // interpolated in log-space (matches the paper's h_z,eff definition).
 function combinedScaleHeight() {
-    const byPop = zHistByPop(state.model)
+    const byPop = zHistByPop(state.cdfModel)
     const tot = byPop[0].map((_, z) => byPop[0][z] + byPop[1][z] + byPop[2][z])
     const cdf = toCDF(tot)
     const target = 1 - 1 / Math.E
@@ -497,7 +483,7 @@ function combinedScaleHeight() {
 //  - split:    trace 0 = binary CDF; traces 1 & 2 = merger / disruption, shown.
 function computeCDFTraces() {
     const x = D.zEdges.slice(1)
-    const byPop = zHistByPop(state.model)
+    const byPop = zHistByPop(state.cdfModel)
     const tot = byPop[0].map((_, z) => byPop[0][z] + byPop[1][z] + byPop[2][z])
     const split = state.cdfSplit
     const line = (y, color, name, show, vis) => ({
@@ -749,10 +735,14 @@ window.rerenderBHPies = function () {
 // .bh-model-btn class, and selectModel() drives the active state on all of them.
 function buildSwitcher() {
     document.querySelectorAll('.bh-model-switcher').forEach((rootEl) => buildSwitcherInto(rootEl))
+    const linkBtn = document.getElementById('bh-model-link')
+    if (linkBtn) linkBtn.addEventListener('click', () => setLinkModels(!state.linkModels))
 }
 
 function buildSwitcherInto(rootEl) {
     const container = rootEl.querySelector('.row') || rootEl
+    // which plot(s) this set drives: the CDF-side set is 'cdf', otherwise 'hist'
+    const which = rootEl.id === 'bh-cdf-model-switcher' ? 'cdf' : 'hist'
     const catColours = ['var(--primary)', '#6ec42d', '#d1495b', '#f68e1e', '#5b86cb', '#00bcd4']
     let lastCat = null
     let catIndex = -1
@@ -760,6 +750,7 @@ function buildSwitcherInto(rootEl) {
     row.className = 'col-12'
     container.appendChild(row)
 
+    const activeModel = which === 'cdf' ? state.cdfModel : state.model
     D.modelNames.forEach((name, i) => {
         if (D.modelCategories[i] !== lastCat) {
             catIndex++
@@ -771,8 +762,8 @@ function buildSwitcherInto(rootEl) {
         btn.style.color = 'white'
         btn.setAttribute('data-model', name)
         btn.innerHTML = D.modelLabels[i]
-        if (name === state.model) btn.classList.add('active')
-        btn.addEventListener('click', () => selectModel(name))
+        if (name === activeModel) btn.classList.add('active')
+        btn.addEventListener('click', () => selectModel(name, which))
         row.appendChild(btn)
     })
 
@@ -781,15 +772,48 @@ function buildSwitcherInto(rootEl) {
     }
 }
 
-// Switch model from either button set and keep both sets' active state in sync.
-function selectModel(name) {
-    if (name === state.model) return
-    state.model = name
-    document.querySelectorAll('.bh-model-btn').forEach((b) => b.classList.toggle('active', b.getAttribute('data-model') === name))
-    recomputeYRange() // counts: refit this model; normalised: unchanged (fixed)
-    render(true) // smooth transition between models
-    renderCDF(true)
-    renderPies(true)
+// Mark the active button within one switcher set (by container id).
+function markActive(containerId, name) {
+    document.querySelectorAll('#' + containerId + ' .bh-model-btn').forEach((b) => b.classList.toggle('active', b.getAttribute('data-model') === name))
+}
+
+// Switch model from a button set. `which` is 'hist' (histogram + pies) or 'cdf'
+// (scale-height CDF). When linked, both sets + all three plots stay in sync;
+// when unlinked, each set drives only its own plot so just one animates.
+function selectModel(name, which) {
+    which = which || 'hist'
+    if (state.linkModels || which === 'hist') {
+        if (name !== state.model) {
+            state.model = name
+            markActive('bh-model-switcher', name)
+            recomputeYRange() // counts: refit this model; normalised: unchanged (fixed)
+            render(true) // smooth transition between models
+            renderPies(true)
+        }
+    }
+    if (state.linkModels || which === 'cdf') {
+        if (name !== state.cdfModel) {
+            state.cdfModel = name
+            markActive('bh-cdf-model-switcher', name)
+            renderCDF(true)
+        }
+    }
+}
+
+// Toggle whether the two model selectors control each other. Turning it back on
+// re-syncs the CDF selector to the histogram's model.
+function setLinkModels(on) {
+    state.linkModels = on
+    const btn = document.getElementById('bh-model-link')
+    if (btn) {
+        btn.classList.toggle('active', on)
+        btn.innerText = on ? 'Unsync plots' : 'Sync plots'
+    }
+    if (on && state.cdfModel !== state.model) {
+        state.cdfModel = state.model
+        markActive('bh-cdf-model-switcher', state.model)
+        renderCDF(true)
+    }
 }
 
 // ---- other controls ------------------------------------------------------

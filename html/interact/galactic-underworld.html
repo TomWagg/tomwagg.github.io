@@ -219,9 +219,9 @@
                         <b>What did we find?</b> For our fiducial model, we predict that ~$1.7\times 10^8$ BHs have formed in the Milky Way, the vast majority of which are now isolated and ~3% have escaped the Galaxy. Most of the ~$10^7$ BHs in binaries have another BH or a white dwarf companion, but ~$10^5$ retain a luminous stellar companion. BHs are distributed more diffusely than visible stars, with a scale height around ~2.5x larger. BH masses correlate with present-day location: the most massive BHs are preferentially close to the Galactic plane. This correlation is especially strong for BH-star binaries, which separate into tight, low-mass post-common-envelope systems and wide, high-mass non-interacting ones. The BH mass distribution and kinematics are highly sensitive to the remnant mass prescription and natal kick model, so observations could constrain explodability criteria and BH kicks. Accounting for the time-evolution of the Galactic potential more than doubles the escape fraction and increases the bound population's scale height by ~20%, whilst neglecting binary interactions overestimates it by 30%.
                     </p>
                     <p>
-                        <b>Why is this important?</b> With upcoming data from Roman, Gaia DR4, and spectroscopic surveys, we will soon have an unprecedented dataset of Milky Way black holes (BHs) to constrain their formation and evolution in a complementary manner to gravitational-wave observations. Our work builds a foundation for interpreting these observations and connecting them to the underlying physics of stellar evolution, supernovae, and binary interactions.
+                        <b>Why is this important?</b> With upcoming data from Roman, Gaia DR4, and spectroscopic surveys, we will soon have an unprecedented dataset of Milky Way black holes to constrain their formation and evolution in a complementary manner to gravitational-wave observations. Our work builds a foundation for interpreting these observations and connecting them to the underlying physics of stellar evolution, supernovae, and binary interactions.
                     </p>
-                    <p><b>How can I use this page?</b> TODO</p>
+                    <p><b>How can I use this page?</b> This page contains three different interactive figures that allow you to explore the results of our simulation in more detail. You can (1) explore the mass distribution of BHs, (2) examine how they are distributed in the Galaxy, and (3) consider some summary statistics for our 30 different model variations.</p>
                 </div>
             </div>
 
@@ -286,6 +286,9 @@
                     <p class="mb-1 mt-2 fw-bold">Model variation</p>
                     <div id="bh-model-switcher" class="toggle-group bh-model-switcher">
                         <div class="row"></div>
+                    </div>
+                    <div class="mb-2 hide">
+                        <button class="btn btn-sm btn-dark active" id="bh-model-link" data-bs-toggle="tooltip" title="When synced, this selector and the one by the scale-height plot stay on the same value. Turn on to control them at the same time, this slows down the animation a little though.">Sync plots</button>
                     </div>
                 </div>
             </div>
@@ -383,7 +386,7 @@
                                     When BH natal kicks are assumed to follow the same distribution as neutron stars (i.e. no fallback scaling), the rate of BHs in binaries plummets. Conversely, if you assume that BHs do not receive natal kicks, the rate of BHs in binaries increases dramatically.
                                 </p>
                                 <p>
-                                    These changes are driven simply because a stronger natal kick is more likely to unbind a binary. You can learn more about this on <a href="../supernova-kicks.html">another of my interactive pages</a>
+                                    These changes are driven simply because a stronger natal kick is more likely to unbind a binary. You can learn more about this on <a href="./supernova-kicks.html">another of my interactive pages</a>
                                 </p>
                             </div>
                         </div>
@@ -489,29 +492,36 @@
                     </div>
                 </div>
             </div>
+            <div class="row mb-3 justify-content-center">
+                <div class="col-12 col-lg-6 text-center">
+                    <p>Check out Section 4 of the paper to learn more about the sensitivity of the scale height of black holes to the model variations - and how this can be used to constrain the physics of black hole formation and evolution!</p>
+                </div>
+            </div>
 
             <!-- ================= SUMMARY-ACROSS-VARIATIONS EXPLORER (Figs 6, 9, F1) ================= -->
             <h2 class="text-center mt-5">Summary statistics across all model variations</h2>
             <p class="text-center mb-3" style="font-size: 0.9rem">
                 Each panel shows one summary statistic for every model, grouped by the type of variation, with a dashed line marking the fiducial value. Hover any point to read its value. Choose which panels to show below.
             </p>
-            <div class="row justify-content-center mb-2">
-                <div class="col-12 col-lg-10 text-center">
+            <div class="row justify-content-center">
+                <div class="col-12 col-lg-6 text-center">
                     <div class="mb-1">
                         <span class="fw-bold me-2">Which panels?</span>
                         <button class="btn btn-sm btn-outline-main" id="bh-sum-all">Show all</button>
                         <button class="btn btn-sm btn-outline-main" id="bh-sum-none">Hide all</button>
                     </div>
                     <div id="bh-sum-toggles" class="toggle-group mb-3"></div>
+                </div>
+                <div class="col-12 col-lg-6 text-center">
                     <div class="mb-1">
                         <span class="fw-bold me-2">Which variation groups?</span>
                         <button class="btn btn-sm btn-outline-main" id="bh-sum-cat-all">Show all</button>
                     </div>
                     <div id="bh-sum-cat-toggles" class="toggle-group"></div>
-                    <div class="mt-2">
-                        <button class="btn btn-primary" id="bh-sum-cat-apply">Apply changes</button>
-                    </div>
                 </div>
+            </div>
+            <div class="mb-4 text-center">
+                <button class="btn btn-primary" id="bh-sum-cat-apply">Apply changes</button>
             </div>
             <div class="row mb-3">
                 <div class="col-12">
@@ -522,7 +532,8 @@
             <div class="row mb-3 mt-5 text-center">
                 <div class="col">
                     <h1>Still craving more science?</h1>
-                    <p>Well, oh boy do I have a paper for you 🙃 Use the button below to go and read the full paper in detail!</p>
+                    <p>
+                        Has this page piqued your curiosity about Milky Way BHs? Well, oh boy do I have a paper for you 🙃 Use the button below to go and read the full paper in detail!</p>
                     <a class="btn btn-primary btn-lg" href="https://github.com/TomWagg/underworld/" target="_blank">Read the paper</a>
                 </div>
             </div>
