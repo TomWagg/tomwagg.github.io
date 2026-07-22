@@ -42,6 +42,61 @@
                 flex-wrap: wrap;
                 justify-content: center;
             }
+            /* pie charts overlaid on the histogram's empty top-right corner */
+            .bh-hist-wrap {
+                position: relative;
+            }
+            .bh-pie-overlay {
+                position: absolute;
+                top: 2%;
+                right: 1%;
+                width: 46%;
+                display: flex;
+                gap: 6px;
+                justify-content: flex-end;
+                pointer-events: none;
+            }
+            .bh-pie-item {
+                flex: 0 0 48%;
+                pointer-events: auto;
+            }
+            .bh-pie-cap {
+                font-size: 0.72rem;
+                font-weight: 700;
+                text-align: center;
+                opacity: 0.85;
+                margin: -0.4rem 0 0;
+            }
+            /* summary explorer: responsive grid of scatter panels */
+            #bh-sum-grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fill, minmax(450px, 1fr));
+                gap: 6px;
+            }
+            .bh-sum-cell {
+                margin-right: 1rem;
+                border: 2px solid var(--primary);
+                border-radius: 1rem;
+                /* clip the plot's square background to the rounded border */
+                overflow: hidden;
+            }
+            .bh-sum-title {
+                font-size: 1.2rem;
+                font-weight: 700;
+                text-align: center;
+                margin-top: 1rem;
+                margin-bottom: 1rem;
+            }
+            /* highlight "Apply" while category changes are staged but not applied */
+            #bh-sum-cat-apply.bh-apply-pending {
+                box-shadow: 0 0 0 3px rgba(91, 110, 225, 0.45);
+                animation: bh-apply-pulse 1.2s ease-in-out infinite;
+            }
+            @keyframes bh-apply-pulse {
+                50% {
+                    box-shadow: 0 0 0 6px rgba(91, 110, 225, 0.15);
+                }
+            }
             /* dual-handle |z| range slider: two range inputs overlaid on one track */
             .bh-range {
                 position: relative;
@@ -173,7 +228,17 @@
             <div class="row mb-3 mt-4">
                 <h2 class="text-center">The Milky Way black hole mass distribution</h2>
                 <div class="col-12 col-lg-9">
-                    <div id="bh-mass" style="aspect-ratio: 2.5; max-height: 560px"></div>
+                    <div class="bh-hist-wrap">
+                        <div id="bh-mass" style="aspect-ratio: 2.5; max-height: 560px"></div>
+                        <div class="bh-pie-overlay">
+                            <div class="bh-pie-item">
+                                <div id="bh-pie-num" style="aspect-ratio: 1.1"></div>
+                            </div>
+                            <div class="bh-pie-item">
+                                <div id="bh-pie-mass" style="aspect-ratio: 1.1"></div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <div class="col-12 col-lg-3 text-center">
                     <p class="mb-1 fw-bold">Total or stacked?</p>
@@ -404,7 +469,7 @@
             </div>
 
             <!-- ================= |z| CDF (companion plot) ================= -->
-            <h2 class="text-center mt-5">Scale height of black holes</h2>
+            <h2 class="text-center mt-5">Black hole distance from the Galactic plane</h2>
             <p class="text-center mb-2">
                 This figure shows the normalised cumulative distribution function (CDF) of the distance of black holes from the Galactic plane, $|z|$. You can see how the scale height of BHs varies with different model variations (and also by channel) using the buttons. Note that this plot only shows BHs that are bound to the Milky Way, so the escaped BHs are not included here.
             </p>
@@ -422,6 +487,35 @@
                     <div id="bh-cdf-model-switcher" class="toggle-group bh-model-switcher">
                         <div class="row"></div>
                     </div>
+                </div>
+            </div>
+
+            <!-- ================= SUMMARY-ACROSS-VARIATIONS EXPLORER (Figs 6, 9, F1) ================= -->
+            <h2 class="text-center mt-5">Summary statistics across all model variations</h2>
+            <p class="text-center mb-3" style="font-size: 0.9rem">
+                Each panel shows one summary statistic for every model, grouped by the type of variation, with a dashed line marking the fiducial value. Hover any point to read its value. Choose which panels to show below.
+            </p>
+            <div class="row justify-content-center mb-2">
+                <div class="col-12 col-lg-10 text-center">
+                    <div class="mb-1">
+                        <span class="fw-bold me-2">Which panels?</span>
+                        <button class="btn btn-sm btn-outline-main" id="bh-sum-all">Show all</button>
+                        <button class="btn btn-sm btn-outline-main" id="bh-sum-none">Hide all</button>
+                    </div>
+                    <div id="bh-sum-toggles" class="toggle-group mb-3"></div>
+                    <div class="mb-1">
+                        <span class="fw-bold me-2">Which variation groups?</span>
+                        <button class="btn btn-sm btn-outline-main" id="bh-sum-cat-all">Show all</button>
+                    </div>
+                    <div id="bh-sum-cat-toggles" class="toggle-group"></div>
+                    <div class="mt-2">
+                        <button class="btn btn-primary" id="bh-sum-cat-apply">Apply changes</button>
+                    </div>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-12">
+                    <div id="bh-sum-grid"></div>
                 </div>
             </div>
 
@@ -445,5 +539,6 @@
         <script src="../../js/dark_mode.js"></script>
         <script src="../../js/underworld/general.js"></script>
         <script src="../../js/underworld/bh_mass.js"></script>
+        <script src="../../js/underworld/summary.js"></script>
     </body>
 </html>

@@ -24,9 +24,11 @@ this.window.addEventListener('load', function () {
                 'yaxis.gridcolor': dark ? '#595656' : '#eee',
             })
         })
-        // curve colours (the "All BHs" line, and the 1-1/e guides) are theme-dependent
+        // curve colours (the "All BHs" line, the 1-1/e guides, pie separators/centre text) are theme-dependent
         if (window.rerenderBHMass) window.rerenderBHMass()
         if (window.rerenderBHCDF) window.rerenderBHCDF()
+        if (window.rerenderBHPies) window.rerenderBHPies()
+        if (window.rerenderSummary) window.rerenderSummary()
     })
 
     document.getElementById('home').addEventListener('click', function () {

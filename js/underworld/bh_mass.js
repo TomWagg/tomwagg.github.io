@@ -13,6 +13,10 @@
 // ---- colours -------------------------------------------------------------
 const POP_COLOURS = ['#d1495b', '#edae49', '#8a6fd4'] // binary / merger / disruption
 const POP_LABELS = ['Binary at present day', 'Isolated (merger)', 'Isolated (disruption)']
+// median-line colours: darkened channel hues (visible over the stacked bars),
+// plus a contrasting accent for the single "Total" median line.
+const MEDIAN_SPLIT = ['#7a1f30', '#c98511', '#4821bb']
+const MEDIAN_COMBINED = '#5b6ee1'
 
 // ---- state ---------------------------------------------------------------
 const state = {
@@ -33,6 +37,8 @@ let lastYRange = null
 let rafId = null
 let cdfPlotCreated = false
 let cdfRaf = null
+let piesCreated = false
+let pieRaf = null
 
 // ---- data (filled once loaded) -------------------------------------------
 const D = {
@@ -61,6 +67,7 @@ fetch('../../data/underworld/bh-mass.h5')
         recomputeYRange()
         render(false)
         renderCDF(false)
+        renderPies(false)
     })
     .catch((err) => {
         console.error('Failed to load bh-mass.h5', err)
@@ -209,12 +216,96 @@ function yTitle() {
     return state.scaleMode === 'mw' ? 'Number of BHs in the Milky Way' : 'Number of BHs (simulated)'
 }
 
+// Median BH mass of a per-bin histogram, interpolated within the crossing bin so
+// it moves smoothly as the distribution shifts. Returns null for an empty set.
+function medianMass(y) {
+    let total = 0
+    for (let m = 0; m < y.length; m++) total += y[m]
+    if (total <= 0) return null
+    const half = total / 2
+    let c = 0
+    for (let m = 0; m < y.length; m++) {
+        if (c + y[m] >= half) {
+            const frac = y[m] > 0 ? (half - c) / y[m] : 0
+            return D.massCentres[m] - D.massWidths[m] / 2 + frac * D.massWidths[m]
+        }
+        c += y[m]
+    }
+    return D.massCentres[D.massCentres.length - 1]
+}
+
+// Target x-position, visibility and colour of the three median lines for the
+// current view: one line at the total median (Total), or one per channel (Split).
+function medianTargets() {
+    const t = computeTraces()
+    let x
+    if (state.stacked) {
+        x = [medianMass(t[0].y), medianMass(t[1].y), medianMass(t[2].y)]
+    } else {
+        const mc = medianMass(t[0].y)
+        x = [mc, mc, mc] // hidden lines 1&2 sit on the total median, so they fan out on Split
+    }
+    return {
+        x: x,
+        visible: state.stacked ? [true, true, true] : [true, false, false],
+        colour: state.stacked ? MEDIAN_SPLIT : [MEDIAN_COMBINED, MEDIAN_SPLIT[1], MEDIAN_SPLIT[2]],
+    }
+}
+
+function medianShape(x, colour, visible) {
+    return { type: 'line', xref: 'x', x0: x, x1: x, yref: 'paper', y0: 0, y1: 1, line: { color: colour, width: 3, dash: '-' }, visible: visible, layer: 'above' }
+}
+
+// Median value label, e.g. "7.1 M⊙".
+function medLabel(x) {
+    return `${x.toFixed(1)} M<sub>☉</sub>`
+}
+
+// Stagger the label y-heights (paper coords) so medians that sit close together
+// in mass don't overlap: sort the visible ones by x and step downward within a
+// cluster of nearby values.
+function annotationYLevels(xs, visible) {
+    const top = 0.96
+    const step = 0.09
+    const thr = 4 // M⊙ within which two labels are treated as overlapping
+    const ay = [top, top, top]
+    const order = [0, 1, 2].filter((i) => visible[i] && xs[i] != null).sort((a, b) => xs[a] - xs[b])
+    let level = 0
+    let prevX = -Infinity
+    for (const i of order) {
+        level = xs[i] - prevX < thr ? level + 1 : 0
+        ay[i] = top - level * step
+        prevX = xs[i]
+    }
+    return ay
+}
+
+function medianAnnotation(x, colour, visible, ay, text) {
+    const dark = darkMode()
+    return {
+        x: x,
+        y: ay,
+        xref: 'x',
+        yref: 'paper',
+        yanchor: 'bottom',
+        text: text,
+        showarrow: false,
+        font: { size: 0.62 * fs, color: "white" },
+        bgcolor: colour,//dark ? 'rgba(51,51,51,0.72)' : 'rgba(255,255,255,0.72)',
+        bordercolor: colour,
+        borderwidth: 1,
+        borderpad: 2,
+        visible: visible,
+    }
+}
+
 // ---- rendering -----------------------------------------------------------
 // The plot's layout is created ONCE. Updates only push trace data (and the
 // y-axis range, and only when it actually changed). This keeps the x-axis zoom
 // intact between clicks and lets bar heights tween without a snap.
 function render(smooth) {
     const traces = computeTraces()
+    const med = medianTargets()
 
     if (!plotCreated) {
         const dark = darkMode()
@@ -236,7 +327,13 @@ function render(smooth) {
                 tickfont: { size: 0.8 * fs },
                 rangemode: 'tozero',
             },
-            legend: { x: 0.98, y: 0.98, xanchor: 'right', yanchor: 'top', orientation: 'v' },
+            legend: { x: 0.98, y: 0.02, xanchor: 'right', yanchor: 'bottom', orientation: 'v', bgcolor: dark ? 'rgba(51,51,51,0.6)' : 'rgba(255,255,255,0.6)' },
+            shapes: [0, 1, 2].map((i) => medianShape(med.x[i] == null ? D.massCentres[0] : med.x[i], med.colour[i], med.visible[i])),
+            annotations: (() => {
+                const mx0 = med.x.map((m) => (m == null ? D.massCentres[0] : m))
+                const ay0 = annotationYLevels(mx0, med.visible)
+                return [0, 1, 2].map((i) => medianAnnotation(mx0[i], med.colour[i], med.visible[i], ay0[i], medLabel(mx0[i])))
+            })(),
             paper_bgcolor: dark ? '#333' : 'white',
             plot_bgcolor: dark ? '#333' : 'white',
             font: { color: dark ? 'white' : '#333' },
@@ -268,12 +365,45 @@ function render(smooth) {
     const toR = state.yRange.slice()
     lastYRange = toR.join(',')
 
-    // We hand-roll the tween (bar heights AND y-axis range together) because
-    // Plotly.animate snaps the axis range at the end instead of interpolating it.
+    // Median lines: colour/visibility applied instantly, x-position tweened below.
+    const prevX = (gd.layout.shapes || []).map((s) => s.x0)
+    const toMed = med.x.map((m, i) => (m == null ? (prevX[i] != null ? prevX[i] : D.massCentres[0]) : m))
+    const fromMed = [0, 1, 2].map((i) => (prevX[i] != null ? prevX[i] : toMed[i]))
+    const ay = annotationYLevels(toMed, med.visible)
+    const dark = darkMode()
+    const abg = dark ? 'rgba(51,51,51,0.72)' : 'rgba(255,255,255,0.72)'
+    const styleUpdate = {}
+    for (let i = 0; i < 3; i++) {
+        styleUpdate[`shapes[${i}].visible`] = med.visible[i]
+        styleUpdate[`shapes[${i}].line.color`] = med.colour[i]
+        styleUpdate[`annotations[${i}].visible`] = med.visible[i]
+        styleUpdate[`annotations[${i}].y`] = ay[i]
+        styleUpdate[`annotations[${i}].font.color`] = 'white'
+        styleUpdate[`annotations[${i}].bordercolor`] = med.colour[i]
+        styleUpdate[`annotations[${i}].bgcolor`] = med.colour[i]
+    }
+    Plotly.relayout('bh-mass', styleUpdate)
+
+    // x-position of the lines AND their value labels, tweened together
+    const lineUpdate = (mx) => {
+        const u = {}
+        for (let i = 0; i < 3; i++) {
+            u[`shapes[${i}].x0`] = mx[i]
+            u[`shapes[${i}].x1`] = mx[i]
+            u[`annotations[${i}].x`] = mx[i]
+            u[`annotations[${i}].text`] = medLabel(mx[i])
+        }
+        return u
+    }
+
+    // We hand-roll the tween (bar heights, y-axis range AND median lines together)
+    // because Plotly.animate snaps the axis range at the end instead of interpolating.
     if (rafId) cancelAnimationFrame(rafId)
-    const dur = smooth ? 500 : 0
+    // rAF is paused while the tab is hidden, so fall back to an instant update
+    // (otherwise a model switch on a backgrounded tab would leave stale data).
+    const dur = smooth && !document.hidden ? 500 : 0
     if (dur <= 0) {
-        Plotly.update('bh-mass', { y: toY }, { 'yaxis.range': toR })
+        Plotly.update('bh-mass', { y: toY }, Object.assign({ 'yaxis.range': toR }, lineUpdate(toMed)))
         return
     }
     const start = performance.now()
@@ -283,7 +413,8 @@ function render(smooth) {
         const e = ease(p)
         const y = toY.map((arr, ti) => arr.map((v, i) => fromY[ti][i] + (v - fromY[ti][i]) * e))
         const r = [fromR[0] + (toR[0] - fromR[0]) * e, fromR[1] + (toR[1] - fromR[1]) * e]
-        Plotly.update('bh-mass', { y: y }, { 'yaxis.range': r })
+        const mx = toMed.map((tm, i) => fromMed[i] + (tm - fromMed[i]) * e)
+        Plotly.update('bh-mass', { y: y }, Object.assign({ 'yaxis.range': r }, lineUpdate(mx)))
         rafId = p < 1 ? requestAnimationFrame(step) : null
     }
     rafId = requestAnimationFrame(step)
@@ -307,26 +438,21 @@ window.rerenderBHMass = function () {
 // |z| CUMULATIVE DISTRIBUTION (Figure 4) -- companion plot below the histogram
 // Reuses the same counts[pop, esc, mass, z] array: marginalise over mass to get
 // the |z| distribution per channel, then form the cumulative fraction. Shares
-// the model + escapee selection with the histogram above.
+// the model selection with the histogram. Escaped BHs are always excluded here
+// (esc index 0 only) -- their |z| is enormous and would swamp the scale height.
 // ==========================================================================
 
-function escList() {
-    return state.escMode === 'both' ? [0, 1] : state.escMode === 'bound' ? [0] : [1]
-}
-
-// Per-channel |z| histograms (summed over the escapee filter and all masses).
+// Per-channel |z| histograms for BOUND BHs only (summed over all masses).
 function zHistByPop(modelName) {
     const flat = D.counts[modelName]
     const { nMass, nZ } = D
-    const escArr = escList()
+    const E_BOUND = 0
     const byPop = [new Array(nZ).fill(0), new Array(nZ).fill(0), new Array(nZ).fill(0)]
     for (let p = 0; p < 3; p++) {
         const arr = byPop[p]
-        for (const e of escArr) {
-            for (let m = 0; m < nMass; m++) {
-                const base = ((p * 2 + e) * nMass + m) * nZ
-                for (let z = 0; z < nZ; z++) arr[z] += flat[base + z]
-            }
+        for (let m = 0; m < nMass; m++) {
+            const base = ((p * 2 + E_BOUND) * nMass + m) * nZ
+            for (let z = 0; z < nZ; z++) arr[z] += flat[base + z]
         }
     }
     return byPop
@@ -420,7 +546,7 @@ function renderCDF(smooth) {
     Plotly.relayout('bh-z-cdf', {
         'shapes[1].x0': bandX0,
         'shapes[1].x1': bandX1,
-        'annotations[0].text': hz ? `Scale height ≈ ${fmtZ(hz)} kpc` : '',
+        'annotations[0].text': hz ? `Scale height ≈ ${parseFloat((hz * 1000).toPrecision(3))} pc` : '',
         'annotations[0].x': hz ? Math.log10(hz) : 0,
         showlegend: state.cdfSplit,
     })
@@ -431,7 +557,7 @@ function renderCDF(smooth) {
     const fromY = gd.data.map((t) => Array.from(t.y))
     const toY = traces.map((t) => t.y)
     if (cdfRaf) cancelAnimationFrame(cdfRaf)
-    const dur = smooth ? 500 : 0
+    const dur = smooth && !document.hidden ? 500 : 0
     if (dur <= 0) {
         Plotly.restyle('bh-z-cdf', { y: toY }, [0, 1, 2])
         return
@@ -469,7 +595,7 @@ function cdfLayout(dark, hz, bandX0, bandX1) {
             { type: 'rect', xref: 'x', x0: bandX0, x1: bandX1, yref: 'paper', y0: 0, y1: 1, fillcolor: 'var(--primary)', opacity: 0.12, line: { width: 0 } },
         ],
         annotations: [
-            { x: hz ? Math.log10(hz) : 0, y: 0.06, xref: 'x', yref: 'paper', text: hz ? `Scale height ≈ ${fmtZ(hz)} kpc` : '', showarrow: false, font: { size: 0.8 * fs, color: anti }, bgcolor: dark ? 'rgba(51,51,51,0.7)' : 'rgba(255,255,255,0.7)' },
+            { x: hz ? Math.log10(hz) : 0, y: 0.06, xref: 'x', yref: 'paper', text: hz ? `Scale height ≈ ${parseFloat((hz * 1000).toPrecision(3))} pc` : '', showarrow: false, font: { size: 0.8 * fs, color: anti }, bgcolor: dark ? 'rgba(51,51,51,0.7)' : 'rgba(255,255,255,0.7)' },
             { xref: 'paper', yref: 'y', x: 0.01, y: target, yanchor: 'bottom', text: '$1 - 1/e$', showarrow: false, font: { size: 0.7 * fs, color: grey } },
         ],
         legend: { x: 0.98, y: 0.02, xanchor: 'right', yanchor: 'bottom' },
@@ -493,45 +619,176 @@ window.rerenderBHCDF = function () {
     if (cdfPlotCreated) renderCDF(false)
 }
 
+// ==========================================================================
+// DOUGHNUT CHARTS (Figure 1) -- channel breakdown by number and by mass, with
+// the running total in the centre. Both are derived from the same reduced
+// counts (number = sum over mass; mass = sum of count * mass), so they respond
+// to the model, escapee filter and |z| range, and animate smoothly.
+// ==========================================================================
+
+// Per-channel number and total mass for the current model/filter (scaled counts).
+function pieData() {
+    const yByPop = reduceModel(state.model)
+    const num = [0, 0, 0]
+    const mass = [0, 0, 0]
+    for (let p = 0; p < 3; p++) {
+        for (let m = 0; m < D.nMass; m++) {
+            num[p] += yByPop[p][m]
+            mass[p] += yByPop[p][m] * D.massCentres[m]
+        }
+    }
+    return { num: num, mass: mass }
+}
+
+// Compact "1.7×10⁸" style label; appends a unit if given.
+function fmtBig(n, unit) {
+    if (!(n > 0)) return '0' + (unit ? ' ' + unit : '')
+    const exp = Math.floor(Math.log10(n))
+    const mant = n / Math.pow(10, exp)
+    const m = exp >= 3 ? `${mant.toFixed(1)}×10<sup>${exp}</sup>` : Math.round(n).toLocaleString()
+    return unit ? `${m} ${unit}` : m
+}
+
+function pieTrace(values, lineColour) {
+    return {
+        type: 'pie',
+        values: values,
+        labels: POP_LABELS,
+        hole: 0.62,
+        marker: { colors: POP_COLOURS, line: { color: lineColour, width: 2 } },
+        textinfo: 'none',
+        sort: false,
+        direction: 'clockwise',
+        hovertemplate: '%{label}<br>%{percent}<extra></extra>',
+        domain: { x: [0, 1], y: [0, 1] },
+    }
+}
+
+function pieLayout(centreText, dark) {
+    return {
+        margin: { t: 8, r: 8, b: 8, l: 8 },
+        showlegend: false,
+        // transparent so the pie floats over the histogram; the centre value gets
+        // a translucent pill so it stays readable over gridlines
+        paper_bgcolor: 'rgba(0,0,0,0)',
+        plot_bgcolor: 'rgba(0,0,0,0)',
+        font: { color: dark ? 'white' : '#333' },
+        annotations: [
+            {
+                text: centreText,
+                x: 0.5,
+                y: 0.5,
+                xref: 'paper',
+                yref: 'paper',
+                showarrow: false,
+                font: { size: 0.7 * fs, color: dark ? 'white' : '#333' },
+                bgcolor: dark ? 'rgba(51,51,51,0.7)' : 'rgba(255,255,255,0.7)',
+                borderpad: 2,
+            },
+        ],
+    }
+}
+
+function renderPies(smooth) {
+    const { num, mass } = pieData()
+    const dark = darkMode()
+    const bg = dark ? '#333' : 'white'
+    const centreNum = "<b>" + fmtBig(num[0] + num[1] + num[2]) + "</b><br>Number of BHs"
+    const centreMass = "<b>" + fmtBig(mass[0] + mass[1] + mass[2], 'M<sub>☉</sub>') + "</b><br>Total BH mass"
+
+    if (!piesCreated) {
+        const config = { responsive: true, displayModeBar: false }
+        Plotly.newPlot('bh-pie-num', [pieTrace(num, bg)], pieLayout(centreNum, dark), config)
+        Plotly.newPlot('bh-pie-mass', [pieTrace(mass, bg)], pieLayout(centreMass, dark), config)
+        piesCreated = true
+        return
+    }
+
+    // keep slice separators + centre-text colour in sync with the theme
+    Plotly.restyle('bh-pie-num', { 'marker.line.color': bg })
+    Plotly.restyle('bh-pie-mass', { 'marker.line.color': bg })
+
+    const gN = document.getElementById('bh-pie-num')
+    const gM = document.getElementById('bh-pie-mass')
+    const fromN = gN.data[0].values.slice()
+    const fromM = gM.data[0].values.slice()
+    const sum = (a) => a[0] + a[1] + a[2]
+
+    if (pieRaf) cancelAnimationFrame(pieRaf)
+    const dur = smooth && !document.hidden ? 500 : 0
+    const fc = dark ? 'white' : '#333'
+    const pill = dark ? 'rgba(51,51,51,0.7)' : 'rgba(255,255,255,0.7)'
+    const apply = (nv, mv) => {
+        Plotly.update('bh-pie-num', { values: [nv] }, { 'annotations[0].text': "<b>" + fmtBig(sum(nv)) + "</b><br>Number of BHs", 'annotations[0].font.color': fc, 'annotations[0].bgcolor': pill })
+        Plotly.update('bh-pie-mass', { values: [mv] }, { 'annotations[0].text': "<b>" + fmtBig(sum(mv), 'M<sub>☉</sub>') + "</b><br>Total BH mass", 'annotations[0].font.color': fc, 'annotations[0].bgcolor': pill })
+    }
+    if (dur <= 0) {
+        apply(num, mass)
+        return
+    }
+    const start = performance.now()
+    const ease = (t) => (t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2)
+    function step(now) {
+        const e = ease(Math.min(1, (now - start) / dur))
+        const nv = num.map((v, i) => fromN[i] + (v - fromN[i]) * e)
+        const mv = mass.map((v, i) => fromM[i] + (v - fromM[i]) * e)
+        apply(nv, mv)
+        pieRaf = (now - start) / dur < 1 ? requestAnimationFrame(step) : null
+    }
+    pieRaf = requestAnimationFrame(step)
+}
+
+window.rerenderBHPies = function () {
+    if (piesCreated) renderPies(false)
+}
+
 // ---- model switcher (grouped by category) --------------------------------
+// Build the model buttons into every switcher container. The two sets (one by
+// the histogram, one by the CDF) are linked: buttons carry data-model + the
+// .bh-model-btn class, and selectModel() drives the active state on all of them.
 function buildSwitcher() {
-    const container = document.getElementById('bh-model-switcher').querySelector('.row')
-    let lastCat = null
+    document.querySelectorAll('.bh-model-switcher').forEach((rootEl) => buildSwitcherInto(rootEl))
+}
+
+function buildSwitcherInto(rootEl) {
+    const container = rootEl.querySelector('.row') || rootEl
     const catColours = ['var(--primary)', '#6ec42d', '#d1495b', '#f68e1e', '#5b86cb', '#00bcd4']
+    let lastCat = null
     let catIndex = -1
     const row = document.createElement('div')
     row.className = 'col-12'
-    // row.setAttribute('data-cat', cat)
     container.appendChild(row)
 
     D.modelNames.forEach((name, i) => {
-        const cat = D.modelCategories[i]
-        if (cat !== lastCat) {
+        if (D.modelCategories[i] !== lastCat) {
             catIndex++
-            lastCat = cat
+            lastCat = D.modelCategories[i]
         }
-        const row = container.lastChild
         const btn = document.createElement('button')
-        btn.className = 'btn sn-dists-btn'
+        btn.className = 'btn sn-dists-btn bh-model-btn'
         btn.style.backgroundColor = catColours[catIndex % catColours.length]
         btn.style.color = 'white'
-        btn.setAttribute('id', 'bh-model-' + name)
+        btn.setAttribute('data-model', name)
         btn.innerHTML = D.modelLabels[i]
         if (name === state.model) btn.classList.add('active')
-        btn.addEventListener('click', function () {
-            state.model = name
-            document.querySelectorAll('#bh-model-switcher .sn-dists-btn').forEach((e) => e.classList.remove('active'))
-            this.classList.add('active')
-            recomputeYRange() // counts: refit this model; normalised: unchanged (fixed)
-            render(true) // smooth transition between models
-            renderCDF(true)
-        })
+        btn.addEventListener('click', () => selectModel(name))
         row.appendChild(btn)
     })
 
     if (window.MathJax && MathJax.Hub) {
         MathJax.Hub.Queue(['Typeset', MathJax.Hub, container])
     }
+}
+
+// Switch model from either button set and keep both sets' active state in sync.
+function selectModel(name) {
+    if (name === state.model) return
+    state.model = name
+    document.querySelectorAll('.bh-model-btn').forEach((b) => b.classList.toggle('active', b.getAttribute('data-model') === name))
+    recomputeYRange() // counts: refit this model; normalised: unchanged (fixed)
+    render(true) // smooth transition between models
+    renderCDF(true)
+    renderPies(true)
 }
 
 // ---- other controls ------------------------------------------------------
@@ -596,7 +853,7 @@ function wireControls() {
         render(true)
     })
 
-    // escaped filter (changes the distribution -> refit the y-axis)
+    // escaped filter -- affects the histogram only (the CDF is always bound-only)
     document.querySelectorAll('#bh-esc-switcher button').forEach((btn) => {
         btn.addEventListener('click', function () {
             state.escMode = this.getAttribute('data-esc')
@@ -604,7 +861,7 @@ function wireControls() {
             this.classList.add('active')
             recomputeYRange()
             render(true)
-            renderCDF(true)
+            renderPies(true)
         })
     })
 
@@ -678,6 +935,7 @@ function wireControls() {
         applyAxisStyle()
         recomputeYRange()
         render(false)
+        renderPies(true)
     })
     rawBtn.addEventListener('click', function () {
         state.scaleMode = 'raw'
@@ -686,6 +944,7 @@ function wireControls() {
         applyAxisStyle()
         recomputeYRange()
         render(false)
+        renderPies(true)
     })
 
     // |z| dual-handle range slider (two inputs sharing one 0..nZ edge scale)
@@ -710,6 +969,7 @@ function wireControls() {
         updateCdfBand()
         recomputeYRange()
         render(false)
+        renderPies(false)
     }
     function onHi() {
         let hi = parseInt(hiSlider.value)
@@ -723,6 +983,7 @@ function wireControls() {
         updateCdfBand()
         recomputeYRange()
         render(false)
+        renderPies(false)
     }
     loSlider.addEventListener('input', onLo)
     hiSlider.addEventListener('input', onHi)
