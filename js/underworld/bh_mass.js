@@ -93,6 +93,7 @@ function loadData(f) {
     D.modelNames = toStrings(f.get('model_names').value)
     D.modelLabels = toStrings(f.get('model_labels').value)
     D.modelCategories = toStrings(f.get('model_categories').value)
+    D.modelScaleFactors = Array.from(f.get('model_scale_factors').value)
 
     D.modelNames.forEach((name) => {
         D.counts[name] = f.get('counts/' + name).value
@@ -110,7 +111,7 @@ function reduceModel(modelName) {
     const { nMass, nZ } = D
     const flat = D.counts[modelName]
     const escList = state.escMode === 'both' ? [0, 1] : state.escMode === 'bound' ? [0] : [1]
-    const scale = state.scaleMode === 'mw' ? D.scaleToMw : 1
+    const scale = state.scaleMode === 'mw' ? D.modelScaleFactors[D.modelNames.indexOf(modelName)] : 1
     const lo = state.loEdge
     const hi = state.hiEdge // bins lo .. hi-1 are included
 
@@ -317,7 +318,7 @@ function render(smooth) {
             margin: { t: 20, r: 20, b: 70, l: 90 },
             xaxis: {
                 title: { text: '$m_{\\rm BH} \\; [{\\rm M_\\odot}]$', standoff: 12, font: { size: fs } },
-                range: [2, 60],
+                range: [2.9, 55],
                 tickfont: { size: 0.8 * fs },
             },
             yaxis: {
