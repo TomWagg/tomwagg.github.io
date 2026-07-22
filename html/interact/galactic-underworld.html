@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="Personal Website for Tom Wagg" />
+        <meta name="author" content="Tom Wagg" />
+
+        <title>Charting the Galactic Underworld | Interactive black hole mass distribution</title>
+        <link href="../../img/icon.png" rel="icon" />
+        <!-- Bootstrap -->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous" />
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+
+        <script src="https://kit.fontawesome.com/328d20ce71.js" crossorigin="anonymous"></script>
+        <link rel="preconnect" href="https://fonts.gstatic.com" />
+        <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;700;900&display=swap" rel="stylesheet" />
+
+        <link href="../../css/index.css" rel="stylesheet" />
+        <link href="../../css/dark_mode.css" rel="stylesheet" />
+        <link href="../../css/interact.css" rel="stylesheet" />
+
+        <script async src="https://cdn.jsdelivr.net/npm/mathjax@2/MathJax.js?config=TeX-AMS_CHTML"></script>
+        <script src="https://cdn.plot.ly/plotly-3.0.1.min.js" charset="utf-8"></script>
+        <style>
+            :root {
+                --primary: #5b6ee1;
+                --primary-light: #97a2ee;
+                --primary-dark: #3f4fc4;
+            }
+            /* model switcher: category labels + rows of buttons */
+            .bh-cat-label {
+                font-size: 0.8rem;
+                font-weight: 700;
+                text-transform: uppercase;
+                letter-spacing: 0.03em;
+                opacity: 0.6;
+                margin: 0.6rem 0 0.2rem;
+            }
+            .bh-cat-row {
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            /* pie charts overlaid on the histogram's empty top-right corner */
+            .bh-hist-wrap {
+                position: relative;
+            }
+            .bh-pie-overlay {
+                position: absolute;
+                top: 2%;
+                right: 1%;
+                width: 46%;
+                display: flex;
+                gap: 6px;
+                justify-content: flex-end;
+                pointer-events: none;
+            }
+            .bh-pie-item {
+                flex: 0 0 48%;
+                pointer-events: auto;
+            }
+            .bh-pie-cap {
+                font-size: 0.72rem;
+                font-weight: 700;
+                text-align: center;
+                opacity: 0.85;
+                margin: -0.4rem 0 0;
+            }
+            /* summary explorer: responsive grid of scatter panels */
+            #bh-sum-grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fill, minmax(450px, 1fr));
+                gap: 6px;
+            }
+            .bh-sum-cell {
+                margin-right: 1rem;
+                border: 2px solid var(--primary);
+                border-radius: 1rem;
+                /* clip the plot's square background to the rounded border */
+                overflow: hidden;
+            }
+            .bh-sum-title {
+                font-size: 1.2rem;
+                font-weight: 700;
+                text-align: center;
+                margin-top: 1rem;
+                margin-bottom: 1rem;
+            }
+            /* highlight "Apply" while category changes are staged but not applied */
+            #bh-sum-cat-apply.bh-apply-pending {
+                box-shadow: 0 0 0 3px rgba(91, 110, 225, 0.45);
+                animation: bh-apply-pulse 1.2s ease-in-out infinite;
+            }
+            @keyframes bh-apply-pulse {
+                50% {
+                    box-shadow: 0 0 0 6px rgba(91, 110, 225, 0.15);
+                }
+            }
+            /* dual-handle |z| range slider: two range inputs overlaid on one track */
+            .bh-range {
+                position: relative;
+                height: 36px;
+                margin: 12px 0 2.4rem;
+            }
+            .bh-range-track {
+                position: absolute;
+                top: 3px;
+                left: 0;
+                right: 0;
+                height: 30px;
+                background: #4c4c5c;
+                border-radius: 6px;
+            }
+            .bh-range-fill {
+                position: absolute;
+                top: 3px;
+                height: 30px;
+                background: var(--primary);
+                opacity: 0.55;
+                border-radius: 6px;
+            }
+            /* the inputs themselves are transparent and pass clicks through, so
+               the shared track/fill show and only the thumbs stay grabbable */
+            .bh-range input[type='range'] {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 36px;
+                margin: 0;
+                background: none;
+                pointer-events: none;
+            }
+            .bh-range input[type='range']::-webkit-slider-runnable-track {
+                background: none;
+            }
+            .bh-range input[type='range']::-moz-range-track {
+                background: none;
+            }
+            .bh-range input[type='range']::-webkit-slider-thumb {
+                pointer-events: auto;
+                position: relative;
+                z-index: 2;
+            }
+            .bh-range input[type='range']::-moz-range-thumb {
+                pointer-events: auto;
+            }
+            /* value bubbles sit below the bar and appear while interacting */
+            .bh-range .bubble {
+                top: 40px;
+                transform: translateX(-50%);
+            }
+            .bh-range:hover .bubble {
+                opacity: 1;
+            }
+        </style>
+    </head>
+    <body>
+        <script>
+            // theme applied before first paint (no flash, no flip); full logic in js/dark_mode.js / index.js
+            (function () {
+                var el = document.documentElement;
+                try {
+                    el.classList.add('theme-preload'); // suppress transitions during initial load
+                    var v = localStorage.getItem('theme');
+                    var dark = v === 'dark' || v === 'light' ? v === 'dark' : window.matchMedia('(prefers-color-scheme: dark)').matches;
+                    el.setAttribute('data-bs-theme', dark ? 'dark' : 'light');
+                    el.style.colorScheme = dark ? 'dark' : 'light';
+                    document.body.classList.toggle('dark', dark);
+                } catch (e) {}
+                requestAnimationFrame(function () {
+                    requestAnimationFrame(function () {
+                        el.classList.remove('theme-preload');
+                    });
+                });
+            })();
+        </script>
+        <div class="back-button">
+            <button id="home" class="btn btn-outline-main rounded-circle">
+                <i class="fa fa-home"></i>
+            </button>
+        </div>
+        <label for="dark-mode-checkbox" class="dark-mode-label top-right">
+            <input type="checkbox" id="dark-mode-checkbox" />
+            <span class="dark-mode-ball"></span>
+            <svg viewBox="0 0 512 512" class="sun-svg">
+                <path
+                    id="sun-svg"
+                    d="M256 160c-52.9 0-96 43.1-96 96s43.1 96 96 96 96-43.1 96-96-43.1-96-96-96zm246.4 80.5l-94.7-47.3 33.5-100.4c4.5-13.6-8.4-26.5-21.9-21.9l-100.4 33.5-47.4-94.8c-6.4-12.8-24.6-12.8-31 0l-47.3 94.7L92.7 70.8c-13.6-4.5-26.5 8.4-21.9 21.9l33.5 100.4-94.7 47.4c-12.8 6.4-12.8 24.6 0 31l94.7 47.3-33.5 100.5c-4.5 13.6 8.4 26.5 21.9 21.9l100.4-33.5 47.3 94.7c6.4 12.8 24.6 12.8 31 0l47.3-94.7 100.4 33.5c13.6 4.5 26.5-8.4 21.9-21.9l-33.5-100.4 94.7-47.3c13-6.5 13-24.7.2-31.1zm-155.9 106c-49.9 49.9-131.1 49.9-181 0-49.9-49.9-49.9-131.1 0-181 49.9-49.9 131.1-49.9 181 0 49.9 49.9 49.9 131.1 0 181z"
+                ></path>
+            </svg>
+            <svg viewBox="0 0 512 512" class="moon-svg">
+                <path id="moon-svg" d="M283.211 512c78.962 0 151.079-35.925 198.857-94.792 7.068-8.708-.639-21.43-11.562-19.35-124.203 23.654-238.262-71.576-238.262-196.954 0-72.222 38.662-138.635 101.498-174.394 9.686-5.512 7.25-20.197-3.756-22.23A258.156 258.156 0 0 0 283.211 0c-141.309 0-256 114.511-256 256 0 141.309 114.511 256 256 256z"></path>
+            </svg>
+        </label>
+        <div class="container-fluid" style="padding: 2rem">
+            <div class="row mt-3 text-center align-items-center justify-content-center">
+                <div class="col-2">
+                    <img class="img-fluid" src="../../img/project_thumbnails/underworld_bhs.png" />
+                </div>
+                <div class="col-8 col-lg-5">
+                    <p class="fs-1 mb-1 fw-bolder">Charting the Galactic Underworld</p>
+                    <p class="fs-5 mb-0 fw-bold">The kinematics, rates, and demographics of Milky Way black holes</p>
+                    <p class="fs-5 fst-italic">Wagg et al. 2026</p>
+                </div>
+                <div class="col-2">
+                    <img class="img-fluid" src="../../img/project_thumbnails/underworld_bhs.png" />
+                </div>
+            </div>
+            <div class="row mt-5">
+                <div class="col">
+                    <h2>A brief overview</h2>
+                    <p>Welcome! You've found the spot for exploring some of the results from our paper charting the "Galactic Underworld" of black holes (BHs) scattered throughout the Milky Way.</p>
+                    <p>
+                        <b>What did we do?</b> We used <code data-bs-toggle="tooltip" title="A code I developed that combines COSMIC and Gala to evolve binaries and integrate their positions through galactic potentials in a self-consistent manner">cogsworth</code> to simulate the entire population of Milky Way black holes, self-consistently accounting for their binary evolution and their trajectories through the Galactic potential. We repeated the simulation for ~30 variations of the binary physics, supernova physics, and Galactic potential.
+                    </p>
+                    <p>
+                        <b>What did we find?</b> For our fiducial model, we predict that ~$1.7\times 10^8$ BHs have formed in the Milky Way, the vast majority of which are now isolated and ~3% have escaped the Galaxy. Most of the ~$10^7$ BHs in binaries have another BH or a white dwarf companion, but ~$10^5$ retain a luminous stellar companion. BHs are distributed more diffusely than visible stars, with a scale height around ~2.5x larger. BH masses correlate with present-day location: the most massive BHs are preferentially close to the Galactic plane. This correlation is especially strong for BH-star binaries, which separate into tight, low-mass post-common-envelope systems and wide, high-mass non-interacting ones. The BH mass distribution and kinematics are highly sensitive to the remnant mass prescription and natal kick model, so observations could constrain explodability criteria and BH kicks. Accounting for the time-evolution of the Galactic potential more than doubles the escape fraction and increases the bound population's scale height by ~20%, whilst neglecting binary interactions overestimates it by 30%.
+                    </p>
+                    <p>
+                        <b>Why is this important?</b> With upcoming data from Roman, Gaia DR4, and spectroscopic surveys, we will soon have an unprecedented dataset of Milky Way black holes to constrain their formation and evolution in a complementary manner to gravitational-wave observations. Our work builds a foundation for interpreting these observations and connecting them to the underlying physics of stellar evolution, supernovae, and binary interactions.
+                    </p>
+                    <p><b>How can I use this page?</b> This page contains three different interactive figures that allow you to explore the results of our simulation in more detail. You can (1) explore the mass distribution of BHs, (2) examine how they are distributed in the Galaxy, and (3) consider some summary statistics for our 30 different model variations.</p>
+                </div>
+            </div>
+
+            <div class="row mb-3 mt-4">
+                <h2 class="text-center">The Milky Way black hole mass distribution</h2>
+                <div class="col-12 col-lg-9">
+                    <div class="bh-hist-wrap">
+                        <div id="bh-mass" style="aspect-ratio: 2.5; max-height: 560px"></div>
+                        <div class="bh-pie-overlay">
+                            <div class="bh-pie-item">
+                                <div id="bh-pie-num" style="aspect-ratio: 1.1"></div>
+                            </div>
+                            <div class="bh-pie-item">
+                                <div id="bh-pie-mass" style="aspect-ratio: 1.1"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-lg-3 text-center">
+                    <p class="mb-1 fw-bold">Total or stacked?</p>
+                    <div class="btn-group toggle-group mb-3" role="group">
+                        <button class="btn btn-primary" id="bh-total">Total</button>
+                        <button class="btn btn-primary active" id="bh-stacked">Split by channel</button>
+                    </div>
+                    <p class="mb-1 fw-bold">Include Milky Way escapees?</p>
+                    <div class="btn-group toggle-group mb-3" role="group" id="bh-esc-switcher">
+                        <button class="btn btn-primary active" data-esc="both">Both</button>
+                        <button class="btn btn-primary" data-esc="bound">Bound to MW</button>
+                        <button class="btn btn-primary" data-esc="escaped">Escaped</button>
+                    </div>
+                    <p class="mb-1 fw-bold">Normalisation</p>
+                    <div class="btn-group toggle-group mb-3" role="group">
+                        <button class="btn btn-primary active" id="bh-abs" data-bs-toggle="tooltip" title="Show the number of black holes per mass bin">Raw counts</button>
+                        <button class="btn btn-primary" id="bh-norm" data-bs-toggle="tooltip" title="Normalise each model to a probability density (area = 1) so shapes are directly comparable and the y-axis stays fixed between models">Normalised</button>
+                    </div>
+                    <p class="mb-1 fw-bold hide">Count units</p>
+                    <div class="btn-group toggle-group hide" role="group">
+                        <button class="btn btn-primary active" id="bh-scale-mw">Milky Way</button>
+                        <button class="btn btn-primary" id="bh-scale-raw">Simulated</button>
+                    </div>
+                    <p class="mb-1 fw-bold">$y$-axis scale</p>
+                    <div class="btn-group toggle-group mb-3" role="group">
+                        <button class="btn btn-primary active" id="bh-linear">Linear</button>
+                        <button class="btn btn-primary" id="bh-log">Log</button>
+                    </div>
+                    <div>
+                        <label class="fw-bold">Distance from the Galactic plane:<br><span id="bh-z-range-label"></span></label>
+                        <div class="bh-range" id="bh-z-range">
+                            <div class="bh-range-track"></div>
+                            <div class="bh-range-fill" id="bh-z-fill"></div>
+                            <input type="range" id="bh-z-lo" aria-label="Lower limit on |z|" />
+                            <input type="range" id="bh-z-hi" aria-label="Upper limit on |z|" />
+                            <output id="bh-z-lo-bubble" class="bubble">0</output>
+                            <output id="bh-z-hi-bubble" class="bubble">&infin;</output>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row justify-content-center text-center">
+                <div class="col-12 align-self-start text-center">
+                    <p class="mb-1 mt-2 fw-bold">Model variation</p>
+                    <div id="bh-model-switcher" class="toggle-group bh-model-switcher">
+                        <div class="row"></div>
+                    </div>
+                    <div class="mb-2 hide">
+                        <button class="btn btn-sm btn-dark active" id="bh-model-link" data-bs-toggle="tooltip" title="When synced, this selector and the one by the scale-height plot stay on the same value. Turn on to control them at the same time, this slows down the animation a little though.">Sync plots</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ================= EXPLAINERS ================= -->
+            <div class="row justify-content-center mt-5">
+                <div class="accordion col-12 col-lg-6 mt-2" id="bh-questions">
+                    <h3>Understanding the fiducial model</h3>
+                    <p>Let's first consider the fiducial model and explore some of the trends that we see in the mass distribution. The controls to the right of the plot should help you with answering these questions. And for more details on any of the answers you should take a look at Section 3 of the paper.</p>
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed cat1" type="button" data-bs-toggle="collapse" data-bs-target="#bh-q0">What drives the shape of the mass distribution? Why does it peak at 3 M$_\odot$?</button>
+                        </h2>
+                        <div id="bh-q0" class="accordion-collapse collapse" data-bs-parent="#bh-questions">
+                            <div class="accordion-body">
+                                <p>
+                                    The mass distribution is driven by a combination of the initial mass function (IMF) and the remnant mass prescription. The peak at 3 M$_\odot$ is peak lower-mass stars are more common in the IMF, and the minimum BH mass in our simulation is 3 M$_\odot$. The remnant mass prescription maps carbon-oxygen core masses to BH masses.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed cat2" type="button" data-bs-toggle="collapse" data-bs-target="#bh-q1">Why are most BHs isolated rather than in a binary?</button>
+                        </h2>
+                        <div id="bh-q1" class="accordion-collapse collapse" data-bs-parent="#bh-questions">
+                            <div class="accordion-body">
+                                <p>Although every black hole is born in a binary in our simulations, these pairings can often end in disaster for the binary. We have three categories in the plot:</p>
+                                <p><b style="color: #8a6fd4">Isolated (disruption)</b> &mdash; the supernova natal kick disrupted the binary, ejecting the BH. This is the most common outcome.</p>
+                                <p><b style="color: #edae49">Isolated (merger)</b> &mdash; the two stars merged before either reached core collapse, leaving a single object that later formed a BH.</p>
+                                <p><b style="color: #d1495b">Binary at present day</b> &mdash; the BH is still bound to a companion (another compact object or a star).</p>
+                                <p>
+                                    So the reason that 91% of BHs are isolated is a combination of two things: supernova kicks often disrupt a binary, and many binaries merge before there's even a chance to have a disruption.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed cat2" type="button" data-bs-toggle="collapse" data-bs-target="#bh-q2">In contrast, why do BHs in binaries dominate at high masses?</button>
+                        </h2>
+                        <div id="bh-q2" class="accordion-collapse collapse" data-bs-parent="#bh-questions">
+                            <div class="accordion-body">
+                                <p><b>Massive black holes get weaker kicks!</b> In the fiducial model we scale natal kicks by the fraction of ejecta that falls back onto the collapsing core following Fryer+2012. High-mass BHs have more fallback, so their kicks are weak and they rarely disrupt their binaries. You can see the scaling between BH mass and natal kicks in the plot below that's from the paper.</p>
+                                <figure>
+                                    <img class="img-fluid" src="../../img/underworld/bh-kicks-vs-mass.png" />
+                                </figure>
+                                <p>You can drag the interactive histogram to zoom in on the area above 30 M$_\odot$ and see how much more prevalent BHs in binaries become.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed cat3" type="button" data-bs-toggle="collapse" data-bs-target="#bh-q3">How does the median mass of BHs change as you move away from the Galactic plane?</button>
+                        </h2>
+                        <div id="bh-q3" class="accordion-collapse collapse" data-bs-parent="#bh-questions">
+                            <div class="accordion-body">
+                                <p>
+                                    The further from the plane you look, the lower mass the BHs are on average. This trend is also driven by the mass-dependent natal kicks, which lead to low-mass BHs being kicked far from the plane, and high-mass BHs retaining similar orbits to their formation.
+                                </p>
+                                <p>
+                                    You can test this out with the slider bar, move the left switch to increasingly higher $|z|$ values to see how the mass distribution shifts!
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed cat3" type="button" data-bs-toggle="collapse" data-bs-target="#bh-q4">What about escaped BHs - how massive are they? Are they common?</button>
+                        </h2>
+                        <div id="bh-q4" class="accordion-collapse collapse" data-bs-parent="#bh-questions">
+                            <div class="accordion-body">
+                                <p>
+                                    Only a small fraction (~3% in the fiducial model) of BHs manage to escape the Milky Way's Galactic potential. They tend to be very low-mass BHs, since the natal kick required to escape must be high, which disfavours the BH having any sizeable fallback fraction.
+                                </p>
+                                <p>
+                                    You can try this out by toggling between the "Bound to MW" or "Escaped" BH populations and seeing how the $y$-axis scale and mass distribution shift.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion col-12 col-lg-6 mt-2" id="bh-model-questions">
+                    <h3>Exploring the model variations</h3>
+                    <p>Now let's leverage the advantage of population synthesis and consider how the results are sensitive to a range of variations. You can use the ~30 buttons below the plot to switch between different models. The colours correspond to variations in the same category.</p>
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#bh-mass-var-q1" style="background-color: #6ec42d">
+                                How natal kicks affect how many BHs are in binaries vs. isolated? Why?
+                            </button>
+                        </h2>
+                        <div id="bh-mass-var-q1" class="accordion-collapse collapse" data-bs-parent="#bh-model-questions">
+                            <div class="accordion-body">
+                                <p>
+                                    When BH natal kicks are assumed to follow the same distribution as neutron stars (i.e. no fallback scaling), the rate of BHs in binaries plummets. Conversely, if you assume that BHs do not receive natal kicks, the rate of BHs in binaries increases dramatically.
+                                </p>
+                                <p>
+                                    These changes are driven simply because a stronger natal kick is more likely to unbind a binary. You can learn more about this on <a href="./supernova-kicks.html">another of my interactive pages</a>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#bh-mass-var-q2" style="background-color: #6ec42d">
+                                Do natal kick variations affect the mass distribution of BHs far from the plane? (Or escaped BHs?)
+                            </button>
+                        </h2>
+                        <div id="bh-mass-var-q2" class="accordion-collapse collapse" data-bs-parent="#bh-model-questions">
+                            <div class="accordion-body">
+                                <p>
+                                    Yes! In the fiducial model, the further that you are from the plane, the lower the average mass of BHs. However, when you remove fallback scaling from BH natal kicks, you also remove the mass dependence, and so the distribution doesn't really change shape as you move further from the plane.
+                                </p>
+                                <p>
+                                    On the other hand, if you disable BH natal kicks, then the mass-dependent shift in the distribution also vanishes. However, there are also many fewer BHs at large heights because none of them receive sufficient kicks to reach those heights.
+                                </p>
+                                <p>
+                                    Overall, this means that if observations find a correlation between BH mass and distance from the plane, we may be able to constrain how much BH natal kick models.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#bh-mass-var-q3" style="background-color: #d1495b">How sensitive is the BH mass distribution to the remnant mass prescription?</button>
+                        </h2>
+                        <div id="bh-mass-var-q3" class="accordion-collapse collapse" data-bs-parent="#bh-model-questions">
+                            <div class="accordion-body">
+                                <p>
+                                    <b>Extremely!!</b> Switching between the fiducial model and the other red buttons, you'll see that the shape of the distribution changes significantly, in terms of average masses, extra features, and the total number of BHs itself. These prescriptions make strong predictions for the expected BH mass distribution.
+                                </p>
+                                <p>
+                                    With the upcoming datasets of BHs (e.g. from Roman or Gaia), we will hopefully be able to rule out some of these models with the most extreme predictions. For example, the Maltsev prescription predicts that almost no BHs in the Milky Way have masses between 10 and 18 solar masses.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#bh-mass-var-q4" style="background-color: #f68e1e">What effect does a time-evolving potential have on the escaped BHs? Why?</button>
+                        </h2>
+                        <div id="bh-mass-var-q4" class="accordion-collapse collapse" data-bs-parent="#bh-model-questions">
+                            <div class="accordion-body">
+                                <p>
+                                    Our model for a time-evolving potential predicts that 2.5x more BHs will escape the Milky Way. Moreover, those BHs are slightly more massive on average.
+                                </p>
+                                <p>
+                                    The model we implement accounts for the expected mass growth of the Milky Way and as such has a shallower Galactic potential at early times. This weaker potential allows BHs to more easily escape early in the Galaxy's history.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#bh-mass-var-q5" style="background-color: #5b86cb">How impactful are initial distributions on the shape of the BH mass distribution? Do any change the rate significantly?</button>
+                        </h2>
+                        <div id="bh-mass-var-q5" class="accordion-collapse collapse" data-bs-parent="#bh-model-questions">
+                            <div class="accordion-body">
+                                <p>
+                                    Most changes to the initial distributions have only a very small effect on the overall shape of the total distribution. You may note that the relative rate of different channels varies with some choices (for example, making initial orbital periods tighter leads to a larger fraction of BHs from mergers), but the total remains fairly consistent.
+                                </p>
+                                <p>
+                                    The rates are mostly unchanged, except for the variation that changes the stellar initial mass function (IMF). As one may expect, a top-heavy IMF produces more massive stars, and thus more BHs.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#bh-mass-var-q6" style="background-color: #00bcd4">Do any of the mass transfer variations change the BH mass distribution? What about the relative rates of each channel?</button>
+                        </h2>
+                        <div id="bh-mass-var-q6" class="accordion-collapse collapse" data-bs-parent="#bh-model-questions">
+                            <div class="accordion-body">
+                                <p>
+                                    The BH mass distribution is robust to fairly large variations in binary mass transfer physics! The relative rates of each channel are also fairly steady, except for the variations in which we force case B mass transfer to all be stable or unstable, which significantly changes the merger rates.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ================= |z| CDF (companion plot) ================= -->
+            <h2 class="text-center mt-5">Black hole distance from the Galactic plane</h2>
+            <p class="text-center mb-2">
+                This figure shows the normalised cumulative distribution function (CDF) of the distance of black holes from the Galactic plane, $|z|$. You can see how the scale height of BHs varies with different model variations (and also by channel) using the buttons. Note that this plot only shows BHs that are bound to the Milky Way, so the escaped BHs are not included here.
+            </p>
+            <div class="row mb-3 mt-2 justify-content-center">
+                <div class="col-12 col-lg-6">
+                    <div id="bh-z-cdf" style="aspect-ratio: 2.5; max-height: 420px"></div>
+                </div>
+                <div class="col-12 col-lg-6 text-center align-self-start">
+                    <p class="mb-1 fw-bold">Total or split by channel?</p>
+                    <div class="btn-group toggle-group" role="group">
+                        <button class="btn btn-primary active" id="bh-cdf-all">Total</button>
+                        <button class="btn btn-primary" id="bh-cdf-split">By channel</button>
+                    </div>
+                    <p class="mb-1 mt-3 fw-bold">Model variation</p>
+                    <div id="bh-cdf-model-switcher" class="toggle-group bh-model-switcher">
+                        <div class="row"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="row mb-3 justify-content-center">
+                <div class="col-12 col-lg-6 text-center">
+                    <p>Check out Section 4 of the paper to learn more about the sensitivity of the scale height of black holes to the model variations - and how this can be used to constrain the physics of black hole formation and evolution!</p>
+                </div>
+            </div>
+
+            <!-- ================= SUMMARY-ACROSS-VARIATIONS EXPLORER (Figs 6, 9, F1) ================= -->
+            <h2 class="text-center mt-5">Summary statistics across all model variations</h2>
+            <p class="text-center mb-3" style="font-size: 0.9rem">
+                Each panel shows one summary statistic for every model, grouped by the type of variation, with a dashed line marking the fiducial value. Hover any point to read its value. Choose which panels to show below.
+            </p>
+            <div class="row justify-content-center">
+                <div class="col-12 col-lg-6 text-center">
+                    <div class="mb-1">
+                        <span class="fw-bold me-2">Which panels?</span>
+                        <button class="btn btn-sm btn-outline-main" id="bh-sum-all">Show all</button>
+                        <button class="btn btn-sm btn-outline-main" id="bh-sum-none">Hide all</button>
+                    </div>
+                    <div id="bh-sum-toggles" class="toggle-group mb-3"></div>
+                </div>
+                <div class="col-12 col-lg-6 text-center">
+                    <div class="mb-1">
+                        <span class="fw-bold me-2">Which variation groups?</span>
+                        <button class="btn btn-sm btn-outline-main" id="bh-sum-cat-all">Show all</button>
+                    </div>
+                    <div id="bh-sum-cat-toggles" class="toggle-group"></div>
+                </div>
+            </div>
+            <div class="mb-4 text-center">
+                <button class="btn btn-primary" id="bh-sum-cat-apply">Apply changes</button>
+            </div>
+            <div class="row mb-3">
+                <div class="col-12">
+                    <div id="bh-sum-grid"></div>
+                </div>
+            </div>
+
+            <div class="row mb-3 mt-5 text-center">
+                <div class="col">
+                    <h1>Still craving more science?</h1>
+                    <p>
+                        Has this page piqued your curiosity about Milky Way BHs? Well, oh boy do I have a paper for you 🙃 Use the button below to go and read the full paper in detail!</p>
+                    <a class="btn btn-primary btn-lg" href="https://github.com/TomWagg/underworld/" target="_blank">Read the paper</a>
+                </div>
+            </div>
+        </div>
+
+        <script type="text/x-mathjax-config">
+            MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+            MathJax.Hub.Config({
+                "HTML-CSS": { linebreaks: { automatic: true } },
+                        SVG: { linebreaks: { automatic: true } }
+                });
+        </script>
+        <script src="https://cdn.jsdelivr.net/npm/jsfive@0.3.10/dist/browser/hdf5.js"></script>
+        <script src="../../js/dark_mode.js"></script>
+        <script src="../../js/underworld/general.js"></script>
+        <script src="../../js/underworld/bh_mass.js"></script>
+        <script src="../../js/underworld/summary.js"></script>
+    </body>
+</html>

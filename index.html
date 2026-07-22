@@ -116,6 +116,19 @@
             <div class="row">
                 <div class="col">
                     <div class="research-projects text-center align-middle">
+                        <article class="project" data-details="underworld">
+                            <div class="row">
+                                <div class="col">
+                                    <img src="img/project_thumbnails/underworld_bhs.png" class="p-0" />
+                                    <div class="project-description">
+                                        <div class="project-description-text">
+                                            <h4>Charting the Galactic Underworld</h4>
+                                            <h6>the kinematics, rates, and demographics of Milky Way black holes</h6>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </article>
                         <article class="project" data-details="feedback">
                             <div class="row">
                                 <div class="col">
@@ -252,6 +265,57 @@
         </section>
 
         <section id="research_details" class="container px-5">
+            <div id="underworld" class="details hide">
+                <div class="row text-center">
+                    <div class="col">
+                        <h1>Charting the Galactic Underworld: The kinematics, rates, and demographics of Milky Way black holes</h1>
+                        <hr class="w-25 mx-auto" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col justify-content-center">
+                        <p class="text-center">
+                            <!-- TODO: update the paper link once the paper is public -->
+                            <a href="https://github.com/TomWagg/underworld" target="_blank" class="btn bg-transparent rounded project-link">
+                                <i class="fas fa-scroll fa-2x" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Paper"></i>
+                            </a>
+                            <a href="https://github.com/TomWagg/underworld" target="_blank" class="btn bg-transparent rounded project-link">
+                                <i class="fab fa-github fa-2x" data-bs-toggle="tooltip" data-bs-placement="bottom" title="GitHub Repo"></i>
+                            </a>
+                            <a href="html/interact/galactic-underworld.html" class="btn bg-transparent rounded project-link">
+                                <i class="fas fa-chart-area fa-2x" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Interactive Plots"></i>
+                            </a>
+                        </p>
+                        <div class="row justify-content-center">
+                            <div class="col-12 col-md-11">
+                                <p class="text-center fst-italic">We simulate the entire intrinsic population of Milky Way black holes with <code>cogsworth</code>, self-consistently accounting for their binary evolution and their trajectories through the Galactic potential.</p>
+                            </div>
+                            <div class="col-12 col-md-9">
+                                <p>This project was inspired by a paper by David Sweeney, that really captivated me with its title alone: "The Galactic Underworld". I still wanted to make some sort of reference to Orpheus and Eurydice, the mythological couple who ventured into the underworld, now that I'm building upon that work but accounting for binary stellar evolution.</p>
+                                <p>
+                                    The motivation behind this work is that, with the upcoming data from Roman, Gaia DR4, and spectroscopic surveys, we will soon have an unprecedented dataset of Milky Way black holes to constrain their formation and evolution in a complementary manner to gravitational-wave observations. Our work builds a foundation for interpreting these observations and connecting them to the underlying physics of stellar evolution, supernovae, and binary interactions. 
+                                </p>
+                                <p>
+                                    We explored a <i>lot</i> of different features of the Milky Way BH population in this paper, including their kinematics, spatial distribution, formation rates, and demographics. We show how all of these features are affected by variations in binary evolution, supernova physics, the Galactic potential, and initial distributions. We also take a more detailed look at the BHs that are still in binaries in present day.
+                                </p>
+                                <p class="text-center">
+                                    <a href="https://github.com/TomWagg/underworld" class="btn btn-lg btn-primary me-2">Read the paper</a>
+                                    <a href="html/interact/galactic-underworld.html" class="btn btn-lg btn-primary">Explore interactive plots!</a>
+                                </p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <div class="text-center">
+                                    <button class="btn open-close" style="color: grey">
+                                        <i class="fa fa-chevron-up fa-2x"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <div id="feedback" class="details hide">
                 <div class="row text-center">
                     <div class="col">
