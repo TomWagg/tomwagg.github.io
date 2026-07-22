@@ -171,7 +171,7 @@
             </div>
 
             <div class="row mb-3 mt-4">
-                <h2 class="text-center">The Milky Way BH mass distribution</h2>
+                <h2 class="text-center">The Milky Way black hole mass distribution</h2>
                 <div class="col-12 col-lg-9">
                     <div id="bh-mass" style="aspect-ratio: 2.5; max-height: 560px"></div>
                 </div>
@@ -219,7 +219,7 @@
             <div class="row justify-content-center text-center">
                 <div class="col-12 align-self-start text-center">
                     <p class="mb-1 mt-2 fw-bold">Model variation</p>
-                    <div id="bh-model-switcher" class="toggle-group">
+                    <div id="bh-model-switcher" class="toggle-group bh-model-switcher">
                         <div class="row"></div>
                     </div>
                 </div>
@@ -404,19 +404,23 @@
             </div>
 
             <!-- ================= |z| CDF (companion plot) ================= -->
+            <h2 class="text-center mt-5">Scale height of black holes</h2>
+            <p class="text-center mb-2">
+                This figure shows the normalised cumulative distribution function (CDF) of the distance of black holes from the Galactic plane, $|z|$. You can see how the scale height of BHs varies with different model variations (and also by channel) using the buttons. Note that this plot only shows BHs that are bound to the Milky Way, so the escaped BHs are not included here.
+            </p>
             <div class="row mb-3 mt-2 justify-content-center">
-                <div class="col-12 col-lg-9">
-                    <p class="fw-bold mb-1 text-center">How far from the Galactic plane do these black holes sit?</p>
-                    <p class="text-center mb-2" style="font-size: 0.9rem">
-                        The cumulative distribution of Galactocentric height $|z|$ for the model and population selected below. The shaded band marks the $|z|$ range chosen with the slider above, and the dotted line at $1 - 1/e$ marks the effective scale height where it crosses the curve.
-                    </p>
+                <div class="col-12 col-lg-6">
                     <div id="bh-z-cdf" style="aspect-ratio: 2.5; max-height: 420px"></div>
                 </div>
-                <div class="col-12 col-lg-3 text-center align-self-center">
-                    <p class="mb-1 fw-bold">Show the CDF as</p>
+                <div class="col-12 col-lg-6 text-center align-self-start">
+                    <p class="mb-1 fw-bold">Total or split by channel?</p>
                     <div class="btn-group toggle-group" role="group">
-                        <button class="btn btn-primary active" id="bh-cdf-all">Combined</button>
+                        <button class="btn btn-primary active" id="bh-cdf-all">Total</button>
                         <button class="btn btn-primary" id="bh-cdf-split">By channel</button>
+                    </div>
+                    <p class="mb-1 mt-3 fw-bold">Model variation</p>
+                    <div id="bh-cdf-model-switcher" class="toggle-group bh-model-switcher">
+                        <div class="row"></div>
                     </div>
                 </div>
             </div>
