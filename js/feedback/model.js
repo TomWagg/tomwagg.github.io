@@ -3,7 +3,6 @@ this.window.addEventListener('load', function () {
     const bubble = document.getElementById('model-slider-bubble')
 
     range.addEventListener('input', function () {
-        console.log(range.value)
         const val = range.value
         const min = range.min ? range.min : 0
         const max = range.max ? range.max : 100
@@ -170,7 +169,7 @@ function build_model_line_plot() {
         },
         yaxis: {
             title: {
-                text: '$\\Large \\mathcal{R}_{\\rm CCSN}(t, Z)$',
+                text: 'ℛ<sub>CCSN</sub>(t, Z)',
                 standoff: 10,
                 font: {
                     size: 1.2 * fs,
@@ -196,7 +195,7 @@ function build_model_line_plot() {
         },
         yaxis2: {
             title: {
-                text: '$\\Large p_{\\rm ejected}(v, Z)$',
+                text: 'p<sub>ejected</sub>(v, Z)',
                 standoff: 10,
                 font: {
                     size: 1.2 * fs,
@@ -331,7 +330,3 @@ function sample_from_pdf(pdf, x_min, x_max, n_samples = 1, num_points = 1000) {
 
     return samples
 }
-
-// const FeH = Math.log10(0.017 / 0.0142)
-// const t_sample = sample_from_pdf((t) => analytic_model_time_pdf(t, FeH), 0, 200, 100000)
-// console.log('Time sample:', t_sample)

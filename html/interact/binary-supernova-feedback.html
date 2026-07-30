@@ -20,6 +20,20 @@
         <link href="../../css/dark_mode.css" rel="stylesheet" />
         <link href="../../css/interact.css" rel="stylesheet" />
 
+        <script>
+            MathJax = {
+                tex: {
+                    inlineMath: [['$', '$'], ['\\(', '\\)']]
+                },
+                svg: {
+                    fontCache: 'global'
+                }
+            };
+        </script>
+        <script type="text/javascript" id="MathJax-script" async
+        src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js">
+        </script>
+
         <script src="https://cdn.plot.ly/plotly-3.0.1.min.js" charset="utf-8"></script>
         <style>
             :root {
@@ -317,9 +331,9 @@
                                     <div class="accordion-body">
                                         <p>The rate of core-collapse supernovae over time is a simple broken power law that has physically-motivated metallicity-dependent transition points.</p>
                                         <p>
-                                            <script type="math/tex; mode=display">
+                                            \[
                                                 \frac{\mathcal{R}_{\rm CSSN}(t / { \, \rm Myr})}{{ \, \rm Gyr}{\rm \, M_\odot}} \equiv \begin{cases} 0 & t \lt t_1, t \gt t_6,\\ a_{i} (t / t_{i})^{\psi_{i}} & t_{i} \le t \lt t_{i + 1}, i \lt 5,\\ a_6 e^{-t / t_5} & t_5 \le t \lt t_6 \end{cases}
-                                            </script>
+                                            \]
                                         </p>
                                         <p>where $a_i$, $t_i$ and $\psi_i$ are metallicity-dependent parameters defined in the paper</p>
                                     </div>
@@ -333,34 +347,34 @@
                                     <div class="accordion-body">
                                         <p>The velocities of progenitors is set by a variety of factors, based on whether they were ejected by their companion, and then whether they experienced mass transfer and what type. Unejected progenitors simply follow the initial cluster velocity dispersion:</p>
                                         <p>
-                                            <script type="math/tex; mode=display">
+                                            \[
                                                 p_{\rm unejected}(v) = \frac{1}{\sigma^3} \sqrt{\frac{2}{\pi}} v^2 e^{-v^2 / (2\sigma^2)},
-                                            </script>
+                                            \]
                                         </p>
                                         <p>For ejected systems, it's more complicated and the branching ratio between different mass transfer types varies with metallicity (see Eq. 8-11 in the paper). The distribution for each type of ejection is as follows though</p>
                                         <div class="row">
                                             <div class="col-6 col-xl-6">
                                                 <p>
-                                                    <script type="math/tex; mode=display">
+                                                    \[
                                                         p_{\rm no MT}(v | Z) = \begin{cases} A v^{-1.8 + 0.5 \sqrt{|{\rm [Fe/H]}|}} & v_{\rm min} \le v \le v_{\rm max} \\ 0 & {\rm else} \end{cases}
-                                                    </script>
+                                                    \]
                                                 </p>
                                                 <p>
-                                                    <script type="math/tex; mode=display">
+                                                    \[
                                                         p_{\rm MT,A}(v|Z) = \mathcal{N}(22 - 8{\rm [Fe/H]}, 6 - 3{\rm [Fe/H]})
-                                                    </script>
+                                                    \]
                                                 </p>
                                             </div>
                                             <div class="col-6 col-xl-6">
                                                 <p>
-                                                    <script type="math/tex; mode=display">
+                                                    \[
                                                         p_{\rm MT, B/C}(v|Z) \propto \beta\left(\frac{v - v_{\rm min}}{v_{\rm max}}, 1.5 - 1.5 {\rm [Fe/H]}, 18 + 5 {\rm [Fe/H]}\right)
-                                                    </script>
+                                                    \]
                                                 </p>
                                                 <p>
-                                                    <script type="math/tex; mode=display">
+                                                    \[
                                                         p_{\rm MT, CE}(v|Z) \propto \beta\left(\frac{v - v_{\rm min}}{v_{\rm max}}, 5 - 4 {\rm [Fe/H]}, 10\right)
-                                                    </script>
+                                                    \]
                                                 </p>
                                             </div>
                                         </div>
@@ -394,20 +408,6 @@
                 </div>
             </div>
         </div>
-
-        <script>
-            MathJax = {
-                tex: {
-                    inlineMath: [['$', '$'], ['\\(', '\\)']]
-                },
-                svg: {
-                    fontCache: 'global'
-                }
-            };
-        </script>
-        <script type="text/javascript" id="MathJax-script" async
-        src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js">
-        </script>
         <script src="https://cdn.jsdelivr.net/npm/jsfive@0.3.10/dist/browser/hdf5.js"></script>
         <script src="../../js/dark_mode.js"></script>
         <script src="../../js/feedback/general.js"></script>

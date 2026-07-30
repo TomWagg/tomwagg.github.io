@@ -14,9 +14,6 @@ function percentiles(f) {
     let bg = dark_mode ? '#333' : 'white'
     let anti_bg = dark_mode ? 'white' : '#333'
 
-    // logs the keys in the HDF5 file
-    console.log(f.keys)
-
     const subset_colours = ['#c4c4c4', '#2a788e', '#4eb89d', '#b778d5']
     const subset_labels = ['Total', 'Primary', 'Secondary', 'Merger Product']
     const prefixes = ['', '_p', '_s', '_m']
@@ -161,7 +158,7 @@ function percentiles(f) {
         yaxis: {
             title: {
                 // label with latex as log10(distance)
-                text: '$\\Large \\mathrm{Distance\\ from\\ parent\\ cluster,} \\ d \\ [{\\rm pc}]$',
+                text: "Distance from parent cluster, d [pc]",
                 standoff: 10,
             },
             tickfont: {
@@ -199,7 +196,7 @@ function percentiles(f) {
                 yaxis: {
                     title: {
                         // label with latex as log10(distance)
-                        text: '$\\Large \\mathrm{Supernova\\ time,} \\ t \\ [{\\rm Myr}]$',
+                        text: "Supernova time, t [Myr]",
                         standoff: 10,
                     },
                     tickfont: {
@@ -218,7 +215,7 @@ function percentiles(f) {
                 yaxis: {
                     title: {
                         // label with latex as log10(distance)
-                        text: '$\\Large \\mathrm{Distance\\ from\\ parent\\ cluster,} \\ d \\ [{\\rm pc}]$',
+                        text: "Distance from parent cluster, d [pc]",
                         standoff: 10,
                     },
                     tickfont: {
@@ -451,7 +448,7 @@ function percentiles(f) {
     let f_far = f.get('f_far').value
     let f_distant = f.get('f_distant').value
     let tails = [f_late, f_far, f_distant]
-    let tail_labels = ['$f_{t > {\\rm 44 Myr}}$', '$f_{D > {\\rm 100 pc}}$', '$f_{D > {\\rm 500 pc}}$']
+    let tail_labels = ['f<sub>t > 44 Myr</sub>', 'f<sub>D > 100 pc</sub>', 'f<sub>D > 500 pc</sub>']
 
     traces = []
     for (let tid = 0; tid < tails.length; tid++) {
@@ -549,7 +546,7 @@ function percentiles(f) {
     layout = {
         xaxis: {
             title: {
-                text: '$\\Large \\mathrm{N_{SN}\\ per\\ 100\\ {\\rm M_\\odot}}$',
+                text: 'N<sub>SN</sub> per 100 M<sub>☉</sub>',
                 standoff: 10,
                 font: {
                     size: 1.2 * fs,

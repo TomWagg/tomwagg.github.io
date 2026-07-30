@@ -99,7 +99,7 @@ this.window.addEventListener('load', function () {
             })
             this.classList.add('active')
         })
-        el.innerText = model_labels[i]
+        el.innerHTML = model_labels[i]
         if (model === 'fiducial') {
             el.classList.add('active')
         }
@@ -125,9 +125,6 @@ function histograms(f, model) {
     let bg = dark_mode ? '#333' : 'white'
     let anti_bg = dark_mode ? 'white' : '#333'
     let grey = dark_mode ? '#595656' : '#eee'
-
-    // logs the keys in the HDF5 file
-    console.log(f.keys)
 
     let bin_centres = f.get('bin_centres').value
     let bin_widths = f.get('bin_widths').value
@@ -177,10 +174,10 @@ function histograms(f, model) {
         xaxis: {
             title: {
                 // label with latex as log10(distance)
-                text: '$\\Large {\\rm Distance\\ from\\ parent\\ cluster}  \\log_{10}(d / {\\rm pc})$',
+                text: 'Distance from the parent cluster, log<sub>10</sub>(d / pc)',
                 standoff: 10,
                 font: {
-                    size: 50,
+                    size: fs,
                 },
             },
             tickfont: {
