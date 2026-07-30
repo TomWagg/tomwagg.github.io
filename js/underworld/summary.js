@@ -39,14 +39,15 @@ const SUM_CAT_COLOURS = ['#5b6ee1', '#6ec42d', '#d1495b', '#f68e1e', '#8a6fd4', 
 
 const SUM = { rows: [], fiducial: null, cats: [], catIndex: {}, yPos: [], metrics: [] }
 
-// Strip LaTeX from a label for the hover tooltip (Plotly hover doesn't run
-// MathJax; the y-axis ticks keep the raw LaTeX, which renders fine).
-function plainLabel(s) {
+// Convert a LaTeX label to Plotly-native HTML (real sub/superscripts + Unicode
+// Greek). Used for the y-axis tick labels and hover so they render WITHOUT
+// MathJax, which is slow to re-typeset on every redraw under MathJax 3.
+function htmlLabel(s) {
     if (!s) return s
     return String(s)
         .replace(/\$/g, '')
-        .replace(/\\rm\s*/g, '')
         .replace(/\\text\{([^}]*)\}/g, '$1')
+        .replace(/\\rm\s*/g, '')
         .replace(/\\[,;! ]/g, ' ')
         .replace(/\\alpha/g, 'α')
         .replace(/\\beta/g, 'β')
@@ -58,8 +59,10 @@ function plainLabel(s) {
         .replace(/\\lambda/g, 'λ')
         .replace(/\\infty/g, '∞')
         .replace(/\\odot/g, '☉')
-        .replace(/\^\{([^}]*)\}/g, '^$1')
-        .replace(/_\{([^}]*)\}/g, '_$1')
+        .replace(/_\{([^}]*)\}/g, '<sub>$1</sub>')
+        .replace(/\^\{([^}]*)\}/g, '<sup>$1</sup>')
+        .replace(/_([A-Za-z0-9])/g, '<sub>$1</sub>')
+        .replace(/\^([A-Za-z0-9])/g, '<sup>$1</sup>')
         .replace(/[{}]/g, '')
         .replace(/\s+/g, ' ')
         .trim()
@@ -270,7 +273,7 @@ function drawSummaryPanel(m, div) {
     const trace = {
         x: idxs.map((i) => SUM.rows[i][m.key]),
         y: idxs.map((i) => SUM.yPos[i]),
-        text: idxs.map((i) => `<b>${plainLabel(SUM.rows[i].label || SUM.rows[i].model)}</b><br>${m.label}: ${m.fmt(SUM.rows[i][m.key])}`),
+        text: idxs.map((i) => `<b>${htmlLabel(SUM.rows[i].label || SUM.rows[i].model)}</b><br>${m.label}: ${m.fmt(SUM.rows[i][m.key])}`),
         type: 'scatter',
         mode: 'markers',
         marker: { color: idxs.map((i) => SUM.rows[i].colour || '#5b6ee1'), size: 10, line: { color: dark ? '#333' : 'white', width: 1 } },
@@ -305,7 +308,7 @@ function drawSummaryPanel(m, div) {
         },
         yaxis: {
             tickvals: active.map((i) => SUM.yPos[i]),
-            ticktext: active.map((i) => SUM.rows[i].label || SUM.rows[i].model),
+            ticktext: active.map((i) => htmlLabel(SUM.rows[i].label || SUM.rows[i].model)),
             tickfont: { size: 0.56 * fs },
             range: [SUM.maxY + 0.6, -1.4], // reversed: first model at top, room for the top header
             zeroline: false,

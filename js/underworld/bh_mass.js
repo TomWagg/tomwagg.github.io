@@ -306,7 +306,7 @@ function render(smooth) {
             title: '',
             margin: { t: 20, r: 20, b: 70, l: 90 },
             xaxis: {
-                title: { text: '$m_{\\rm BH} \\; [{\\rm M_\\odot}]$', standoff: 12, font: { size: fs } },
+                title: { text: 'm<sub>BH</sub> [M<sub>☉</sub>]', standoff: 12, font: { size: fs } }, // HTML, not $LaTeX$: avoids MathJax re-typeset on every tween frame
                 range: [2.9, 55],
                 tickfont: { size: 0.8 * fs },
             },
@@ -567,7 +567,7 @@ function cdfLayout(dark, hz, bandX0, bandX1) {
     return {
         margin: { t: 20, r: 20, b: 60, l: 70 },
         xaxis: {
-            title: { text: '$|z| \\; [{\\rm kpc}]$', standoff: 10, font: { size: fs } },
+            title: { text: '|z| [kpc]', standoff: 10, font: { size: fs } },
             type: 'log',
             range: [Math.log10(0.01), Math.log10(200)],
             tickfont: { size: 0.8 * fs },
@@ -583,7 +583,7 @@ function cdfLayout(dark, hz, bandX0, bandX1) {
         ],
         annotations: [
             { x: hz ? Math.log10(hz) : 0, y: 0.06, xref: 'x', yref: 'paper', text: hz ? `Scale height ≈ ${parseFloat((hz * 1000).toPrecision(3))} pc` : '', showarrow: false, font: { size: 0.8 * fs, color: anti }, bgcolor: dark ? 'rgba(51,51,51,0.7)' : 'rgba(255,255,255,0.7)' },
-            { xref: 'paper', yref: 'y', x: 0.01, y: target, yanchor: 'bottom', text: '$1 - 1/e$', showarrow: false, font: { size: 0.7 * fs, color: grey } },
+            { xref: 'paper', yref: 'y', x: 0.01, y: target, yanchor: 'bottom', text: '1 − 1/e', showarrow: false, font: { size: 0.7 * fs, color: grey } },
         ],
         legend: { x: 0.98, y: 0.02, xanchor: 'right', yanchor: 'bottom' },
         showlegend: state.cdfSplit,
@@ -767,8 +767,8 @@ function buildSwitcherInto(rootEl) {
         row.appendChild(btn)
     })
 
-    if (window.MathJax && MathJax.Hub) {
-        MathJax.Hub.Queue(['Typeset', MathJax.Hub, container])
+    if (window.MathJax) {
+        MathJax.typeset();
     }
 }
 
